@@ -1,0 +1,308 @@
+{
+  "Ranger": {
+    "Assault Rifles": {
+      "s_assault_blasterriflenormal01": "app:/Weapon/s_assault_blasterriflenormal01.rab",
+      "s_assault_AF14": "app:/Weapon/s_assault_AF14.rab",
+      "s_assault_minionBuster": "app:/Weapon/s_assault_minionBuster.rab",
+      "s_assault_g130_01": "app:/Weapon/s_assault_g130_01.rab",
+      "s_assault_AF14st": "app:/Weapon/s_assault_AF14st.rab",
+      "s_assault_AF14rar": "app:/Weapon/s_assault_AF14rar.rab",
+      "s_assault_AF16s": "app:/Weapon/s_assault_AF16s.rab",
+      "s_assault_AF99st": "app:/Weapon/s_assault_AF99st.rab",
+      "s_assault_AF18": "app:/Weapon/s_assault_AF18.rab",
+      "s_assault_AF20rar": "app:/Weapon/s_assault_AF20rar.rab",
+      "s_assault_AF100": "app:/Weapon/s_assault_AF100.rab",
+      "s_assault_AK470F": "app:/Weapon/s_assault_AK470F.rab",
+      "s_assault_601_powerful": "app:/Weapon/s_assault_601_powerful.rab"
+    },
+    "Shotguns": {
+      "s_shotgun_buffalo01": "app:/Weapon/s_shotgun_buffalo01.rab",
+      "s_shotgun_sparrowshot01": "app:/Weapon/s_shotgun_sparrowshot01.rab",
+      "s_shotgun_brecher01": "app:/Weapon/s_shotgun_brecher01.rab",
+      "s_shotgun_sgb013": "app:/Weapon/s_shotgun_sgb013.rab",
+      "s_shotgun_sag": "app:/Weapon/s_shotgun_sag.rab",
+      "s_shotgun_governor01": "app:/Weapon/s_shotgun_governor01.rab",
+      "s_shotgun_srugShot": "app:/Weapon/s_shotgun_srugShot.rab",
+      "s_shotgun_sgc1000": "app:/Weapon/s_shotgun_sgc1000.rab",
+      "s_shotgun_governor100": "app:/Weapon/s_shotgun_governor100.rab",
+      "s_shotgun_sparrowshotMX": "app:/Weapon/s_shotgun_sparrowshotMX.rab",
+      "s_shotgun_buffaloGSS": "app:/Weapon/s_shotgun_buffaloGSS.rab",
+      "s_shotgun_608_powerful": "app:/Weapon/s_shotgun_608_powerful.rab"
+    },
+    "Snipers": {
+      "s_sniper_mmf01": "app:/Weapon/s_sniper_mmf01.rab",
+      "s_sniper_brust": "app:/Weapon/s_sniper_brust.rab",
+      "s_sniper_raythunder01": "app:/Weapon/s_sniper_raythunder01.rab",
+      "s_sniper_hercules": "app:/Weapon/s_sniper_hercules.rab",
+      "s_sniper_rsnr": "app:/Weapon/s_sniper_rsnr.rab",
+      "s_sniper_eagleEye": "app:/Weapon/s_sniper_eagleEye.rab",
+      "s_sniper_fivestar01": "app:/Weapon/s_sniper_fivestar01.rab",
+      "s_sniper_SVU01": "app:/Weapon/s_sniper_SVU01.rab",
+      "s_sniper_fivestar02": "app:/Weapon/s_sniper_fivestar02.rab",
+      "s_sniper_raythunderZ": "app:/Weapon/s_sniper_raythunderZ.rab",
+      "s_sniper_603_powerful": "app:/Weapon/s_sniper_603_powerful.rab"
+    },
+    "Rocket Launchers": {
+      "s_rocket_stingray01": "app:/Weapon/s_rocket_stingray01.rab",
+      "s_rocket_goliath01": "app:/Weapon/s_rocket_goliath01.rab",
+      "s_rocket_cascade01": "app:/Weapon/s_rocket_cascade01.rab",
+      "s_rocket_hornet01": "app:/Weapon/s_rocket_hornet01.rab",
+      "s_rocket_cascade2": "app:/Weapon/s_rocket_cascade2.rab",
+      "s_rocket_stingrayMMF": "app:/Weapon/s_rocket_stingrayMMF.rab",
+      "s_rocket_goliathZ": "app:/Weapon/s_rocket_goliathZ.rab",
+      "s_rebirther_normal01": "app:/Weapon/s_rebirther_normal01.rab",
+      "s_rebirther_gan01": "app:/Weapon/s_rebirther_gan01.rab",
+      "s_rebirther_aerial01": "app:/Weapon/s_rebirther_aerial01.rab",
+      "s_rocket_602_powerful": "app:/Weapon/s_rocket_602_powerful.rab"
+    },
+    "Missile Launchers": {
+      "s_missile_MLRA": "app:/Weapon/s_missile_MLRA.rab",
+      "s_missile_emeraude01": "app:/Weapon/s_missile_emeraude01.rab",
+      "s_missile_verticalmissile01": "app:/Weapon/s_missile_verticalmissile01.rab",
+      "s_missile_airtortoise01": "app:/Weapon/s_missile_airtortoise01.rab",
+      "s_missile_emeraude02": "app:/Weapon/s_missile_emeraude02.rab",
+      "s_missile_prominence01": "app:/Weapon/s_missile_prominence01.rab",
+      "s_missile_airtortoise02": "app:/Weapon/s_missile_airtortoise02.rab"
+    },
+    "Other": {
+      "s_flamethrower_flamethrower01": "app:/Weapon/s_flamethrower_flamethrower01.rab",
+      "s_spray_spray01": "app:/Weapon/s_spray_spray01.rab",
+      "s_spray_asidgun01": "app:/Weapon/s_spray_asidgun01.rab",
+      "s_flamethrower_burner01": "app:/Weapon/s_flamethrower_burner01.rab",
+      "s_throw_kansyaku01": "app:/Weapon/s_throw_kansyaku01.rab",
+      "s_throw_mine_small": "app:/Weapon/s_throw_mine_small.rab",
+      "s_throw_mine_big": "app:/Weapon/s_throw_mine_big.rab",
+      "s_spray_asidgun04": "app:/Weapon/s_spray_asidgun04.rab",
+      "s_spray_asidgun02": "app:/Weapon/s_spray_asidgun02.rab",
+      "s_spray_asidgun03": "app:/Weapon/s_spray_asidgun03.rab"
+    },
+    "Grenade Launcher": {
+      "s_grenade_grenadelauncherUM01": "app:/Weapon/s_grenade_grenadelauncherUM01.rab",
+      "s_grenade_mg10": "app:/Weapon/s_grenade_mg10.rab",
+      "s_grenade_mg13": "app:/Weapon/s_grenade_mg13.rab",
+      "s_grenade_grenadelauncherStampede01": "app:/Weapon/s_grenade_grenadelauncherStampede01.rab",
+      "s_grenade_grenadelaunchersp01": "app:/Weapon/s_grenade_grenadelaunchersp01.rab",
+      "s_grenade_grenadelauncherUMAX": "app:/Weapon/s_grenade_grenadelauncherUMAX.rab",
+      "s_grenade_grenadelauncherStampedeXM": "app:/Weapon/s_grenade_grenadelauncherStampedeXM.rab"
+    }
+  },
+  "Wing Diver": {
+    "Rapier": {
+      "p_rapier_masterrapier01": "app:/Weapon/p_rapier_masterrapier01.rab",
+      "p_rapier_chargeinf": "app:/Weapon/p_rapier_chargeinf.rab",
+      "p_rapier_rapier01": "app:/Weapon/p_rapier_rapier01.rab",
+      "p_rapier_chargenormal": "app:/Weapon/p_rapier_chargenormal.rab",
+      "p_rapier_rapier05": "app:/Weapon/p_rapier_rapier05.rab",
+      "p_rapier_chargehard": "app:/Weapon/p_rapier_chargehard.rab"
+    },
+    "Lance": {
+      "p_lance_lazerlance01": "app:/Weapon/p_lance_lazerlance01.rab",
+      "p_lance_lazerspear02": "app:/Weapon/p_lance_lazerspear02.rab",
+      "p_lance_lazerspear01": "app:/Weapon/p_lance_lazerspear01.rab",
+      "p_lance_lazerlancedrill": "app:/Weapon/p_lance_lazerlancedrill.rab",
+      "p_lance_lazerlance02": "app:/Weapon/p_lance_lazerlance02.rab",
+      "p_lance_holylance01": "app:/Weapon/p_lance_holylance01.rab",
+      "p_lance_holylance02": "app:/Weapon/p_lance_holylance02.rab",
+      "p_lance_lazerlance03": "app:/Weapon/p_lance_lazerlance03.rab",
+      "p_lance_holylance03": "app:/Weapon/p_lance_holylance03.rab"
+    },
+    "Sniper": {
+      "p_sniper_MONSTER02": "app:/Weapon/p_sniper_MONSTER02.rab",
+      "p_sniper_thundersniperinferno": "app:/Weapon/p_sniper_thundersniperinferno.rab",
+      "p_sniper_LRSL01": "app:/Weapon/p_sniper_LRSL01.rab",
+      "p_sniper_thundersniper01": "app:/Weapon/p_sniper_thundersniper01.rab",
+      "p_sniper_MONSTER01": "app:/Weapon/p_sniper_MONSTER01.rab",
+      "p_sniper_thundersniper02": "app:/Weapon/p_sniper_thundersniper02.rab",
+      "p_sniper_rising": "app:/Weapon/p_sniper_rising.rab",
+      "p_sniper_thundersniper03": "app:/Weapon/p_sniper_thundersniper03.rab",
+      "p_sniper_MONSTER03": "app:/Weapon/p_sniper_MONSTER03.rab",
+      "p_sniper_LRSLinferno": "app:/Weapon/p_sniper_LRSLinferno.rab",
+      "p_sniper_LRSLinferno02": "app:/Weapon/p_sniper_LRSLinferno02.rab"
+    },
+    "Plasma Launcher": {
+      "p_launcher_611_powerful": "app:/Weapon/p_launcher_611_powerful.rab",
+      "p_launcher_plasmalauncher01": "app:/Weapon/p_launcher_plasmalauncher01.rab",
+      "p_launcher_plasmalaunchersplash02": "app:/Weapon/p_launcher_plasmalaunchersplash02.rab",
+      "p_launcher_plasmalaunchersplash01": "app:/Weapon/p_launcher_plasmalaunchersplash01.rab",
+      "p_launcher_shower": "app:/Weapon/p_launcher_shower.rab",
+      "p_launcher_plasmalauncher02": "app:/Weapon/p_launcher_plasmalauncher02.rab",
+      "p_launcher_inferno01": "app:/Weapon/p_launcher_inferno01.rab",
+      "p_launcher_plasmalauncher03": "app:/Weapon/p_launcher_plasmalauncher03.rab",
+      "p_launcher_inferno02": "app:/Weapon/p_launcher_inferno02.rab"
+    },
+    "Homing": {
+      "p_homing_612_powerful": "app:/Weapon/p_homing_612_powerful.rab",
+      "p_homing_mirage01": "app:/Weapon/p_homing_mirage01.rab",
+      "p_homing_geist01": "app:/Weapon/p_homing_geist01.rab",
+      "p_homing_mirage02": "app:/Weapon/p_homing_mirage02.rab",
+      "p_homing_inferno01": "app:/Weapon/p_homing_inferno01.rab",
+      "p_homing_psychoblade01": "app:/Weapon/p_homing_psychoblade01.rab",
+      "p_homing_fenrir01": "app:/Weapon/p_homing_fenrir01.rab"
+    },
+    "Particle Gun": {
+      "p_particlegun_shotCannon": "app:/Weapon/p_particlegun_shotCannon.rab",
+      "p_particlegun_609_powerful": "app:/Weapon/p_particlegun_609_powerful.rab",
+      "p_particlegun_ixyon01": "app:/Weapon/p_particlegun_ixyon01.rab",
+      "p_particlegun_pulsegun01": "app:/Weapon/p_particlegun_pulsegun01.rab",
+      "p_particlegun_dynast01": "app:/Weapon/p_particlegun_dynast01.rab",
+      "p_particlegun_inferno02": "app:/Weapon/p_particlegun_inferno02.rab",
+      "p_particlegun_inferno01": "app:/Weapon/p_particlegun_inferno01.rab"
+    },
+    "Thunder Bow": {
+      "p_thunder_izuna01": "app:/Weapon/p_thunder_izuna01.rab",
+      "p_thunder_thunderbow01": "app:/Weapon/p_thunder_thunderbow01.rab",
+      "p_thunder_inferno01": "app:/Weapon/p_thunder_inferno01.rab",
+      "p_thunder_eclair03": "app:/Weapon/p_thunder_eclair03.rab",
+      "p_thunder_inferno02": "app:/Weapon/p_thunder_inferno02.rab",
+      "p_thunder_eclair01": "app:/Weapon/p_thunder_eclair01.rab",
+      "p_thunder_thunderbow02": "app:/Weapon/p_thunder_thunderbow02.rab",
+      "p_thunder_thunderbow03": "app:/Weapon/p_thunder_thunderbow03.rab",
+      "p_thunder_eclair02": "app:/Weapon/p_thunder_eclair02.rab"
+    },
+    "Laser": {
+      "p_lazer_LAZR01": "app:/Weapon/p_lazer_LAZR01.rab",
+      "p_lazer_610_powerful": "app:/Weapon/p_lazer_610_powerful.rab",
+      "p_lazer_penetrateRifle": "app:/Weapon/p_lazer_penetrateRifle.rab",
+      "p_lazer_LAZR02": "app:/Weapon/p_lazer_LAZR02.rab",
+      "p_lazer_reflectron01": "app:/Weapon/p_lazer_reflectron01.rab",
+      "p_lazer_LAZR03": "app:/Weapon/p_lazer_LAZR03.rab",
+      "p_lazer_inferno01": "app:/Weapon/p_lazer_inferno01.rab",
+      "p_lazer_inferno02": "app:/Weapon/p_lazer_inferno02.rab",
+      "p_lazer_inferno03": "app:/Weapon/p_lazer_inferno03.rab"
+    },
+    "Grenade": {
+      "p_grenade_unknown02": "app:/Weapon/p_grenade_unknown02.rab",
+      "p_grenade_unknown": "app:/Weapon/p_grenade_unknown.rab",
+      "p_grenade_plasmagrenade01": "app:/Weapon/p_grenade_plasmagrenade01.rab",
+      "p_grenade_unknown04": "app:/Weapon/p_grenade_unknown04.rab",
+      "p_grenade_unknown03": "app:/Weapon/p_grenade_unknown03.rab",
+      "p_grenade_unknown05": "app:/Weapon/p_grenade_unknown05.rab"
+    }
+  },
+  "Air Raider": {
+    "Throwable": {
+      "e_throw_c4detonator01": "app:/Weapon/e_throw_c4detonator01.rab",
+      "e_throw_c4detonator02": "app:/Weapon/e_throw_c4detonator02.rab",
+      "e_throw_marker01": "app:/Weapon/e_throw_marker01.rab",
+      "e_throw_marker02": "app:/Weapon/e_throw_marker02.rab",
+      "e_throw_transceiver": "app:/Weapon/e_throw_transceiver.rab",
+      "e_throw_marker03": "app:/Weapon/e_throw_marker03.rab",
+      "e_throw_roomba": "app:/Weapon/e_throw_roomba.rab",
+      "e_throw_beetle01": "app:/Weapon/e_throw_beetle01.rab",
+      "e_throw_beetle02": "app:/Weapon/e_throw_beetle02.rab",
+      "e_throw_roomba2": "app:/Weapon/e_throw_roomba2.rab",
+      "e_throw_decoycore01": "app:/Weapon/e_throw_decoycore01.rab"
+    },
+    "Marker Launcher": {
+      "e_markerlauncher_normal03": "app:/Weapon/e_markerlauncher_normal03.rab",
+      "e_markerlauncher_normal02": "app:/Weapon/e_markerlauncher_normal02.rab",
+      "e_markerlauncher_sniper01": "app:/Weapon/e_markerlauncher_sniper01.rab",
+      "e_markerlauncher_normal01": "app:/Weapon/e_markerlauncher_normal01.rab",
+      "e_markerlauncher_netgun01": "app:/Weapon/e_markerlauncher_netgun01.rab",
+      "e_markerlauncher_normal04": "app:/Weapon/e_markerlauncher_normal04.rab",
+      "e_targetmarker_gan01": "app:/Weapon/e_targetmarker_gan01.rab",
+      "e_targetmarker_normal01": "app:/Weapon/e_targetmarker_normal01.rab"
+    },
+    "Turret": {
+      "e_sentrygun_fire01": "app:/Weapon/e_sentrygun_fire01.rab",
+      "e_sentrygun_normal01": "app:/Weapon/e_sentrygun_normal01.rab",
+      "e_sentrygun_Canon01": "app:/Weapon/e_sentrygun_Canon01.rab"
+    },
+    "Support": {
+      "e_support_ecm01": "app:/Weapon/e_support_ecm01.rab",
+      "e_support_energy01": "app:/Weapon/e_support_energy01.rab",
+      "e_support_power01": "app:/Weapon/e_support_power01.rab",
+      "e_support_shield01": "app:/Weapon/e_support_shield01.rab",
+      "e_support_barrier01": "app:/Weapon/e_support_barrier01.rab"
+    }
+  },
+  "Fencer": {
+    "Melee": {
+      "h_impact_dakimakura01": "app:/Weapon/h_impact_dakimakura01.rab",
+      "h_impact_blade01": "app:/Weapon/h_impact_blade01.rab",
+      "h_impact_scythe01": "app:/Weapon/h_impact_scythe01.rab",
+      "h_impact_607_powerful": "app:/Weapon/h_impact_607_powerful.rab",
+      "h_impact_normal01": "app:/Weapon/h_impact_normal01.rab",
+      "h_impact_normal02": "app:/Weapon/h_impact_normal02.rab",
+      "h_impact_normal03": "app:/Weapon/h_impact_normal03.rab",
+      "h_impact_blade02": "app:/Weapon/h_impact_blade02.rab",
+      "h_impact_axe01": "app:/Weapon/h_impact_axe01.rab",
+      "h_impact_genocide": "app:/Weapon/h_impact_genocide.rab",
+      "h_impact_inferno1": "app:/Weapon/h_impact_inferno1.rab"
+    },
+    "Piercers": {
+      "h_pile_normal01": "app:/Weapon/h_pile_normal01.rab",
+      "h_pile_crowe01": "app:/Weapon/h_pile_crowe01.rab",
+      "h_pile_Twin": "app:/Weapon/h_pile_Twin.rab",
+      "h_pile_605_powerful": "app:/Weapon/h_pile_605_powerful.rab",
+      "h_pile_rapid01": "app:/Weapon/h_pile_rapid01.rab",
+      "h_pile_punch01": "app:/Weapon/h_pile_punch01.rab",
+      "h_pile_roadheader01": "app:/Weapon/h_pile_roadheader01.rab",
+      "h_pile_inferno01": "app:/Weapon/h_pile_inferno01.rab"
+    },
+    "Shield": {
+      "h_shield_normal01": "app:/Weapon/h_shield_normal01.rab",
+      "h_eliteshield_normal01": "app:/Weapon/h_eliteshield_normal01.rab",
+      "h_shield_small01": "app:/Weapon/h_shield_small01.rab",
+      "h_shield_large01": "app:/Weapon/h_shield_large01.rab",
+      "h_shield_reflect01": "app:/Weapon/h_shield_reflect01.rab",
+      "h_shield_inferno01": "app:/Weapon/h_shield_inferno01.rab"
+    },
+    "Gatling": {
+      "h_gatling_606_powerful": "app:/Weapon/h_gatling_606_powerful.rab",
+      "h_gatling_normal01": "app:/Weapon/h_gatling_normal01.rab",
+      "h_gatling_fire01": "app:/Weapon/h_gatling_fire01.rab",
+      "h_gatling_coverbarrel01": "app:/Weapon/h_gatling_coverbarrel01.rab",
+      "h_gatling_longbarrel01": "app:/Weapon/h_gatling_longbarrel01.rab",
+      "h_gatling_inferno01": "app:/Weapon/h_gatling_inferno01.rab"
+    },
+    "Cannon": {
+      "h_cannon_titanianormal01": "app:/Weapon/h_cannon_titanianormal01.rab",
+      "h_cannon_normal01": "app:/Weapon/h_cannon_normal01.rab",
+      "h_cannon_604_powerful": "app:/Weapon/h_cannon_604_powerful.rab",
+      "h_cannon_shoulder01": "app:/Weapon/h_cannon_shoulder01.rab",
+      "h_cannon_titaniainferno01": "app:/Weapon/h_cannon_titaniainferno01.rab",
+      "h_cannon_APFSDS01": "app:/Weapon/h_cannon_APFSDS01.rab",
+      "h_cannon_inferno02": "app:/Weapon/h_cannon_inferno02.rab",
+      "h_cannon_inferno01": "app:/Weapon/h_cannon_inferno01.rab"
+    },
+    "Missile": {
+      "h_missile_arm01": "app:/Weapon/h_missile_arm01.rab",
+      "h_missile_titanianormal01": "app:/Weapon/h_missile_titanianormal01.rab",
+      "h_missile_normal01": "app:/Weapon/h_missile_normal01.rab"
+    },
+    "Shoulder Mounted": {
+      "h_attach_large02": "app:/Weapon/h_attach_large02.rab",
+      "h_attach_shoulder02": "app:/Weapon/h_attach_shoulder02.rab",
+      "h_attach_gatling01": "app:/Weapon/h_attach_gatling01.rab",
+      "h_attach_blaster01": "app:/Weapon/h_attach_blaster01.rab",
+      "h_attach_heavylazer01": "app:/Weapon/h_attach_heavylazer01.rab",
+      "h_attach_needle01": "app:/Weapon/h_attach_needle01.rab",
+      "h_attach_vsl01": "app:/Weapon/h_attach_vsl01.rab"
+    }
+  },
+  "Vehicle": {
+    "Vehicle502_groundrobogold_Cannon_l": "app:/Weapon/Vehicle502_groundrobogold_Cannon_l.rab",
+    "Vehicle502_groundrobogold_Cannon_r": "app:/Weapon/Vehicle502_groundrobogold_Cannon_r.rab",
+    "Vehicle502_groundrobogold_gatling": "app:/Weapon/Vehicle502_groundrobogold_gatling.rab",
+    "Vehicle502_groundrobo_Cannon_l": "app:/Weapon/Vehicle502_groundrobo_Cannon_l.rab",
+    "Vehicle502_groundrobo_Cannon_r": "app:/Weapon/Vehicle502_groundrobo_Cannon_r.rab",
+    "v_502_groundrobo_flamethrower_l": "app:/Weapon/v_502_groundrobo_flamethrower_l.rab",
+    "v_502_groundrobo_flamethrower_r": "app:/Weapon/v_502_groundrobo_flamethrower_r.rab",
+    "v_502_groundrobo_gatling": "app:/Weapon/v_502_groundrobo_gatling.rab",
+    "v_502_groundrobo_launcher_l": "app:/Weapon/v_502_groundrobo_launcher_l.rab",
+    "v_502_groundrobo_launcher_r": "app:/Weapon/v_502_groundrobo_launcher_r.rab",
+    "v_504_a_cannon_l": "app:/Weapon/v_504_a_cannon_l.rab",
+    "v_504_a_cannon_r": "app:/Weapon/v_504_a_cannon_r.rab",
+    "v_504_s_longcannon_l": "app:/Weapon/v_504_s_longcannon_l.rab",
+    "v_504_s_longcannon_r": "app:/Weapon/v_504_s_longcannon_r.rab",
+    "v_504_h_flamethrower": "app:/Weapon/v_504_h_flamethrower.rab",
+    "v_504_a_gatling_l": "app:/Weapon/v_504_a_gatling_l.rab",
+    "v_504_a_gatling_r": "app:/Weapon/v_504_a_gatling_r.rab",
+    "v_504_s_missile_l": "app:/Weapon/v_504_s_missile_l.rab",
+    "v_504_s_missile_r": "app:/Weapon/v_504_s_missile_r.rab",
+    "v_504_s_canistershot_l": "app:/Weapon/v_504_s_canistershot_l.rab",
+    "v_504_s_canistershot_r": "app:/Weapon/v_504_s_canistershot_r.rab",
+    "v_504_h_machinegun": "app:/Weapon/v_504_h_machinegun.rab"
+  }
+}
