@@ -1,8 +1,23 @@
 import tkinter as tk
 from tkinter import ttk
 import webbrowser
+import subprocess
+import sys
+import time
 
-from pillow.PIL import ImageTk, Image
+try:
+    from PIL import ImageTk, Image
+except:
+    userChoice = input("Required package 'pillow' is not installed in your python installation, would you like to install it? (y/n)")
+    if userChoice.lower() == "y" or userChoice.lower() == "yes":
+        try:
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "pillow"])
+            time.sleep(3)
+            from PIL import ImageTk, Image
+        except:
+            input("Please ensure that you have installed pip when you installed python. If not you can reinstall or repair your installation and install pip\nPress enter to quit.")
+            quit()
+    else: quit()
 from text import *
 import dataHelper as d
 import jsonBuilder as j

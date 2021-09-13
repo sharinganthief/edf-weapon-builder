@@ -1,6 +1,6 @@
 from widgets.widgets import *
 from widgets.EDFWidgets import *
-from pillow.PIL import ImageTk, Image
+from PIL import ImageTk, Image
 import jsonBuilder as j
 from widgets.ammoCustWidgets import *
 # from tkscrolledframe import ScrolledFrame
