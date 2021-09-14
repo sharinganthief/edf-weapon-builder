@@ -1,5 +1,8 @@
 import json
+
 # should be able to build a proper weapon json file
+import os
+
 varNames = ['AimAnimation', 'AmmoAlive', 'AmmoClass', 'AmmoColor', 'AmmoCount', 'AmmoDamage', 'AmmoDamageReduce',
             'AmmoExplosion', 'AmmoGravityFactor', 'AmmoHitImpulseAdjust', 'AmmoHitSe', 'AmmoHitSizeAdjust',
             'AmmoIsPenetration', 'AmmoModel', 'AmmoOwnerMove', 'AmmoSize', 'AmmoSpeed', 'Ammo_CustomParameter',
@@ -278,73 +281,43 @@ def writeToJson(data, filepath):
     f.close()
 
 
-def listToRequiredFormat(l):
-    pass
+def writeEasyDataToDirectory(e, dir):
+    for weaponName, data in e.items():
+        sgoData = easyToTypeValue(data)
+        writeToJson(sgoData ,f"./{dir}/{weaponName}.json")
 
-# import dataHelper as d
-# data = d.getWeaponDataFromDir("./Weapondata")
-# w = data['eweapon098']
-# eweapon = makeEasyData(w)
-# eData = makeEasyData(data)
-# tvW = easyToTypeValue(eweapon)
-# writeToJson(tvW, "writeTest2.json")
+def batchModify(e, stats, modification):
+    for key, value in e.items():
+        for stat in stats:
 
-# print("done")
+            print(key, stat, e[key][stat])
+            if isinstance(e[key][stat], list):
+                statType = type(e[key][stat][0])
+                e[key][stat][0] = statType(eval(f"e[key][stat][0]{modification}"))
+            else:
+                statType = type(e[key][stat])
+                e[key][stat] = statType(eval(f"e[key][stat]{modification}"))
+            print(key, stat, e[key][stat])
 
-# # u = uniqueDataByKey("AimAnimation", ["AmmoClass", "AmmoCount"], eData)
-# # aData = getAllAnimData(eData)
+def getWeaponDataFromDir(directory):
+    weaponData = {}
+    filesToRead = os.listdir(directory)
+    for file in filesToRead:
+        if file[-4:] != "json":
+            pass
+        else:
+            with open(f"{directory}/{file}", "r", encoding="utf8") as wf:
+                wdata = json.load(wf)
+                enNameIndex = 0
+                internalName = file[:-5]
+                for var in wdata['variables']:
+                    if var['name'] == "name.en":
+                        enNameIndex = wdata['variables'].index(var)
+                        break
+                IGName = wdata['variables'][enNameIndex]['value']
+                weaponData[internalName] = wdata
+    return weaponData
 
-# def addAimAnimation(val, d):
-#      d['variables'].append({"type": "string", "name": "AimAnimation", "value": val})
-#
-#
-# def addAmmoAlive(val, d):
-#     try:
-#         val = int(val)
-#     except ValueError:
-#         raiseValError("a non-numerical AmmoAlive value", val)
-#     d['variables'].append({"type": "int", "name": "AmmoAlive", "value": val})
-#
-#
-# def addAmmoClass(val, d):
-#     ammoClassOptions = [
-#         "LightningBullet01","LaserBullet01","LaserBullet02","LaserBullet03","FlameBullet01","FlameBullet02",
-#         "SpiderStringBullet01","SpiderStringBullet02","ShockWaveBullet01","SlashWaveBullet01","HomingLaserBullet01",
-#         "BeamBullet01","DecoyBullet01","NeedleBullet01","BarrierBullet01","ClusterBullet01","AcidBullet01",
-#         "NapalmBullet01","GrenadeBullet01","MissileBullet01","MissileBullet02","RocketBullet01","RocketBullet02",
-#         "SolidBullet01","SolidBullet02","SmokeCandleBullet01","ShieldBashBullet01","SentryGunBullet01",
-#         "TargetMarkerBullet01","SupportUnitBullet01","PileBunkerBullet01","PlasmaBullet01", ""]
-#     if val not in ammoClassOptions:
-#         raiseValError("An invalid AmmoClass option", val)
-#     d['variables'].append({"type": "string", "name": "AmmoAlive", "options": ammoClassOptions, "value": val})
-#
-#
-# def addAmmoColor(r, g, b, a, d):
-#     d['variables'].append({"type": "ptr", "name": "AmmoColor", "value": [
-#         {"type": "float", "name": "Red", "value": r},  # red
-#         {"type": "float", "name": "Green", "value": g},  # green
-#         {"type": "float", "name": "Blue", "value": b},  # blue
-#         {"type": "float", "name": "Alpha", "value": a}  # alpha
-#     ]})
-#     # add exception clause if numbers exceed bounds or aren't floats
-#
-#
-# def addAmmoCount(*args, d):
-#     # either a single int 1 for single shot weapons
-#     if len(args) == 1:
-#         d['variables'].append({"type": "int", "name": "AmmoCount", "value": 1})
-#     # or a 6 length struct with 4 ints 2 floats
-#     elif len(args) == 6:
-#         d['variables'].append({"type": "ptr", "name": "AmmoCount", "value": [
-#             {"type": "int",  "value": args[0]},  # bullet count
-#             {"type": "int", "value": args[1]},  # unknown, seems to always be 0?
-#             {"type": "int", "value": args[2]},  # unknown, seems to always be 0?
-#             {"type": "int", "value": args[3]},
-#             {"type": "float", "value": args[4]},
-#             {"type": "float", "value": args[5]}
-#         ]})
-#     else:
-#         raiseValError("An invalid AmmoCount value", args)
-#
-# def addAmmoDamageReduce(v1, v2, d):
-#     d['variables'].append()
+def load(path):
+    d = makeEasyData(getWeaponDataFromDir(path))
+    return d

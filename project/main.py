@@ -2,6 +2,7 @@
 # from tkinter import ttk
 
 import os
+os.chdir("./project")
 import tkinter as tk
 # import tkinter.ttk as ttk
 
@@ -10,6 +11,7 @@ from widgets.widgets import *
 from widgets.EDFWidgets import *
 from widgets.tabs import *
 from tkinter import filedialog
+import logging
 
 from functools import partial
 
@@ -43,12 +45,14 @@ class MainWindow(tk.Frame):
 
     def writeWeaponToJson(self):
         curDir = os.path.abspath(".")
+        filename = ""
         try:
             filename = tk.filedialog.asksaveasfilename(initialdir=curDir, title=getText("Choose file name"),
                                                        filetypes=[("json files", ".json")])
+        except Exception:
+            logging.exception("Exception when writing json")
+        if filename != "":
             j.writeToJson(j.easyToTypeValue(self.createWeaponEasyData()), filename)
-        except:
-            pass
         print(filename)
 
     def updateWidgetsDependingOnXGS(self, *args):
@@ -69,16 +73,16 @@ class MainWindow(tk.Frame):
         eData["AmmoDamage"] = n.basicParamsTab.basicParamsWidget.ammoDamage.value()
         eData["AmmoDamageReduce"] = [n.basicParamsTab.basicParamsWidget.minDamage.value(), n.basicParamsTab.basicParamsWidget.falloffFactor.value()]
         eData["AmmoExplosion"] = n.basicParamsTab.basicParamsWidget.ammoExplosion.value()
-        eData["AmmoGravityFactor"] = n.ammoOptionsTab.ammoGravityFactor.value()
-        eData["AmmoHitImpulseAdjust"] = n.ammoOptionsTab.ammoHitImpulseAdjust.value()
+        eData["AmmoGravityFactor"] = n.classTab.ammoGravityFactor.value()
+        eData["AmmoHitImpulseAdjust"] = n.classTab.ammoHitImpulseAdjust.value()
         eData["AmmoHitSe"] = n.soundsTab.impactSound.value()
-        eData["AmmoHitSizeAdjust"] = n.ammoOptionsTab.ammoHitSizeAdjust.value()
+        eData["AmmoHitSizeAdjust"] = n.classTab.ammoHitSizeAdjust.value()
         eData["AmmoIsPenetration"] = n.basicParamsTab.basicParamsWidget.isPenetrate.value()
         eData["AmmoModel"] = n.appearanceTab.ammoModel.value()
-        eData["AmmoOwnerMove"] = n.ammoOptionsTab.ammoOwnerMove.value()
-        eData["AmmoSize"] = n.ammoOptionsTab.ammoSize.value()
+        eData["AmmoOwnerMove"] = n.classTab.ammoOwnerMove.value()
+        eData["AmmoSize"] = n.classTab.ammoSize.value()
         eData["AmmoSpeed"] = n.basicParamsTab.basicParamsWidget.ammoSpeed.value()
-        eData["Ammo_CustomParameter"] = n.classTab.test.value()
+        eData["Ammo_CustomParameter"] = n.classTab.ammoCust.value()
         eData["Ammo_EquipVoice"] = [n.soundsTab.ammoEquipFullVoice.value(), n.soundsTab.ammoEquipEmptyVoice.value()] if n.soundsTab.ammoEquipFullVoice.value() is not None and n.soundsTab.ammoEquipEmptyVoice.value() is not None else None
         eData["AngleAdjust"] = n.appearanceTab.angleAdjust.value()
         eData["BaseAnimation"] = n.appearanceTab.gunModelWidget.BaseAnimation.value()
@@ -94,16 +98,16 @@ class MainWindow(tk.Frame):
         eData["FireLoadSe"] = n.soundsTab.reloadSound.value()
         eData["FireRecoil"] = 0.0  # TODO
         eData["FireSe"] = n.soundsTab.fireSound.value()
-        eData["FireSpreadType"] = n.ammoOptionsTab.fireSpreadType.value()
-        eData["FireSpreadWidth"] = n.ammoOptionsTab.fireSpreadWidth.value()
+        eData["FireSpreadType"] = n.classTab.fireSpreadType.value()
+        eData["FireSpreadWidth"] = n.classTab.fireSpreadWidth.value()
         if n.classTab.xgsChoice.value() != "Weapon_Throw":
             eData["FireType"] = 0
         else:
             eData["FireType"] = 1  # TODO 1 = impact detonation 2 = fuse detonation for thrown grenade weapons
-        if n.ammoOptionsTab.fireVector.vectorX.value() == 0 and n.ammoOptionsTab.fireVector.vectorY.value() == 0 and n.ammoOptionsTab.fireVector.vectorZ.value() == 0:
+        if n.classTab.fireVector.vectorX.value() == 0 and n.classTab.fireVector.vectorY.value() == 0 and n.classTab.fireVector.vectorZ.value() == 0:
             fireVector = None
         else:
-            fireVector = [n.ammoOptionsTab.fireVector.vectorX.value(), n.ammoOptionsTab.fireVector.vectorY.value(), n.ammoOptionsTab.fireVector.vectorZ.value()]
+            fireVector = [n.classTab.fireVector.vectorX.value(), n.classTab.fireVector.vectorY.value(), n.classTab.fireVector.vectorZ.value()]
         eData["FireVector"] = fireVector
         eData["LockonAngle"] = [n.lockonTab.lockonAngleH.value(), n.lockonTab.lockonAngleV.value()]
         eData["LockonFailedTime"] = n.lockonTab.lockonFailedTime.value()
@@ -169,14 +173,12 @@ class MainNotebook(ttk.Notebook):
         # self.tab2 = StandardWeaponTab(self, 600, 300, "tab2")
         self.classTab = ClassTab(self)
         self.basicParamsTab = BasicParamsTab(self)
-        self.ammoOptionsTab = AmmoOptionsTab(self)
         self.lockonTab = LockonTab(self)
         self.soundsTab = SoundsTab(self)
         self.appearanceTab = AppearanceTab(self)
 
-        self.add(self.classTab, text=getText("Class"))
-        self.add(self.basicParamsTab, text=getText("Basic Parameters"))
-        self.add(self.ammoOptionsTab, text=getText("Ammo Options"))
+        self.add(self.classTab, text=getText("Class and ammo"))
+        self.add(self.basicParamsTab, text=getText("Basic stats"))
         self.add(self.lockonTab, text=getText("Lock-on"))
         self.add(self.appearanceTab, text=getText("Appearance"))
         self.add(self.soundsTab, text=getText("Sounds"))

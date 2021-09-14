@@ -13,11 +13,11 @@ class ClassTab(ScrolledFrame):
         # tk.Frame.__init__(self, parent)
         self.col1 = tk.Frame(self.canvas)
         # self.test = MissileBullet02(self.canvas, False)
-        self.test = SupportUnitBullet01(self.canvas)
+        self.ammoCust = SolidBullet01(self.canvas, False)
         # self.test = HomingLaserBullet01(self.canvas)
         # self.test = NapalmBullet01(self.canvas, False)
         # AcidBullet01(self).test()
-        self.test.grid(row=0, column=1, sticky="N")
+        self.ammoCust.grid(row=0, column=1, sticky="N")
         # self.testButton = tk.Button(self.col1, text="test", command = lambda:print(self.test.value()))
         # self.test.test()
         # self.test.setValue([[10.0, 20.0], [30.0, 40.0], 20, 2, 'SolidBullet01', 50.0, 60.0, 77.0, 80.0, 90.0, 11, 22, [2.0, 2.0, 2.0, 0.5], [-0.42], 'app:/WEAPON/bullet_grenade.rab', 33, 44, [0, 'e5w_AF_PA-11', 1.0, 1.0, 2.0, 25.0], [0, 'common_damages_explode_S_limited', 1.0, 1.0, 2.0, 25.0]])
@@ -96,6 +96,25 @@ class ClassTab(ScrolledFrame):
                                         tooltip=getText("Determines what a weapon shoots, click for details"),
                                         link="https://github.com/KCreator/Earth-Defence-Force-Documentation/wiki/AmmoClass-List-(ENG)")
         # self.Description = BigTextWidget(self, "Description")
+
+        self.ammoSize = FreeInputWidget(self.col1, "Ammo size", float, restrictPositive=True, initialValue=1.0)
+        self.ammoHitSizeAdjust = FreeInputWidget(self.col1, "Ammo Hit Size Adjust", float, restrictPositive=True, initialValue=1, tooltip="Multiplies(?) the hitbox and surface hit effect")
+        self.ammoOwnerMove = SliderWidget(self.col1, "Inherited player momentum", 0, 1, resolution=0.1, initialvalue=0.0, tooltip="How much of the player's velocity the projectile inherits, 0=none, 1 = all.")
+        self.spreadOptions = {
+            "Normal (cone)": 0,
+            "Erratic horizontal": 1,
+            "Uniform horizontal": 2,
+            "Erratic vertical": 3,
+            "Uniform vertical": 4
+        }
+        self.fireSpreadType = DropDownWidget(self.col1, "Fire Spread Type", self.spreadOptions)
+        self.fireSpreadWidth = SliderWidget(self.col1, "Fire Spread Width", 0, 1, resolution=0.01, initialvalue=0.0)
+        self.ammoHitImpulseAdjust = FreeInputWidget(self.col1, "Ammo Impulse Adjust", float, restrictPositive=True, tooltip="Affects how much force the bullet imparts on the target.\nRanges naturally from 0.0005 to 2.")
+        self.ammoGravityFactor = FreeInputWidget(self.col1, "Ammo Gravity Factor", float, tooltip="How fast the bullet falls, negative values cause it to 'fall' upwards.\nTypically 0 for most guns, 1 for grenades. Plasmafall has the highest gravity at 8")
+
+
+        self.fireVector = VectorFromAngleWidget(self.col1, "Firing Angle")
+
         self.updateAmmoCustWidget()
 
         self.classChoice.pack()
@@ -105,116 +124,27 @@ class ClassTab(ScrolledFrame):
         self.classChoice.dropDownDisplayed.trace_add("write", self.updateXGSBasedOnClass)
         self.AmmoClass.dropDownDisplayed.trace_add("write", self.updateAmmoCustWidget)
         self.updateXGSBasedOnClass()
+
+        self.ammoSize.pack()
+        self.ammoHitSizeAdjust.pack()
+        self.ammoOwnerMove.pack()
+        self.fireSpreadType.pack()
+        self.fireSpreadWidth.pack()
+        self.ammoHitImpulseAdjust.pack()
+        self.ammoGravityFactor.pack()
+        self.fireVector.pack()
         # self.Description.pack()
 
 
     def updateAmmoCustWidget(self, *args):
-        if self.test is not None:
-            self.test.grid_forget()
-            self.test.destroy()
-            self.test = None
-        if self.AmmoClass.value() ==   "SolidBullet01":
-            self.test = SolidBullet01(self.canvas, False)
-            self.test.grid(row=0, column=1, sticky="N")
-        # elif self.AmmoClass.value() == "None":
-        #     self.test = None(self)
-        #     self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "AcidBullet01":
-            self.test = AcidBullet01(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "BarrierBullet01":
-            self.test = BarrierBullet01(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "BombBullet01":
-            self.test = BombBullet01(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "BombBullet02":
-            self.test = BombBullet02(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "ClusterBullet01":
-            self.test = ClusterBullet01(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        # elif self.AmmoClass.value() == "DecoyBullet01":
-        #     self.test = DecoyBullet01(self.canvas)
-        #     self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "FlameBullet02":
-            self.test = FlameBullet02(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "GrenadeBullet01":
-            self.test = GrenadeBullet01(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "HomingLaserBullet01":
-            self.test = HomingLaserBullet01(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "LaserBullet01":
-            self.test = LaserBullet01(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "LaserBullet02":
-            self.test = LaserBullet02(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "LaserBullet03":
-            self.test = LaserBullet03(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "LightningBullet01":
-            self.test = LightningBullet01(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "MissileBullet01":
-            self.test = MissileBullet01(self.canvas, False)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "MissileBullet02":
-            self.test = MissileBullet02(self.canvas, False)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "NapalmBullet01":
-            self.test = NapalmBullet01(self.canvas, False)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "NeedleBullet01":
-            self.test = NeedleBullet01(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "PileBunkerBullet01":
-            self.test = PileBunkerBullet01(self.canvas, False)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "PlasmaBullet01":
-            self.test = PlasmaBullet01(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "PulseBullet01":
-            self.test = PulseBullet01(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "RocketBullet01":
-            self.test = RocketBullet01(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "SentryGunBullet01":
-            self.test = SentryGunBullet01(self.canvas, False)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "ShieldBashBullet01":
-            self.test = ShieldBashBullet01(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "ShockWaveBullet01":
-            self.test = ShockWaveBullet01(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "SmokeCandleBullet01":
-            self.test = SmokeCandleBullet01(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "SmokeCandleBullet02":
-            self.test = SmokeCandleBullet02(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "SolidBullet01Rail":
-            self.test = SolidBullet01Rail(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "SolidExpBullet01":
-            self.test = SolidExpBullet01(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "SolidPelletBullet01":
-            self.test = SolidPelletBullet01(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "SpiderStringBullet02":
-            self.test = SpiderStringBullet02(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "SupportUnitBullet01":
-            self.test = SupportUnitBullet01(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
-        elif self.AmmoClass.value() == "TargetMarkerBullet01":
-            self.test = TargetMarkerBullet01(self.canvas)
-            self.test.grid(row=0, column=1, sticky="N")
+        if self.ammoCust is not None:
+            self.ammoCust.grid_forget()
+            self.ammoCust.destroy()
+            self.ammoCust = None
+        self.ammoCust = ammoCustWidgetFromAmmoClass(self.canvas, self.AmmoClass.value(), False)
+        if self.ammoCust is not None:
+            self.ammoCust.grid(row=0, column=1, sticky="N")
+            self.ammoCust.test()
 
     def updateXGSBasedOnClass(self, *args):
         if self.classChoice.value() == "Ranger":
@@ -583,56 +513,6 @@ class BasicParamsTab(ScrolledFrame):
         return self.basicParamsWidget.getValuesDict()
 
 
-class AmmoOptionsTab(ScrolledFrame):
-    def __init__(self, parent):
-        ScrolledFrame.__init__(self, parent)
-        self.frame = self.display_widget(tk.Frame)
-        # self.ammoModel = AmmoOptionsWidget(self)
-        # self.ammoModel.grid(row=0, column=0)
-        self.col1 = tk.Frame(self.frame)
-        # self.col2 = tk.Frame(self)
-        self.ammoSize = FreeInputWidget(self.col1, "Ammo size", float, restrictPositive=True, initialValue=0.2)
-        self.ammoHitSizeAdjust = FreeInputWidget(self.col1, "Ammo Hit Size Adjust", float, restrictPositive=True, initialValue=1, tooltip="Multiplies(?) the hitbox and surface hit effect")
-        self.ammoOwnerMove = SliderWidget(self.col1, "Inherited player momentum", 0, 1, resolution=0.1, initialvalue=0.0, tooltip="How much of the player's velocity the projectile inherits, 0=none, 1 = all.")
-        self.spreadOptions = {
-            "Normal (cone)": 0,
-            "Erratic horizontal": 1,
-            "Uniform horizontal": 2,
-            "Erratic vertical": 3,
-            "Uniform vertical": 4
-        }
-        self.fireSpreadType = DropDownWidget(self.col1, "Fire Spread Type", self.spreadOptions)
-        self.fireSpreadWidth = SliderWidget(self.col1, "Fire Spread Width", 0, 1, resolution=0.01, initialvalue=0.0)
-        self.ammoHitImpulseAdjust = FreeInputWidget(self.col1, "Ammo Impulse Adjust", float, restrictPositive=True, tooltip="Affects how much force the bullet imparts on the target.\nRanges naturally from 0.0005 to 2.")
-        self.ammoGravityFactor = FreeInputWidget(self.col1, "Ammo Gravity Factor", float, tooltip="How fast the bullet falls, negative values cause it to 'fall' upwards.\nTypically 0 for most guns, 1 for grenades. Plasmafall has the highest gravity at 8")
-
-
-        self.fireVector = VectorFromAngleWidget(self.col1, "Firing Angle")
-        # self.col2.grid(row=0, column=1)
-        self.col1.grid(row=0, column=0, sticky="N")
-        self.ammoSize.pack()
-        self.ammoHitSizeAdjust.pack()
-        self.ammoOwnerMove.pack()
-        self.fireSpreadType.pack()
-        self.fireSpreadWidth.pack()
-        self.ammoHitImpulseAdjust.pack()
-        self.ammoGravityFactor.pack()
-        self.fireVector.pack()
-
-    def getValuesDict(self):
-        return{
-            "AmmoSize": self.ammoSize.value(),
-            "AmmoHitSizeAdjust": self.ammoHitSizeAdjust.value(),
-            "AmmoHitImpulseAdjust": self.ammoHitImpulseAdjust.value(),
-            "AmmoGravityFactor": self.ammoGravityFactor.value(),
-            "AmmoOwnerMove": self.ammoOwnerMove.value(),
-            "FireSpreadType": self.fireSpreadType.value(),
-            "FireSpreadWidth": self.fireSpreadWidth.value(),
-            "FireVector": [self.fireVector.vectorX.value(), self.fireVector.vectorY.value(), self.fireVector.vectorZ.value()],
-
-        }
-
-
 class LockonTab(ScrolledFrame):
     def __init__(self, parent):
         # xgs that can lock on: basicShoot roombas, HomingShoot MissileBullet01/02, HomingLaserBullet01, VehicleShoot MissileBullet01/02 and probably roombas
@@ -642,7 +522,7 @@ class LockonTab(ScrolledFrame):
         self.col2 = tk.Frame(self.frame)
         self.lockonType = DropDownWidget(self.col1, "Lock-on type", {"No lock-on": 0, "Click to lock": 1, "Passive lock-on": 3})
         self.lockonDistributionType = DropDownWidget(self.col1, "Lock-on Distribution",
-                                                     {"Projectile-based": 0, "Burst-based": 1},
+                                                     {"Projectile-based": 1, "Burst-based": 0},
                                                      tooltip="Projectile-based: Depends on the number of projectiles fired per shot, each one will home in on an enemy\nBurst-based: Depends on how many projectiles are fired in a burst, each projectile or set of projectiles will attack a different enemy.\nAlso forces reload on fire so the burst count should be equal to the magazine size.")
         self.lockonFireEndToClear = CheckBoxWidget(self.col1, "Maintain lock-on after firing", 1, 0)
         self.lockonTargetType = CheckBoxWidget(self.col1, "Requires guide beacon/laser", 0, 1)
@@ -880,3 +760,52 @@ class SoundsTab(ScrolledFrame):
 #         self.parent = parent
 #         self.label1 = tk.Label(self, text=text)
 #         self.label1.pack()
+
+# class AmmoOptionsTab(ScrolledFrame):
+#     def __init__(self, parent):
+#         ScrolledFrame.__init__(self, parent)
+#         self.frame = self.display_widget(tk.Frame)
+#         # self.ammoModel = AmmoOptionsWidget(self)
+#         # self.ammoModel.grid(row=0, column=0)
+#         self.col1 = tk.Frame(self.frame)
+#         # self.col2 = tk.Frame(self)
+#         self.ammoSize = FreeInputWidget(self.col1, "Ammo size", float, restrictPositive=True, initialValue=0.2)
+#         self.ammoHitSizeAdjust = FreeInputWidget(self.col1, "Ammo Hit Size Adjust", float, restrictPositive=True, initialValue=1, tooltip="Multiplies(?) the hitbox and surface hit effect")
+#         self.ammoOwnerMove = SliderWidget(self.col1, "Inherited player momentum", 0, 1, resolution=0.1, initialvalue=0.0, tooltip="How much of the player's velocity the projectile inherits, 0=none, 1 = all.")
+#         self.spreadOptions = {
+#             "Normal (cone)": 0,
+#             "Erratic horizontal": 1,
+#             "Uniform horizontal": 2,
+#             "Erratic vertical": 3,
+#             "Uniform vertical": 4
+#         }
+#         self.fireSpreadType = DropDownWidget(self.col1, "Fire Spread Type", self.spreadOptions)
+#         self.fireSpreadWidth = SliderWidget(self.col1, "Fire Spread Width", 0, 1, resolution=0.01, initialvalue=0.0)
+#         self.ammoHitImpulseAdjust = FreeInputWidget(self.col1, "Ammo Impulse Adjust", float, restrictPositive=True, tooltip="Affects how much force the bullet imparts on the target.\nRanges naturally from 0.0005 to 2.")
+#         self.ammoGravityFactor = FreeInputWidget(self.col1, "Ammo Gravity Factor", float, tooltip="How fast the bullet falls, negative values cause it to 'fall' upwards.\nTypically 0 for most guns, 1 for grenades. Plasmafall has the highest gravity at 8")
+#
+#
+#         self.fireVector = VectorFromAngleWidget(self.col1, "Firing Angle")
+#         # self.col2.grid(row=0, column=1)
+#         self.col1.grid(row=0, column=0, sticky="N")
+#         self.ammoSize.pack()
+#         self.ammoHitSizeAdjust.pack()
+#         self.ammoOwnerMove.pack()
+#         self.fireSpreadType.pack()
+#         self.fireSpreadWidth.pack()
+#         self.ammoHitImpulseAdjust.pack()
+#         self.ammoGravityFactor.pack()
+#         self.fireVector.pack()
+#
+#     def getValuesDict(self):
+#         return{
+#             "AmmoSize": self.ammoSize.value(),
+#             "AmmoHitSizeAdjust": self.ammoHitSizeAdjust.value(),
+#             "AmmoHitImpulseAdjust": self.ammoHitImpulseAdjust.value(),
+#             "AmmoGravityFactor": self.ammoGravityFactor.value(),
+#             "AmmoOwnerMove": self.ammoOwnerMove.value(),
+#             "FireSpreadType": self.fireSpreadType.value(),
+#             "FireSpreadWidth": self.fireSpreadWidth.value(),
+#             "FireVector": [self.fireVector.vectorX.value(), self.fireVector.vectorY.value(), self.fireVector.vectorZ.value()],
+#
+#         }

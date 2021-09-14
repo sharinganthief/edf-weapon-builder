@@ -71,9 +71,9 @@ class VectorFromAngleWidget(tk.LabelFrame):
 
 
 class AngleWidget(tk.LabelFrame):
-    def __init__(self, parent, labeltext):
+    def __init__(self, parent, labeltext, minimum=-180, maximum=180):
         tk.LabelFrame.__init__(self, parent, text=labeltext)
-        self.input = SliderWidget(self, "Angle (degrees)", min=-180, max=180, resolution=1)
+        self.input = SliderWidget(self, "Angle (degrees)", min=minimum, max=maximum, resolution=1)
         # self.input = FreeInputWidget(self, "Angle (degrees)", float)
         self.radianDisplay = FreeInputWidget(self, "Angle (radians)", float)
         self.radianDisplay.input.configure(state="disabled")
@@ -208,7 +208,7 @@ class BasicParamsWidget(tk.LabelFrame):
         self.col2 = tk.Frame(self)
         self.col3 = tk.Frame(self)
 
-        self.ammoCount = StarStructOrFlatWidget(self.col1, "Magazine size", "AmmoCount", int, restrictPositive=True, initialvalue=1)
+        self.ammoCount = StarStructOrFlatWidget(self.col1, "Magazine size", "AmmoCount", int, restrictPositive=True, initialvalue=100)
         self.fireInterval = StarStructOrFlatWidget(self.col1, "Frames between shots", "FireInterval", int, restrictPositive=True, initialvalue=5, inverse=True)
         self.ammoDamage = StarStructOrFlatWidget(self.col1, "Damage", "AmmoDamage", float, initialvalue=100)
 
@@ -217,7 +217,7 @@ class BasicParamsWidget(tk.LabelFrame):
         self.falloffFactor = FreeInputWidget(self.falloffFrame, "Falloff Factor", float, initialValue=1.0, tooltip="How quickly the damage falls off. 1 is typical, 4 is very harsh.\nNegative values can cause intense damage ramp up.\nThe exact formula is still being determined")
 
         self.isPenetrate = CheckBoxWidget(self.col1, "Penetrating ammo", 0, 1)
-        self.fireCount = StarStructOrFlatWidget(self.col2, "Number of projectiles", "FireCount", int, restrictPositive=True, initialvalue=100)
+        self.fireCount = StarStructOrFlatWidget(self.col2, "Number of projectiles", "FireCount", int, restrictPositive=True, initialvalue=1)
         self.ammoExplosion = StarStructOrFlatWidget(self.col2, "Explosion radius (m)", "AmmoExplosion", float, restrictPositive=True, initialvalue=0.0)
 
         self.reloadTime = StarStructOrFlatWidget(self.col2, "Reload time/credits", "ReloadTime", int, p1=1, p2=0.5, inverse=True, restrictPositive=1, initialvalue=60)

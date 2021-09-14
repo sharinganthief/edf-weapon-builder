@@ -4,8 +4,43 @@ from widgets.EDFWidgets import *
 # u = d.uniqueDataByKey("AmmoClass", ["Ammo_CustomParameter"], e)
 ammoCust = j.loadDataFromJson("./data/ammoCust.json")
 
-class AmmoCustomParamWidget(tk.Frame):
-    pass
+
+def ammoCustWidgetFromAmmoClass(parent, ammoClass, isSubProjectile):
+    if ammoClass == "SolidBullet01": return SolidBullet01(parent, isSubProjectile)
+    elif ammoClass == "AcidBullet01": return AcidBullet01(parent)
+    elif ammoClass == "BarrierBullet01": return BarrierBullet01(parent)
+    elif ammoClass == "BombBullet01": return BombBullet01(parent)
+    elif ammoClass == "BombBullet02": return BombBullet02(parent)
+    elif ammoClass == "ClusterBullet01": return ClusterBullet01(parent)
+    # elif ammoClass == "DecoyBullet01": #     return DecoyBullet01(parent)
+    elif ammoClass == "FlameBullet02": return FlameBullet02(parent)
+    elif ammoClass == "GrenadeBullet01": return GrenadeBullet01(parent)
+    elif ammoClass == "HomingLaserBullet01": return HomingLaserBullet01(parent)
+    elif ammoClass == "LaserBullet01": return LaserBullet01(parent)
+    elif ammoClass == "LaserBullet02": return LaserBullet02(parent)
+    elif ammoClass == "LaserBullet03": return LaserBullet03(parent)
+    elif ammoClass == "LightningBullet01": return LightningBullet01(parent)
+    elif ammoClass == "MissileBullet01": return MissileBullet01(parent, isSubProjectile)
+    elif ammoClass == "MissileBullet02": return MissileBullet02(parent, isSubProjectile)
+    elif ammoClass == "NapalmBullet01": return NapalmBullet01(parent, isSubProjectile)
+    elif ammoClass == "NeedleBullet01": return NeedleBullet01(parent)
+    elif ammoClass == "PileBunkerBullet01": return PileBunkerBullet01(parent, isSubProjectile)
+    elif ammoClass == "PlasmaBullet01": return PlasmaBullet01(parent)
+    elif ammoClass == "PulseBullet01": return PulseBullet01(parent)
+    elif ammoClass == "RocketBullet01": return RocketBullet01(parent)
+    elif ammoClass == "SentryGunBullet01": return SentryGunBullet01(parent, isSubProjectile)
+    elif ammoClass == "ShieldBashBullet01": return ShieldBashBullet01(parent)
+    elif ammoClass == "ShockWaveBullet01": return ShockWaveBullet01(parent)
+    elif ammoClass == "SmokeCandleBullet01": return SmokeCandleBullet01(parent)
+    elif ammoClass == "SmokeCandleBullet02": return SmokeCandleBullet02(parent)
+    elif ammoClass == "SolidBullet01Rail": return SolidBullet01Rail(parent)
+    elif ammoClass == "SolidExpBullet01": return SolidExpBullet01(parent)
+    elif ammoClass == "SolidPelletBullet01": return SolidPelletBullet01(parent)
+    elif ammoClass == "SpiderStringBullet02": return SpiderStringBullet02(parent)
+    elif ammoClass == "SupportUnitBullet01": return SupportUnitBullet01(parent)
+    elif ammoClass == "TargetMarkerBullet01": return TargetMarkerBullet01(parent)
+
+        
 
 
 subProjectileAmmoOptions = {
@@ -562,7 +597,7 @@ class SubProjectile(tk.LabelFrame):
         self.sound1 = SoundWidget(self.col2, "Firing sound?", returnNoneOr0=0)
         self.sound2 = SoundWidget(self.col2, "Impact sound?", returnNoneOr0=0)
 
-        self.customParamWidget = None
+        self.customParamWidget = SolidBullet01(True)
 
         self.updateAmmoCustWidget()
 
@@ -647,107 +682,8 @@ class SubProjectile(tk.LabelFrame):
             self.customParamWidget.grid_forget()
             self.customParamWidget.destroy()
             self.customParamWidget = None
-        if self.ammoClass.value() ==   "SolidBullet01":
-            self.customParamWidget = SolidBullet01(self, True)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        # elif self.ammoClass.value() == "None":
-        #     self.customParamWidget = None(self)
-        #     self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "AcidBullet01":
-            self.customParamWidget = AcidBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "BarrierBullet01":
-            self.customParamWidget = BarrierBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "BombBullet01":
-            self.customParamWidget = BombBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "BombBullet02":
-            self.customParamWidget = BombBullet02(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "ClusterBullet01":
-            self.customParamWidget = ClusterBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        # elif self.ammoClass.value() == "DecoyBullet01":
-        #     self.customParamWidget = DecoyBullet01(self)
-        #     self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "FlameBullet02":
-            self.customParamWidget = FlameBullet02(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "GrenadeBullet01":
-            self.customParamWidget = GrenadeBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "HomingLaserBullet01":
-            self.customParamWidget = HomingLaserBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "LaserBullet01":
-            self.customParamWidget = LaserBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "LaserBullet02":
-            self.customParamWidget = LaserBullet02(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "LaserBullet03":
-            self.customParamWidget = LaserBullet03(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "LightningBullet01":
-            self.customParamWidget = LightningBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "MissileBullet01":
-            self.customParamWidget = MissileBullet01(self, True)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "MissileBullet02":
-            self.customParamWidget = MissileBullet02(self, True)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "NapalmBullet01":
-            self.customParamWidget = NapalmBullet01(self, True)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "NeedleBullet01":
-            self.customParamWidget = NeedleBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "PileBunkerBullet01":
-            self.customParamWidget = PileBunkerBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "PlasmaBullet01":
-            self.customParamWidget = PlasmaBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "PulseBullet01":
-            self.customParamWidget = PulseBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "RocketBullet01":
-            self.customParamWidget = RocketBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "SentryGunBullet01":
-            self.customParamWidget = SentryGunBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "ShieldBashBullet01":
-            self.customParamWidget = ShieldBashBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "ShockWaveBullet01":
-            self.customParamWidget = ShockWaveBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "SmokeCandleBullet01":
-            self.customParamWidget = SmokeCandleBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "SmokeCandleBullet02":
-            self.customParamWidget = SmokeCandleBullet02(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "SolidBullet01Rail":
-            self.customParamWidget = SolidBullet01Rail(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "SolidExpBullet01":
-            self.customParamWidget = SolidExpBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "SolidPelletBullet01":
-            self.customParamWidget = SolidPelletBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "SpiderStringBullet02":
-            self.customParamWidget = SpiderStringBullet02(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "SupportUnitBullet01":
-            self.customParamWidget = SupportUnitBullet01(self)
-            self.customParamWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "TargetMarkerBullet01":
-            self.customParamWidget = TargetMarkerBullet01(self)
+        self.customParamWidget = ammoCustWidgetFromAmmoClass(self, self.ammoClass.value(), True)
+        if self.customParamWidget is not None:
             self.customParamWidget.grid(row=0, column=2, sticky="N")
 
     # def test(self):
@@ -878,8 +814,6 @@ class GrenadeBullet01(tk.LabelFrame):
 
     def setValue(self, l):
         self.detonationType.setValue(l[0])
-        print(l[0])
-        print(self.detonationType.value())
         self.unknown1.setValue(l[1])
         self.unknown2.setValue(l[2])
         self.bounceDampening.setValue(l[3])
@@ -1153,7 +1087,7 @@ class LightningBullet01(tk.LabelFrame):
                 print(v)
                 print(self.value())
                 # raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-            print(f"{v} == {self.value()} ? {v == self.value()}")
+        print(f"{self.__class__.__name__} tests successful")
 
 
 class MissileBullet01(tk.LabelFrame):
@@ -1298,9 +1232,9 @@ class MissileBullet02(tk.LabelFrame):
         self.unknown4 = FreeInputWidget(self.struct1, "Unknown float", float, tooltip="Always 0")
         self.unknown5 = FreeInputWidget(self.struct1, "Unknown float", float, initialValue=-0.05000000074505806, tooltip="Always -0.05000000074505806")
 
-        self.accelerationRate = FreeInputWidget(self.col1, "Acceleration rate", float, restrictPositive=True, initialValue=0.1, tooltip="0.01-6")
-        self.turnRate = FreeInputWidget(self.col1, "Turning rate", float, restrictPositive=True, initialValue=0.1, tooltip="0-0.8")
-        self.topSpeed = FreeInputWidget(self.col1, "Top speed", float, initialValue=1.5, tooltip="m/frame?")
+        self.accelerationRate = FreeInputWidget(self.col1, "Acceleration rate", float, restrictPositive=True, initialValue=1.5, tooltip="0.01-6")
+        self.turnRate = FreeInputWidget(self.col1, "Turning rate", float, restrictPositive=True, initialValue=0.4, tooltip="0-0.8")
+        self.topSpeed = FreeInputWidget(self.col1, "Top speed", float, initialValue=6, tooltip="m/frame?")
 
         self.struct2 = tk.LabelFrame(self.col1, text="Unknown struct")
         self.unknown6 = FreeInputWidget(self.struct2, "Unknown int", int, tooltip="0-90")
@@ -1322,17 +1256,17 @@ class MissileBullet02(tk.LabelFrame):
 
         self.col2 = tk.Frame(self)
 
-        self.struct4 = tk.LabelFrame(self.col2, text=getText("Maybe detonation trigger?"))
-        self.struct4Choice = DropDownWidget(self.struct4, "Struct type", {"Type 0": 0, "Type 1": 1}, tooltip="Alters the lengths and value types of the struct")
+        self.struct4 = tk.LabelFrame(self.col2, text=getText("Detonation type"))
+        self.struct4Choice = DropDownWidget(self.struct4, "Struct type", {"Proximity": 0, "Timer": 1}, tooltip="Alters the lengths and value types of the struct")
         self.struct4Choice.dropDownDisplayed.trace_add("write", self.updateStruct4Widgets)
-        self.struct4Type1Int = FreeInputWidget(self.struct4, "Unknown int", int, initialValue=120, tooltip="Only observed at 120")
-        self.struct4Type0Float1 = FreeInputWidget(self.struct4, "Unknown float", float, initialValue=50.0, tooltip="50-70")
+        self.struct4Type1Int = FreeInputWidget(self.struct4, "Time (frames)", int, initialValue=120, tooltip="Only observed at 120")
+        self.struct4Type0Float1 = FreeInputWidget(self.struct4, "Distance", float, initialValue=50.0, tooltip="50-70")
         self.struct4Type0Float2 = FreeInputWidget(self.struct4, "Unknown float", float, initialValue=0.75, tooltip="0.75 or 1")
 
         self.struct5 = tk.LabelFrame(self.col2, text=getText("Unknown struct"))
         self.struct5Int = FreeInputWidget(self.struct5, "Unknown int", int, tooltip="0 or 2, likely some sort of option")
         self.struct5Float1 = FreeInputWidget(self.struct5, "Unknown float", float, tooltip="Always 0.0?")
-        self.struct5Float2 = FreeInputWidget(self.struct5, "Unknown float", float, initialValue=0.6, tooltip="0.3-2.0")
+        self.projectileSpread = AngleWidget(self.struct5, "Sub-projectile spread", minimum=0, maximum=360)
 
         self.struct6 = tk.LabelFrame(self.col2, text=getText("Unknown struct"))
         self.struct6Int = FreeInputWidget(self.struct6, "Unknown int", int, tooltip="0 or 1, likely some sort of option/flag")
@@ -1377,7 +1311,7 @@ class MissileBullet02(tk.LabelFrame):
         self.struct5.pack()
         self.struct5Int.pack()
         self.struct5Float1.pack()
-        self.struct5Float2.pack()
+        self.projectileSpread.pack()
         self.struct6.pack()
         self.struct6Int.pack()
         self.struct6Float.pack()
@@ -1434,7 +1368,7 @@ class MissileBullet02(tk.LabelFrame):
             v.append([self.struct4Choice.value(), self.struct4Type0Float1.value(), self.struct4Type0Float2.value()])
         elif self.struct4Choice.value() == 1:
             v.append([self.struct4Choice.value(), self.struct4Type1Int.value()])
-        v.append([self.struct5Int.value(), self.struct5Float1.value(), self.struct5Float2.value()])
+        v.append([self.struct5Int.value(), self.struct5Float1.value(), self.projectileSpread.value()])
         v.append([self.struct6Int.value(), self.struct6Float.value()])
         v.append(self.subProjectile.value())
         return v
@@ -1472,7 +1406,7 @@ class MissileBullet02(tk.LabelFrame):
             self.struct4Type1Int.setValue(l[12][1])
         self.struct5Int.setValue(l[13][0])
         self.struct5Float1.setValue(l[13][1])
-        self.struct5Float2.setValue(l[13][2])
+        self.projectileSpread.setValue(l[13][2])
         self.struct6Int.setValue(l[14][0])
         self.struct6Float.setValue(l[14][1])
         self.subProjectile.setValue(l[15])
@@ -1858,107 +1792,8 @@ class SentryGunBullet01(tk.LabelFrame):
             self.ammoCustWidget.grid_forget()
             self.ammoCustWidget.destroy()
             self.ammoCustWidget = None
-        if self.ammoClass.value() ==   "SolidBullet01":
-            self.ammoCustWidget = SolidBullet01(self, True)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        # elif self.ammoClass.value() == "None":
-        #     self.ammoCustWidget = None(self)
-        #     self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "AcidBullet01":
-            self.ammoCustWidget = AcidBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "BarrierBullet01":
-            self.ammoCustWidget = BarrierBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "BombBullet01":
-            self.ammoCustWidget = BombBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "BombBullet02":
-            self.ammoCustWidget = BombBullet02(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "ClusterBullet01":
-            self.ammoCustWidget = ClusterBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        # elif self.ammoClass.value() == "DecoyBullet01":
-        #     self.ammoCustWidget = DecoyBullet01(self)
-        #     self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "FlameBullet02":
-            self.ammoCustWidget = FlameBullet02(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "GrenadeBullet01":
-            self.ammoCustWidget = GrenadeBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "HomingLaserBullet01":
-            self.ammoCustWidget = HomingLaserBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "LaserBullet01":
-            self.ammoCustWidget = LaserBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "LaserBullet02":
-            self.ammoCustWidget = LaserBullet02(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "LaserBullet03":
-            self.ammoCustWidget = LaserBullet03(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "LightningBullet01":
-            self.ammoCustWidget = LightningBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "MissileBullet01":
-            self.ammoCustWidget = MissileBullet01(self, True)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "MissileBullet02":
-            self.ammoCustWidget = MissileBullet02(self, True)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "NapalmBullet01":
-            self.ammoCustWidget = NapalmBullet01(self, True)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "NeedleBullet01":
-            self.ammoCustWidget = NeedleBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "PileBunkerBullet01":
-            self.ammoCustWidget = PileBunkerBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "PlasmaBullet01":
-            self.ammoCustWidget = PlasmaBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "PulseBullet01":
-            self.ammoCustWidget = PulseBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "RocketBullet01":
-            self.ammoCustWidget = RocketBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "SentryGunBullet01":
-            self.ammoCustWidget = SentryGunBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "ShieldBashBullet01":
-            self.ammoCustWidget = ShieldBashBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "ShockWaveBullet01":
-            self.ammoCustWidget = ShockWaveBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "SmokeCandleBullet01":
-            self.ammoCustWidget = SmokeCandleBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "SmokeCandleBullet02":
-            self.ammoCustWidget = SmokeCandleBullet02(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "SolidBullet01Rail":
-            self.ammoCustWidget = SolidBullet01Rail(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "SolidExpBullet01":
-            self.ammoCustWidget = SolidExpBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "SolidPelletBullet01":
-            self.ammoCustWidget = SolidPelletBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "SpiderStringBullet02":
-            self.ammoCustWidget = SpiderStringBullet02(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "SupportUnitBullet01":
-            self.ammoCustWidget = SupportUnitBullet01(self)
-            self.ammoCustWidget.grid(row=0, column=2, sticky="N")
-        elif self.ammoClass.value() == "TargetMarkerBullet01":
-            self.ammoCustWidget = TargetMarkerBullet01(self)
+        self.ammoCustWidget = ammoCustWidgetFromAmmoClass(self, self.ammoClass.value(), True)
+        if self.ammoCustWidget is not None:
             self.ammoCustWidget.grid(row=0, column=2, sticky="N")
 
     def value(self):
@@ -1984,14 +1819,8 @@ class SentryGunBullet01(tk.LabelFrame):
             v.append(self.ammoHitboxMultiplier.value())
         else:
             v.append([self.ammoVisualMultiplier.value(), self.ammoHitboxMultiplier.value()])
-        # if len(self.ammoCustWidget.value()) > 1:
-        #     v.append(self.ammoCustWidget.value())
-        # else:
         v.append(self.ammoCustWidget.value())
         v.append(self.firingSound.value())
-        print(self.muzzleFlash.muzzleFlashType.value())
-        if self.muzzleFlash.muzzleFlashType.value() != "":
-            print(self.muzzleFlash.paramsWidget.value())
         v.append(self.muzzleFlash.muzzleFlashType.value())
         if self.muzzleFlash.muzzleFlashType.value() != "":
             v.append(self.muzzleFlash.paramsWidget.value())
@@ -1999,9 +1828,6 @@ class SentryGunBullet01(tk.LabelFrame):
             v.append(0)
 
         return v
-
-
-
 
     def setValue(self, l):
         self.friendlyFire.setValue(l[0])
@@ -2026,7 +1852,6 @@ class SentryGunBullet01(tk.LabelFrame):
         else:
             self.ammoVisualMultiplier.setValue(l[14])
             self.ammoHitboxMultiplier.setValue(l[14])
-        print(l[15])
         self.ammoCustWidget.setValue(l[15])
         self.firingSound.setValue(l[16])
         self.muzzleFlash.muzzleFlashType.setValue(l[17])
@@ -2180,6 +2005,8 @@ class SolidBullet01(tk.LabelFrame):
         self.hitEffectScale.pack()
         self.unknown.pack()
 
+        self.enableOrDisableExtra()
+
 
     def enableOrDisableExtra(self, *args):
         if self.enableExtra.value() == 0:
@@ -2190,7 +2017,6 @@ class SolidBullet01(tk.LabelFrame):
             enableInput(self.unknown)
 
     def value(self):
-        print([self.isBouncy.value(), self.hitEffectScale.value(), self.unknown.value()])
         if self.enableExtra.value() != 1:
             if self.isBouncy.value() != 0:
                 return [self.isBouncy.value()]
@@ -2307,6 +2133,7 @@ class SpiderStringBullet02(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("SolidPelletBullet01"))
         self.unknown = FreeInputWidget(self, "Unknown float", float, tooltip="0.1 or 0.025, maybe thickness?")
+        self.unknown.pack()
 
     def value(self):
         return [self.unknown.value()]
