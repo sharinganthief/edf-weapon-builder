@@ -2,9 +2,13 @@
 It is highly reccomended to download this via [git](https://git-scm.com/download/win) while it is still under rapid development for easy updating.
 If you don't know how to do that:
 1. install git
+
 2. go to the folder where you'd like the program to be
+
 3. right click somewhere empty in the folder and choose "git bash here"
+
 4. paste "git clone https://Big-Racer@bitbucket.org/Big-Racer/edf-weapon-builder.git" without the quotes (you may have to right click)
+
 5. whenever you want to update, either run update and run.bat or use git bash and "git pull https://Big-Racer@bitbucket.org/Big-Racer/edf-weapon-builder.git"
 
 

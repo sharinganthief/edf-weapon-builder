@@ -4,10 +4,7 @@ from tkinter import ttk
 import webbrowser
 from text import *
 import json
-with open("./data/Sounds.json", "r", encoding="utf8") as f:
-    # soundData = f.read()
-    # sounds = eval(soundData)
-    sounds = json.load(f)
+
 labelwidth = 20
 inputwidth = 25
 
@@ -741,7 +738,7 @@ class SliderWidget(tk.Frame):
         self.v = self.input.get()
 
     def value(self):
-        return self.v
+        return float(self.v)
         # return self.input.get()
         #return self.inputVar.get()
 

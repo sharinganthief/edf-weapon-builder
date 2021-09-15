@@ -1665,27 +1665,27 @@ class PulseBullet01(tk.LabelFrame):
 class RocketBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("RocketBullet01"))
-        self.rocketType = DropDownWidget(self, "Rocket type?", {"Regular": 0, "Mortar/howitzer": 1, "Super-heavy mortar": 2})
-        self.unknown1 = FreeInputWidget(self, "Unknown int", int)
-        self.ignitionDelay = FreeInputWidget(self, "Ignition delay?", int)
-        self.unknown2 = FreeInputWidget(self, "Unknown float", float)
+        self.rocketType = DropDownWidget(self, "Explosion visual type", {"Regular": 0, "Mortar/howitzer": 1, "Explosions with massive smoke cloud": 2})
+        self.smokeTrailLifetime = FreeInputWidget(self, "Smoke trail lifetime", int)
+        self.ignitionDelay = FreeInputWidget(self, "Ignition delay", int)
+        self.smokeTrailDrift = FreeInputWidget(self, "Smoke trail drift", float, initialValue=0.1, tooltip="How fast the smoke trail drifts backwards. Values closer to 1 or higher look strange.")
 
         self.rocketType.pack()
-        self.unknown1.pack()
+        self.smokeTrailLifetime.pack()
         self.ignitionDelay.pack()
-        self.unknown2.pack()
+        self.smokeTrailDrift.pack()
 
     def value(self):
         return [self.rocketType.value(),
-                self.unknown1.value(),
+                self.smokeTrailLifetime.value(),
                 self.ignitionDelay.value(),
-                self.unknown2.value()]
+                self.smokeTrailDrift.value()]
 
     def setValue(self, l):
         self.rocketType.setValue(l[0])
-        self.unknown1.setValue(l[1])
+        self.smokeTrailLifetime.setValue(l[1])
         self.ignitionDelay.setValue(l[2])
-        self.unknown2.setValue(l[3])
+        self.smokeTrailDrift.setValue(l[3])
 
     def test(self):
         print(self.__class__.__name__)

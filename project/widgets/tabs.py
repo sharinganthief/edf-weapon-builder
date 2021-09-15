@@ -696,10 +696,11 @@ class SoundsTab(ScrolledFrame):
     def __init__(self, parent):
         ScrolledFrame.__init__(self, parent)
         self.frame = self.display_widget(tk.Frame)
+        self.col3 = tk.Frame(self.frame)
         self.fireSound = SoundWidget(self.frame, "Firing Sound", None)
         self.impactSound = SoundWidget(self.frame, "Impact Sound", None, tooltip="Some ammo types like SolidBullets have an innate impact sound.")
-        self.reloadSound = SoundWidget(self.frame, "Fencer reload Sound", None, tooltip="Only used by certain fencer weapons")
-        self.shellCaseDischargeSound = SoundWidget(self.frame, "Fencer shell case discharge sound", None, tooltip="Only used by certain fencer weapons.")
+        self.reloadSound = SoundWidget(self.col3, "Fencer reload Sound", None, tooltip="Only used by certain fencer weapons")
+        self.shellCaseDischargeSound = SoundWidget(self.col3, "Fencer shell case discharge sound", None, tooltip="Only used by certain fencer weapons.")
         self.ammoEquipFullOptions = {
             "None": None,
             "Ranger Vehicle":        '輸送部隊出撃直後レンジャー',
@@ -740,8 +741,9 @@ class SoundsTab(ScrolledFrame):
         self.ammoEquipFrame.grid(row=1, column=0, sticky="N")
         self.fireSound.grid(row=0, column=0, sticky="N")
         self.impactSound.grid(row=0, column=1, sticky="N")
-        self.reloadSound.grid(row=0, column=2, sticky="N")
-        self.shellCaseDischargeSound.grid(row=1, column=2, sticky="N")
+        self.col3.grid(row=0, column=2, sticky="N")
+        self.reloadSound.pack()
+        self.shellCaseDischargeSound.pack()
 
     def updateRabDependentValues(self):
         pass

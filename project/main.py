@@ -53,7 +53,7 @@ class MainWindow(tk.Frame):
             logging.exception("Exception when writing json")
         if filename != "":
             j.writeToJson(j.easyToTypeValue(self.createWeaponEasyData()), filename)
-        print(filename)
+        # print(filename)
 
     def updateWidgetsDependingOnXGS(self, *args):
         pass
@@ -152,17 +152,17 @@ class MainWindow(tk.Frame):
         # c.append()
 
 
-class WindowMenus(tk.Menu):
-    def __init__(self, parent):
-        tk.Menu.__init__(self, parent)
-        self.parent = parent
-
-        self.fileMenu = tk.Menu(self, tearoff=0)
-        self.fileMenu.add_command(label=getText("Write weapon data to json"), command=dummy)
-        self.fileMenu.add_command(label="test", command=dummy())
-        self.fileMenu.add_command(label="test", command=dummy())
-        self.fileMenu.add_command(label="test", command=dummy())
-        self.add_cascade(label="File", menu=self.fileMenu)
+# class WindowMenus(tk.Menu):
+#     def __init__(self, parent):
+#         tk.Menu.__init__(self, parent)
+#         self.parent = parent
+#
+#         self.fileMenu = tk.Menu(self, tearoff=0)
+#         self.fileMenu.add_command(label=getText("Write weapon data to json"), command=dummy)
+#         self.fileMenu.add_command(label="test", command=dummy())
+#         self.fileMenu.add_command(label="test", command=dummy())
+#         self.fileMenu.add_command(label="test", command=dummy())
+#         self.add_cascade(label="File", menu=self.fileMenu)
 
 
 class MainNotebook(ttk.Notebook):
@@ -191,31 +191,9 @@ class MainNotebook(ttk.Notebook):
         pass
 
 
-# class SoundsTab(tk.Frame):
-#     def __init__(self, parent):
-#         tk.Frame.__init__(self, parent)
-#         self.fireSound = SoundWidget(self, "Firing Sound")
-#         self.impactSound = SoundWidget(self, "Impact Sound")
-#         self.reloadSound = SoundWidget(self, "Reload Sound")
-#         self.fireSound.grid(row=0, column=0)
-#         self.impactSound.grid(row=0, column=1)
-#         self.reloadSound.grid(row=0, column=2)
-#
-#
-# class appearanceTab(tk.Frame):
-#     def __init__(self, parent):
-#         tk.Frame.__init__(self, parent)
-#         self.ModelWidget = ModelWidget(self)
-#         self.ModelWidget.pack()
-#         self.ModelWidget.classChange("Ranger")
-#
-#
-# class StandardWeaponTab(tk.Frame):
-#     def __init__(self, parent, width, height, text):
-#         tk.Frame.__init__(self, parent, width=width, height=height)
-#         self.parent = parent
-#         self.label1 = tk.Label(self, text=text)
-#         self.label1.pack()
+def loadConfig():
+    with open("./config.ini", "r") as cfg:
+        cfgLines = cfg.readlines()
 
 
 if __name__ == '__main__':
@@ -224,7 +202,5 @@ if __name__ == '__main__':
     mainWindow.pack(side="top", fill="both", expand=True)
     # force the height/width
     mainWindow.pack_propagate(0)
-    # menu = WindowMenus(root)
-    # root.config(menu=menu)
     root.mainloop()
 

@@ -4,6 +4,11 @@ import webbrowser
 import subprocess
 import sys
 import time
+from text import *
+import dataHelper as d
+import jsonBuilder as j
+from widgets.widgets import *
+from math import pi, cos, sin
 
 try:
     from PIL import ImageTk, Image
@@ -18,17 +23,9 @@ except:
             input("Please ensure that you have installed pip when you installed python. If not you can reinstall or repair your installation and install pip\nPress enter to quit.")
             quit()
     else: quit()
-from text import *
-import dataHelper as d
-import jsonBuilder as j
 
-from widgets.widgets import *
-import json
-from math import pi, cos, sin
-with open("./data/Sounds.json", "r", encoding="utf8") as f:
-    # soundData = f.read()
-    # sounds = eval(soundData)
-    sounds = json.load(f)
+
+sounds = j.loadDataFromJson("./data/Sounds.json")
 labelwidth = 20
 inputwidth = 25
 
@@ -120,7 +117,7 @@ class SoundWidget(tk.LabelFrame):
 #         self.soundStringDisplay = FreeInputWidget(self, getText("sound value"), str)
 #         disableInput(self.soundStringDisplay)
         self.soundChoice = MultiDropDownWidget(self, sounds, "Sound")
-        self.volumeSlider = SliderWidget(self, "Volume", 0, 1, initialvalue=1)
+        self.volumeSlider = SliderWidget(self, "Volume", 0, 1, initialvalue=1.0)
         self.dampeningSlider = SliderWidget(self, "Dampening?", 0, 2)
         self.unknownValue2 = FreeInputWidget(self, "Unknown Sound float 1", float, initialValue=2, tooltip="Always 2 or 1")
         self.unknownValue3 = FreeInputWidget(self, "Unknown Sound float 2", float, initialValue=25, tooltip="Always 25 or less commonly 20")
@@ -652,7 +649,7 @@ class MuzzleFlashWidget(tk.LabelFrame):
             self.uv13.pack()
 
         def value(self):
-            return [self.color
+            return [self.color.value(),
                     [self.uv1.value(), self.uv2.value(), self.uv3.value(), self.uv4.value()],
                     [self.uv5.value(), self.uv6.value(), self.uv7.value()],
                     [self.uv8.value(), self.uv9.value(), self.uv10.value()],
@@ -716,10 +713,8 @@ class MuzzleFlashWidget(tk.LabelFrame):
 class GunModelWidget(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text="Gun Model")
-        with open("./data/model-based data.json", "r") as f:
-            self.animationData = json.load(f)
-        with open("./data/sorted weapon models.json", "r") as f:
-            self.sortedModels = json.load(f)
+        self.animationData = j.loadDataFromJson("./data/model-based data.json")
+        self.sortedModels = j.loadDataFromJson("./data/sorted weapon models.json")
         self.modelOptions = {}
         for key in self.animationData:
             if key != "0":
