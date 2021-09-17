@@ -6,6 +6,8 @@ with open("text.json", "r", encoding="utf8") as f: textData = json.load(f)
 
 def getText(key):
     global language
+    # if key[:4] == "[EN]":
+    #     raise ValueError("double translation")
     if language == "en":
         textData[key] = key
         return key

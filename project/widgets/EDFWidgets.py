@@ -132,7 +132,7 @@ class SoundWidget(tk.LabelFrame):
         self.dampeningSlider.pack()
         self.unknownValue2.pack()
         self.unknownValue3.pack()
-        tk.Button(self, command=lambda:print(self.value())).pack()
+        # tk.Button(self, command=lambda:print(self.value())).pack()
 
     def enableOrDisableInputs(self, *args):
         if self.soundChoice.valueLabel.inputVar.get() == "None":
@@ -754,9 +754,7 @@ class GunModelWidget(tk.LabelFrame):
         self.ModelConstraint = DropDownWidget(self, "Model Constraint", {
             str(self.animationData[self.RABChoice.value()]['ModelConstraint']):
                 self.animationData[self.RABChoice.value()]['ModelConstraint']})
-        disableInput(self.ModelConstraint)
-
-        self.TestButton = tk.Button(self, command=lambda: print(self.getValuesDict()))
+        # disableInput(self.ModelConstraint)
 
         self.RABChoice.pack()
         self.AimAnimation.pack()
@@ -767,7 +765,6 @@ class GunModelWidget(tk.LabelFrame):
         self.WeaponIcon.pack()
         self.iconImgPanel.pack()
         self.ModelConstraint.pack()
-        self.TestButton.pack()
 
         self.updateOptions()
         self.updateWeaponIconImg()
@@ -1024,8 +1021,6 @@ class ColorWidget(tk.LabelFrame):
         return [self.red.value(), self.green.value(), self.blue.value(), self.alpha.value()]
 
     def setValue(self, l):
-        if not isinstance(l, list):
-            print(l)
         self.red.setValue(l[0])
         self.green.setValue(l[1])
         self.blue.setValue(l[2])

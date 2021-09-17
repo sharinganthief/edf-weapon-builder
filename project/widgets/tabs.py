@@ -90,10 +90,10 @@ class ClassTab(ScrolledFrame):
         }
         self.classChoice = DropDownWidget(self.col1, "Class", self.classOptions, tooltip="Class")
         self.xgsChoice = DropDownWidget(self.col1, "Object Class", self.xgsOptions,
-                                        tooltip=getText("Determines basic weapon functionality, click for details"),
+                                        tooltip="Determines basic weapon functionality, click for details",
                                         link="https://github.com/KCreator/Earth-Defence-Force-Documentation/wiki/Object-Classes")
         self.AmmoClass = DropDownWidget(self.col1, "AmmoClass", self.ammoOptions,
-                                        tooltip=getText("Determines what a weapon shoots, click for details"),
+                                        tooltip="Determines what a weapon shoots, click for details",
                                         link="https://github.com/KCreator/Earth-Defence-Force-Documentation/wiki/AmmoClass-List-(ENG)")
         # self.Description = BigTextWidget(self, "Description")
 
@@ -144,7 +144,7 @@ class ClassTab(ScrolledFrame):
         self.ammoCust = ammoCustWidgetFromAmmoClass(self.canvas, self.AmmoClass.value(), False)
         if self.ammoCust is not None:
             self.ammoCust.grid(row=0, column=1, sticky="N")
-            self.ammoCust.test()
+            # self.ammoCust.test()
 
     def updateXGSBasedOnClass(self, *args):
         if self.classChoice.value() == "Ranger":
@@ -660,7 +660,7 @@ class AppearanceTab(ScrolledFrame):
     def updateRABDependantValues(self, *args):
         v = self.gunModelWidget.getModelRelatedInfo()
         self.ammoModel.setValue(v["AmmoModel"])
-        self.ammoColor.setValue(v["AmmoColor"])
+        # self.ammoColor.setValue(v["AmmoColor"])
         self.shellCase.setValue(v["ShellCase"])
         self.muzzleFlash.muzzleFlashType.setValue(v["MuzzleFlash"])
         if self.muzzleFlash.paramsWidget is not None:

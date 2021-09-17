@@ -1,3 +1,4 @@
+import sys
 import tkinter as tk
 from decimal import Decimal
 from tkinter import ttk
@@ -7,6 +8,11 @@ import json
 
 labelwidth = 20
 inputwidth = 25
+
+
+def translateNestedDict(d):
+    return {getText(key): (translateNestedDict(value) if isinstance(value, dict) else value) for key, value in
+            d.items()}
 
 
 def getKeyFromValue(d, v):
@@ -95,6 +101,7 @@ def setWidgetValue(widget, value):
 #         # self.canvas.bind("<Configure>", lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all")))
 
 # https://pypi.org/project/tkScrolledFrame/
+
 class ScrolledFrame(tk.Frame):
     """Scrollable Frame widget.
 
@@ -386,6 +393,7 @@ class ScrolledFrame(tk.Frame):
     _DEFAULT_SCROLLBARS = "both"
     _VALID_SCROLLBARS = "vertical", "horizontal", "both", "neither"
 
+
 class BigTextWidget(tk.Frame):
     def __init__(self, parent, labeltext, tooltip="", width=30, height=5):
         tk.Frame.__init__(self, parent)
@@ -517,18 +525,20 @@ class FreeInputWidget(tk.Frame):
 
 
 class DropDownWidget(tk.Frame):
-    def __init__(self, parent, labeltext, options, command="", tooltip="", link=""):
+    def __init__(self, parent, labeltext, options, command="", tooltip="", link="", translate=True):
         if not isinstance(options, dict):
-            print(options)
+            # print(options)
             raise TypeError("DropDownWidgets take dictionaries of the choices and the values they represent as keys and values")
 
 
         tk.Frame.__init__(self, parent)
         # self.optionType = optionType
-        self.options = {getText(key): value for key, value in options.items()}
-        # self.options = options
-        self.optionKeys = list(options.keys())
-        self.optionValues = list(options.values())
+        if translate:
+            self.options = {getText(key): value for key, value in options.items()}
+        else:
+            self.options = options
+        self.optionKeys = list(self.options.keys())
+        self.optionValues = list(self.options.values())
         self.dropDownDisplayed = tk.StringVar(self, self.optionKeys[0])
 
         self.label = tk.Label(self, text=getText(labeltext), width=labelwidth, justify="left", relief="groove", anchor="w")
@@ -538,7 +548,7 @@ class DropDownWidget(tk.Frame):
             self.label.configure(underline=True, text=newText)
         if link !="":
             makeLabelClickable(self, link)
-        self.input = tk.OptionMenu(self, self.dropDownDisplayed, *list(options.keys()), command=command)  # , command=self.updateValue)
+        self.input = tk.OptionMenu(self, self.dropDownDisplayed, *list(self.options.keys()), command=command)  # , command=self.updateValue)
         self.input.config(width=inputwidth-7)
         self.label.grid(row=0, column=0)
         self.input.grid(row=0, column=1)
@@ -550,16 +560,16 @@ class DropDownWidget(tk.Frame):
     def replaceOptionMenu(self, options, command, *args):
         self.options = {getText(key): value for key, value in options.items()}
         self.input.grid_forget()
-        self.dropDownDisplayed.set(list(options.keys())[0])
-        self.input = tk.OptionMenu(self, self.dropDownDisplayed, *list(options.keys()), command=command)
+        self.dropDownDisplayed.set(list(self.options.keys())[0])
+        self.input = tk.OptionMenu(self, self.dropDownDisplayed, *list(self.options.keys()), command=command)
         self.input.config(width=inputwidth - 7)
         self.input.grid(row=0, column=2)
 
     def replaceOptionMenuNoCmd(self, options):
         self.options = {getText(key): value for key, value in options.items()}
         self.input.grid_forget()
-        self.dropDownDisplayed.set(list(options.keys())[0])
-        self.input = tk.OptionMenu(self, self.dropDownDisplayed, *list(options.keys()))
+        self.dropDownDisplayed.set(list(self.options.keys())[0])
+        self.input = tk.OptionMenu(self, self.dropDownDisplayed, *list(self.options.keys()))
         self.input.config(width=inputwidth - 7)
         self.input.grid(row=0, column=2)
 
@@ -579,8 +589,8 @@ class DropDownWidget(tk.Frame):
 class MultiDropDownWidget(tk.LabelFrame):
     def __init__(self, parent, options, label, isChild=False):
         tk.LabelFrame.__init__(self, parent, text=label)
-        self.originalOptions = {getText(key): value for key, value in options.items()}
-
+        # self.originalOptions = {getText(key): value for key, value in options.items()}
+        self.originalOptions = translateNestedDict(options)
         if isChild is False:
             self.root = self
         else:
@@ -588,10 +598,12 @@ class MultiDropDownWidget(tk.LabelFrame):
 
         if isinstance(options, dict):
             if isinstance(list(options.values())[0], dict):
-                self.options = {getText(key): key for key in options.keys()}
+                # self.options = {getText(key): key for key in options.keys()}
+                self.options = {key: key for key in self.originalOptions.keys()}
                 self.hasChild = True
             else:
-                self.options = {getText(key): value for key, value in options.items()}
+                self.options = {key: value for key, value in self.originalOptions.items()}
+                # self.options = {getText(key): value for key, value in options.items()}
                 self.hasChild = False
 
         else:
@@ -599,14 +611,16 @@ class MultiDropDownWidget(tk.LabelFrame):
 
         self.widgets = []
         self.widgetValues = []
-        self.valueLabel = FreeInputWidget(self, getText("Value"), str)
-        self.baseChoice = self.dropDown = DropDownWidget(self.root, getText("Choice"), self.options,
-                                                         command=lambda x: self.reconstructChildren(x))
+        self.valueLabel = FreeInputWidget(self, "Value", str)
+        self.baseChoice =  DropDownWidget(self.root, "Choice", self.options,
+                                                         command=lambda x: self.reconstructChildren(1), translate=False)
         self.widgets.append(self.baseChoice)
         self.baseChoice.pack()
-        self.constructChildren(oOptions=self.originalOptions[self.baseChoice.value()])
+        self.constructChildren(1)
+        # self.constructChildren(oOptions=self.originalOptions[getText(self.baseChoice.value())])
         self.valueLabel.pack()
-        disableInput(self.valueLabel)
+        self.valueLabel.input.config(state="readonly")
+        # disableInput(self.valueLabel)
 
 
 
@@ -617,25 +631,21 @@ class MultiDropDownWidget(tk.LabelFrame):
             b = False
             if isinstance(options, dict):
                 if isinstance(list(options.values())[0], dict):
-                    childoptions = {getText(key): key for key in options.keys()}
+                    childoptions = {key: key for key in options.keys()}
                     command = self.reconstructChildren
                     child = DropDownWidget(self.root, "Choice", childoptions,
-                                           command=lambda x: self.reconstructChildren(x))
+                                           command=lambda x: self.reconstructChildren(len(self.widgets)-1), translate=False)
                     self.root.widgets.append(child)
                     child.pack()
                     options = options[child.value()]
                 else:
                     b = True
-                    childoptions = {getText(key): value for key, value in options.items()}
-                    child = DropDownWidget(self.root, "Choice", childoptions, command=self.updateValueLabel)
+                    childoptions = options
+                    child = DropDownWidget(self.root, "Choice", childoptions, command=self.updateValueLabel, translate=False)
                     self.root.widgets.append(child)
                     child.pack()
             else:
                 pass
-            # child = DropDownWidget(self.root, "Choice", str, childoptions, command=command)
-            # self.root.widgets.append(child)
-            # child.pack()
-
             if b is True:
                 break
             else:
@@ -648,6 +658,10 @@ class MultiDropDownWidget(tk.LabelFrame):
         self.valueLabel.pack_forget()
         self.valueLabel.pack()
 
+    def reconstructChildren(self, index):
+        self.destroyChildren(index)
+        self.constructChildren(index)
+
     def destroyChildren(self, index, *args):
         for child in self.widgets[index:]:
             # print(f"{child.value()} destroyed")
@@ -655,28 +669,28 @@ class MultiDropDownWidget(tk.LabelFrame):
             self.widgets.pop(self.widgets.index(child))
             child.destroy()
 
-    def reconstructChildren(self, x, *args):
-        # print(self.widgets)
-        i = 0
-        for widget in self.widgets:
-            # print(x, widget.value())
-            if x == widget.value():
-                break
-            i += 1
-        # print(x)
-        # print(i)
-        self.destroyChildren(i+1)
-        newOptions = self.getDictLayer(i)#self.originalOptions, i, keyy)[keyy] #[keyy]
-        self.constructChildren(oOptions=newOptions) #self.widgets[i].originalOptions)
-
-    def getDictLayer(self, index, *args):
+    def constructChildren(self, index):
         options = self.originalOptions
-        if index == 0:
-            return options[self.baseChoice.value()]
-        for i in range(0, index+1):
-            # print(self.widgets[i].value())
-            options = options[self.widgets[i].value()]
-        return options
+        for i in range(index):
+            options = options[self.widgets[i].dropDownDisplayed.get()]
+        i += 2
+        while isinstance(options, dict):
+            if isinstance(options[list(options.keys())[0]], dict):
+                childOptions = {key: key for key in options.keys()}
+                child = DropDownWidget(self, "Sub-category", childOptions, command=lambda x, i=i: self.reconstructChildren(i), translate=False)
+                options = options[child.dropDownDisplayed.get()]
+                self.widgets.append(child)
+                child.pack()
+                i+=1
+            else:
+                childOptions = {key: value for key, value in options.items()}
+                child = DropDownWidget(self, "Choose value", childOptions, command=self.updateValueLabel, translate=False)
+                # options = options[child.dropDownDisplayed.get()]
+                self.widgets.append(child)
+                child.pack()
+                self.updateValueLabel()
+                break
+
 
     def value(self):
         # try:
@@ -696,7 +710,7 @@ class MultiDropDownWidget(tk.LabelFrame):
         valuePath = getpath(self.originalOptions, v)
         if valuePath is not None:
             self.baseChoice.dropDownDisplayed.set(valuePath[0])
-            self.reconstructChildren(self.baseChoice.value())
+            self.reconstructChildren(1)
             i = 1
             for widget in self.widgets[1:]:
                 widget.dropDownDisplayed.set(valuePath[i])

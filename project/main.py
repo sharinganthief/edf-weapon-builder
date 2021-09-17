@@ -27,21 +27,35 @@ def dummy():
 
 class MainWindow(tk.Frame):
     def __init__(self, parent, width, height):
+        global language
         tk.Frame.__init__(self, parent, width=width, height=height)
+        cfgSettings = loadConfig()
+        setLanguage(cfgSettings["language"])
+
         self.widgetDict = {}
-        self.activeTab = ''
-        # self.tabs = ["1", "2", "3", "4"]
         self.stringEntryTest = FreeInputWidget(self, labeltext="test string", inputType="string")
         self.notebook = MainNotebook(self)
         self.notebook.pack(side="left", fill="both", expand=True)
-        # self.notebook.tab(3,state="disabled")
         self.classChoiceVar = self.notebook.classTab.classChoice.dropDownDisplayed
         self.classChoiceVar.trace_add("write", self.updateWidgetsDependingOnClass)
         # self.testLabel = tk.Label(self.notebook.tab1, textvariable=self.intEntryTest.entryBoxVar.get(), relief="raised")
         # self.testButton = tk.Button(self, text="print", command=lambda: print(self.createWeaponEasyData()))
         self.testButton = tk.Button(self, text="Write to file", command=lambda: self.writeWeaponToJson())
         self.testButton.pack()
+        self.updateTextFile = tk.Button(self, text="Update text json", command=self.updateText)
+        self.updateTextFile.pack()
         # self.testLabel.pack()
+
+    def updateText(self, *args):
+        curDir = os.path.abspath(".")
+        filename = ""
+        try:
+            filename = tk.filedialog.asksaveasfilename(initialdir=curDir, title=getText("Choose file name"),
+                                                       filetypes=[("json files", ".json")])
+        except Exception:
+            logging.exception("Exception when writing json")
+        if filename != "":
+            j.writeToJson(j.easyToTypeValue(self.createWeaponEasyData()), filename)
 
     def writeWeaponToJson(self):
         curDir = os.path.abspath(".")
@@ -192,8 +206,22 @@ class MainNotebook(ttk.Notebook):
 
 
 def loadConfig():
-    with open("./config.ini", "r") as cfg:
-        cfgLines = cfg.readlines()
+    configOptions = {}
+    try:
+        with open("./config.ini", "r") as cfg:
+            cfgLines = cfg.readlines()
+            for line in cfgLines:
+                try:
+                    splitline = line.split("=")
+                    configOptions[splitline[0]] = splitline[1]
+                except:
+                    print(f"{line} in config improperly formatted, expected 'setting=value'")
+    except:
+        with open("./config.ini", "w") as cfg:
+            cfg.write("language=en")
+        configOptions["language"] = "en"
+
+    return configOptions
 
 
 if __name__ == '__main__':
