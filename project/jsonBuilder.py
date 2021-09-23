@@ -318,6 +318,11 @@ def getWeaponDataFromDir(directory):
                 weaponData[internalName] = wdata
     return weaponData
 
-def load(path):
+def loadEasyDir(path):
     d = makeEasyData(getWeaponDataFromDir(path))
     return d
+
+def getACFromFolder(dir):
+    weaps = makeEasyData(getWeaponDataFromDir(dir))
+    data = {w["name.en"]: w["Ammo_CustomParameter"] for w in weaps.values()}
+    return data

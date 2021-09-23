@@ -10,8 +10,11 @@ class ClassTab(ScrolledFrame):
     def __init__(self, parent):
         ScrolledFrame.__init__(self, parent)
         self.canvas = self.display_widget(tk.Frame)
+
         # tk.Frame.__init__(self, parent)
         self.col1 = tk.Frame(self.canvas)
+        self.vehicle = SummonParameter(self.col1)
+        self.vehicle.pack()
         # self.test = MissileBullet02(self.canvas, False)
         self.ammoCust = SolidBullet01(self.canvas, False)
         # self.test = HomingLaserBullet01(self.canvas)
@@ -609,7 +612,7 @@ class AppearanceTab(ScrolledFrame):
         self.sightImgPanel = ttk.Label(self.col1, image=self.sightImg)
 
 
-        self.ammoModel = MultiDropDownWidget(self.col2, allModels, "Ammo Model")
+        self.ammoModel = MultiDropDownWidget(self.col2, "Ammo Model", allModels)
         self.ammoColor = ColorWidget(self.col2, "Ammo color")
         self.shellCase = ShellCaseWidget(self.col2)
 

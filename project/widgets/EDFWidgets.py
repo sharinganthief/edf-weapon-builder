@@ -116,7 +116,7 @@ class SoundWidget(tk.LabelFrame):
 #
 #         self.soundStringDisplay = FreeInputWidget(self, getText("sound value"), str)
 #         disableInput(self.soundStringDisplay)
-        self.soundChoice = MultiDropDownWidget(self, sounds, "Sound")
+        self.soundChoice = MultiDropDownWidget(self, "Sound", sounds)
         self.volumeSlider = SliderWidget(self, "Volume", 0, 1, initialvalue=1.0)
         self.dampeningSlider = SliderWidget(self, "Dampening?", 0, 2)
         self.unknownValue2 = FreeInputWidget(self, "Unknown Sound float 1", float, initialValue=2, tooltip="Always 2 or 1")
@@ -747,7 +747,7 @@ class GunModelWidget(tk.LabelFrame):
         
         self.RABChoice = DropDownWidget(self, "Model choice", self.modelOptions)
         # self.RABChoice = DropDownWidget(self, getText("Model choice"), str, self.modelOptions, command=self.updateOptions)
-        self.RABChoice = MultiDropDownWidget(self, self.sortedModels, "Models")
+        self.RABChoice = MultiDropDownWidget(self, "Models", self.sortedModels)
 
         self.RABChoice.valueLabel.inputVar.trace_add("write", self.updateOptions)
 

@@ -1,0 +1,164 @@
+{
+  "Blacker tank": {
+    "105mm Howitzer":  "v_505tank_cannon01",
+    "120mm howitzer":  "v_505tank_cannon02",
+    "130mm Howitzer":  "v_505tank_cannon03",
+    "140mm Howitzer":  "v_505tank_cannon04",
+    "90mm Smooth-bore":  "v_505tank_cannon01s",
+    "110mm Smooth-bore":  "v_505tank_cannon02s",
+    "105mm Long-range Howitzer":  "v_505tank_cannon02l",
+    "125mm Long-range Howitzer":  "v_505tank_cannon03l",
+    "135mm Long-range Howitzer":  "v_505tank_cannon04l",
+    "140mm Long-range Howitzer":  "v_505tank_dlc_cannon04l",
+    "Dispersal howitzer":  "v_505tank_dlc_edf4_1_cannon",
+    "Timed-grenade cannon":  "v_505tank_dlc_edf5_cannon",
+    "Meltgun":  "v_505tank_puke",
+    "AI 105mm Howitzer":  "v_505_tank_ai_cannon01"
+  },
+  "Railgun tank": {
+    "Railgun": "v_403tank_cannon01",
+    "Menace Electromagnetic Launcher":  "v_403tank_cannon02",
+    "Menace 4D Burst": "v_403tank_cannon02b",
+    "Epsilon Blast":  "v_403tank_cannon03",
+    "Side machine gun": "v_403tank_machinegun",
+    "AI Railgun": "v_403tank_ai_cannon01"
+  },
+  "Titan tank": {
+    "DLC Requiem Cannon": "v_404bigtank_dlc_maincannon",
+    "DLC Meltgun": "v_404bigtank_dlc_meltcannon",
+    "Titan Machine Gun": "v_404bigtank_gatling",
+    "Requiem Gun": "v_404bigtank_maincannon",
+    "AI Requiem Gun": "v_404bigtank_ai_maincannon",
+    "Titan Grenades (left)": "v_404bigtank_sidegrenade_l",
+    "Titan Grenades (right)": "v_404bigtank_sidegrenade_r",
+    "Titan Missiles (left)": "v_404bigtank_sidemissile_l",
+    "Titan Missiles (right)": "v_404bigtank_sidemissile_r",
+    "Titan Side Cannon": "v_404bigtank_subcannon",
+    "Titan Side Smooth-bore": "v_404bigtank_subcannonsolid"
+  },
+  "EMC tank": {
+    "Atomic cannon": "v_510_maser_thunder01",
+    "AI atomic cannon": "v_510_maser_ai_thunder01"
+  },
+  "Legacy EDF 4 tank?": {
+    "Railgun":  "v_301tank_bulletgirl_solid",
+    "Blaster Turret":  "v_301tank_edf_laser",
+    "Deluge gun":  "v_301tank_natuiro_cannon",
+    "105mm Howitzer": "v_301tank_ai_cannon01"
+  },
+  "Nix": {
+    "Left Arm": {
+      "Rocket Cannon (Left)": "v_504begaruta_cannon01_l",
+      "Heavy Revolver Cannon (Left)": "v_504begaruta_cannon02solid_l",
+      "Combat Burner": "v_504begaruta_flamethrower01",
+      "Machine Gun": "v_504_h_machinegun01",
+      "Revolver Cannon (Left)": "v_504begaruta_gatling01_l",
+      "New Revolver Cannon (Left)": "v_504begaruta_gatling02_l",
+      "Large Grenade Launcher (Left)": "v_504begaruta_grenade01_l",
+      "Grenade Pod (Left)": "v_504begaruta_grenade_pod01_l",
+      "Revolver Rocket Cannon (Left)": "v_504begaruta_rocket01_l",
+      "Power Saber": "v_504_h_dlc_laserblade",
+      "AI Gatling (Left)": "v_504_ai_a_gatling01_l"
+    },
+    "Right Arm": {
+      "Rocket Cannon (Right)": "v_504begaruta_cannon01_r",
+      "Heavy Revolver Cannon (Right)": "v_504begaruta_cannon02solid_r",
+      "Combat Burner": "v_504begaruta_flamethrower01",
+      "Machine Gun": "v_504_h_machinegun01",
+      "Revolver Cannon (Right)": "v_504begaruta_gatling01_r",
+      "New Revolver Cannon (Right)": "v_504begaruta_gatling02_r",
+      "Large Grenade Launcher (Right)": "v_504begaruta_grenade01_r",
+      "Grenade Pod (Right)": "v_504begaruta_grenade_pod01_r",
+      "Revolver Rocket Cannon (Right)": "v_504begaruta_rocket01_r",
+      "Power Saber": "v_504_h_dlc_laserblade",
+      "AI Gatling (Right)": "v_504_ai_a_gatling01_r"
+    },
+    "Left Shoulder": {
+      "Shoulder Howitzer S (Left)": "v_504begaruta_longcannon015_l",
+      "Shoulder Howitzer (Left)": "v_504begaruta_longcannon01_l",
+      "Dispersal Howitzer (Left)": "v_504begaruta_longcannon02_l",
+      "Canister Shot (Left)": "v_504begaruta_longspreadcannon01_l",
+      "Missile Pod (Left)": "v_504begaruta_missile01_l",
+      "Powerdyne MC (Left)": "v_504begaruta_dlc_longcannon015_l",
+      "Explosion (Left)": "v_504begaruta_spreadgrenade01_l",
+      "AI Missile Pod (Left)": "v_504_ai_s_missile01_l"
+    },
+    "Right Shoulder": {
+      "Shoulder Howitzer S (Right)": "v_504begaruta_longcannon015_r",
+      "Shoulder Howitzer (Right)": "v_504begaruta_longcannon01_r",
+      "Dispersal Howitzer (Right)": "v_504begaruta_longcannon02_r",
+      "Canister Shot (Right)": "v_504begaruta_longspreadcannon01_r",
+      "Missile Pod (Right)": "v_504begaruta_missile01_r",
+      "Powerdyne MC (Right)": "v_504begaruta_dlc_longcannon015_r",
+      "Explosion (Right)": "v_504begaruta_spreadgrenade01_r",
+      "AI Missile Pod (Right)": "v_504_ai_s_missile01_r"
+  }
+  },
+  "Balam": {
+    "Balam cannon":  "v_501_baram_cannon01",
+    "Balam laser": "v_501_baram_laser01"
+  },
+  "Depth Crawler": {
+    "FKGold Gatling Cannon":  "v_502_groundrobogold_gatling",
+    "Gatling Cannon": "v_502_groundrobo_gatling",
+    "Gold Cannon (Left)":  "v_502_groundrobogold_cannon01_l",
+    "Gold Cannon (Right)": "v_502_groundrobogold_cannon01_r",
+    "Burst Cannon (Left)": "v_502_groundrobo_cannon01b_l",
+    "Burst Cannon (Right)":  "v_502_groundrobo_cannon01b_r",
+    "Compact Cannon (Left)": "v_502_groundrobo_cannon01_l",
+    "Compact Cannon (Right)":  "v_502_groundrobo_cannon01_r",
+    "Incinerator (Left)": "v_502_groundrobo_flamegun01_l",
+    "Incinerator (Right)":  "v_502_groundrobo_flamegun01_r",
+    "Rapid Bazooka (Left)":  "v_502_groundrobo_missile01_l",
+    "Rapid Bazooka (Right)": "v_502_groundrobo_missile01_r",
+    "Shotgun (Left)":  "v_502_groundrobo_shotgun01_l",
+    "Shotgun (Right)": "v_502_groundrobo_shotgun01_r",
+    "Sniper Cannon (Left)":  "v_502_groundrobo_snipe01_l",
+    "Sniper Cannon (Right)": "v_502_groundrobo_snipe01_r"
+  },
+  "Armored Vehicle Grape": {
+    "Howitzer":  "v_401striker_cannon",
+    "Howitzer 2": "v_401striker_cannon02",
+    "Smooth-bore":  "v_401striker_cannons01",
+    "Smooth-bore 2": "v_401striker_cannons02",
+    "Rapid Shotgun":  "v_401striker_dlc_shotcannon01"},
+  "Naegling Rocket": {
+    "Homing Rocket": "v_402rocket_rocketcannon",
+    "Convergence Homing Rocket":  "v_402rocket_rocketcannon02",
+    "Homing Rocket S": "v_402rocket_rocketcannon03",
+    "AI Homing Rocket":  "v_402rocket_rocketcannon_ai",
+    "AI Homing Rocket":  "v_402rocket_ai_rocketcannon"},
+  "Proteus": {
+    "Proteus Cannon": "v_407bigbegaruta_cannon",
+    "Proteus Missiles": "v_407bigbegaruta_missile"
+  },
+  "Helicopter Nereid": {
+    "Unguided Bomb":  "v_409heli_bomb01",
+    "Blaze Gun":  "v_409heli_flamethrower10",
+    "Gatling Gun":  "v_409heli_gatling01",
+    "Rocket Cannon":  "v_409heli_missile01"
+  },
+  "Helicopter Eros": {
+    "Autocannon (Left)":  "v_506heli_gatling01_l",
+    "Autocannon (Right)":  "v_506heli_gatling01_r",
+    "Laser Burst Cannon (Left)":  "v_506heli_lasercannon01_l",
+    "Laser Burst Cannon (Right)":  "v_506heli_lasercannon01_r",
+    "Guided Missiles":  "v_506heli_missile01",
+    "Napalm Bombs":  "v_506heli_napalm01"
+  },
+  "Helicopter Brute": {
+    "Heavy Flame Gun":  "v_410heli_flamethrower10",
+    "Dauntless Heavy Gun":  "v_410heli_gatling01",
+    "Pitbull Quickfire Cannon":  "v_410heli_gatling02",
+    "Dauntless SA Heavy Gun":  "v_410heli_gatling03"
+  },
+  "Bike": {
+    "Machine Gun (Left)":  "v_503_bike_gun_l",
+    "Machine Gun (Right)":  "v_503_bike_gun_r",
+    "Force Saber (Left)":  "v_503_bike_laser_l",
+    "Force Saber (Right)":  "v_503_bike_laser_r",
+    "Bike Missile (Left)":  "v_503_bike_missile_l",
+    "Bike Missile (Right)":  "v_503_bike_missile_r"},
+  "Ambulance": {
+    "Healing":  "v_507_rescueunit01"}
+}

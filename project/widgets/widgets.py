@@ -587,7 +587,7 @@ class DropDownWidget(tk.Frame):
 
 
 class MultiDropDownWidget(tk.LabelFrame):
-    def __init__(self, parent, options, label, isChild=False):
+    def __init__(self, parent, label, options, isChild=False):
         tk.LabelFrame.__init__(self, parent, text=label)
         # self.originalOptions = {getText(key): value for key, value in options.items()}
         self.originalOptions = translateNestedDict(options)

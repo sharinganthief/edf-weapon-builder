@@ -2,7 +2,6 @@
 # from tkinter import ttk
 
 import os
-os.chdir("./project")
 import tkinter as tk
 # import tkinter.ttk as ttk
 
@@ -14,7 +13,6 @@ from tkinter import filedialog
 import logging
 
 from functools import partial
-
 # PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 # PROJECT_UI = os.path.join(PROJECT_PATH, "newproject")
 
@@ -55,7 +53,7 @@ class MainWindow(tk.Frame):
         except Exception:
             logging.exception("Exception when writing json")
         if filename != "":
-            j.writeToJson(j.easyToTypeValue(self.createWeaponEasyData()), filename)
+            j.writeToJson(textData, filename)
 
     def writeWeaponToJson(self):
         curDir = os.path.abspath(".")
@@ -225,6 +223,8 @@ def loadConfig():
 
 
 if __name__ == '__main__':
+    os.chdir("./project")
+    # allEasy = loadDataFromJson("./data/allEasy.json")
     root = tk.Tk()
     mainWindow = MainWindow(root, 1000, 800)
     mainWindow.pack(side="top", fill="both", expand=True)
