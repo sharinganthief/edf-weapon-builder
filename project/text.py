@@ -1,6 +1,7 @@
-language = "en"
 import json
-with open("text.json", "r", encoding="utf8") as f: textData = json.load(f)
+import os
+language = "en"
+with open("./text.json", "r", encoding="utf8") as f: textData = json.load(f)
 
 
 

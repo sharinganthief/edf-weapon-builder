@@ -1,0 +1,2358 @@
+{
+  "v_301tank_ai_cannon01": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 1,
+    "AmmoDamage": 70.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 2.0,
+    "AmmoAlive": 600,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 0,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_301tank_bulletgirl_solid": {
+    "AmmoClass": "SolidBullet01Rail",
+    "AmmoCount": 20,
+    "AmmoDamage": 180.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 150,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 180,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_301tank_edf_laser": {
+    "AmmoClass": "LaserBullet01",
+    "AmmoCount": 50,
+    "AmmoDamage": 90.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 40.0,
+    "AmmoAlive": 30,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 60,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_301tank_natuiro_cannon": {
+    "AmmoClass": "AcidBullet01",
+    "AmmoCount": 9600,
+    "AmmoDamage": 1.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 1.5,
+    "AmmoAlive": 300,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 1,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_401striker_cannon": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 240,
+    "AmmoDamage": 32.0,
+    "AmmoExplosion": 5.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 150,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 20,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_401striker_cannon02": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 240,
+    "AmmoDamage": 45.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 150,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 16,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_401striker_cannons01": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 360,
+    "AmmoDamage": 40.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 150,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 20,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_401striker_cannons02": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 800,
+    "AmmoDamage": 24.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 150,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 10,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_401striker_dlc_shotcannon01": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 400,
+    "AmmoDamage": 4.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 8.0,
+    "AmmoAlive": 50,
+    "FireBurstCount": 5,
+    "FireCount": 10,
+    "FireInterval": 30,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_402rocket_ai_rocketcannon": {
+    "AmmoClass": "MissileBullet01",
+    "AmmoCount": 50,
+    "AmmoDamage": 40.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.10000000149011612,
+    "AmmoAlive": 2400,
+    "FireBurstCount": 10,
+    "FireCount": 1,
+    "FireInterval": 480,
+    "LockonType": 1,
+    "LockonTime": 16,
+    "LockonRange": 700.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_402rocket_rocketcannon": {
+    "AmmoClass": "MissileBullet01",
+    "AmmoCount": 100,
+    "AmmoDamage": 100.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.10000000149011612,
+    "AmmoAlive": 2400,
+    "FireBurstCount": 10,
+    "FireCount": 1,
+    "FireInterval": 240,
+    "LockonType": 1,
+    "LockonTime": 8,
+    "LockonRange": 700.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_402rocket_rocketcannon02": {
+    "AmmoClass": "MissileBullet02",
+    "AmmoCount": 100,
+    "AmmoDamage": 40.0,
+    "AmmoExplosion": 1.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.10000000149011612,
+    "AmmoAlive": 2400,
+    "FireBurstCount": 10,
+    "FireCount": 1,
+    "FireInterval": 240,
+    "LockonType": 1,
+    "LockonTime": 8,
+    "LockonRange": 700.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_402rocket_rocketcannon03": {
+    "AmmoClass": "MissileBullet01",
+    "AmmoCount": 200,
+    "AmmoDamage": 50.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.10000000149011612,
+    "AmmoAlive": 2400,
+    "FireBurstCount": 20,
+    "FireCount": 1,
+    "FireInterval": 240,
+    "LockonType": 1,
+    "LockonTime": 4,
+    "LockonRange": 700.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_402rocket_rocketcannon_ai": {
+    "AmmoClass": "MissileBullet01",
+    "AmmoCount": 200,
+    "AmmoDamage": 100.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.10000000149011612,
+    "AmmoAlive": 2400,
+    "FireBurstCount": 10,
+    "FireCount": 1,
+    "FireInterval": 240,
+    "LockonType": 1,
+    "LockonTime": 8,
+    "LockonRange": 700.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_403tank_ai_cannon01": {
+    "AmmoClass": "SolidBullet01Rail",
+    "AmmoCount": 1,
+    "AmmoDamage": 300.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 10.0,
+    "AmmoAlive": 150,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 1,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_403tank_cannon01": {
+    "AmmoClass": "SolidBullet01Rail",
+    "AmmoCount": 25,
+    "AmmoDamage": 600.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 150,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 180,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_403tank_cannon02": {
+    "AmmoClass": "SolidBullet01Rail",
+    "AmmoCount": 25,
+    "AmmoDamage": 600.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 10.0,
+    "AmmoAlive": 150,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 180,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_403tank_cannon02b": {
+    "AmmoClass": "SolidBullet01Rail",
+    "AmmoCount": 45,
+    "AmmoDamage": 200.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 10.0,
+    "AmmoAlive": 150,
+    "FireBurstCount": 4,
+    "FireCount": 1,
+    "FireInterval": 180,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_403tank_cannon03": {
+    "AmmoClass": "SolidBullet01Rail",
+    "AmmoCount": 25,
+    "AmmoDamage": 600.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 15.0,
+    "AmmoAlive": 150,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 180,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_403tank_machinegun": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 500,
+    "AmmoDamage": 6.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 35,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 4,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_404bigtank_ai_maincannon": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 1,
+    "AmmoDamage": 750.0,
+    "AmmoExplosion": 30.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 8.0,
+    "AmmoAlive": 300,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 0,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_404bigtank_dlc_maincannon": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 12,
+    "AmmoDamage": 750.0,
+    "AmmoExplosion": 30.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 12.0,
+    "AmmoAlive": 300,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 300,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_404bigtank_dlc_meltcannon": {
+    "AmmoClass": "AcidBullet01",
+    "AmmoCount": 3000,
+    "AmmoDamage": 4.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 2.0,
+    "AmmoAlive": 300,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 1,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_404bigtank_gatling": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 900,
+    "AmmoDamage": 10.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 120,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 3,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_404bigtank_maincannon": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 10,
+    "AmmoDamage": 750.0,
+    "AmmoExplosion": 30.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 8.0,
+    "AmmoAlive": 300,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 300,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_404bigtank_sidegrenade_l": {
+    "AmmoClass": "GrenadeBullet01",
+    "AmmoCount": 48,
+    "AmmoDamage": 120.0,
+    "AmmoExplosion": 18.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.5,
+    "AmmoAlive": 240,
+    "FireBurstCount": 8,
+    "FireCount": 1,
+    "FireInterval": 80,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_404bigtank_sidegrenade_r": {
+    "AmmoClass": "GrenadeBullet01",
+    "AmmoCount": 48,
+    "AmmoDamage": 120.0,
+    "AmmoExplosion": 18.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.5,
+    "AmmoAlive": 240,
+    "FireBurstCount": 8,
+    "FireCount": 1,
+    "FireInterval": 80,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_404bigtank_sidemissile_l": {
+    "AmmoClass": "MissileBullet01",
+    "AmmoCount": 48,
+    "AmmoDamage": 100.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.10000000149011612,
+    "AmmoAlive": 2400,
+    "FireBurstCount": 8,
+    "FireCount": 1,
+    "FireInterval": 720,
+    "LockonType": 1,
+    "LockonTime": 16,
+    "LockonRange": 500.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_404bigtank_sidemissile_r": {
+    "AmmoClass": "MissileBullet01",
+    "AmmoCount": 48,
+    "AmmoDamage": 100.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.10000000149011612,
+    "AmmoAlive": 2400,
+    "FireBurstCount": 8,
+    "FireCount": 1,
+    "FireInterval": 720,
+    "LockonType": 1,
+    "LockonTime": 16,
+    "LockonRange": 500.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_404bigtank_subcannon": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 40,
+    "AmmoDamage": 200.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 600,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 80,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_404bigtank_subcannonsolid": {
+    "AmmoClass": "SolidBullet01Rail",
+    "AmmoCount": 80,
+    "AmmoDamage": 80.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 150,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 120,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_407bigbegaruta_cannon": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 200,
+    "AmmoDamage": 120.0,
+    "AmmoExplosion": 10.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 600,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 20,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_407bigbegaruta_missile": {
+    "AmmoClass": "MissileBullet01",
+    "AmmoCount": 200,
+    "AmmoDamage": 50.0,
+    "AmmoExplosion": 5.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 2.0,
+    "AmmoAlive": 1200,
+    "FireBurstCount": 30,
+    "FireCount": 1,
+    "FireInterval": 240,
+    "LockonType": 1,
+    "LockonTime": 5,
+    "LockonRange": 600.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_409heli_bomb01": {
+    "AmmoClass": "GrenadeBullet01",
+    "AmmoCount": 16,
+    "AmmoDamage": 500.0,
+    "AmmoExplosion": 20.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.25,
+    "AmmoAlive": 2400,
+    "FireBurstCount": 4,
+    "FireCount": 1,
+    "FireInterval": 240,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_409heli_flamethrower10": {
+    "AmmoClass": "FlameBullet02",
+    "AmmoCount": 3000,
+    "AmmoDamage": 6.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 1.399999976158142,
+    "AmmoAlive": 60,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 2,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_409heli_gatling01": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 1500,
+    "AmmoDamage": 7.5,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 120,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 3,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_409heli_missile01": {
+    "AmmoClass": "MissileBullet01",
+    "AmmoCount": 48,
+    "AmmoDamage": 120.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.5,
+    "AmmoAlive": 2400,
+    "FireBurstCount": 8,
+    "FireCount": 1,
+    "FireInterval": 120,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_410heli_flamethrower10": {
+    "AmmoClass": "FlameBullet02",
+    "AmmoCount": 2000,
+    "AmmoDamage": 20.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 2.0,
+    "AmmoAlive": 40,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 2,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_410heli_gatling01": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 80,
+    "AmmoDamage": 200.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 120,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 30,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_410heli_gatling02": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 40,
+    "AmmoDamage": 600.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 8.0,
+    "AmmoAlive": 120,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 180,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_410heli_gatling03": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 100,
+    "AmmoDamage": 240.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 120,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 24,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_501_baram_cannon01": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 400,
+    "AmmoDamage": 8.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 120,
+    "FireBurstCount": 50,
+    "FireCount": 1,
+    "FireInterval": 240,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_501_baram_laser01": {
+    "AmmoClass": "LaserBullet01",
+    "AmmoCount": 1200,
+    "AmmoDamage": 4.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 60.0,
+    "AmmoAlive": 8,
+    "FireBurstCount": 300,
+    "FireCount": 1,
+    "FireInterval": 1,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_502_groundrobogold_cannon01_l": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 99,
+    "AmmoDamage": 30.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 40,
+    "FireBurstCount": 3,
+    "FireCount": 1,
+    "FireInterval": 80,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_502_groundrobogold_cannon01_r": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 99,
+    "AmmoDamage": 30.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 40,
+    "FireBurstCount": 3,
+    "FireCount": 1,
+    "FireInterval": 80,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_502_groundrobogold_gatling": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 1800,
+    "AmmoDamage": 15.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 30,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 3,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_502_groundrobo_cannon01b_l": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 120,
+    "AmmoDamage": 30.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 40,
+    "FireBurstCount": 3,
+    "FireCount": 1,
+    "FireInterval": 80,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_502_groundrobo_cannon01b_r": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 120,
+    "AmmoDamage": 30.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 40,
+    "FireBurstCount": 3,
+    "FireCount": 1,
+    "FireInterval": 80,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_502_groundrobo_cannon01_l": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 120,
+    "AmmoDamage": 40.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 40,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 60,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_502_groundrobo_cannon01_r": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 120,
+    "AmmoDamage": 40.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 40,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 60,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_502_groundrobo_flamegun01_l": {
+    "AmmoClass": "FlameBullet02",
+    "AmmoCount": 900,
+    "AmmoDamage": 0.800000011920929,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 1.399999976158142,
+    "AmmoAlive": 30,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 0,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_502_groundrobo_flamegun01_r": {
+    "AmmoClass": "FlameBullet02",
+    "AmmoCount": 900,
+    "AmmoDamage": 0.800000011920929,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 1.399999976158142,
+    "AmmoAlive": 30,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 0,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_502_groundrobo_gatling": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 1600,
+    "AmmoDamage": 10.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 30,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 3,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_502_groundrobo_missile01_l": {
+    "AmmoClass": "MissileBullet01",
+    "AmmoCount": 320,
+    "AmmoDamage": 10.0,
+    "AmmoExplosion": 4.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.10000000149011612,
+    "AmmoAlive": 480,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 10,
+    "LockonType": 0,
+    "LockonTime": 4,
+    "LockonRange": 300.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_502_groundrobo_missile01_r": {
+    "AmmoClass": "MissileBullet01",
+    "AmmoCount": 320,
+    "AmmoDamage": 10.0,
+    "AmmoExplosion": 4.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.10000000149011612,
+    "AmmoAlive": 480,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 10,
+    "LockonType": 0,
+    "LockonTime": 4,
+    "LockonRange": 300.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_502_groundrobo_shotgun01_l": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 45,
+    "AmmoDamage": 4.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 60,
+    "FireBurstCount": 1,
+    "FireCount": 40,
+    "FireInterval": 50,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_502_groundrobo_shotgun01_r": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 45,
+    "AmmoDamage": 4.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 60,
+    "FireBurstCount": 1,
+    "FireCount": 40,
+    "FireInterval": 50,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_502_groundrobo_snipe01_l": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 25,
+    "AmmoDamage": 120.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 12.0,
+    "AmmoAlive": 60,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 120,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_502_groundrobo_snipe01_r": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 25,
+    "AmmoDamage": 120.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 12.0,
+    "AmmoAlive": 60,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 120,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_503_bike_gun_l": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 1200,
+    "AmmoDamage": 15.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 40,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 4,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_503_bike_gun_r": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 1200,
+    "AmmoDamage": 15.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 40,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 4,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_503_bike_laser_l": {
+    "AmmoClass": "LaserBullet01",
+    "AmmoCount": 5000,
+    "AmmoDamage": 8.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 5.0,
+    "AmmoAlive": 5,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 1,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_503_bike_laser_r": {
+    "AmmoClass": "LaserBullet01",
+    "AmmoCount": 5000,
+    "AmmoDamage": 8.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 5.0,
+    "AmmoAlive": 5,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 1,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_503_bike_missile_l": {
+    "AmmoClass": "MissileBullet01",
+    "AmmoCount": 12,
+    "AmmoDamage": 80.0,
+    "AmmoExplosion": 5.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.30000001192092896,
+    "AmmoAlive": 1200,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 120,
+    "LockonType": 3,
+    "LockonTime": 4,
+    "LockonRange": 250.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_503_bike_missile_r": {
+    "AmmoClass": "MissileBullet01",
+    "AmmoCount": 12,
+    "AmmoDamage": 80.0,
+    "AmmoExplosion": 5.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.30000001192092896,
+    "AmmoAlive": 1200,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 120,
+    "LockonType": 3,
+    "LockonTime": 4,
+    "LockonRange": 250.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_cannon01_l": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 20,
+    "AmmoDamage": 100.0,
+    "AmmoExplosion": 5.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 1.0,
+    "AmmoAlive": 600,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 80,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_cannon01_r": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 20,
+    "AmmoDamage": 100.0,
+    "AmmoExplosion": 5.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 1.0,
+    "AmmoAlive": 600,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 80,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_cannon02solid_l": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 72,
+    "AmmoDamage": 100.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 120,
+    "FireBurstCount": 3,
+    "FireCount": 1,
+    "FireInterval": 80,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_cannon02solid_r": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 72,
+    "AmmoDamage": 100.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 120,
+    "FireBurstCount": 3,
+    "FireCount": 1,
+    "FireInterval": 80,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_dlc_longcannon015_l": {
+    "AmmoClass": "LaserBullet01",
+    "AmmoCount": 8,
+    "AmmoDamage": 700.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 30.0,
+    "AmmoAlive": 120,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 80,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_dlc_longcannon015_r": {
+    "AmmoClass": "LaserBullet01",
+    "AmmoCount": 8,
+    "AmmoDamage": 700.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 30.0,
+    "AmmoAlive": 120,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 80,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_flamethrower01": {
+    "AmmoClass": "FlameBullet02",
+    "AmmoCount": 3000,
+    "AmmoDamage": 2.5,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 1.399999976158142,
+    "AmmoAlive": 60,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 2,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_gatling01_l": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 600,
+    "AmmoDamage": 24.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 80,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 5,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_gatling01_r": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 600,
+    "AmmoDamage": 24.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 80,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 5,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_gatling02_l": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 600,
+    "AmmoDamage": 24.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 7.0,
+    "AmmoAlive": 46,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 5,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_gatling02_r": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 600,
+    "AmmoDamage": 24.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 7.0,
+    "AmmoAlive": 46,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 5,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_grenade01_l": {
+    "AmmoClass": "GrenadeBullet01",
+    "AmmoCount": 40,
+    "AmmoDamage": 80.0,
+    "AmmoExplosion": 12.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 2.0,
+    "AmmoAlive": 240,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 40,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_grenade01_r": {
+    "AmmoClass": "GrenadeBullet01",
+    "AmmoCount": 40,
+    "AmmoDamage": 80.0,
+    "AmmoExplosion": 12.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 2.0,
+    "AmmoAlive": 240,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 40,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_grenade_pod01_l": {
+    "AmmoClass": "GrenadeBullet01",
+    "AmmoCount": 40,
+    "AmmoDamage": 60.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 2.0,
+    "AmmoAlive": 240,
+    "FireBurstCount": 8,
+    "FireCount": 1,
+    "FireInterval": 420,
+    "LockonType": 0,
+    "LockonTime": 30,
+    "LockonRange": 500.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_grenade_pod01_r": {
+    "AmmoClass": "GrenadeBullet01",
+    "AmmoCount": 40,
+    "AmmoDamage": 60.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 2.0,
+    "AmmoAlive": 240,
+    "FireBurstCount": 8,
+    "FireCount": 1,
+    "FireInterval": 420,
+    "LockonType": 0,
+    "LockonTime": 30,
+    "LockonRange": 500.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_longcannon015_l": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 10,
+    "AmmoDamage": 400.0,
+    "AmmoExplosion": 20.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 15.0,
+    "AmmoAlive": 300,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 160,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_longcannon015_r": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 10,
+    "AmmoDamage": 400.0,
+    "AmmoExplosion": 20.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 15.0,
+    "AmmoAlive": 300,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 160,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_longcannon01_l": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 10,
+    "AmmoDamage": 400.0,
+    "AmmoExplosion": 20.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 10.0,
+    "AmmoAlive": 300,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 160,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_longcannon01_r": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 10,
+    "AmmoDamage": 400.0,
+    "AmmoExplosion": 20.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 10.0,
+    "AmmoAlive": 300,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 160,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_longcannon02_l": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 12,
+    "AmmoDamage": 50.0,
+    "AmmoExplosion": 15.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 2.0,
+    "AmmoAlive": 1200,
+    "FireBurstCount": 1,
+    "FireCount": 15,
+    "FireInterval": 240,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_longcannon02_r": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 12,
+    "AmmoDamage": 50.0,
+    "AmmoExplosion": 15.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 2.0,
+    "AmmoAlive": 1200,
+    "FireBurstCount": 1,
+    "FireCount": 15,
+    "FireInterval": 240,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_longspreadcannon01_l": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 20,
+    "AmmoDamage": 25.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 60,
+    "FireBurstCount": 1,
+    "FireCount": 10,
+    "FireInterval": 80,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_longspreadcannon01_r": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 20,
+    "AmmoDamage": 25.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 60,
+    "FireBurstCount": 1,
+    "FireCount": 10,
+    "FireInterval": 80,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_missile01_l": {
+    "AmmoClass": "MissileBullet01",
+    "AmmoCount": 40,
+    "AmmoDamage": 80.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.10000000149011612,
+    "AmmoAlive": 1200,
+    "FireBurstCount": 6,
+    "FireCount": 1,
+    "FireInterval": 420,
+    "LockonType": 1,
+    "LockonTime": 30,
+    "LockonRange": 500.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_missile01_r": {
+    "AmmoClass": "MissileBullet01",
+    "AmmoCount": 40,
+    "AmmoDamage": 80.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.10000000149011612,
+    "AmmoAlive": 1200,
+    "FireBurstCount": 6,
+    "FireCount": 1,
+    "FireInterval": 420,
+    "LockonType": 1,
+    "LockonTime": 30,
+    "LockonRange": 500.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_rocket01_l": {
+    "AmmoClass": "MissileBullet01",
+    "AmmoCount": 80,
+    "AmmoDamage": 100.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.10000000149011612,
+    "AmmoAlive": 1200,
+    "FireBurstCount": 6,
+    "FireCount": 1,
+    "FireInterval": 80,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_rocket01_r": {
+    "AmmoClass": "MissileBullet01",
+    "AmmoCount": 80,
+    "AmmoDamage": 100.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.10000000149011612,
+    "AmmoAlive": 1200,
+    "FireBurstCount": 6,
+    "FireCount": 1,
+    "FireInterval": 80,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_spreadgrenade01_l": {
+    "AmmoClass": "GrenadeBullet01",
+    "AmmoCount": 10,
+    "AmmoDamage": 90.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 10,
+    "FireBurstCount": 1,
+    "FireCount": 20,
+    "FireInterval": 120,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504begaruta_spreadgrenade01_r": {
+    "AmmoClass": "GrenadeBullet01",
+    "AmmoCount": 10,
+    "AmmoDamage": 90.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 10,
+    "FireBurstCount": 1,
+    "FireCount": 20,
+    "FireInterval": 120,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504_ai_a_gatling01_l": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 1,
+    "AmmoDamage": 5.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 120,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 0,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504_ai_a_gatling01_r": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 1,
+    "AmmoDamage": 5.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 120,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 0,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504_ai_s_missile01_l": {
+    "AmmoClass": "MissileBullet01",
+    "AmmoCount": 20,
+    "AmmoDamage": 60.0,
+    "AmmoExplosion": 6.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.10000000149011612,
+    "AmmoAlive": 1200,
+    "FireBurstCount": 4,
+    "FireCount": 1,
+    "FireInterval": 420,
+    "LockonType": 1,
+    "LockonTime": 30,
+    "LockonRange": 500.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504_ai_s_missile01_r": {
+    "AmmoClass": "MissileBullet01",
+    "AmmoCount": 20,
+    "AmmoDamage": 60.0,
+    "AmmoExplosion": 6.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.10000000149011612,
+    "AmmoAlive": 1200,
+    "FireBurstCount": 4,
+    "FireCount": 1,
+    "FireInterval": 420,
+    "LockonType": 1,
+    "LockonTime": 30,
+    "LockonRange": 500.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504_h_dlc_laserblade": {
+    "AmmoClass": "LaserBullet01",
+    "AmmoCount": 6000,
+    "AmmoDamage": 8.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 15.0,
+    "AmmoAlive": 5,
+    "FireBurstCount": 300,
+    "FireCount": 1,
+    "FireInterval": 300,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_504_h_machinegun01": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 1250,
+    "AmmoDamage": 12.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 60,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 2,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      0.20000000298023224,
+      1.0
+    ]
+  },
+  "v_505tank_cannon01": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 25,
+    "AmmoDamage": 350.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 3.0,
+    "AmmoAlive": 600,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 180,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_505tank_cannon01s": {
+    "AmmoClass": "SolidBullet01Rail",
+    "AmmoCount": 30,
+    "AmmoDamage": 350.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 9.0,
+    "AmmoAlive": 100,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 150,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_505tank_cannon02": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 25,
+    "AmmoDamage": 400.0,
+    "AmmoExplosion": 11.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 600,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 180,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_505tank_cannon02l": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 25,
+    "AmmoDamage": 300.0,
+    "AmmoExplosion": 11.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 7.0,
+    "AmmoAlive": 600,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 180,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_505tank_cannon02s": {
+    "AmmoClass": "SolidBullet01Rail",
+    "AmmoCount": 30,
+    "AmmoDamage": 350.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 12.0,
+    "AmmoAlive": 100,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 150,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_505tank_cannon03": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 25,
+    "AmmoDamage": 400.0,
+    "AmmoExplosion": 13.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 5.0,
+    "AmmoAlive": 600,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 180,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_505tank_cannon03l": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 25,
+    "AmmoDamage": 300.0,
+    "AmmoExplosion": 13.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 9.0,
+    "AmmoAlive": 600,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 180,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_505tank_cannon04": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 25,
+    "AmmoDamage": 400.0,
+    "AmmoExplosion": 15.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 6.0,
+    "AmmoAlive": 600,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 180,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_505tank_cannon04l": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 25,
+    "AmmoDamage": 300.0,
+    "AmmoExplosion": 15.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 11.0,
+    "AmmoAlive": 600,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 180,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_505tank_dlc_cannon04l": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 32,
+    "AmmoDamage": 400.0,
+    "AmmoExplosion": 15.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 11.0,
+    "AmmoAlive": 600,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 180,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_505tank_dlc_edf4_1_cannon": {
+    "AmmoClass": "GrenadeBullet01",
+    "AmmoCount": 15,
+    "AmmoDamage": 90.0,
+    "AmmoExplosion": 6.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 3.0,
+    "AmmoAlive": 10,
+    "FireBurstCount": 1,
+    "FireCount": 20,
+    "FireInterval": 180,
+    "LockonType": 0,
+    "LockonTime": 30,
+    "LockonRange": 500.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_505tank_dlc_edf5_cannon": {
+    "AmmoClass": "GrenadeBullet01",
+    "AmmoCount": 40,
+    "AmmoDamage": 80.0,
+    "AmmoExplosion": 12.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 2.0,
+    "AmmoAlive": 15,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 60,
+    "LockonType": 0,
+    "LockonTime": 30,
+    "LockonRange": 500.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_505tank_puke": {
+    "AmmoClass": "AcidBullet01",
+    "AmmoCount": 160,
+    "AmmoDamage": 15.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.75,
+    "AmmoAlive": 300,
+    "FireBurstCount": 1,
+    "FireCount": 8,
+    "FireInterval": 30,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_505_tank_ai_cannon01": {
+    "AmmoClass": "RocketBullet01",
+    "AmmoCount": 1,
+    "AmmoDamage": 70.0,
+    "AmmoExplosion": 8.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 2.0,
+    "AmmoAlive": 600,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 0,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_506heli_gatling01_l": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 1800,
+    "AmmoDamage": 10.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 40,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 3,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_506heli_gatling01_r": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 1800,
+    "AmmoDamage": 10.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 1,
+    "AmmoSpeed": 4.0,
+    "AmmoAlive": 40,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 3,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_506heli_lasercannon01_l": {
+    "AmmoClass": "LaserBullet01",
+    "AmmoCount": 150,
+    "AmmoDamage": 100.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 20.0,
+    "AmmoAlive": 60,
+    "FireBurstCount": 5,
+    "FireCount": 1,
+    "FireInterval": 120,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_506heli_lasercannon01_r": {
+    "AmmoClass": "LaserBullet01",
+    "AmmoCount": 150,
+    "AmmoDamage": 100.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 20.0,
+    "AmmoAlive": 60,
+    "FireBurstCount": 5,
+    "FireCount": 1,
+    "FireInterval": 120,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_506heli_missile01": {
+    "AmmoClass": "MissileBullet01",
+    "AmmoCount": 20,
+    "AmmoDamage": 120.0,
+    "AmmoExplosion": 12.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.10000000149011612,
+    "AmmoAlive": 2400,
+    "FireBurstCount": 4,
+    "FireCount": 1,
+    "FireInterval": 300,
+    "LockonType": 1,
+    "LockonTime": 30,
+    "LockonRange": 500.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_506heli_napalm01": {
+    "AmmoClass": "NapalmBullet01",
+    "AmmoCount": 60,
+    "AmmoDamage": 75.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 3.0,
+    "AmmoAlive": 360,
+    "FireBurstCount": 6,
+    "FireCount": 1,
+    "FireInterval": 360,
+    "LockonType": 0,
+    "LockonTime": 30,
+    "LockonRange": 500.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_507_rescueunit01": {
+    "AmmoClass": "",
+    "AmmoCount": 1,
+    "AmmoDamage": 0.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 0.0,
+    "AmmoAlive": 0,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 2,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_510_maser_ai_thunder01": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 180,
+    "AmmoDamage": 10.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 8.0,
+    "AmmoAlive": 75,
+    "FireBurstCount": 180,
+    "FireCount": 1,
+    "FireInterval": 0,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_510_maser_thunder01": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 7000,
+    "AmmoDamage": 5.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 8.0,
+    "AmmoAlive": 75,
+    "FireBurstCount": 1000,
+    "FireCount": 1,
+    "FireInterval": 120,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  },
+  "v_fuel01": {
+    "AmmoClass": "SolidBullet01",
+    "AmmoCount": 1,
+    "AmmoDamage": 0.0,
+    "AmmoExplosion": 0.0,
+    "AmmoIsPenetration": 0,
+    "AmmoSpeed": 1.0,
+    "AmmoAlive": 1,
+    "FireBurstCount": 1,
+    "FireCount": 1,
+    "FireInterval": 1,
+    "LockonType": 0,
+    "LockonTime": 0,
+    "LockonRange": 0.0,
+    "AmmoDamageReduce": [
+      1.0,
+      1.0
+    ]
+  }
+}

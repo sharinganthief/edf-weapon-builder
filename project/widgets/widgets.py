@@ -719,17 +719,17 @@ class MultiDropDownWidget(tk.LabelFrame):
 
 
 class SliderWidget(tk.Frame):
-    def __init__(self, parent, labeltext, min, max, resolution=0, initialvalue="", tooltip="", link=""):
-        if initialvalue =="":
-            initialvalue = (min + max) / 2
+    def __init__(self, parent, labeltext, min, max, resolution=0, initialValue="", tooltip="", link=""):
+        if initialValue == "":
+            initialValue = (min + max) / 2
         if resolution == 0:
             resolution = (max - min) / 100
         tk.Frame.__init__(self, parent)
         # self.inputVar = tk.DoubleVar(self, (min + max) / 2)
         # print(self.inputVar.get())
-        self.inputVar = tk.DoubleVar(self, initialvalue)
+        self.inputVar = tk.DoubleVar(self, initialValue)
         self.input = tk.Scale(self, variable=self.inputVar, from_=min, to=max, orient="horizontal", resolution=resolution, length=inputwidth*6, command=self.updateValue) #, command=self.updateValue)
-        self.input.set(initialvalue)
+        self.input.set(initialValue)
         self.label = tk.Label(self, text=getText(labeltext), width=labelwidth, justify="left", relief="groove", anchor="w")
         self.label.grid(row=0, column=0)
 
@@ -742,7 +742,7 @@ class SliderWidget(tk.Frame):
 
         self.input.grid(row=0, column=1)
 
-        self.v = initialvalue
+        self.v = initialValue
 
 
     # def updateValue(self, *args, **kwargs):

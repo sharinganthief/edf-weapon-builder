@@ -102,7 +102,9 @@ class ClassTab(ScrolledFrame):
 
         self.ammoSize = FreeInputWidget(self.col1, "Ammo size", float, restrictPositive=True, initialValue=1.0)
         self.ammoHitSizeAdjust = FreeInputWidget(self.col1, "Ammo Hit Size Adjust", float, restrictPositive=True, initialValue=1, tooltip="Multiplies(?) the hitbox and surface hit effect")
-        self.ammoOwnerMove = SliderWidget(self.col1, "Inherited player momentum", 0, 1, resolution=0.1, initialvalue=0.0, tooltip="How much of the player's velocity the projectile inherits, 0=none, 1 = all.")
+        self.ammoOwnerMove = SliderWidget(self.col1, "Inherited player momentum", 0, 1, resolution=0.1,
+                                          initialValue=0.0,
+                                          tooltip="How much of the player's velocity the projectile inherits, 0=none, 1 = all.")
         self.spreadOptions = {
             "Normal (cone)": 0,
             "Erratic horizontal": 1,
@@ -111,7 +113,7 @@ class ClassTab(ScrolledFrame):
             "Uniform vertical": 4
         }
         self.fireSpreadType = DropDownWidget(self.col1, "Fire Spread Type", self.spreadOptions)
-        self.fireSpreadWidth = SliderWidget(self.col1, "Fire Spread Width", 0, 1, resolution=0.01, initialvalue=0.0)
+        self.fireSpreadWidth = SliderWidget(self.col1, "Fire Spread Width", 0, 1, resolution=0.01, initialValue=0.0)
         self.ammoHitImpulseAdjust = FreeInputWidget(self.col1, "Ammo Impulse Adjust", float, restrictPositive=True, tooltip="Affects how much force the bullet imparts on the target.\nRanges naturally from 0.0005 to 2.")
         self.ammoGravityFactor = FreeInputWidget(self.col1, "Ammo Gravity Factor", float, tooltip="How fast the bullet falls, negative values cause it to 'fall' upwards.\nTypically 0 for most guns, 1 for grenades. Plasmafall has the highest gravity at 8")
 

@@ -117,7 +117,7 @@ class SoundWidget(tk.LabelFrame):
 #         self.soundStringDisplay = FreeInputWidget(self, getText("sound value"), str)
 #         disableInput(self.soundStringDisplay)
         self.soundChoice = MultiDropDownWidget(self, "Sound", sounds)
-        self.volumeSlider = SliderWidget(self, "Volume", 0, 1, initialvalue=1.0)
+        self.volumeSlider = SliderWidget(self, "Volume", 0, 1, initialValue=1.0)
         self.dampeningSlider = SliderWidget(self, "Dampening?", 0, 2)
         self.unknownValue2 = FreeInputWidget(self, "Unknown Sound float 1", float, initialValue=2, tooltip="Always 2 or 1")
         self.unknownValue3 = FreeInputWidget(self, "Unknown Sound float 2", float, initialValue=25, tooltip="Always 25 or less commonly 20")
@@ -210,7 +210,7 @@ class BasicParamsWidget(tk.LabelFrame):
         self.ammoDamage = StarStructOrFlatWidget(self.col1, "Damage", "AmmoDamage", float, initialvalue=100)
 
         self.falloffFrame = tk.LabelFrame(self.col1, text=getText("Damage Falloff"))
-        self.minDamage = SliderWidget(self.falloffFrame, labeltext="Minimum Damage (%)", min=0, max=1, initialvalue=1.0)
+        self.minDamage = SliderWidget(self.falloffFrame, labeltext="Minimum Damage (%)", min=0, max=1, initialValue=1.0)
         self.falloffFactor = FreeInputWidget(self.falloffFrame, "Falloff Factor", float, initialValue=1.0, tooltip="How quickly the damage falls off. 1 is typical, 4 is very harsh.\nNegative values can cause intense damage ramp up.\nThe exact formula is still being determined")
 
         self.isPenetrate = CheckBoxWidget(self.col1, "Penetrating ammo", 0, 1)
@@ -218,7 +218,8 @@ class BasicParamsWidget(tk.LabelFrame):
         self.ammoExplosion = StarStructOrFlatWidget(self.col2, "Explosion radius (m)", "AmmoExplosion", float, restrictPositive=True, initialvalue=0.0)
 
         self.reloadTime = StarStructOrFlatWidget(self.col2, "Reload time/credits", "ReloadTime", int, p1=1, p2=0.5, inverse=True, restrictPositive=1, initialvalue=60)
-        self.reloadInit = SliderWidget(self.col2, "% Reloaded at mission start", 0, 1, resolution=0.01, tooltip="Guns are normally 100%, Vehicles are normally 50%", initialvalue=1.0)
+        self.reloadInit = SliderWidget(self.col2, "% Reloaded at mission start", 0, 1, resolution=0.01,
+                                       initialValue=1.0, tooltip="Guns are normally 100%, Vehicles are normally 50%")
         self.reloadType = DropDownWidget(self.col2, "Reload type", {"Normal": 0, "Over Time": 1, "Credits": 2})
 
         self.burstFrame = tk.LabelFrame(self.col3, text=getText("Burst settings"))
@@ -1070,8 +1071,10 @@ class StarStructOrFlatWidget(tk.Frame):
         self.saveDataPos.label.configure(bg="yellow")
         self.maxStarLevel = SpinBoxWidget(self, "Max Star Level", 0, 10, tooltip="WARNING! Altering this for an existing weapon may cause unexpected problems with your save!!\nTypically 8 or 10", initialValue=8)
         self.maxStarLevel.label.configure(bg="yellow")
-        self.p1 = SliderWidget(self, "Differential Modifier", 0.01, 1, initialvalue=p1, resolution=0.01, tooltip="Large values increase the difference between the 0☆ and max☆ values\nUsually 0.5, sometimes higher.")
-        self.p2 = SliderWidget(self, "Scaling Harshness", 0.01, 2, initialvalue=p2, resolution=0.01, tooltip="Affects how ☆ scales the stat.\n<1 = diminishing returns\n1 = linear growth\n>1=exponential scaling\nTypically 0.5")
+        self.p1 = SliderWidget(self, "Differential Modifier", 0.01, 1, resolution=0.01, initialValue=p1,
+                               tooltip="Large values increase the difference between the 0☆ and max☆ values\nUsually 0.5, sometimes higher.")
+        self.p2 = SliderWidget(self, "Scaling Harshness", 0.01, 2, resolution=0.01, initialValue=p2,
+                               tooltip="Affects how ☆ scales the stat.\n<1 = diminishing returns\n1 = linear growth\n>1=exponential scaling\nTypically 0.5")
 
 
 

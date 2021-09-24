@@ -1,26 +1,25 @@
-# import tkinter as tk
-# from tkinter import ttk
-
+# # import tkinter as tk
+# # from tkinter import ttk
+#
 import os
-import tkinter as tk
-# import tkinter.ttk as ttk
-
-from jsonBuilder import *
-from widgets.widgets import *
-from widgets.EDFWidgets import *
+if __name__ == '__main__':
+    os.chdir("./project")
+# import tkinter as tk
+# # import tkinter.ttk as ttk
+#
+# from jsonBuilder import *
+# from widgets.widgets import *
+# from widgets.EDFWidgets import *
 from widgets.tabs import *
 from tkinter import filedialog
 import logging
 
-from functools import partial
+# from functools import partial
 # PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 # PROJECT_UI = os.path.join(PROJECT_PATH, "newproject")
 
 global labelwidth
 labelwidth = 20
-
-def dummy():
-    pass
 
 
 class MainWindow(tk.Frame):
@@ -223,7 +222,6 @@ def loadConfig():
 
 
 if __name__ == '__main__':
-    os.chdir("./project")
     # allEasy = loadDataFromJson("./data/allEasy.json")
     root = tk.Tk()
     mainWindow = MainWindow(root, 1000, 800)
