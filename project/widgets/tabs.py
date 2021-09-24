@@ -13,8 +13,6 @@ class ClassTab(ScrolledFrame):
 
         # tk.Frame.__init__(self, parent)
         self.col1 = tk.Frame(self.canvas)
-        self.vehicle = SummonParameter(self.col1)
-        self.vehicle.pack()
         # self.test = MissileBullet02(self.canvas, False)
         self.ammoCust = SolidBullet01(self.canvas, False)
         # self.test = HomingLaserBullet01(self.canvas)
@@ -300,7 +298,7 @@ class ClassTab(ScrolledFrame):
                 "SentryGunBullet01": "SentryGunBullet01",
                 "ShieldBashBullet01": "ShieldBashBullet01",
                 "ShockWaveBullet01": "ShockWaveBullet01",
-                # "SmokeCandleBullet01 - Not implemented yet": "SmokeCandleBullet01",
+                "SmokeCandleBullet01": "SmokeCandleBullet01",
                 # "SmokeCandleBullet02 - Not implemented yet": "SmokeCandleBullet02",
                 "SolidBullet01Rail": "SolidBullet01Rail",
                 # "SolidExpBullet01 - Not implemented yet": "SolidExpBullet01",
@@ -539,8 +537,10 @@ class LockonTab(ScrolledFrame):
 
         self.lockonAngleH = AngleWidget(self.col2, "Lock-on angle (horizontal)")
         self.lockonAngleV = AngleWidget(self.col2, "Lock-on angle (vertical")
-        self.lockonTime = StarStructOrFlatWidget(self.col1, "Lock-on Time", "LockOnTime", int, p1=0.9, p2=1.5, inverse=True, restrictPositive=True, initialvalue=20)
-        self.lockonRange = StarStructOrFlatWidget(self.col2, "Lock-on Range", "LockOnRange", float, p1=0.6, p2=0.9, restrictPositive=True, initialvalue=200)
+        self.lockonTime = StarStructOrFlatWidget(self.col1, "Lock-on Time", "LockOnTime", int, p1=0.9, p2=1.5,
+                                                 initialValue=20, restrictPositive=True, inverse=True)
+        self.lockonRange = StarStructOrFlatWidget(self.col2, "Lock-on Range", "LockOnRange", float, p1=0.6, p2=0.9,
+                                                  initialValue=200, restrictPositive=True)
 
         self.lockonType.pack()
         self.lockonDistributionType.pack()

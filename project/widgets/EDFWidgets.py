@@ -205,26 +205,48 @@ class BasicParamsWidget(tk.LabelFrame):
         self.col2 = tk.Frame(self)
         self.col3 = tk.Frame(self)
 
-        self.ammoCount = StarStructOrFlatWidget(self.col1, "Magazine size", "AmmoCount", int, restrictPositive=True, initialvalue=100)
-        self.fireInterval = StarStructOrFlatWidget(self.col1, "Frames between shots", "FireInterval", int, restrictPositive=True, initialvalue=5, inverse=True)
-        self.ammoDamage = StarStructOrFlatWidget(self.col1, "Damage", "AmmoDamage", float, initialvalue=100)
+        self.ammoCount = StarStructOrFlatWidget(self.col1, "Magazine size", "AmmoCount", int, initialValue=100,
+                                                restrictPositive=True)
+        self.fireInterval = StarStructOrFlatWidget(self.col1, "Frames between shots", "FireInterval", int,
+                                                   initialValue=5, restrictPositive=True, inverse=True)
+        self.ammoDamage = StarStructOrFlatWidget(self.col1, "Damage", "AmmoDamage", float, initialValue=100)
 
         self.falloffFrame = tk.LabelFrame(self.col1, text=getText("Damage Falloff"))
         self.minDamage = SliderWidget(self.falloffFrame, labeltext="Minimum Damage (%)", min=0, max=1, initialValue=1.0)
         self.falloffFactor = FreeInputWidget(self.falloffFrame, "Falloff Factor", float, initialValue=1.0, tooltip="How quickly the damage falls off. 1 is typical, 4 is very harsh.\nNegative values can cause intense damage ramp up.\nThe exact formula is still being determined")
 
         self.isPenetrate = CheckBoxWidget(self.col1, "Penetrating ammo", 0, 1)
-        self.fireCount = StarStructOrFlatWidget(self.col2, "Number of projectiles", "FireCount", int, restrictPositive=True, initialvalue=1)
-        self.ammoExplosion = StarStructOrFlatWidget(self.col2, "Explosion radius (m)", "AmmoExplosion", float, restrictPositive=True, initialvalue=0.0)
+        self.fireCount = StarStructOrFlatWidget(self.col2, "Number of projectiles", "FireCount", int, initialValue=1,
+                                                restrictPositive=True)
+        self.ammoExplosion = StarStructOrFlatWidget(self.col2, "Explosion radius (m)", "AmmoExplosion", float,
+                                                    initialValue=0.0, restrictPositive=True)
 
-        self.reloadTime = StarStructOrFlatWidget(self.col2, "Reload time/credits", "ReloadTime", int, p1=1, p2=0.5, inverse=True, restrictPositive=1, initialvalue=60)
+        self.reloadTime = StarStructOrFlatWidget(self.col2, "Reload time/credits", "ReloadTime", int, p1=1, p2=0.5,
+                                                 initialValue=60, restrictPositive=1, inverse=True)
         self.reloadInit = SliderWidget(self.col2, "% Reloaded at mission start", 0, 1, resolution=0.01,
                                        initialValue=1.0, tooltip="Guns are normally 100%, Vehicles are normally 50%")
         self.reloadType = DropDownWidget(self.col2, "Reload type", {"Normal": 0, "Over Time": 1, "Credits": 2})
 
         self.burstFrame = tk.LabelFrame(self.col3, text=getText("Burst settings"))
         self.fireBurstCount = FreeInputWidget(self.burstFrame, "Burst count", int, restrictPositive=True, initialValue=1)
-        self.fireBurstInterval = FreeInputWidget(self.burstFrame, "Burst interval", int, initialValue=5, restrictPositive=True)
+        self.fireBurstInterval = StarStructOrFlatWidget(self.burstFrame, "Burst interval", "FireBurstInterval", int,
+                                                        restrictPositive=True, inverse=True, p2=1.2)
+
+        self.dps = FreeInputWidget(self.col1, "Damage per second", str)
+        self.totalDamage = FreeInputWidget(self.col1, "Damage per magazine", str)
+        disableInput(self.dps)
+        disableInput(self.totalDamage)
+
+        self.fireInterval.baseValue.inputVar.trace_add("write", self.updateDpsAndDpm)
+        self.minDamage.inputVar.trace_add("write", self.updateDpsAndDpm)
+        self.fireBurstCount.inputVar.trace_add("write", self.updateDpsAndDpm)
+        self.fireBurstInterval.baseValue.inputVar.trace_add("write", self.updateDpsAndDpm)
+        self.ammoCount.baseValue.inputVar.trace_add("write", self.updateDpsAndDpm)
+        self.ammoDamage.baseValue.inputVar.trace_add("write", self.updateDpsAndDpm)
+        self.fireCount.baseValue.inputVar.trace_add("write", self.updateDpsAndDpm)
+
+
+
 
         self.secondaryFireOptions = {
             "None": 0,
@@ -240,13 +262,15 @@ class BasicParamsWidget(tk.LabelFrame):
         self.secondaryFireParameter = FreeInputWidget(self.col3, "Zoom Multiplication", float, restrictPositive=True, initialValue=None)
 
         self.ammoLifetime = FreeInputWidget(self.col3, "Shot lifetime in frames", int, restrictPositive=True, initialValue=60)
-        self.ammoSpeed = StarStructOrFlatWidget(self.col3, "Ammo speed", "AmmoSpeed", float, initialvalue=10, tooltip="Meters per frame")
+        self.ammoSpeedMPS = FreeInputWidget(self.col3, "Ammo speed (m/s)", float)
+        self.ammoSpeed = StarStructOrFlatWidget(self.col3, "Ammo speed (m/frame)", "AmmoSpeed", float, initialValue=10,
+                                                tooltip="Meters per frame")
 
         self.accToolTip = "Spread angle in radians\n"
         for key, value in accDict.items():
             self.accToolTip += f"{key}: {value}\n"
         self.fireAccuracy = StarStructOrFlatWidget(self.col3, "Accuracy", "FireAccuracy", float, p1=3, p2=1,
-                                                   restrictPositive=True, tooltip=self.accToolTip, initialvalue=0.05)
+                                                   initialValue=0.05, restrictPositive=True, tooltip=self.accToolTip)
 
         # callback to updateShotsPerSecondVar whenever fireInterval value is changed
         self.shotsPerSecondVar = tk.DoubleVar(self, 0)
@@ -281,6 +305,8 @@ class BasicParamsWidget(tk.LabelFrame):
         self.ammoCount.pack()
         self.fireInterval.pack()
         self.shotsPerSecond.pack()
+        self.dps.pack()
+        self.totalDamage.pack()
         self.ammoDamage.pack()
         self.minDamage.pack()
         self.falloffFactor.pack()
@@ -343,6 +369,18 @@ class BasicParamsWidget(tk.LabelFrame):
                 "Activate and reload": 3
             }
         self.secondaryFireType.replaceOptionMenuNoCmd(self.secondaryFireOptions)
+
+    def updateDpsAndDpm(self, *args):
+        dps = str(round(((60 / (self.fireInterval.baseValue.value() + 1 + self.fireBurstCount.value() * self.fireBurstInterval.baseValue.value())) *
+                         self.ammoDamage.baseValue.value() * self.fireBurstCount.value() * self.fireCount.baseValue.value()), 2))
+        if self.minDamage.value() != 1.0:
+            dps += " ~ "
+            dps += str(round(
+                ((60 / (self.fireInterval.baseValue.value() + 1 + self.fireBurstCount.value() * self.fireBurstInterval.baseValue.value())) *
+                         self.ammoDamage.baseValue.value() * self.fireBurstCount.value() * self.fireCount.baseValue.value() * self.minDamage.value()), 2))
+        self.dps.setValue(dps)
+        self.totalDamage.setValue(self.ammoDamage.value() * self.ammoCount.value() * self.fireCount.value())
+
 
     def updateReloadSVar(self, *args):
         self.reloadTimeSVar.set(self.reloadTime.value()/60.0)
@@ -1036,6 +1074,7 @@ settingType = {
     "FireAccuracy": 13,
     "ReloadTime": 21,
     "FireInterval": 25,
+    "FireBurstInterval": 29,
     "AmmoExplosion": 32,
     "LockOnRange": 36,
     "LockOnTime": 41,
@@ -1055,7 +1094,8 @@ class StarStructOrFlatWidget(tk.Frame):
     # result = BASE_VALUE * (p1 * (TARGET_LEVEL / 5)^p2 - p1 + 1)
 
 # implementing star-struct values is on hold until the "savedata position" is figured out more
-    def __init__(self, parent, labeltext, varName, varType, p1=0.5, p2=0.5, initialvalue=0, restrictPositive=False, tooltip="", link="", inverse=False):
+    def __init__(self, parent, labeltext, varName, varType, p1=0.5, p2=0.5, initialValue=0, restrictPositive=False,
+                 tooltip="", link="", inverse=False):
         tk.Frame.__init__(self, parent)
         self.flatOrStar = CheckBoxWidget(self, "Star-based", "flat", "star", labelwidth=9, tooltip="Whether this value is based off of a star level or not.", link="https://github.com/KCreator/Earth-Defence-Force-Documentation/wiki/Useful-Formulas-and-other-information#star-level-result-formula")
         self.inverse = inverse
@@ -1065,7 +1105,7 @@ class StarStructOrFlatWidget(tk.Frame):
         self.showButton = tk.Button(self.flatOrStar, text=getText("Show"), command=self.showStarStuff, state="disabled")
         # self.childFrame = tk.Frame()
 
-        self.baseValue = FreeInputWidget(self, labeltext, varType, initialValue=initialvalue, restrictPositive=restrictPositive, tooltip=tooltip, link=link)
+        self.baseValue = FreeInputWidget(self, labeltext, varType, initialValue=initialValue, restrictPositive=restrictPositive, tooltip=tooltip, link=link)
         self.settingType = settingType[varName]
         self.saveDataPos = SpinBoxWidget(self, "Save Data Position", 0, 7, tooltip="WARNING! Altering this for an existing weapon may cause unexpected problems with your save!!\nParameters that share save data positions will have their star values synchronized.\nFor example, FireCount and AmmoDamage are usually linked as the number of projectiles and damage both raise at the same time.")
         self.saveDataPos.label.configure(bg="yellow")
@@ -1078,19 +1118,14 @@ class StarStructOrFlatWidget(tk.Frame):
 
 
 
-        # self.hideOrShowFrame.pack()
         self.hideButton.grid(row=0, column=2)
         self.showButton.grid(row=0, column=3)
 
         self.baseValue.pack()
         self.flatOrStar.pack()
 
-        # self.saveDataPos.pack()
-        # self.maxStarLevel.pack()
-        # self.p1.pack()
-        # self.p2.pack()
+
         self.graph = Graph(self, x_min=0, x_max=self.maxStarLevel.value(), x_tick=1, y_tick=0.5, y_min=0, y_max=1, width=200, height=200)
-        # self.graph.pack()
 
         self.flatOrStar.input.trace_add("write", self.showOrHideStarStuff)
 
@@ -1114,7 +1149,7 @@ class StarStructOrFlatWidget(tk.Frame):
 
     def updateGraph(self, *args):
         # print("updating graph")
-        if self.flatOrStar.value() == "star":
+        if self.flatOrStar.value() == "star" and self.showing:
             if self.baseValue.value() != 0:
                 self.graph.pack_forget()
                 self.graph.destroy()
@@ -1196,19 +1231,13 @@ class StarStructOrFlatWidget(tk.Frame):
             self.p2.pack()
             self.graph.pack()
             self.showing = True
+            self.updateGraph()
 
 
     def starAdjusted(self, starLevel):
-        # print(self.baseValue.value() * (self.p1.value() * (starLevel/5)**self.p2.value() - self.p1.value() + 1))
-        # print(starLevel, (self.p1.value() * (starLevel/5)**self.p2.value() - self.p1.value() + 1))
         p1 = self.p1.value()
         if self.inverse:
             p1 = p1 * -1
-        # print(starLevel, (-self.p1.value() * (starLevel / 5) ** self.p2.value() - self.p1.value() + 1))
         return self.baseValue.value() * (p1 * (starLevel / 5) ** self.p2.value() - p1 + 1)
-        #
-        # if not self.inverse:
-        #     return self.baseValue.value() * (self.p1.value() * (starLevel / 5) ** self.p2.value() - self.p1.value() + 1)
-        # else:
-        #     return self.baseValue.value() * (-self.p1.value() * (starLevel/5)**self.p2.value() - self.p1.value() + 1)
+
 
