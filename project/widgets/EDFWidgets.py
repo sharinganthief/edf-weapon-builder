@@ -88,6 +88,7 @@ class AngleWidget(tk.LabelFrame):
     def setValue(self, v):
         self.input.setValue(radiansToDegrees(v))
 
+
 class SoundWidget(tk.LabelFrame):
 
     def __init__(self, parent, label, returnNoneOr0, tooltip=""):
@@ -244,8 +245,6 @@ class BasicParamsWidget(tk.LabelFrame):
         self.ammoCount.baseValue.inputVar.trace_add("write", self.updateDpsAndDpm)
         self.ammoDamage.baseValue.inputVar.trace_add("write", self.updateDpsAndDpm)
         self.fireCount.baseValue.inputVar.trace_add("write", self.updateDpsAndDpm)
-
-
 
 
         self.secondaryFireOptions = {

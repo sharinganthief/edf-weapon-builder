@@ -19,7 +19,7 @@
       1.0
     ]
   },
-  "v_301tank_ai_cannon01": {
+  "app:/weapon/v_301tank_ai_cannon01.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 1,
     "AmmoDamage": 70.0,
@@ -39,7 +39,7 @@
       1.0
     ]
   },
-  "v_301tank_bulletgirl_solid": {
+  "app:/weapon/v_301tank_bulletgirl_solid.sgo": {
     "AmmoClass": "SolidBullet01Rail",
     "AmmoCount": 20,
     "AmmoDamage": 180.0,
@@ -59,7 +59,7 @@
       1.0
     ]
   },
-  "v_301tank_edf_laser": {
+  "app:/weapon/v_301tank_edf_laser.sgo": {
     "AmmoClass": "LaserBullet01",
     "AmmoCount": 50,
     "AmmoDamage": 90.0,
@@ -79,7 +79,7 @@
       1.0
     ]
   },
-  "v_301tank_natuiro_cannon": {
+  "app:/weapon/v_301tank_natuiro_cannon.sgo": {
     "AmmoClass": "AcidBullet01",
     "AmmoCount": 9600,
     "AmmoDamage": 1.0,
@@ -99,7 +99,7 @@
       1.0
     ]
   },
-  "v_401striker_cannon": {
+  "app:/weapon/v_401striker_cannon.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 240,
     "AmmoDamage": 32.0,
@@ -119,7 +119,7 @@
       1.0
     ]
   },
-  "v_401striker_cannon02": {
+  "app:/weapon/v_401striker_cannon02.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 240,
     "AmmoDamage": 45.0,
@@ -139,7 +139,7 @@
       1.0
     ]
   },
-  "v_401striker_cannons01": {
+  "app:/weapon/v_401striker_cannons01.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 360,
     "AmmoDamage": 40.0,
@@ -159,7 +159,7 @@
       1.0
     ]
   },
-  "v_401striker_cannons02": {
+  "app:/weapon/v_401striker_cannons02.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 800,
     "AmmoDamage": 24.0,
@@ -179,7 +179,7 @@
       1.0
     ]
   },
-  "v_401striker_dlc_shotcannon01": {
+  "app:/weapon/v_401striker_dlc_shotcannon01.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 400,
     "AmmoDamage": 4.0,
@@ -199,7 +199,7 @@
       1.0
     ]
   },
-  "v_402rocket_ai_rocketcannon": {
+  "app:/weapon/v_402rocket_ai_rocketcannon.sgo": {
     "AmmoClass": "MissileBullet01",
     "AmmoCount": 50,
     "AmmoDamage": 40.0,
@@ -219,7 +219,7 @@
       1.0
     ]
   },
-  "v_402rocket_rocketcannon": {
+  "app:/weapon/v_402rocket_rocketcannon.sgo": {
     "AmmoClass": "MissileBullet01",
     "AmmoCount": 100,
     "AmmoDamage": 100.0,
@@ -239,7 +239,7 @@
       1.0
     ]
   },
-  "v_402rocket_rocketcannon02": {
+  "app:/weapon/v_402rocket_rocketcannon02.sgo": {
     "AmmoClass": "MissileBullet02",
     "AmmoCount": 100,
     "AmmoDamage": 40.0,
@@ -259,7 +259,7 @@
       1.0
     ]
   },
-  "v_402rocket_rocketcannon03": {
+  "app:/weapon/v_402rocket_rocketcannon03.sgo": {
     "AmmoClass": "MissileBullet01",
     "AmmoCount": 200,
     "AmmoDamage": 50.0,
@@ -279,7 +279,7 @@
       1.0
     ]
   },
-  "v_402rocket_rocketcannon_ai": {
+  "app:/weapon/v_402rocket_rocketcannon_ai.sgo": {
     "AmmoClass": "MissileBullet01",
     "AmmoCount": 200,
     "AmmoDamage": 100.0,
@@ -299,7 +299,7 @@
       1.0
     ]
   },
-  "v_403tank_ai_cannon01": {
+  "app:/weapon/v_403tank_ai_cannon01.sgo": {
     "AmmoClass": "SolidBullet01Rail",
     "AmmoCount": 1,
     "AmmoDamage": 300.0,
@@ -319,7 +319,7 @@
       1.0
     ]
   },
-  "v_403tank_cannon01": {
+  "app:/weapon/v_403tank_cannon01.sgo": {
     "AmmoClass": "SolidBullet01Rail",
     "AmmoCount": 25,
     "AmmoDamage": 600.0,
@@ -339,7 +339,7 @@
       1.0
     ]
   },
-  "v_403tank_cannon02": {
+  "app:/weapon/v_403tank_cannon02.sgo": {
     "AmmoClass": "SolidBullet01Rail",
     "AmmoCount": 25,
     "AmmoDamage": 600.0,
@@ -359,7 +359,7 @@
       1.0
     ]
   },
-  "v_403tank_cannon02b": {
+  "app:/weapon/v_403tank_cannon02b.sgo": {
     "AmmoClass": "SolidBullet01Rail",
     "AmmoCount": 45,
     "AmmoDamage": 200.0,
@@ -379,7 +379,7 @@
       1.0
     ]
   },
-  "v_403tank_cannon03": {
+  "app:/weapon/v_403tank_cannon03.sgo": {
     "AmmoClass": "SolidBullet01Rail",
     "AmmoCount": 25,
     "AmmoDamage": 600.0,
@@ -399,7 +399,7 @@
       1.0
     ]
   },
-  "v_403tank_machinegun": {
+  "app:/weapon/v_403tank_machinegun.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 500,
     "AmmoDamage": 6.0,
@@ -419,7 +419,7 @@
       1.0
     ]
   },
-  "v_404bigtank_ai_maincannon": {
+  "app:/weapon/v_404bigtank_ai_maincannon.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 1,
     "AmmoDamage": 750.0,
@@ -439,7 +439,7 @@
       1.0
     ]
   },
-  "v_404bigtank_dlc_maincannon": {
+  "app:/weapon/v_404bigtank_dlc_maincannon.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 12,
     "AmmoDamage": 750.0,
@@ -459,7 +459,7 @@
       1.0
     ]
   },
-  "v_404bigtank_dlc_meltcannon": {
+  "app:/weapon/v_404bigtank_dlc_meltcannon.sgo": {
     "AmmoClass": "AcidBullet01",
     "AmmoCount": 3000,
     "AmmoDamage": 4.0,
@@ -479,7 +479,7 @@
       1.0
     ]
   },
-  "v_404bigtank_gatling": {
+  "app:/weapon/v_404bigtank_gatling.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 900,
     "AmmoDamage": 10.0,
@@ -499,7 +499,7 @@
       1.0
     ]
   },
-  "v_404bigtank_maincannon": {
+  "app:/weapon/v_404bigtank_maincannon.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 10,
     "AmmoDamage": 750.0,
@@ -519,7 +519,7 @@
       1.0
     ]
   },
-  "v_404bigtank_sidegrenade_l": {
+  "app:/weapon/v_404bigtank_sidegrenade_l.sgo": {
     "AmmoClass": "GrenadeBullet01",
     "AmmoCount": 48,
     "AmmoDamage": 120.0,
@@ -539,7 +539,7 @@
       1.0
     ]
   },
-  "v_404bigtank_sidegrenade_r": {
+  "app:/weapon/v_404bigtank_sidegrenade_r.sgo": {
     "AmmoClass": "GrenadeBullet01",
     "AmmoCount": 48,
     "AmmoDamage": 120.0,
@@ -559,7 +559,7 @@
       1.0
     ]
   },
-  "v_404bigtank_sidemissile_l": {
+  "app:/weapon/v_404bigtank_sidemissile_l.sgo": {
     "AmmoClass": "MissileBullet01",
     "AmmoCount": 48,
     "AmmoDamage": 100.0,
@@ -579,7 +579,7 @@
       1.0
     ]
   },
-  "v_404bigtank_sidemissile_r": {
+  "app:/weapon/v_404bigtank_sidemissile_r.sgo": {
     "AmmoClass": "MissileBullet01",
     "AmmoCount": 48,
     "AmmoDamage": 100.0,
@@ -599,7 +599,7 @@
       1.0
     ]
   },
-  "v_404bigtank_subcannon": {
+  "app:/weapon/v_404bigtank_subcannon.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 40,
     "AmmoDamage": 200.0,
@@ -619,7 +619,7 @@
       1.0
     ]
   },
-  "v_404bigtank_subcannonsolid": {
+  "app:/weapon/v_404bigtank_subcannonsolid.sgo": {
     "AmmoClass": "SolidBullet01Rail",
     "AmmoCount": 80,
     "AmmoDamage": 80.0,
@@ -639,7 +639,7 @@
       1.0
     ]
   },
-  "v_407bigbegaruta_cannon": {
+  "app:/weapon/v_407bigbegaruta_cannon.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 200,
     "AmmoDamage": 120.0,
@@ -659,7 +659,7 @@
       1.0
     ]
   },
-  "v_407bigbegaruta_missile": {
+  "app:/weapon/v_407bigbegaruta_missile.sgo": {
     "AmmoClass": "MissileBullet01",
     "AmmoCount": 200,
     "AmmoDamage": 50.0,
@@ -679,7 +679,7 @@
       1.0
     ]
   },
-  "v_409heli_bomb01": {
+  "app:/weapon/v_409heli_bomb01.sgo": {
     "AmmoClass": "GrenadeBullet01",
     "AmmoCount": 16,
     "AmmoDamage": 500.0,
@@ -699,7 +699,7 @@
       1.0
     ]
   },
-  "v_409heli_flamethrower10": {
+  "app:/weapon/v_409heli_flamethrower10.sgo": {
     "AmmoClass": "FlameBullet02",
     "AmmoCount": 3000,
     "AmmoDamage": 6.0,
@@ -719,7 +719,7 @@
       1.0
     ]
   },
-  "v_409heli_gatling01": {
+  "app:/weapon/v_409heli_gatling01.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 1500,
     "AmmoDamage": 7.5,
@@ -739,7 +739,7 @@
       1.0
     ]
   },
-  "v_409heli_missile01": {
+  "app:/weapon/v_409heli_missile01.sgo": {
     "AmmoClass": "MissileBullet01",
     "AmmoCount": 48,
     "AmmoDamage": 120.0,
@@ -759,7 +759,7 @@
       1.0
     ]
   },
-  "v_410heli_flamethrower10": {
+  "app:/weapon/v_410heli_flamethrower10.sgo": {
     "AmmoClass": "FlameBullet02",
     "AmmoCount": 2000,
     "AmmoDamage": 20.0,
@@ -779,7 +779,7 @@
       1.0
     ]
   },
-  "v_410heli_gatling01": {
+  "app:/weapon/v_410heli_gatling01.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 80,
     "AmmoDamage": 200.0,
@@ -799,7 +799,7 @@
       1.0
     ]
   },
-  "v_410heli_gatling02": {
+  "app:/weapon/v_410heli_gatling02.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 40,
     "AmmoDamage": 600.0,
@@ -819,7 +819,7 @@
       1.0
     ]
   },
-  "v_410heli_gatling03": {
+  "app:/weapon/v_410heli_gatling03.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 100,
     "AmmoDamage": 240.0,
@@ -839,7 +839,7 @@
       1.0
     ]
   },
-  "v_501_baram_cannon01": {
+  "app:/weapon/v_501_baram_cannon01.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 400,
     "AmmoDamage": 8.0,
@@ -859,7 +859,7 @@
       1.0
     ]
   },
-  "v_501_baram_laser01": {
+  "app:/weapon/v_501_baram_laser01.sgo": {
     "AmmoClass": "LaserBullet01",
     "AmmoCount": 1200,
     "AmmoDamage": 4.0,
@@ -879,7 +879,7 @@
       1.0
     ]
   },
-  "v_502_groundrobogold_cannon01_l": {
+  "app:/weapon/v_502_groundrobogold_cannon01_l.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 99,
     "AmmoDamage": 30.0,
@@ -899,7 +899,7 @@
       1.0
     ]
   },
-  "v_502_groundrobogold_cannon01_r": {
+  "app:/weapon/v_502_groundrobogold_cannon01_r.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 99,
     "AmmoDamage": 30.0,
@@ -919,7 +919,7 @@
       1.0
     ]
   },
-  "v_502_groundrobogold_gatling": {
+  "app:/weapon/v_502_groundrobogold_gatling.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 1800,
     "AmmoDamage": 15.0,
@@ -939,7 +939,7 @@
       1.0
     ]
   },
-  "v_502_groundrobo_cannon01b_l": {
+  "app:/weapon/v_502_groundrobo_cannon01b_l.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 120,
     "AmmoDamage": 30.0,
@@ -959,7 +959,7 @@
       1.0
     ]
   },
-  "v_502_groundrobo_cannon01b_r": {
+  "app:/weapon/v_502_groundrobo_cannon01b_r.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 120,
     "AmmoDamage": 30.0,
@@ -979,7 +979,7 @@
       1.0
     ]
   },
-  "v_502_groundrobo_cannon01_l": {
+  "app:/weapon/v_502_groundrobo_cannon01_l.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 120,
     "AmmoDamage": 40.0,
@@ -999,7 +999,7 @@
       1.0
     ]
   },
-  "v_502_groundrobo_cannon01_r": {
+  "app:/weapon/v_502_groundrobo_cannon01_r.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 120,
     "AmmoDamage": 40.0,
@@ -1019,7 +1019,7 @@
       1.0
     ]
   },
-  "v_502_groundrobo_flamegun01_l": {
+  "app:/weapon/v_502_groundrobo_flamegun01_l.sgo": {
     "AmmoClass": "FlameBullet02",
     "AmmoCount": 900,
     "AmmoDamage": 0.800000011920929,
@@ -1039,7 +1039,7 @@
       1.0
     ]
   },
-  "v_502_groundrobo_flamegun01_r": {
+  "app:/weapon/v_502_groundrobo_flamegun01_r.sgo": {
     "AmmoClass": "FlameBullet02",
     "AmmoCount": 900,
     "AmmoDamage": 0.800000011920929,
@@ -1059,7 +1059,7 @@
       1.0
     ]
   },
-  "v_502_groundrobo_gatling": {
+  "app:/weapon/v_502_groundrobo_gatling.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 1600,
     "AmmoDamage": 10.0,
@@ -1079,7 +1079,7 @@
       1.0
     ]
   },
-  "v_502_groundrobo_missile01_l": {
+  "app:/weapon/v_502_groundrobo_missile01_l.sgo": {
     "AmmoClass": "MissileBullet01",
     "AmmoCount": 320,
     "AmmoDamage": 10.0,
@@ -1099,7 +1099,7 @@
       1.0
     ]
   },
-  "v_502_groundrobo_missile01_r": {
+  "app:/weapon/v_502_groundrobo_missile01_r.sgo": {
     "AmmoClass": "MissileBullet01",
     "AmmoCount": 320,
     "AmmoDamage": 10.0,
@@ -1119,7 +1119,7 @@
       1.0
     ]
   },
-  "v_502_groundrobo_shotgun01_l": {
+  "app:/weapon/v_502_groundrobo_shotgun01_l.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 45,
     "AmmoDamage": 4.0,
@@ -1139,7 +1139,7 @@
       1.0
     ]
   },
-  "v_502_groundrobo_shotgun01_r": {
+  "app:/weapon/v_502_groundrobo_shotgun01_r.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 45,
     "AmmoDamage": 4.0,
@@ -1159,7 +1159,7 @@
       1.0
     ]
   },
-  "v_502_groundrobo_snipe01_l": {
+  "app:/weapon/v_502_groundrobo_snipe01_l.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 25,
     "AmmoDamage": 120.0,
@@ -1179,7 +1179,7 @@
       1.0
     ]
   },
-  "v_502_groundrobo_snipe01_r": {
+  "app:/weapon/v_502_groundrobo_snipe01_r.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 25,
     "AmmoDamage": 120.0,
@@ -1199,7 +1199,7 @@
       1.0
     ]
   },
-  "v_503_bike_gun_l": {
+  "app:/weapon/v_503_bike_gun_l.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 1200,
     "AmmoDamage": 15.0,
@@ -1219,7 +1219,7 @@
       1.0
     ]
   },
-  "v_503_bike_gun_r": {
+  "app:/weapon/v_503_bike_gun_r.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 1200,
     "AmmoDamage": 15.0,
@@ -1239,7 +1239,7 @@
       1.0
     ]
   },
-  "v_503_bike_laser_l": {
+  "app:/weapon/v_503_bike_laser_l.sgo": {
     "AmmoClass": "LaserBullet01",
     "AmmoCount": 5000,
     "AmmoDamage": 8.0,
@@ -1259,7 +1259,7 @@
       1.0
     ]
   },
-  "v_503_bike_laser_r": {
+  "app:/weapon/v_503_bike_laser_r.sgo": {
     "AmmoClass": "LaserBullet01",
     "AmmoCount": 5000,
     "AmmoDamage": 8.0,
@@ -1279,7 +1279,7 @@
       1.0
     ]
   },
-  "v_503_bike_missile_l": {
+  "app:/weapon/v_503_bike_missile_l.sgo": {
     "AmmoClass": "MissileBullet01",
     "AmmoCount": 12,
     "AmmoDamage": 80.0,
@@ -1299,7 +1299,7 @@
       1.0
     ]
   },
-  "v_503_bike_missile_r": {
+  "app:/weapon/v_503_bike_missile_r.sgo": {
     "AmmoClass": "MissileBullet01",
     "AmmoCount": 12,
     "AmmoDamage": 80.0,
@@ -1319,7 +1319,7 @@
       1.0
     ]
   },
-  "v_504begaruta_cannon01_l": {
+  "app:/weapon/v_504begaruta_cannon01_l.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 20,
     "AmmoDamage": 100.0,
@@ -1339,7 +1339,7 @@
       1.0
     ]
   },
-  "v_504begaruta_cannon01_r": {
+  "app:/weapon/v_504begaruta_cannon01_r.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 20,
     "AmmoDamage": 100.0,
@@ -1359,7 +1359,7 @@
       1.0
     ]
   },
-  "v_504begaruta_cannon02solid_l": {
+  "app:/weapon/v_504begaruta_cannon02solid_l.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 72,
     "AmmoDamage": 100.0,
@@ -1379,7 +1379,7 @@
       1.0
     ]
   },
-  "v_504begaruta_cannon02solid_r": {
+  "app:/weapon/v_504begaruta_cannon02solid_r.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 72,
     "AmmoDamage": 100.0,
@@ -1399,7 +1399,7 @@
       1.0
     ]
   },
-  "v_504begaruta_dlc_longcannon015_l": {
+  "app:/weapon/v_504begaruta_dlc_longcannon015_l.sgo": {
     "AmmoClass": "LaserBullet01",
     "AmmoCount": 8,
     "AmmoDamage": 700.0,
@@ -1419,7 +1419,7 @@
       1.0
     ]
   },
-  "v_504begaruta_dlc_longcannon015_r": {
+  "app:/weapon/v_504begaruta_dlc_longcannon015_r.sgo": {
     "AmmoClass": "LaserBullet01",
     "AmmoCount": 8,
     "AmmoDamage": 700.0,
@@ -1439,7 +1439,7 @@
       1.0
     ]
   },
-  "v_504begaruta_flamethrower01": {
+  "app:/weapon/v_504begaruta_flamethrower01.sgo": {
     "AmmoClass": "FlameBullet02",
     "AmmoCount": 3000,
     "AmmoDamage": 2.5,
@@ -1459,7 +1459,7 @@
       1.0
     ]
   },
-  "v_504begaruta_gatling01_l": {
+  "app:/weapon/v_504begaruta_gatling01_l.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 600,
     "AmmoDamage": 24.0,
@@ -1479,7 +1479,7 @@
       1.0
     ]
   },
-  "v_504begaruta_gatling01_r": {
+  "app:/weapon/v_504begaruta_gatling01_r.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 600,
     "AmmoDamage": 24.0,
@@ -1499,7 +1499,7 @@
       1.0
     ]
   },
-  "v_504begaruta_gatling02_l": {
+  "app:/weapon/v_504begaruta_gatling02_l.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 600,
     "AmmoDamage": 24.0,
@@ -1519,7 +1519,7 @@
       1.0
     ]
   },
-  "v_504begaruta_gatling02_r": {
+  "app:/weapon/v_504begaruta_gatling02_r.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 600,
     "AmmoDamage": 24.0,
@@ -1539,7 +1539,7 @@
       1.0
     ]
   },
-  "v_504begaruta_grenade01_l": {
+  "app:/weapon/v_504begaruta_grenade01_l.sgo": {
     "AmmoClass": "GrenadeBullet01",
     "AmmoCount": 40,
     "AmmoDamage": 80.0,
@@ -1559,7 +1559,7 @@
       1.0
     ]
   },
-  "v_504begaruta_grenade01_r": {
+  "app:/weapon/v_504begaruta_grenade01_r.sgo": {
     "AmmoClass": "GrenadeBullet01",
     "AmmoCount": 40,
     "AmmoDamage": 80.0,
@@ -1579,7 +1579,7 @@
       1.0
     ]
   },
-  "v_504begaruta_grenade_pod01_l": {
+  "app:/weapon/v_504begaruta_grenade_pod01_l.sgo": {
     "AmmoClass": "GrenadeBullet01",
     "AmmoCount": 40,
     "AmmoDamage": 60.0,
@@ -1599,7 +1599,7 @@
       1.0
     ]
   },
-  "v_504begaruta_grenade_pod01_r": {
+  "app:/weapon/v_504begaruta_grenade_pod01_r.sgo": {
     "AmmoClass": "GrenadeBullet01",
     "AmmoCount": 40,
     "AmmoDamage": 60.0,
@@ -1619,7 +1619,7 @@
       1.0
     ]
   },
-  "v_504begaruta_longcannon015_l": {
+  "app:/weapon/v_504begaruta_longcannon015_l.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 10,
     "AmmoDamage": 400.0,
@@ -1639,7 +1639,7 @@
       1.0
     ]
   },
-  "v_504begaruta_longcannon015_r": {
+  "app:/weapon/v_504begaruta_longcannon015_r.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 10,
     "AmmoDamage": 400.0,
@@ -1659,7 +1659,7 @@
       1.0
     ]
   },
-  "v_504begaruta_longcannon01_l": {
+  "app:/weapon/v_504begaruta_longcannon01_l.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 10,
     "AmmoDamage": 400.0,
@@ -1679,7 +1679,7 @@
       1.0
     ]
   },
-  "v_504begaruta_longcannon01_r": {
+  "app:/weapon/v_504begaruta_longcannon01_r.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 10,
     "AmmoDamage": 400.0,
@@ -1699,7 +1699,7 @@
       1.0
     ]
   },
-  "v_504begaruta_longcannon02_l": {
+  "app:/weapon/v_504begaruta_longcannon02_l.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 12,
     "AmmoDamage": 50.0,
@@ -1719,7 +1719,7 @@
       1.0
     ]
   },
-  "v_504begaruta_longcannon02_r": {
+  "app:/weapon/v_504begaruta_longcannon02_r.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 12,
     "AmmoDamage": 50.0,
@@ -1739,7 +1739,7 @@
       1.0
     ]
   },
-  "v_504begaruta_longspreadcannon01_l": {
+  "app:/weapon/v_504begaruta_longspreadcannon01_l.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 20,
     "AmmoDamage": 25.0,
@@ -1759,7 +1759,7 @@
       1.0
     ]
   },
-  "v_504begaruta_longspreadcannon01_r": {
+  "app:/weapon/v_504begaruta_longspreadcannon01_r.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 20,
     "AmmoDamage": 25.0,
@@ -1779,7 +1779,7 @@
       1.0
     ]
   },
-  "v_504begaruta_missile01_l": {
+  "app:/weapon/v_504begaruta_missile01_l.sgo": {
     "AmmoClass": "MissileBullet01",
     "AmmoCount": 40,
     "AmmoDamage": 80.0,
@@ -1799,7 +1799,7 @@
       1.0
     ]
   },
-  "v_504begaruta_missile01_r": {
+  "app:/weapon/v_504begaruta_missile01_r.sgo": {
     "AmmoClass": "MissileBullet01",
     "AmmoCount": 40,
     "AmmoDamage": 80.0,
@@ -1819,7 +1819,7 @@
       1.0
     ]
   },
-  "v_504begaruta_rocket01_l": {
+  "app:/weapon/v_504begaruta_rocket01_l.sgo": {
     "AmmoClass": "MissileBullet01",
     "AmmoCount": 80,
     "AmmoDamage": 100.0,
@@ -1839,7 +1839,7 @@
       1.0
     ]
   },
-  "v_504begaruta_rocket01_r": {
+  "app:/weapon/v_504begaruta_rocket01_r.sgo": {
     "AmmoClass": "MissileBullet01",
     "AmmoCount": 80,
     "AmmoDamage": 100.0,
@@ -1859,7 +1859,7 @@
       1.0
     ]
   },
-  "v_504begaruta_spreadgrenade01_l": {
+  "app:/weapon/v_504begaruta_spreadgrenade01_l.sgo": {
     "AmmoClass": "GrenadeBullet01",
     "AmmoCount": 10,
     "AmmoDamage": 90.0,
@@ -1879,7 +1879,7 @@
       1.0
     ]
   },
-  "v_504begaruta_spreadgrenade01_r": {
+  "app:/weapon/v_504begaruta_spreadgrenade01_r.sgo": {
     "AmmoClass": "GrenadeBullet01",
     "AmmoCount": 10,
     "AmmoDamage": 90.0,
@@ -1899,7 +1899,7 @@
       1.0
     ]
   },
-  "v_504_ai_a_gatling01_l": {
+  "app:/weapon/v_504_ai_a_gatling01_l.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 1,
     "AmmoDamage": 5.0,
@@ -1919,7 +1919,7 @@
       1.0
     ]
   },
-  "v_504_ai_a_gatling01_r": {
+  "app:/weapon/v_504_ai_a_gatling01_r.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 1,
     "AmmoDamage": 5.0,
@@ -1939,7 +1939,7 @@
       1.0
     ]
   },
-  "v_504_ai_s_missile01_l": {
+  "app:/weapon/v_504_ai_s_missile01_l.sgo": {
     "AmmoClass": "MissileBullet01",
     "AmmoCount": 20,
     "AmmoDamage": 60.0,
@@ -1959,7 +1959,7 @@
       1.0
     ]
   },
-  "v_504_ai_s_missile01_r": {
+  "app:/weapon/v_504_ai_s_missile01_r.sgo": {
     "AmmoClass": "MissileBullet01",
     "AmmoCount": 20,
     "AmmoDamage": 60.0,
@@ -1979,7 +1979,7 @@
       1.0
     ]
   },
-  "v_504_h_dlc_laserblade": {
+  "app:/weapon/v_504_h_dlc_laserblade.sgo": {
     "AmmoClass": "LaserBullet01",
     "AmmoCount": 6000,
     "AmmoDamage": 8.0,
@@ -1999,7 +1999,7 @@
       1.0
     ]
   },
-  "v_504_h_machinegun01": {
+  "app:/weapon/v_504_h_machinegun01.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 1250,
     "AmmoDamage": 12.0,
@@ -2019,7 +2019,7 @@
       1.0
     ]
   },
-  "v_505tank_cannon01": {
+  "app:/weapon/v_505tank_cannon01.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 25,
     "AmmoDamage": 350.0,
@@ -2039,7 +2039,7 @@
       1.0
     ]
   },
-  "v_505tank_cannon01s": {
+  "app:/weapon/v_505tank_cannon01s.sgo": {
     "AmmoClass": "SolidBullet01Rail",
     "AmmoCount": 30,
     "AmmoDamage": 350.0,
@@ -2059,7 +2059,7 @@
       1.0
     ]
   },
-  "v_505tank_cannon02": {
+  "app:/weapon/v_505tank_cannon02.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 25,
     "AmmoDamage": 400.0,
@@ -2079,7 +2079,7 @@
       1.0
     ]
   },
-  "v_505tank_cannon02l": {
+  "app:/weapon/v_505tank_cannon02l.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 25,
     "AmmoDamage": 300.0,
@@ -2099,7 +2099,7 @@
       1.0
     ]
   },
-  "v_505tank_cannon02s": {
+  "app:/weapon/v_505tank_cannon02s.sgo": {
     "AmmoClass": "SolidBullet01Rail",
     "AmmoCount": 30,
     "AmmoDamage": 350.0,
@@ -2119,7 +2119,7 @@
       1.0
     ]
   },
-  "v_505tank_cannon03": {
+  "app:/weapon/v_505tank_cannon03.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 25,
     "AmmoDamage": 400.0,
@@ -2139,7 +2139,7 @@
       1.0
     ]
   },
-  "v_505tank_cannon03l": {
+  "app:/weapon/v_505tank_cannon03l.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 25,
     "AmmoDamage": 300.0,
@@ -2159,7 +2159,7 @@
       1.0
     ]
   },
-  "v_505tank_cannon04": {
+  "app:/weapon/v_505tank_cannon04.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 25,
     "AmmoDamage": 400.0,
@@ -2179,7 +2179,7 @@
       1.0
     ]
   },
-  "v_505tank_cannon04l": {
+  "app:/weapon/v_505tank_cannon04l.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 25,
     "AmmoDamage": 300.0,
@@ -2199,7 +2199,7 @@
       1.0
     ]
   },
-  "v_505tank_dlc_cannon04l": {
+  "app:/weapon/v_505tank_dlc_cannon04l.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 32,
     "AmmoDamage": 400.0,
@@ -2219,7 +2219,7 @@
       1.0
     ]
   },
-  "v_505tank_dlc_edf4_1_cannon": {
+  "app:/weapon/v_505tank_dlc_edf4_1_cannon.sgo": {
     "AmmoClass": "GrenadeBullet01",
     "AmmoCount": 15,
     "AmmoDamage": 90.0,
@@ -2239,7 +2239,7 @@
       1.0
     ]
   },
-  "v_505tank_dlc_edf5_cannon": {
+  "app:/weapon/v_505tank_dlc_edf5_cannon.sgo": {
     "AmmoClass": "GrenadeBullet01",
     "AmmoCount": 40,
     "AmmoDamage": 80.0,
@@ -2259,7 +2259,7 @@
       1.0
     ]
   },
-  "v_505tank_puke": {
+  "app:/weapon/v_505tank_puke.sgo": {
     "AmmoClass": "AcidBullet01",
     "AmmoCount": 160,
     "AmmoDamage": 15.0,
@@ -2279,7 +2279,7 @@
       1.0
     ]
   },
-  "v_505_tank_ai_cannon01": {
+  "app:/weapon/v_505_tank_ai_cannon01.sgo": {
     "AmmoClass": "RocketBullet01",
     "AmmoCount": 1,
     "AmmoDamage": 70.0,
@@ -2299,7 +2299,7 @@
       1.0
     ]
   },
-  "v_506heli_gatling01_l": {
+  "app:/weapon/v_506heli_gatling01_l.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 1800,
     "AmmoDamage": 10.0,
@@ -2319,7 +2319,7 @@
       1.0
     ]
   },
-  "v_506heli_gatling01_r": {
+  "app:/weapon/v_506heli_gatling01_r.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 1800,
     "AmmoDamage": 10.0,
@@ -2339,7 +2339,7 @@
       1.0
     ]
   },
-  "v_506heli_lasercannon01_l": {
+  "app:/weapon/v_506heli_lasercannon01_l.sgo": {
     "AmmoClass": "LaserBullet01",
     "AmmoCount": 150,
     "AmmoDamage": 100.0,
@@ -2359,7 +2359,7 @@
       1.0
     ]
   },
-  "v_506heli_lasercannon01_r": {
+  "app:/weapon/v_506heli_lasercannon01_r.sgo": {
     "AmmoClass": "LaserBullet01",
     "AmmoCount": 150,
     "AmmoDamage": 100.0,
@@ -2379,7 +2379,7 @@
       1.0
     ]
   },
-  "v_506heli_missile01": {
+  "app:/weapon/v_506heli_missile01.sgo": {
     "AmmoClass": "MissileBullet01",
     "AmmoCount": 20,
     "AmmoDamage": 120.0,
@@ -2399,7 +2399,7 @@
       1.0
     ]
   },
-  "v_506heli_napalm01": {
+  "app:/weapon/v_506heli_napalm01.sgo": {
     "AmmoClass": "NapalmBullet01",
     "AmmoCount": 60,
     "AmmoDamage": 75.0,
@@ -2419,7 +2419,7 @@
       1.0
     ]
   },
-  "v_507_rescueunit01": {
+  "app:/weapon/v_507_rescueunit01.sgo": {
     "AmmoClass": "",
     "AmmoCount": 1,
     "AmmoDamage": 0.0,
@@ -2439,7 +2439,7 @@
       1.0
     ]
   },
-  "v_510_maser_ai_thunder01": {
+  "app:/weapon/v_510_maser_ai_thunder01.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 180,
     "AmmoDamage": 10.0,
@@ -2459,7 +2459,7 @@
       1.0
     ]
   },
-  "v_510_maser_thunder01": {
+  "app:/weapon/v_510_maser_thunder01.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 7000,
     "AmmoDamage": 5.0,
@@ -2479,7 +2479,7 @@
       1.0
     ]
   },
-  "v_fuel01": {
+  "app:/weapon/v_fuel01.sgo": {
     "AmmoClass": "SolidBullet01",
     "AmmoCount": 1,
     "AmmoDamage": 0.0,

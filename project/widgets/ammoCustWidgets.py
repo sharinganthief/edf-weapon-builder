@@ -1,4 +1,5 @@
 from widgets.EDFWidgets import *
+from widgets.vehicleSummon import *
 import math
 
 # e = j.loadDataFromJson("./data/alleasy.json")
@@ -7,41 +8,71 @@ ammoCust = j.loadDataFromJson("./data/ammoCust.json")
 
 
 def ammoCustWidgetFromAmmoClass(parent, ammoClass, isSubProjectile):
-    if ammoClass == "SolidBullet01": return SolidBullet01(parent, isSubProjectile)
-    elif ammoClass == "AcidBullet01": return AcidBullet01(parent)
-    elif ammoClass == "BarrierBullet01": return BarrierBullet01(parent)
-    elif ammoClass == "BombBullet01": return BombBullet01(parent)
-    elif ammoClass == "BombBullet02": return BombBullet02(parent)
-    elif ammoClass == "ClusterBullet01": return ClusterBullet01(parent)
+    if ammoClass == "SolidBullet01":
+        return SolidBullet01(parent, isSubProjectile)
+    elif ammoClass == "AcidBullet01":
+        return AcidBullet01(parent)
+    elif ammoClass == "BarrierBullet01":
+        return BarrierBullet01(parent)
+    elif ammoClass == "BombBullet01":
+        return BombBullet01(parent)
+    elif ammoClass == "BombBullet02":
+        return BombBullet02(parent)
+    elif ammoClass == "ClusterBullet01":
+        return ClusterBullet01(parent)
     # elif ammoClass == "DecoyBullet01": #     return DecoyBullet01(parent)
-    elif ammoClass == "FlameBullet02": return FlameBullet02(parent)
-    elif ammoClass == "GrenadeBullet01": return GrenadeBullet01(parent)
-    elif ammoClass == "HomingLaserBullet01": return HomingLaserBullet01(parent)
-    elif ammoClass == "LaserBullet01": return LaserBullet01(parent)
-    elif ammoClass == "LaserBullet02": return LaserBullet02(parent)
-    elif ammoClass == "LaserBullet03": return LaserBullet03(parent)
-    elif ammoClass == "LightningBullet01": return LightningBullet01(parent)
-    elif ammoClass == "MissileBullet01": return MissileBullet01(parent, isSubProjectile)
-    elif ammoClass == "MissileBullet02": return MissileBullet02(parent, isSubProjectile)
-    elif ammoClass == "NapalmBullet01": return NapalmBullet01(parent, isSubProjectile)
-    elif ammoClass == "NeedleBullet01": return NeedleBullet01(parent)
-    elif ammoClass == "PileBunkerBullet01": return PileBunkerBullet01(parent, isSubProjectile)
-    elif ammoClass == "PlasmaBullet01": return PlasmaBullet01(parent)
-    elif ammoClass == "PulseBullet01": return PulseBullet01(parent)
-    elif ammoClass == "RocketBullet01": return RocketBullet01(parent)
-    elif ammoClass == "SentryGunBullet01": return SentryGunBullet01(parent, isSubProjectile)
-    elif ammoClass == "ShieldBashBullet01": return ShieldBashBullet01(parent)
-    elif ammoClass == "ShockWaveBullet01": return ShockWaveBullet01(parent)
-    elif ammoClass == "SmokeCandleBullet01": return SmokeCandleBullet01(parent)
-    elif ammoClass == "SmokeCandleBullet02": return SmokeCandleBullet02(parent)
-    elif ammoClass == "SolidBullet01Rail": return SolidBullet01Rail(parent)
-    elif ammoClass == "SolidExpBullet01": return SolidExpBullet01(parent)
-    elif ammoClass == "SolidPelletBullet01": return SolidPelletBullet01(parent)
-    elif ammoClass == "SpiderStringBullet02": return SpiderStringBullet02(parent)
-    elif ammoClass == "SupportUnitBullet01": return SupportUnitBullet01(parent)
-    elif ammoClass == "TargetMarkerBullet01": return TargetMarkerBullet01(parent)
-
-        
+    elif ammoClass == "FlameBullet02":
+        return FlameBullet02(parent)
+    elif ammoClass == "GrenadeBullet01":
+        return GrenadeBullet01(parent)
+    elif ammoClass == "HomingLaserBullet01":
+        return HomingLaserBullet01(parent)
+    elif ammoClass == "LaserBullet01":
+        return LaserBullet01(parent)
+    elif ammoClass == "LaserBullet02":
+        return LaserBullet02(parent)
+    elif ammoClass == "LaserBullet03":
+        return LaserBullet03(parent)
+    elif ammoClass == "LightningBullet01":
+        return LightningBullet01(parent)
+    elif ammoClass == "MissileBullet01":
+        return MissileBullet01(parent, isSubProjectile)
+    elif ammoClass == "MissileBullet02":
+        return MissileBullet02(parent, isSubProjectile)
+    elif ammoClass == "NapalmBullet01":
+        return NapalmBullet01(parent, isSubProjectile)
+    elif ammoClass == "NeedleBullet01":
+        return NeedleBullet01(parent)
+    elif ammoClass == "PileBunkerBullet01":
+        return PileBunkerBullet01(parent, isSubProjectile)
+    elif ammoClass == "PlasmaBullet01":
+        return PlasmaBullet01(parent)
+    elif ammoClass == "PulseBullet01":
+        return PulseBullet01(parent)
+    elif ammoClass == "RocketBullet01":
+        return RocketBullet01(parent)
+    elif ammoClass == "SentryGunBullet01":
+        return SentryGunBullet01(parent, isSubProjectile)
+    elif ammoClass == "ShieldBashBullet01":
+        return ShieldBashBullet01(parent)
+    elif ammoClass == "ShockWaveBullet01":
+        return ShockWaveBullet01(parent)
+    elif ammoClass == "SmokeCandleBullet01":
+        return SmokeCandleBullet01(parent)
+    elif ammoClass == "SmokeCandleBullet02":
+        return SmokeCandleBullet02(parent)
+    elif ammoClass == "SolidBullet01Rail":
+        return SolidBullet01Rail(parent)
+    elif ammoClass == "SolidExpBullet01":
+        return SolidExpBullet01(parent)
+    elif ammoClass == "SolidPelletBullet01":
+        return SolidPelletBullet01(parent)
+    elif ammoClass == "SpiderStringBullet02":
+        return SpiderStringBullet02(parent)
+    elif ammoClass == "SupportUnitBullet01":
+        return SupportUnitBullet01(parent)
+    elif ammoClass == "TargetMarkerBullet01":
+        return TargetMarkerBullet01(parent)
 
 
 subProjectileAmmoOptions = {
@@ -246,13 +277,14 @@ class BombBullet01(tk.LabelFrame):
         self.enableOrDisableSplendor()
 
     def value(self):
-        v = [self.bombType.value(), self.isDetector.value(), self.unknown1.value(), self.primerDelay.value(), self.unknown2.value(),
+        v = [self.bombType.value(), self.isDetector.value(), self.unknown1.value(), self.primerDelay.value(),
+             self.unknown2.value(),
              [self.LEDX.value(), self.LEDY.value(), self.LEDZ.value()],
              self.explosionType.value()]
         if self.explosionType.value() == 1:
             v.append([[self.hSpread.value(),
-                      self.vSpread.value(),
-                      self.vAngle.value()],
+                       self.vSpread.value(),
+                       self.vAngle.value()],
                       self.flechetteCount.value(),
                       self.flechetteLifetime.value(),
                       self.flechetteSize.value(), [self.unknown3.value()]])
@@ -404,13 +436,14 @@ class BombBullet02(tk.LabelFrame):
         self.enableOrDisableSplendor()
 
     def value(self):
-        v = [self.bombType.value(), self.isDetector.value(), self.unknown1.value(), self.primerDelay.value(), self.unknown2.value(),
+        v = [self.bombType.value(), self.isDetector.value(), self.unknown1.value(), self.primerDelay.value(),
+             self.unknown2.value(),
              [self.LEDX.value(), self.LEDY.value(), self.LEDZ.value()],
              self.explosionType.value()]
         if self.explosionType.value() == 1:
             v.append([[self.hSpread.value(),
-                      self.vSpread.value(),
-                      self.vAngle.value()],
+                       self.vSpread.value(),
+                       self.vAngle.value()],
                       self.flechetteCount.value(),
                       self.flechetteLifetime.value(),
                       self.flechetteSpeed.value(),
@@ -506,7 +539,8 @@ class ClusterBullet01(tk.LabelFrame):
         self.projectileDirection = DropDownWidget(self.clusterFrame, "Projectile direction", self.directionOptions)
         self.homingFrame = tk.LabelFrame(self.clusterFrame, text=getText("Homing options"))
         self.homingEnabled = CheckBoxWidget(self.homingFrame, "Homing enabled", 0, 1)
-        self.homingLockRadius = FreeInputWidget(self.homingFrame, "Homing lock radius", float, restrictPositive=True, initialValue=100.0)
+        self.homingLockRadius = FreeInputWidget(self.homingFrame, "Homing lock radius", float, restrictPositive=True,
+                                                initialValue=100.0)
 
         self.subProjectileWidget = SubProjectile(self)
 
@@ -521,12 +555,11 @@ class ClusterBullet01(tk.LabelFrame):
         self.homingLockRadius.pack()
         self.subProjectileWidget.grid(row=0, column=1, sticky="N")
 
-
     def value(self):
         v = [self.momentumConservation.value(),
-                self.projectileSpread.value(),
-                self.projectileAccuracy.value(),
-                self.projectileDirection.value()]
+             self.projectileSpread.value(),
+             self.projectileAccuracy.value(),
+             self.projectileDirection.value()]
         if self.homingEnabled.value() == 1:
             v.append([self.homingEnabled.value(), self.homingLockRadius.value()])
         else:
@@ -573,9 +606,10 @@ class SubProjectile(tk.LabelFrame):
         self.unknownFrame2 = tk.LabelFrame(self.col1, text=getText("Unknown struct"))
         self.unknown3 = FreeInputWidget(self.unknownFrame2, "Unknown float", float)
         self.unknown4 = FreeInputWidget(self.unknownFrame2, "Unknown float", float)
-        self.projectileCount = FreeInputWidget(self.col1, "Sub-projectile count", int, restrictPositive=True, initialValue=20)
-        self.projectileInterval = FreeInputWidget(self.col1, "Time between projectiles", int, restrictPositive=True, initialValue=2)
-
+        self.projectileCount = FreeInputWidget(self.col1, "Sub-projectile count", int, restrictPositive=True,
+                                               initialValue=20)
+        self.projectileInterval = FreeInputWidget(self.col1, "Time between projectiles", int, restrictPositive=True,
+                                                  initialValue=2)
 
         self.ammoSpeed = FreeInputWidget(self.col1, "Ammo speed", float)
         self.ammoGravity = FreeInputWidget(self.col1, "Ammo gravity factor", float)
@@ -591,7 +625,6 @@ class SubProjectile(tk.LabelFrame):
         self.ammoModel = MultiDropDownWidget(self.col1, "Ammo model", allModels)
 
         self.col2 = tk.Frame(self)
-
 
         self.ammoClass = DropDownWidget(self.col2, "Sub-projectile ammo type", subProjectileAmmoOptions)
         self.ammoClass.dropDownDisplayed.trace_add("write", self.updateAmmoCustWidget)
@@ -699,6 +732,7 @@ class SubProjectile(tk.LabelFrame):
     #             pass
     #         print(f"{v} == {self.value()} ? {v == self.value()}")
 
+
 # class DecoyBullet01(tk.LabelFrame):
 #     def __init__(self, parent):
 #         tk.LabelFrame.__init__(self, parent, text=getText("DecoyBullet01"))
@@ -739,18 +773,17 @@ class FlameBullet02(tk.LabelFrame):
         self.greenChange.pack()
         self.alphaChange.pack()
 
-
     def value(self):
         return [
-         self.flameType.value(),
-         self.unknown1.value(),
-         self.unknown2.value(),
-         self.unknown3.value(),
-         [self.redChange.value(),
-          self.blueChange.value(),
-          self.greenChange.value(),
-          self.alphaChange.value()]
-         ]
+            self.flameType.value(),
+            self.unknown1.value(),
+            self.unknown2.value(),
+            self.unknown3.value(),
+            [self.redChange.value(),
+             self.blueChange.value(),
+             self.greenChange.value(),
+             self.alphaChange.value()]
+        ]
 
     def setValue(self, l):
         self.flameType.setValue(l[0])
@@ -787,12 +820,16 @@ class GrenadeBullet01(tk.LabelFrame):
             "Also impact???": 4
         }
         self.detonationType = DropDownWidget(self, "Detonation type", self.detonationOptions)
-        self.unknown1 = FreeInputWidget(self, "Unknown float", float, initialValue=-0.004, tooltip="Always -0.004000000189989805. No observed effect.")
-        self.unknown2 = FreeInputWidget(self, "Unknown float", float, initialValue=1.0, tooltip="Always 1.0. No observed effect.")
+        self.unknown1 = FreeInputWidget(self, "Unknown float", float, initialValue=-0.004,
+                                        tooltip="Always -0.004000000189989805. No observed effect.")
+        self.unknown2 = FreeInputWidget(self, "Unknown float", float, initialValue=1.0,
+                                        tooltip="Always 1.0. No observed effect.")
         self.bounceDampening = FreeInputWidget(self, "Bounce dampening", float, restrictPositive=True)
         self.smokeTrailNoise = SliderWidget(self, "Smoke trail noise", 0, 1)
-        self.smokeTrailLifetime = FreeInputWidget(self, "Smoke trail lifetime", int, restrictPositive=True, initialValue=60)
-        self.fuseVariation = FreeInputWidget(self, "Fuse variation", int, tooltip="Timed grenades can have their fuse time extended by up to this amount to desynchronize the explosions")
+        self.smokeTrailLifetime = FreeInputWidget(self, "Smoke trail lifetime", int, restrictPositive=True,
+                                                  initialValue=60)
+        self.fuseVariation = FreeInputWidget(self, "Fuse variation", int,
+                                             tooltip="Timed grenades can have their fuse time extended by up to this amount to desynchronize the explosions")
 
         self.detonationType.pack()
         self.unknown1.pack()
@@ -843,7 +880,7 @@ class HomingLaserBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("HomingLaserBullet01"))
 
-        self.fireOptions ={
+        self.fireOptions = {
             "Straight": 1,
             "At target": 2,
             "Unknown": 3
@@ -867,7 +904,6 @@ class HomingLaserBullet01(tk.LabelFrame):
         self.homingDelay.pack()
         self.unknown6.pack()
         self.unknown7.pack()
-
 
     def value(self):
         return [
@@ -919,7 +955,8 @@ class LaserBullet01(tk.LabelFrame):
         self.numLasers = FreeInputWidget(self, "Number of lasers", int, restrictPositive=True, initialValue=5)
         self.unknown1 = FreeInputWidget(self, "Unknown float", float)
         self.unknown2 = FreeInputWidget(self, "Unknown float", float, initialValue=1.5)
-        self.laserSpreadSpeed = FreeInputWidget(self, "Laser spread speed", float, restrictPositive=True, initialValue=1.6)
+        self.laserSpreadSpeed = FreeInputWidget(self, "Laser spread speed", float, restrictPositive=True,
+                                                initialValue=1.6)
         self.laserSpeed = FreeInputWidget(self, "Laser speed", float, restrictPositive=True, initialValue=0.5)
         self.laserSegments = FreeInputWidget(self, "Laser segments", int, restrictPositive=True, initialValue=20)
         self.unknown3 = FreeInputWidget(self, "Optional unknown float", float, tooltip="Set to 0 to exclude")
@@ -1039,11 +1076,16 @@ class LaserBullet03(tk.LabelFrame):
 class LightningBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("LightningBullet01"))
-        self.initialNoise = FreeInputWidget(self, "Initial noise", float, initialValue=1.0, tooltip="Naturally 0.1-12.0")
-        self.randomVelocity = FreeInputWidget(self, "Initial noise", float, initialValue=0.5, tooltip="How much the bolt's path will move randomly\nNaturally 0.1-0.75")
-        self.curveNoise = FreeInputWidget(self, "Curve noise", float, initialValue=0.5, tooltip="How much the bolt will curve on itself\nNaturally 0.1-1.0")
-        self.bounceFactor = FreeInputWidget(self, "Bounce factor", float, initialValue=1.0, tooltip="How much to modify the bolt's speed after bouncing")
-        self.boltModifier = FreeInputWidget(self, "Bolt modifier", int, initialValue=5, tooltip="Appears to scale the bolt's iterations per frame. Higher values = faster bolt with more jagginess")
+        self.initialNoise = FreeInputWidget(self, "Initial noise", float, initialValue=1.0,
+                                            tooltip="Naturally 0.1-12.0")
+        self.randomVelocity = FreeInputWidget(self, "Initial noise", float, initialValue=0.5,
+                                              tooltip="How much the bolt's path will move randomly\nNaturally 0.1-0.75")
+        self.curveNoise = FreeInputWidget(self, "Curve noise", float, initialValue=0.5,
+                                          tooltip="How much the bolt will curve on itself\nNaturally 0.1-1.0")
+        self.bounceFactor = FreeInputWidget(self, "Bounce factor", float, initialValue=1.0,
+                                            tooltip="How much to modify the bolt's speed after bouncing")
+        self.boltModifier = FreeInputWidget(self, "Bolt modifier", int, initialValue=5,
+                                            tooltip="Appears to scale the bolt's iterations per frame. Higher values = faster bolt with more jagginess")
         self.optional1 = FreeInputWidget(self, "Unknown optional float", float, tooltip="Set to 0 to remove.")
         self.optional2 = FreeInputWidget(self, "Unknown optional float", float, tooltip="Set to 0 to remove.")
 
@@ -1056,7 +1098,8 @@ class LightningBullet01(tk.LabelFrame):
         self.optional2.pack()
 
     def value(self):
-        v = [self.initialNoise.value(), self.randomVelocity.value(), self.curveNoise.value(), self.bounceFactor.value(), self.boltModifier.value()]
+        v = [self.initialNoise.value(), self.randomVelocity.value(), self.curveNoise.value(), self.bounceFactor.value(),
+             self.boltModifier.value()]
         if self.optional1.value() != 0:
             v.append(self.optional1.value())
         if self.optional2.value() != 0:
@@ -1102,15 +1145,19 @@ class MissileBullet01(tk.LabelFrame):
         self.struct1 = tk.LabelFrame(self, text="Unknown struct, vector?")
         self.unknown3 = FreeInputWidget(self.struct1, "Unknown float", float, tooltip="Always 0")
         self.unknown4 = FreeInputWidget(self.struct1, "Unknown float", float, tooltip="Always 0")
-        self.unknown5 = FreeInputWidget(self.struct1, "Unknown float", float, initialValue=-0.05000000074505806, tooltip="Always -0.05000000074505806")
+        self.unknown5 = FreeInputWidget(self.struct1, "Unknown float", float, initialValue=-0.05000000074505806,
+                                        tooltip="Always -0.05000000074505806")
 
-        self.accelerationRate = FreeInputWidget(self, "Acceleration rate", float, restrictPositive=True, initialValue=0.1, tooltip="0.01-6")
-        self.turnRate = FreeInputWidget(self, "Turning rate", float, restrictPositive=True, initialValue=0.1, tooltip="0-0.8")
+        self.accelerationRate = FreeInputWidget(self, "Acceleration rate", float, restrictPositive=True,
+                                                initialValue=0.1, tooltip="0.01-6")
+        self.turnRate = FreeInputWidget(self, "Turning rate", float, restrictPositive=True, initialValue=0.1,
+                                        tooltip="0-0.8")
         self.topSpeed = FreeInputWidget(self, "Top speed", float, initialValue=1.5, tooltip="m/frame?")
 
         self.struct2 = tk.LabelFrame(self, text="Unknown struct")
         self.unknown6 = FreeInputWidget(self.struct2, "Unknown int", int, tooltip="0-90")
-        self.unknown7 = FreeInputWidget(self.struct2, "Unknown float", float, initialValue=0.8, tooltip="Usually 0.8 or 0.98")
+        self.unknown7 = FreeInputWidget(self.struct2, "Unknown float", float, initialValue=0.8,
+                                        tooltip="Usually 0.8 or 0.98")
 
         self.homingDelay = FreeInputWidget(self, "Homing delay", int, restrictPositive=True)
         self.unknown8 = FreeInputWidget(self, "Unknown int", int, tooltip="0 or 5")
@@ -1121,9 +1168,10 @@ class MissileBullet01(tk.LabelFrame):
         self.unknown9 = FreeInputWidget(self.struct3, "Unknown float", float)
         self.unknown10 = FreeInputWidget(self.struct3, "Unknown float", float)
 
-        if isSubProjectile: self.ignitionSound = SoundWidget(self, "Ignition sound", 0)
-        else: self.ignitionSound = SoundWidget(self, "Ignition sound", None)
-
+        if isSubProjectile:
+            self.ignitionSound = SoundWidget(self, "Ignition sound", 0)
+        else:
+            self.ignitionSound = SoundWidget(self, "Ignition sound", None)
 
         self.missileOption.pack()
         self.unknown1.pack()
@@ -1232,15 +1280,19 @@ class MissileBullet02(tk.LabelFrame):
         self.struct1 = tk.LabelFrame(self.col1, text="Unknown struct, vector?")
         self.unknown3 = FreeInputWidget(self.struct1, "Unknown float", float, tooltip="Always 0")
         self.unknown4 = FreeInputWidget(self.struct1, "Unknown float", float, tooltip="Always 0")
-        self.unknown5 = FreeInputWidget(self.struct1, "Unknown float", float, initialValue=-0.05000000074505806, tooltip="Always -0.05000000074505806")
+        self.unknown5 = FreeInputWidget(self.struct1, "Unknown float", float, initialValue=-0.05000000074505806,
+                                        tooltip="Always -0.05000000074505806")
 
-        self.accelerationRate = FreeInputWidget(self.col1, "Acceleration rate", float, restrictPositive=True, initialValue=1.5, tooltip="0.01-6")
-        self.turnRate = FreeInputWidget(self.col1, "Turning rate", float, restrictPositive=True, initialValue=0.4, tooltip="0-0.8")
+        self.accelerationRate = FreeInputWidget(self.col1, "Acceleration rate", float, restrictPositive=True,
+                                                initialValue=1.5, tooltip="0.01-6")
+        self.turnRate = FreeInputWidget(self.col1, "Turning rate", float, restrictPositive=True, initialValue=0.4,
+                                        tooltip="0-0.8")
         self.topSpeed = FreeInputWidget(self.col1, "Top speed", float, initialValue=6, tooltip="m/frame?")
 
         self.struct2 = tk.LabelFrame(self.col1, text="Unknown struct")
         self.unknown6 = FreeInputWidget(self.struct2, "Unknown int", int, tooltip="0-90")
-        self.unknown7 = FreeInputWidget(self.struct2, "Unknown float", float, initialValue=0.8, tooltip="Usually 0.8 or 0.98")
+        self.unknown7 = FreeInputWidget(self.struct2, "Unknown float", float, initialValue=0.8,
+                                        tooltip="Usually 0.8 or 0.98")
 
         self.homingDelay = FreeInputWidget(self.col1, "Homing delay", int, restrictPositive=True)
         self.unknown8 = FreeInputWidget(self.col1, "Unknown int", int, tooltip="0 or 5")
@@ -1259,25 +1311,28 @@ class MissileBullet02(tk.LabelFrame):
         self.col2 = tk.Frame(self)
 
         self.struct4 = tk.LabelFrame(self.col2, text=getText("Detonation type"))
-        self.struct4Choice = DropDownWidget(self.struct4, "Struct type", {"Proximity": 0, "Timer": 1}, tooltip="Alters the lengths and value types of the struct")
+        self.struct4Choice = DropDownWidget(self.struct4, "Struct type", {"Proximity": 0, "Timer": 1},
+                                            tooltip="Alters the lengths and value types of the struct")
         self.struct4Choice.dropDownDisplayed.trace_add("write", self.updateStruct4Widgets)
-        self.struct4Type1Int = FreeInputWidget(self.struct4, "Time (frames)", int, initialValue=120, tooltip="Only observed at 120")
+        self.struct4Type1Int = FreeInputWidget(self.struct4, "Time (frames)", int, initialValue=120,
+                                               tooltip="Only observed at 120")
         self.struct4Type0Float1 = FreeInputWidget(self.struct4, "Distance", float, initialValue=50.0, tooltip="50-70")
-        self.struct4Type0Float2 = FreeInputWidget(self.struct4, "Unknown float", float, initialValue=0.75, tooltip="0.75 or 1")
+        self.struct4Type0Float2 = FreeInputWidget(self.struct4, "Unknown float", float, initialValue=0.75,
+                                                  tooltip="0.75 or 1")
 
         self.struct5 = tk.LabelFrame(self.col2, text=getText("Unknown struct"))
-        self.struct5Int = FreeInputWidget(self.struct5, "Unknown int", int, tooltip="0 or 2, likely some sort of option")
+        self.struct5Int = FreeInputWidget(self.struct5, "Unknown int", int,
+                                          tooltip="0 or 2, likely some sort of option")
         self.struct5Float1 = FreeInputWidget(self.struct5, "Unknown float", float, tooltip="Always 0.0?")
         self.projectileSpread = AngleWidget(self.struct5, "Sub-projectile spread", minimum=0, maximum=360)
 
         self.struct6 = tk.LabelFrame(self.col2, text=getText("Unknown struct"))
-        self.struct6Int = FreeInputWidget(self.struct6, "Unknown int", int, tooltip="0 or 1, likely some sort of option/flag")
-        self.struct6Float = FreeInputWidget(self.struct6, "Unknown float", float, initialValue=1.0, tooltip="Always 1.0")
+        self.struct6Int = FreeInputWidget(self.struct6, "Unknown int", int,
+                                          tooltip="0 or 1, likely some sort of option/flag")
+        self.struct6Float = FreeInputWidget(self.struct6, "Unknown float", float, initialValue=1.0,
+                                            tooltip="Always 1.0")
 
         self.subProjectile = SubProjectile(self)
-
-
-
 
         self.col1.grid(row=0, column=0, sticky="N")
 
@@ -1435,8 +1490,10 @@ class NapalmBullet01(tk.LabelFrame):
         self.hSpread = AngleWidget(self.struct1, "Horizontal?")
         self.vSpread = AngleWidget(self.struct1, "Vertical?")
 
-        self.trailNoise = FreeInputWidget(self.col1, "Smoke trail noise", float, restrictPositive=True, initialValue=0.05)
-        self.subProjectileSize = FreeInputWidget(self.col1, "Sub projectile size", int, restrictPositive=True, initialValue=60)
+        self.trailNoise = FreeInputWidget(self.col1, "Smoke trail noise", float, restrictPositive=True,
+                                          initialValue=0.05)
+        self.subProjectileSize = FreeInputWidget(self.col1, "Sub projectile size", int, restrictPositive=True,
+                                                 initialValue=60)
         if isSubProjectile:
             self.emitterSound = SoundWidget(self.col1, "Ignition sound", 0)
         else:
@@ -1619,22 +1676,21 @@ class PulseBullet01(tk.LabelFrame):
         self.unknown12.pack()
         self.unknown13.pack()
 
-
     def value(self):
-        return[
-         self.unknown1.value(),
-        [self.unknown2.value(),
-         self.unknown3.value(),
-         self.unknown4.value(),
-         self.unknown5.value()],
-        [self.unknown6.value(),
-         self.unknown7.value(),
-         self.unknown8.value(),
-         self.unknown9.value()],
-         self.unknown10.value(),
-         self.unknown11.value(),
-         self.unknown12.value(),
-         self.unknown13.value()]
+        return [
+            self.unknown1.value(),
+            [self.unknown2.value(),
+             self.unknown3.value(),
+             self.unknown4.value(),
+             self.unknown5.value()],
+            [self.unknown6.value(),
+             self.unknown7.value(),
+             self.unknown8.value(),
+             self.unknown9.value()],
+            self.unknown10.value(),
+            self.unknown11.value(),
+            self.unknown12.value(),
+            self.unknown13.value()]
 
     def setValue(self, l):
         self.unknown1.setValue(l[0])
@@ -1667,10 +1723,12 @@ class PulseBullet01(tk.LabelFrame):
 class RocketBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("RocketBullet01"))
-        self.rocketType = DropDownWidget(self, "Explosion visual type", {"Regular": 0, "Mortar/howitzer": 1, "Explosions with massive smoke cloud": 2})
+        self.rocketType = DropDownWidget(self, "Explosion visual type",
+                                         {"Regular": 0, "Mortar/howitzer": 1, "Explosions with massive smoke cloud": 2})
         self.smokeTrailLifetime = FreeInputWidget(self, "Smoke trail lifetime", int)
         self.ignitionDelay = FreeInputWidget(self, "Ignition delay", int)
-        self.smokeTrailDrift = FreeInputWidget(self, "Smoke trail drift", float, initialValue=0.1, tooltip="How fast the smoke trail drifts backwards. Values closer to 1 or higher look strange.")
+        self.smokeTrailDrift = FreeInputWidget(self, "Smoke trail drift", float, initialValue=0.1,
+                                               tooltip="How fast the smoke trail drifts backwards. Values closer to 1 or higher look strange.")
 
         self.rocketType.pack()
         self.smokeTrailLifetime.pack()
@@ -1711,15 +1769,17 @@ class SentryGunBullet01(tk.LabelFrame):
         self.unknown2 = 0
         self.unknown3 = FreeInputWidget(self.col1, "Unknown int", int, initialValue=8, tooltip="8 or 16")
         self.range = FreeInputWidget(self.col1, "Range", float, restrictPositive=True, initialValue=150)
-        self.turnSpeed = FreeInputWidget(self.col1, "Turn speed", float, initialValue=0.05, restrictPositive=True, tooltip="Lowest = 0.0099, highest=0.075")
-        self.unknown4 = FreeInputWidget(self.col1, "Unknown int", int, tooltip="0, 15, or 120, seemingly no pattern but I didn't check too much")
+        self.turnSpeed = FreeInputWidget(self.col1, "Turn speed", float, initialValue=0.05, restrictPositive=True,
+                                         tooltip="Lowest = 0.0099, highest=0.075")
+        self.unknown4 = FreeInputWidget(self.col1, "Unknown int", int,
+                                        tooltip="0, 15, or 120, seemingly no pattern but I didn't check too much")
         self.firingBone = "spine"
 
         self.offsetFrame = tk.LabelFrame(self.col1, text="Bullet offset")
         self.offsetX = FreeInputWidget(self.offsetFrame, "X", float)
         self.offsetY = FreeInputWidget(self.offsetFrame, "Y", float, initialValue=0.25)
         self.offsetZ = FreeInputWidget(self.offsetFrame, "Z", float, initialValue=1.25)
-        
+
         self.ammoClass = DropDownWidget(self.col1, "Ammo type", subProjectileAmmoOptions)
         self.ammoClass.dropDownDisplayed.trace_add("write", self.updateAmmoCustWidget)
 
@@ -1738,9 +1798,12 @@ class SentryGunBullet01(tk.LabelFrame):
         self.range.input.config(textvariable=self.rangeVar, state="disabled")
         self.ammoLifetime.inputVar.trace_add("write", self.updateRangeVar)
 
-        self.ammoSpeed = FreeInputWidget(self.col1, "Ammo speed", float, restrictPositive=True, initialValue=20, tooltip="Ammo visual and initial hitbox size")
-        self.ammoVisualMultiplier = FreeInputWidget(self.col1, "Ammo visual multiplier", float, restrictPositive=True, initialValue=1)
-        self.ammoHitboxMultiplier = FreeInputWidget(self.col1, "Ammo hitbox multiplier", float, restrictPositive=True, initialValue=1)
+        self.ammoSpeed = FreeInputWidget(self.col1, "Ammo speed", float, restrictPositive=True, initialValue=20,
+                                         tooltip="Ammo visual and initial hitbox size")
+        self.ammoVisualMultiplier = FreeInputWidget(self.col1, "Ammo visual multiplier", float, restrictPositive=True,
+                                                    initialValue=1)
+        self.ammoHitboxMultiplier = FreeInputWidget(self.col1, "Ammo hitbox multiplier", float, restrictPositive=True,
+                                                    initialValue=1)
         # self.ammoScale = FreeInputWidget(self.col1, "Ammo scale adjust", float, restrictPositive=True, initialValue=0.3, tooltip="Multiply ammo hitbox and hit effect size")
 
         self.col2 = tk.Frame(self)
@@ -1751,7 +1814,6 @@ class SentryGunBullet01(tk.LabelFrame):
             self.firingSound = SoundWidget(self.col1, "Firing sound", None)
 
         self.muzzleFlash = MuzzleFlashWidget(self.col2)
-
 
         self.ammoCustWidget = None
 
@@ -1781,8 +1843,7 @@ class SentryGunBullet01(tk.LabelFrame):
         self.muzzleFlash.pack()
 
         self.updateAmmoCustWidget()
-        
-        
+
     def updateRangeVar(self, *args):
         self.rangeVar.set(str(self.ammoLifetime.value() * self.ammoSpeed.value()) + "m")
 
@@ -1799,7 +1860,7 @@ class SentryGunBullet01(tk.LabelFrame):
             self.ammoCustWidget.grid(row=0, column=2, sticky="N")
 
     def value(self):
-        v= [
+        v = [
             self.friendlyFire.value(),
             self.unknown1,
             self.unknown2,
@@ -1886,7 +1947,7 @@ class ShieldBashBullet01(tk.LabelFrame):
     def value(self):
         return [self.unknown1.value(), self.unknown2.value()]
 
-    def setValue(self,l):
+    def setValue(self, l):
         self.unknown1.setValue(l[0])
         self.unknown2.setValue(l[1])
 
@@ -1906,7 +1967,9 @@ class ShieldBashBullet01(tk.LabelFrame):
 class ShockWaveBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("ShockWaveBullet01"))
-        self.shockwaveType = DropDownWidget(self, "Shockwave type", {"None/Force blade": None, "Regular": 0, "Crater shockwave": 1, "Vibro roller": 2})
+        self.shockwaveType = DropDownWidget(self, "Shockwave type",
+                                            {"None/Force blade": None, "Regular": 0, "Crater shockwave": 1,
+                                             "Vibro roller": 2})
         self.shockwaveType.dropDownDisplayed.trace_add("write", self.addOrRemoveUnknown)
         self.unknown = FreeInputWidget(self, "Unknown int", int)
 
@@ -1931,7 +1994,6 @@ class ShockWaveBullet01(tk.LabelFrame):
         else:
             self.shockwaveType.setValue(None)
 
-
     def test(self):
         print(self.__class__.__name__)
         testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
@@ -1945,82 +2007,11 @@ class ShockWaveBullet01(tk.LabelFrame):
         print(f"{self.__class__.__name__} tests successful")
 
 
-vehicleWeapons = j.loadDataFromJson("./data/sorted vehicle weapons.json")
-vehicleWeaponStats = j.loadDataFromJson("./data/vehicle weapon stats.json")
-vehicleSGOS = {
-    "Tank": {
-        "Blacker tank": "app:/Object/v505_tank.sgo",
-        "EDF 4 tank": 'app:/Object/v505_tank_edf4.sgo',
-        "EDF 5 tank": 'app:/Object/v505_tank_edf5.sgo',
-        "Railgun tank": 'app:/Object/Vehicle403_Tank.sgo',
-        "EMC tank": 'app:/Object/v510_maser.sgo',
-        "Titan tank": "app:/Object/Vehicle404_bigtank.sgo"},
-    "Ground Vehicles": {
-        "Grape": "app:/Object/Vehicle401_Striker.sgo",
-        "Ambulance": 'app:/Object/v507_rescuetank.sgo',
-        "Happy Manager Ambulance": 'app:/Object/v507_rescuetank_siawase.sgo',
-        "Naegling": 'app:/Object/Vehicle402_Rocket.sgo'},
-    "Helicopter": {
-        "Helicopter Eros": 'app:/Object/v506_heli.sgo',
-        "Helicopter Nereid": 'app:/Object/Vehicle409_heli.sgo',
-        "Helicopter Brute": 'app:/Object/Vehicle410_heli.sgo'},
-    "Nix": {
-        "Blue": 'app:/Object/v504_begaruta_blue.sgo',
-        "Red": 'app:/Object/v504_begaruta_red.sgo',
-        "Green": 'app:/Object/v504_begaruta.sgo',
-        "Grey": 'app:/Object/V504_BEGARUTA_MISSION.sgo',
-        # "Green 2": 'app:/Object/V504_BEGARUTA_G_MISSION.sgo',  # No difference
-        "White": 'app:/Object/v504_begaruta_white.sgo',
-        # "White 2": 'app:/Object/V504_BEGARUTA_DLCHS_MISSION.sgo',  # No difference
-        "Yellow": 'app:/Object/V504_BEGARUTA_YELLOW.sgo',
-        # "Yellow 2": 'app:/Object/V504_BEGARUTA_FW.sgo',  # No difference
-        "Gold": 'app:/Object/v504_begaruta_gold.sgo',
-        "Pink Phantasia": "app:/Object/v504_begaruta_pink.sgo"},
-    "Balam":{
-        "Orange": 'app:/Object/V515_RETROBALAM.sgo',
-        "Gold": 'app:/Object/V515_RETROBALAM_GOLD.sgo',
-        "Gray": 'app:/Object/V515_RETROBALAM_GREY.sgo',
-        "Green": 'app:/Object/V515_RETROBALAM_GREEN.sgo',
-        "Ultimate": 'app:/Object/V515_RETROBALAM_ULTI.sgo'
-    },
-    "Depth Crawler":{
-        "Regular": 'app:/Object/VEHICLE502_GROUNDROBO.sgo',
-        "Gold": 'app:/Object/VEHICLE502_GROUNDROBOGOLD.sgo'
-    },
-    "Other": {
-        "Kei Truck": 'app:/Object/v512_keiTruck_bgp.sgo',
-        "Pickup Truck": 'app:/Object/V513_TRAILERTRUCK01CAB.sgo',
-        "Bike": 'app:/Object/v503_bike.sgo',
-        "Omega Free Bike": 'app:/Object/v503_bike_omegaz.sgo'},
-}
-vehicleBaseHP = {
-    "bike": 150.0,
-    "blacker": 1000.0,
-    "nix": 1200.0,
-    "eros": 600.0,
-    "caliban": 1500.0,
-    "emc": 1000.0,
-    "kei truck": 200.0,
-    "pickup truck": 200.0,
-    "balam": 50000.0,
-    "grape": 650.0,
-    "naegling": 300.0,
-    "railgun tank": 1200.0,
-    "titan": 4800.0,
-    "proteus": 7500.0,
-    "nereid": 300.0,
-    "brute": 1800.0,
-    "depth crawler": 1000.0
-}
-
-
 class SmokeCandleBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("Vehicle summon"))
         self.col1 = tk.Frame(self)
         self.weaponWidgets = []
-        # self.col2 = tk.Frame(self)
-        # self.col3 = tk.Frame(self)
         self.unknown1 = FreeInputWidget(self.col1, "Unknown float", float, initialValue=0.05000000074505806,
                                         tooltip="Always 0.05000000074505806?")
         self.smokeLifetime = FreeInputWidget(self.col1, "Smoke lifetime/size", int, initialValue=180,
@@ -2030,28 +2021,23 @@ class SmokeCandleBullet01(tk.LabelFrame):
         transportOptions = {"Normal transport": ["app:/Object/v508_transport.sgo", "app:/Object/v509_transportbox.sgo"],
                             "Barga transport": ["app:/Object/v508_transport_formation.sgo", 0]}
         self.transporter = DropDownWidget(self.col1, "Transport vehicle", transportOptions)
-        # self.transportBox = DropDownWidget(self.col1, "Transport box", {})
 
         self.vehicleSGO = MultiDropDownWidget(self.col1, "Vehicle type", vehicleSGOS)
         self.weaponMultiplier = FreeInputWidget(self.col1, "Weapon damage multiplier", float, restrictPositive=True,
                                                 initialValue=5.0)
-        # self.weaponChoice = self.VehicleWeaponChoice(self.col2, "Weapon 1", True, True, self.weaponMultiplier)
         self.HP = FreeInputWidget(self.col1, "Vehicle hp", float, initialValue=10000.0)
-        self.vehicleParams = self.TankParams(self.col1)
+        self.vehicleParams = TankParams(self.col1)
         self.voices = ['輸送部隊目標確認', '輸送部隊発射', '輸送部隊攻撃後']
 
         self.vehicleSGO.valueLabel.inputVar.trace_add("write", self.updateParamsAndWeapons)
 
         self.col1.grid(row=0, column=0, sticky="N")
-        # self.col2.grid(row=0, column=1, sticky="N")
-        # self.col3.grid(row=0, column=2, sticky="N")
         self.unknown1.pack()
         self.smokeLifetime.pack()
         self.summonDelay.pack()
         self.summonType.pack()
         self.transporter.pack()
         self.vehicleSGO.pack()
-        # self.weaponChoice.pack()
         self.HP.pack()
         self.weaponMultiplier.pack()
         self.vehicleParams.pack()
@@ -2061,28 +2047,39 @@ class SmokeCandleBullet01(tk.LabelFrame):
     def value(self):
         v = [self.unknown1.value(), self.smokeLifetime.value(), self.summonDelay.value(), self.summonType.value(),
              [self.transporter.value()[0], self.transporter.value()[1], self.vehicleSGO.value(),
-              [[self.HP.value()/self.baseHP, self.weaponMultiplier.value()]]], self.voices]
+              [[self.HP.value() / self.baseHP, self.weaponMultiplier.value()]]], self.voices]
         if self.vehicleSGO.value() == "app:/Object/v505_tank.sgo" or \
-           self.vehicleSGO.value() == 'app:/Object/v505_tank_edf4.sgo' or \
-           self.vehicleSGO.value() == 'app:/Object/v505_tank_edf5.sgo' or \
-           self.vehicleSGO.value() == 'app:/Object/Vehicle403_Tank.sgo' or \
-           self.vehicleSGO.value() == 'app:/Object/v510_maser.sgo' or \
-           self.vehicleSGO.value() == "app:/Object/Vehicle404_bigtank.sgo":
+                self.vehicleSGO.value() == 'app:/Object/v505_tank_edf4.sgo' or \
+                self.vehicleSGO.value() == 'app:/Object/v505_tank_edf5.sgo' or \
+                self.vehicleSGO.value() == 'app:/Object/Vehicle403_Tank.sgo' or \
+                self.vehicleSGO.value() == 'app:/Object/v510_maser.sgo' or \
+                self.vehicleSGO.value() == "app:/Object/Vehicle404_bigtank.sgo":
             v[4][3].append(self.vehicleParams.value())
             v[4][3].append([w.value() for w in self.weaponWidgets])
         elif self.vehicleSGO.value() == "app:/Object/Vehicle401_Striker.sgo":  # Grape
-            pass
+            v[4][3].append(self.vehicleParams.value())
+            v[4][3].append([w.value() for w in self.weaponWidgets])
         elif self.vehicleSGO.value() == 'app:/Object/v507_rescuetank.sgo' or \
                 self.vehicleSGO.value() == 'app:/Object/v507_rescuetank_siawase.sgo':  # Caliban
-            pass
+            v[4][3].append(self.vehicleParams.value()[0])
+            v[4][3].append(self.vehicleParams.value()[1])
+            v[4][3].append(['app:/weapon/v_507_RescueUnit01.sgo'])
         elif self.vehicleSGO.value() == 'app:/Object/Vehicle402_Rocket.sgo':  # Naegling
-            pass
+            v[4][3].append(self.vehicleParams.value())
+            v[4][3].append([w.value() for w in self.weaponWidgets])
         elif self.vehicleSGO.value() == 'app:/Object/v506_heli.sgo':  # Eros
-            pass
+            v[4][3].append(self.vehicleParams.value()[0])
+            v[4][3].append(self.vehicleParams.value()[1])
+            v[4][3].append([w.value() for w in self.weaponWidgets])
         elif self.vehicleSGO.value() == 'app:/Object/Vehicle409_heli.sgo':  # Nereid
-            pass
+            v[4][3].append(self.vehicleParams.value()[0])
+            v[4][3].append(self.vehicleParams.value()[1])
+            v[4][3].append([w.value() for w in self.weaponWidgets])
+            v[4][3].append(self.vehicleParams.value()[2])
         elif self.vehicleSGO.value() == 'app:/Object/Vehicle410_heli.sgo':  # Brute
-            pass
+            v[4][3].append(self.vehicleParams.value()[0])
+            v[4][3].append(self.vehicleParams.value()[1])
+            v[4][3].append([w.value() for w in self.weaponWidgets])
         elif self.vehicleSGO.value() == 'app:/Object/v504_begaruta_blue.sgo' or \
                 self.vehicleSGO.value() == 'app:/Object/v504_begaruta_red.sgo' or \
                 self.vehicleSGO.value() == 'app:/Object/v504_begaruta.sgo' or \
@@ -2105,7 +2102,7 @@ class SmokeCandleBullet01(tk.LabelFrame):
             if not isinstance(self.vehicleParams, paramType):
                 self.vehicleParams.pack_forget()
                 self.vehicleParams.destroy()
-                self.vehicleParams = self.paramType(self)
+                self.vehicleParams = paramType(self.col1)
                 self.vehicleParams.pack()
             for weaponWidget in self.weaponWidgets:
                 weaponWidget.pack_forget()
@@ -2116,57 +2113,78 @@ class SmokeCandleBullet01(tk.LabelFrame):
                 self.vehicleSGO.value() == 'app:/Object/v505_tank_edf4.sgo' or \
                 self.vehicleSGO.value() == 'app:/Object/v505_tank_edf5.sgo':  # Blacker
             self.baseHP = 1000.0
-            replaceParamsAndRemoveWeapons(self, self.TankParams)
-            self.weaponWidgets.append(self.VehicleWeaponChoice(self, "Main Cannon", True, True, self.weaponMultiplier))
+            replaceParamsAndRemoveWeapons(self, TankParams)
+            self.weaponWidgets.append(VehicleWeaponChoice(self, "Main Cannon", True, True, self.weaponMultiplier))
             self.weaponWidgets[0].grid(row=0, column=1, sticky="N")
+            self.weaponWidgets[0].setValue(["app:/weapon/v_505tank_cannon01.sgo", [0.1, 0.05], [40, 0.004, 0.1]])
 
         elif self.vehicleSGO.value() == 'app:/Object/Vehicle403_Tank.sgo':  # Railgun
             self.baseHP = 1200.0
-            replaceParamsAndRemoveWeapons(self, self.TankParams)
-            self.weaponWidgets.append(self.VehicleWeaponChoice(self, "Main Cannon", True, True, self.weaponMultiplier, recoilType="BodyRecoil"))
-            self.weaponWidgets.append(self.VehicleWeaponChoice(self, "Side gun 1", True, True, self.weaponMultiplier, recoilType="AimRecoil"))
-            self.weaponWidgets.append(self.VehicleWeaponChoice(self, "Side gun 2", True, True, self.weaponMultiplier, recoilType="AimRecoil"))
+            replaceParamsAndRemoveWeapons(self, TankParams)
+            self.weaponWidgets.append(VehicleWeaponChoice(self, "Main Cannon", True, True, self.weaponMultiplier,
+                                                               recoilType="BodyRecoil"))
+            self.weaponWidgets.append(
+                VehicleWeaponChoice(self, "Side gun 1", True, True, self.weaponMultiplier, recoilType="AimRecoil"))
+            self.weaponWidgets.append(
+                VehicleWeaponChoice(self, "Side gun 2", True, True, self.weaponMultiplier, recoilType="AimRecoil"))
             for i in range(len(self.weaponWidgets)):
-                self.weaponWidgets[i].grid(row=0, column=i+1, sticky="N")
-            self.weaponWidgets[0].setValue(["v_403tank_cannon01", [0.1, 0.05], [40, 0.004, 0.1]])
-            self.weaponWidgets[1].setValue(['v_403tank_machinegun', [0.0, 0.0026], [90.0, 0.01, 0.01]])
-            self.weaponWidgets[2].setValue(['v_403tank_machinegun', [0.0, 0.0026], [90.0, 0.01, 0.01]])
+                self.weaponWidgets[i].grid(row=0, column=i + 1, sticky="N")
+            self.weaponWidgets[0].setValue(["app:/weapon/v_403tank_cannon01.sgo", [0.1, 0.05], [40, 0.004, 0.1]])
+            self.weaponWidgets[1].setValue(['app:/weapon/v_403tank_machinegun.sgo', [0.0, 0.0026], [90.0, 0.01, 0.01]])
+            self.weaponWidgets[2].setValue(['app:/weapon/v_403tank_machinegun.sgo', [0.0, 0.0026], [90.0, 0.01, 0.01]])
 
         elif self.vehicleSGO.value() == 'app:/Object/v510_maser.sgo':  # EMC
             self.baseHP = 1000.0
-            replaceParamsAndRemoveWeapons(self, self.TankParams)
-            self.weaponWidgets.append(self.VehicleWeaponChoice(self, "Main Cannon", True, True, self.weaponMultiplier))
+            replaceParamsAndRemoveWeapons(self, TankParams)
+            self.weaponWidgets.append(VehicleWeaponChoice(self, "Main Cannon", True, True, self.weaponMultiplier))
             for i in range(len(self.weaponWidgets)):
-                self.weaponWidgets[i].grid(row=0, column=i+1, sticky="N")
-            self.weaponWidgets[0].setValue(["v_510_maser_thunder01", [0, 0], [15.0, 0.01, 0.05]])
+                self.weaponWidgets[i].grid(row=0, column=i + 1, sticky="N")
+            self.weaponWidgets[0].setValue(["app:/weapon/v_510_maser_thunder01.sgo", [0, 0], [15.0, 0.01, 0.05]])
 
         elif self.vehicleSGO.value() == "app:/Object/Vehicle404_bigtank.sgo":  # Titan
             self.baseHP = 4800.0
-            replaceParamsAndRemoveWeapons(self, self.TankParams)
-            self.weaponWidgets.append(self.VehicleWeaponChoice(self, "Main Cannon", True, True, self.weaponMultiplier))
-            self.weaponWidgets.append(self.VehicleWeaponChoice(self, "Left primary gun", True, True, self.weaponMultiplier))
-            self.weaponWidgets.append(self.VehicleWeaponChoice(self, "Right primary gun", True, True, self.weaponMultiplier))
-            self.weaponWidgets.append(self.VehicleWeaponChoice(self, "Driver secondary gun", True, False, self.weaponMultiplier))
-            self.weaponWidgets.append(self.VehicleWeaponChoice(self, "Left secondary gun", True, False, self.weaponMultiplier))
-            self.weaponWidgets.append(self.VehicleWeaponChoice(self, "Right secondary gun", True, False, self.weaponMultiplier))
+            replaceParamsAndRemoveWeapons(self, TankParams)
+            self.weaponWidgets.append(VehicleWeaponChoice(self, "Main Cannon", True, True, self.weaponMultiplier))
+            self.weaponWidgets.append(
+                VehicleWeaponChoice(self, "Left primary gun", True, True, self.weaponMultiplier))
+            self.weaponWidgets.append(
+                VehicleWeaponChoice(self, "Right primary gun", True, True, self.weaponMultiplier))
+            self.weaponWidgets.append(
+                VehicleWeaponChoice(self, "Driver secondary gun", True, False, self.weaponMultiplier))
+            self.weaponWidgets.append(
+                VehicleWeaponChoice(self, "Left secondary gun", True, False, self.weaponMultiplier))
+            self.weaponWidgets.append(
+                VehicleWeaponChoice(self, "Right secondary gun", True, False, self.weaponMultiplier))
             for i in range(len(self.weaponWidgets)):
-                self.weaponWidgets[i].grid(row=0, column=i+1, sticky="N")
-            self.weaponWidgets[0].setValue(['v_404bigtank_maincannon', [1.0, 3.0], [10.0, 0.009999999776482582, 0.10000000149011612]])
-            self.weaponWidgets[1].setValue(['v_404bigtank_subcannonsolid', [0.05000000074505806, 0.5], [50.0, 0.009999999776482582, 0.10000000149011612]])
-            self.weaponWidgets[2].setValue(['v_404bigtank_subcannonsolid', [0.05000000074505806, 0.5], [50.0, 0.009999999776482582, 0.10000000149011612]])
-            self.weaponWidgets[3].setValue(['v_404bigtank_gatling', [0.0, 0.0]])
-            self.weaponWidgets[4].setValue(['v_404bigtank_sidemissile_l', [0.0, 0.0]])
-            self.weaponWidgets[5].setValue(['v_404bigtank_sidemissile_r', [0.0, 0.0]])
+                self.weaponWidgets[i].grid(row=0, column=i + 1, sticky="N")
+            self.weaponWidgets[0].setValue(['app:/weapon/v_404bigtank_maincannon.sgo', [1.0, 3.0],
+                                            [10.0, 0.009999999776482582, 0.10000000149011612]])
+            self.weaponWidgets[1].setValue(['app:/weapon/v_404bigtank_subcannonsolid.sgo', [0.05000000074505806, 0.5],
+                                            [50.0, 0.009999999776482582, 0.10000000149011612]])
+            self.weaponWidgets[2].setValue(['app:/weapon/v_404bigtank_subcannonsolid.sgo', [0.05000000074505806, 0.5],
+                                            [50.0, 0.009999999776482582, 0.10000000149011612]])
+            self.weaponWidgets[3].setValue(['app:/weapon/v_404bigtank_gatling.sgo', [0.0, 0.0]])
+            self.weaponWidgets[4].setValue(['app:/weapon/v_404bigtank_sidemissile_l.sgo', [0.0, 0.0]])
+            self.weaponWidgets[5].setValue(['app:/weapon/v_404bigtank_sidemissile_r.sgo', [0.0, 0.0]])
 
         elif self.vehicleSGO.value() == "app:/Object/Vehicle401_Striker.sgo":  # Grape
             self.baseHP = 650.0
+            replaceParamsAndRemoveWeapons(self, GrapeParams)
+            self.weaponWidgets.append(VehicleWeaponChoice(self, "Turret", True, True, self.weaponMultiplier))
+            self.weaponWidgets[0].setValue(['app:/weapon/v_401striker_cannon02.sgo', [0.009999999776482582, 0.10000000149011612], [180.0, 0.012000000104308128, 0.05000000074505806]])
+            self.weaponWidgets[0].grid(row=0, column=1, sticky="N")
 
         elif self.vehicleSGO.value() == 'app:/Object/v507_rescuetank.sgo' or \
                 self.vehicleSGO.value() == 'app:/Object/v507_rescuetank_siawase.sgo':  # Caliban
             self.baseHP = 1500.0
+            replaceParamsAndRemoveWeapons(self, CalibanParams)
 
         elif self.vehicleSGO.value() == 'app:/Object/Vehicle402_Rocket.sgo':  # Naegling
             self.baseHP = 300.0
+            replaceParamsAndRemoveWeapons(self, TankParams)
+            self.weaponWidgets.append(VehicleWeaponChoice(self, "Missile Pod", True, True, self.weaponMultiplier))
+            self.weaponWidgets[0].setValue(['app:/weapon/v_402rocket_rocketcannon.sgo', [0.02500000037252903, 0.10000000149011612], [90.0, 0.007499999832361937, 0.05000000074505806]])
+            self.weaponWidgets[0].grid(row=0, column=1, sticky="N")
 
         elif self.vehicleSGO.value() == 'app:/Object/v506_heli.sgo':  # Eros
             self.baseHP = 600.0
@@ -2191,207 +2209,7 @@ class SmokeCandleBullet01(tk.LabelFrame):
                 self.vehicleSGO.value() == 'app:/Object/v503_bike_omegaz.sgo':  # Bike
             self.baseHP = 150.0
 
-    class TankParams(tk.LabelFrame):
-        def __init__(self, parent):
-            tk.LabelFrame.__init__(self, parent, text=getText("Tank"))
-            self.bodyTurning = FreeInputWidget(self, "Body turning speed", float, restrictPositive=True, initialValue=0.1)
-            self.maxSpeed = FreeInputWidget(self, "Max speed", float, restrictPositive=True, initialValue=25.0)
-            self.brakes = SliderWidget(self, "Braking power", 0, 1, resolution=0.001, tooltip="1 = instant stop", initialValue=0.015)
-            self.unknown1 = FreeInputWidget(self, "Unknown float", float, initialValue=1.0)
-            self.unknown2 = FreeInputWidget(self, "Unknown float", float, initialValue=0.125)
-            self.acceleration = FreeInputWidget(self, "Acceleration?", float, restrictPositive=True, initialValue=0.25)
 
-            self.bodyTurning.pack()
-            self.maxSpeed.pack()
-            self.brakes.pack()
-            self.unknown1.pack()
-            self.unknown2.pack()
-            self.acceleration.pack()
-
-        def value(self):
-            return [self.bodyTurning.value(),
-                    self.maxSpeed.value(),
-                    self.brakes.value(),
-                    self.unknown1.value(),
-                    self.unknown2.value(),
-                    self.acceleration.value()]
-
-        def setValue(self, l):
-            self.bodyTurning.setValue(l[0])
-            self.maxSpeed.setValue(l[1])
-            self.brakes.setValue(l[2])
-            self.unknown1.setValue(l[3])
-            self.unknown2.setValue(l[4])
-            self.acceleration.setValue(l[5])
-
-    class BikeParams(tk.LabelFrame):
-        def __init__(self, parent):
-            tk.LabelFrame.__init__(self, parent, self=getText("Free Bike"))
-
-    class NixParams(tk.LabelFrame):
-        def __init__(self, parent):
-            tk.LabelFrame.__init__(self, parent, self=getText("Nix"))
-
-    class HeliParams(tk.LabelFrame):
-        def __init__(self, parent):
-            tk.LabelFrame.__init__(self, parent, self=getText("Helicopter"))
-
-    class CrawlerParams(tk.LabelFrame):
-        def __init__(self, parent):
-            tk.LabelFrame.__init__(self, parent, self=getText("Depth Crawler"))
-
-
-    class VehicleWeaponChoice(tk.LabelFrame):
-        def __init__(self, parent, label, includesRecoil, isTurret, damageMultiplierWidget, recoilType=""):
-            self.parent = parent
-            self.includesRecoil = includesRecoil
-            self.isTurret = isTurret
-            self.damageMultiplierWidget = damageMultiplierWidget
-            self.recoilType = recoilType
-            tk.LabelFrame.__init__(self, parent, text=getText(label))
-            self.weaponChoice = MultiDropDownWidget(self, "Weapon Choice", vehicleWeapons)
-            self.ammoClass = FreeInputWidget(self, "Ammo class", str)
-            self.ammoCount = FreeInputWidget(self, "Ammo", int)
-            self.baseDamage = FreeInputWidget(self, "Damage", str)
-            self.firingRate = FreeInputWidget(self, "Firing Rate", str)
-            self.dps = FreeInputWidget(self, "Damage per second", str, tooltip="May be inaccurate for burst weapons")
-            self.totalDamage = FreeInputWidget(self, "Potential damage", str)
-            self.explosionRadius = FreeInputWidget(self, "Explosion Radius", str)
-            self.ammoSpeed = FreeInputWidget(self, "Ammo Speed", str, tooltip="Inaccurate for missiles/rockets")
-            self.range = FreeInputWidget(self, "Range", str, tooltip="Inaccurate for missiles/rockets")
-
-            self.weaponChoice.valueLabel.inputVar.trace_add("write", self.updateStats)
-            self.damageMultiplierWidget.inputVar.trace_add("write", self.updateStats)
-
-            disableInput(self.ammoClass)
-            disableInput(self.ammoCount)
-            disableInput(self.baseDamage)
-            disableInput(self.firingRate)
-            disableInput(self.dps)
-            disableInput(self.totalDamage)
-            disableInput(self.explosionRadius)
-            disableInput(self.ammoSpeed)
-            disableInput(self.range)
-
-            self.weaponChoice.pack()
-            self.ammoClass.pack()
-            self.ammoCount.pack()
-            self.baseDamage.pack()
-            self.firingRate.pack()
-            self.dps.pack()
-            self.totalDamage.pack()
-            self.explosionRadius.pack()
-            self.ammoSpeed.pack()
-            self.range.pack()
-
-            self.lockonType = 0
-            self.lockonRange = FreeInputWidget(self, "Lock-on range (meters)", float)
-            self.lockonTime = FreeInputWidget(self, "Lock-on time (seconds)", int)
-            disableInput(self.lockonRange)
-            disableInput(self.lockonTime)
-
-            if includesRecoil:
-                self.recoilFrame = tk.LabelFrame(self, text=getText("Recoil"))
-                self.pushback = FreeInputWidget(self.recoilFrame, "Firing pushback", float)
-                self.recoil = FreeInputWidget(self.recoilFrame, "Vertical recoil", float)
-                self.recoilFrame.pack()
-                self.pushback.pack()
-                self.recoil.pack()
-
-            if isTurret:
-                self.turretControl = tk.LabelFrame(self, text=getText("Turret parameters"))
-                self.turretMaxSpeed = FreeInputWidget(self.turretControl, "Turret max speed", float, initialValue=100.0)
-                self.turretAcceleration = SliderWidget(self.turretControl, "Turret acceleration", 0, 0.999,
-                                                       resolution=0.001, initialValue=0.01)
-                self.aimFriction = SliderWidget(self.turretControl, "Aim friction", 0, 0.999, resolution=0.001,
-                                                tooltip="", initialValue=0.05)
-                self.turretControl.pack()
-                self.turretMaxSpeed.pack()
-                self.turretAcceleration.pack()
-                self.aimFriction.pack()
-
-            self.updateStats()
-
-        def value(self):
-            if self.weaponChoice.value() == "none":
-                return [0]
-            v = [f"app:/weapon/{self.weaponChoice.value()}.sgo"]
-            if self.includesRecoil:
-                if self.recoilType == "":
-                    v.append([self.pushback.value(), self.recoil.value()])
-                else:
-                    v.append([self.recoilType, [self.pushback.value(), self.recoil.value()]])
-            if self.isTurret:
-                v.append([self.turretMaxSpeed.value(), self.turretAcceleration.value(), self.aimFriction.value()])
-            return v
-
-        def setValue(self, l):
-            self.weaponChoice.setValue(l[0])
-            if len(l) == 1:
-                self.includesRecoil = False
-                self.recoilType = ""
-                self.isTurret = False
-            elif len(l) == 2:
-                self.includesRecoil = True
-                self.isTurret = False
-                if isinstance(l[1][0], str):
-                    self.recoilType = l[1][0]
-                    self.pushback.setValue(l[1][1][0])
-                    self.recoil.setValue(l[1][1][1])
-                else:
-                    self.pushback.setValue(l[1][0])
-                    self.recoil.setValue(l[1][1])
-            elif len(l) == 3:
-                self.includesRecoil = True
-                self.isTurret = True
-                if isinstance(l[1][0], str):
-                    self.recoilType = l[1][0]
-                    self.pushback.setValue(l[1][1][0])
-                    self.recoil.setValue(l[1][1][1])
-                else:
-                    self.pushback.setValue(l[1][0])
-                    self.recoil.setValue(l[1][1])
-                self.turretMaxSpeed.setValue(l[2][0])
-                self.turretAcceleration.setValue(l[2][1])
-                self.aimFriction.setValue(l[2][2])
-
-        def updateStats(self, *args):
-            s = vehicleWeaponStats[self.weaponChoice.value()]
-            self.ammoClass.setValue(s["AmmoClass"])
-            self.ammoCount.setValue(s["AmmoCount"])
-            if s["AmmoDamageReduce"][0] == 1.0:
-                damageStr = str(s['AmmoDamage'] * self.damageMultiplierWidget.value())
-            else:
-                damageStr = f"{str(s['AmmoDamage'] * self.damageMultiplierWidget.value())} ~ {round(s['AmmoDamage'] * s['AmmoDamageReduce'][0] * self.damageMultiplierWidget.value(), 2)}"
-            if s["AmmoIsPenetration"] == 1:
-                damageStr += " [PT]"
-            if s['FireCount'] > 1:
-                damageStr += f"{(' x ' + str(s['FireCount'])) if s['FireCount'] != 0 else ''}"
-            if s["FireBurstCount"] > 1:
-                damageStr += f" ({s['FireBurstCount']} {getText('burst')})"
-            self.baseDamage.setValue(damageStr)
-            self.firingRate.setValue(f"{round((60 / (s['FireInterval'] + 1)), 2)} {getText('shots/s')}")
-            dps = str(round(((60 / (s["FireInterval"] + 1 + s["FireBurstCount"] * s["FireBurstInterval"])) * s["AmmoDamage"] * s["FireBurstCount"] * s[
-                "FireCount"] * self.damageMultiplierWidget.value()), 2))
-            if s["AmmoDamageReduce"][0] != 1.0:
-                dps += " ~ "
-                dps += str(round(((60 / (s["FireInterval"] + 1 + s["FireBurstCount"] * s["FireBurstInterval"])) * s["AmmoDamage"] * s[
-                    "FireBurstCount"] * s[
-                           "FireCount"] * s["AmmoDamageReduce"][0] * self.damageMultiplierWidget.value()), 2))
-            self.dps.setValue(dps)
-            self.totalDamage.setValue(s["AmmoDamage"] * s["AmmoCount"] * s["FireCount"])
-            self.explosionRadius.setValue(str(s["AmmoExplosion"]) + "m")
-            self.ammoSpeed.setValue(str(round((s["AmmoSpeed"] * 60), 2)) + "m/s")
-            self.range.setValue(str(round((s["AmmoSpeed"] * s["AmmoAlive"]), 2)) + "m")
-
-            if s["LockonType"] == 1 or s["LockonType"] == 3:
-                self.lockonRange.setValue(f"{s['LockonRange']} m")
-                self.lockonTime.setValue(f"{round((s['LockonTime'] / 60), 2)} s")
-                self.lockonRange.pack()
-                self.lockonTime.pack()
-            else:
-                self.lockonRange.pack_forget()
-                self.lockonTime.pack_forget()
 
     def test(self):
         print(self.__class__.__name__)
@@ -2433,7 +2251,8 @@ class SolidBullet01(tk.LabelFrame):
     def __init__(self, parent, isSubProjectile):
         tk.LabelFrame.__init__(self, parent, text=getText("SolidBullet01"))
         self.isSubProjectile = isSubProjectile
-        self.isBouncy = DropDownWidget(self, "Is bouncy?", {"Not bouncy": 0, "Bouncy": 1, "Also not bouncy, likely dev mistake?": 2})
+        self.isBouncy = DropDownWidget(self, "Is bouncy?",
+                                       {"Not bouncy": 0, "Bouncy": 1, "Also not bouncy, likely dev mistake?": 2})
         self.enableExtra = CheckBoxWidget(self, "Enable extra options", 0, 1)
         self.enableExtra.input.trace_add("write", self.enableOrDisableExtra)
         self.hitEffectScale = FreeInputWidget(self, "Hit effect scale", float)
@@ -2446,7 +2265,6 @@ class SolidBullet01(tk.LabelFrame):
         self.unknown.pack()
 
         self.enableOrDisableExtra()
-
 
     def enableOrDisableExtra(self, *args):
         if self.enableExtra.value() == 0:
@@ -2547,7 +2365,8 @@ class SolidExpBullet01(tk.LabelFrame):
 class SolidPelletBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("SolidPelletBullet01"))
-        self.penetrationTime = FreeInputWidget(self, "Penetration duration", int, restrictPositive=True, initialValue=4, tooltip="How long the bullets in frames the bullets will maintain their penetraion property")
+        self.penetrationTime = FreeInputWidget(self, "Penetration duration", int, restrictPositive=True, initialValue=4,
+                                               tooltip="How long the bullets in frames the bullets will maintain their penetraion property")
         self.penetrationTime.pack()
 
     def value(self):
@@ -2597,7 +2416,9 @@ class SpiderStringBullet02(tk.LabelFrame):
 class SupportUnitBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("SupportUnitBullet02"))
-        self.buffType = DropDownWidget(self, "Buff type", {"Health": 0, "Wing diver energy": 1, "Defense": 2, "Power": 3}, tooltip="Other parameters are controlled by parameters.\nDamage = heal amount or stat multiplier\nExplosion radius = buff radius\nAmmo lifetime = buff duration")
+        self.buffType = DropDownWidget(self, "Buff type",
+                                       {"Health": 0, "Wing diver energy": 1, "Defense": 2, "Power": 3},
+                                       tooltip="Other parameters are controlled by parameters.\nDamage = heal amount or stat multiplier\nExplosion radius = buff radius\nAmmo lifetime = buff duration")
         self.offsetFrame = tk.LabelFrame(self, text="Buff stream offset")
         self.offsetX = FreeInputWidget(self.offsetFrame, "X", float)
         self.offsetY = FreeInputWidget(self.offsetFrame, "Y", float)
@@ -2608,7 +2429,6 @@ class SupportUnitBullet01(tk.LabelFrame):
         self.offsetX.pack()
         self.offsetY.pack()
         self.offsetZ.pack()
-
 
     def value(self):
         return [self.buffType.value(), [self.offsetX.value(), self.offsetY.value(), self.offsetZ.value()]]
@@ -2636,10 +2456,8 @@ class TargetMarkerBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("TargetMarkerBullet01"))
 
-
     def value(self):
         pass
 
     def setValue(self):
         pass
-

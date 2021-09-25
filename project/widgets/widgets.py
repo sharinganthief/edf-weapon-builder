@@ -622,9 +622,6 @@ class MultiDropDownWidget(tk.LabelFrame):
         self.valueLabel.input.config(state="readonly")
         # disableInput(self.valueLabel)
 
-
-
-
     def constructChildren(self, *args, oOptions="", widgetList=""):
         options = oOptions
         while True:
@@ -691,6 +688,13 @@ class MultiDropDownWidget(tk.LabelFrame):
                 self.updateValueLabel()
                 break
 
+    def disableInput(self, *args):
+        for w in self.widgets:
+            disableInput(w)
+
+    def enableInput(self, *args):
+        for w in self.widgets:
+            enableInput(w)
 
     def value(self):
         # try:
@@ -705,8 +709,6 @@ class MultiDropDownWidget(tk.LabelFrame):
             return 0
 
     def setValue(self, v):
-        # if v == "Goliath D1":
-        #     print("a")
         valuePath = getpath(self.originalOptions, v)
         if valuePath is not None:
             self.baseChoice.dropDownDisplayed.set(valuePath[0])

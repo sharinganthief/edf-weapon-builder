@@ -20,7 +20,7 @@ import logging
 
 global labelwidth
 labelwidth = 20
-
+bulletsWithModels = ["NapalmBullet01", "MissileBullet01", "GrenadeBullet01", "BombBullet01", "SmokeCandleBullet01", "SentryGunBullet01", "ClusterBullet01", "TargetMarkerBullet01", "BombBullet02", "SmokeCandleBullet02", "MissileBullet02", "SpiderStringBullet02"]
 
 class MainWindow(tk.Frame):
     def __init__(self, parent, width, height):
@@ -34,7 +34,6 @@ class MainWindow(tk.Frame):
         self.notebook = MainNotebook(self)
         self.notebook.pack(side="left", fill="both", expand=True)
         self.classChoiceVar = self.notebook.classTab.classChoice.dropDownDisplayed
-        self.classChoiceVar.trace_add("write", self.updateWidgetsDependingOnClass)
         # self.testLabel = tk.Label(self.notebook.tab1, textvariable=self.intEntryTest.entryBoxVar.get(), relief="raised")
         # self.testButton = tk.Button(self, text="print", command=lambda: print(self.createWeaponEasyData()))
         self.testButton = tk.Button(self, text="Write to file", command=lambda: self.writeWeaponToJson())
@@ -42,6 +41,9 @@ class MainWindow(tk.Frame):
         self.updateTextFile = tk.Button(self, text="Update text json", command=self.updateText)
         self.updateTextFile.pack()
         # self.testLabel.pack()
+
+        self.classChoiceVar.trace_add("write", self.updateWidgetsDependingOnClass)
+        self.notebook.classTab.AmmoClass.dropDownDisplayed.trace_add("write", self.updateWidgetsDependingOnAmmoClass)
 
     def updateText(self, *args):
         curDir = os.path.abspath(".")
@@ -66,12 +68,18 @@ class MainWindow(tk.Frame):
             j.writeToJson(j.easyToTypeValue(self.createWeaponEasyData()), filename)
         # print(filename)
 
-    def updateWidgetsDependingOnXGS(self, *args):
-        pass
-
     def updateWidgetsDependingOnClass(self, *args):
         self.notebook.appearanceTab.gunModelWidget.classChange(self.classChoiceVar.get())
         self.notebook.basicParamsTab.basicParamsWidget.updateSecondaryOptionsBasedOnClass(self.classChoiceVar.get())
+
+    def updateWidgetsDependingOnXGS(self, *args):
+        pass
+
+    def updateWidgetsDependingOnAmmoClass(self, *args):
+        if self.notebook.classTab.AmmoClass.value() in bulletsWithModels:
+            self.notebook.appearanceTab.ammoModel.enableInput()
+        else:
+            self.notebook.appearanceTab.ammoModel.disableInput()
 
     def createWeaponEasyData(self, *args):
         n = self.notebook
@@ -89,7 +97,7 @@ class MainWindow(tk.Frame):
         eData["AmmoHitSe"] = n.soundsTab.impactSound.value()
         eData["AmmoHitSizeAdjust"] = n.classTab.ammoHitSizeAdjust.value()
         eData["AmmoIsPenetration"] = n.basicParamsTab.basicParamsWidget.isPenetrate.value()
-        eData["AmmoModel"] = n.appearanceTab.ammoModel.value()
+        eData["AmmoModel"] = n.appearanceTab.ammoModel.value() if self.notebook.classTab.AmmoClass.value() in bulletsWithModels else 0
         eData["AmmoOwnerMove"] = n.classTab.ammoOwnerMove.value()
         eData["AmmoSize"] = n.classTab.ammoSize.value()
         eData["AmmoSpeed"] = n.basicParamsTab.basicParamsWidget.ammoSpeed.value()

@@ -1,5 +1,4 @@
 { "Ammo": {
-    "None":  0,
     "bullet_grenade": "app:/WEAPON/bullet_grenade.rab",
     "bullet_rocket":  "app:/WEAPON/bullet_rocket.rab",
     "bullet_missile": "app:/WEAPON/bullet_missile.rab",

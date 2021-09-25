@@ -647,20 +647,6 @@ class AppearanceTab(ScrolledFrame):
 
         self.gunModelWidget.classChange("Ranger")
 
-        # from collections import abc
-        # def nested_dict_iter(nested):
-        #     for key, value in nested.items():
-        #         if isinstance(value, abc.Mapping):
-        #             yield from nested_dict_iter(value)
-        #         else:
-        #             yield key, value
-        # gunMODELS = j.loadDataFromJson("./data/sorted weapon models.json")
-        # gunRABS = nested_dict_iter(gunMODELS)
-        # gunRABS = list(gunRABS)
-        # # allRABS = list(nested_dict_iter(gunRABS))
-        # for m in gunRABS:
-        #     self.gunModelWidget.RABChoice.setValue(m[1])
-
 
     def updateRABDependantValues(self, *args):
         v = self.gunModelWidget.getModelRelatedInfo()
