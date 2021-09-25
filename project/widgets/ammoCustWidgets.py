@@ -2011,6 +2011,9 @@ class SmokeCandleBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("Vehicle summon"))
         self.col1 = tk.Frame(self)
+        self.col2 = tk.Frame(self)
+        self.col3 = tk.Frame(self)
+        self.col4 = tk.Frame(self)
         self.weaponWidgets = []
         self.unknown1 = FreeInputWidget(self.col1, "Unknown float", float, initialValue=0.05000000074505806,
                                         tooltip="Always 0.05000000074505806?")
@@ -2032,6 +2035,9 @@ class SmokeCandleBullet01(tk.LabelFrame):
         self.vehicleSGO.valueLabel.inputVar.trace_add("write", self.updateParamsAndWeapons)
 
         self.col1.grid(row=0, column=0, sticky="N")
+        self.col2.grid(row=0, column=1, sticky="N")
+        self.col3.grid(row=0, column=2, sticky="N")
+        self.col4.grid(row=0, column=3, sticky="N")
         self.unknown1.pack()
         self.smokeLifetime.pack()
         self.summonDelay.pack()
@@ -2048,12 +2054,7 @@ class SmokeCandleBullet01(tk.LabelFrame):
         v = [self.unknown1.value(), self.smokeLifetime.value(), self.summonDelay.value(), self.summonType.value(),
              [self.transporter.value()[0], self.transporter.value()[1], self.vehicleSGO.value(),
               [[self.HP.value() / self.baseHP, self.weaponMultiplier.value()]]], self.voices]
-        if self.vehicleSGO.value() == "app:/Object/v505_tank.sgo" or \
-                self.vehicleSGO.value() == 'app:/Object/v505_tank_edf4.sgo' or \
-                self.vehicleSGO.value() == 'app:/Object/v505_tank_edf5.sgo' or \
-                self.vehicleSGO.value() == 'app:/Object/Vehicle403_Tank.sgo' or \
-                self.vehicleSGO.value() == 'app:/Object/v510_maser.sgo' or \
-                self.vehicleSGO.value() == "app:/Object/Vehicle404_bigtank.sgo":
+        if self.vehicleSGO.value() in vehicleSGOS["Tank"].values():
             v[4][3].append(self.vehicleParams.value())
             v[4][3].append([w.value() for w in self.weaponWidgets])
         elif self.vehicleSGO.value() == "app:/Object/Vehicle401_Striker.sgo":  # Grape
@@ -2080,12 +2081,12 @@ class SmokeCandleBullet01(tk.LabelFrame):
             v[4][3].append(self.vehicleParams.value()[0])
             v[4][3].append(self.vehicleParams.value()[1])
             v[4][3].append([w.value() for w in self.weaponWidgets])
-        elif self.vehicleSGO.value() == 'app:/Object/v504_begaruta_blue.sgo' or \
-                self.vehicleSGO.value() == 'app:/Object/v504_begaruta_red.sgo' or \
-                self.vehicleSGO.value() == 'app:/Object/v504_begaruta.sgo' or \
-                self.vehicleSGO.value() == 'app:/Object/v504_begaruta_white.sgo' or \
-                self.vehicleSGO.value() == 'app:/Object/v504_begaruta_gold.sgo':  # Nix
-            pass
+        elif self.vehicleSGO.value() in vehicleSGOS["Nix"].values():  # Nix
+            v[4][3].append(self.vehicleParams.value()[0])
+            v[4][3].append(self.vehicleParams.value()[1])
+            v[4][3].append(self.vehicleParams.value()[2])
+            v[4][3].append([w.value() for w in self.weaponWidgets])
+            v[4][3].append(self.vehicleParams.value()[3])
         elif self.vehicleSGO.value() == 'app:/Object/v512_keiTruck_bgp.sgo':  # Truck
             pass
         elif self.vehicleSGO.value() == 'app:/Object/v503_bike.sgo' or \
@@ -2114,21 +2115,21 @@ class SmokeCandleBullet01(tk.LabelFrame):
                 self.vehicleSGO.value() == 'app:/Object/v505_tank_edf5.sgo':  # Blacker
             self.baseHP = 1000.0
             replaceParamsAndRemoveWeapons(self, TankParams)
-            self.weaponWidgets.append(VehicleWeaponChoice(self, "Main Cannon", True, True, self.weaponMultiplier))
-            self.weaponWidgets[0].grid(row=0, column=1, sticky="N")
+            self.weaponWidgets.append(VehicleWeaponChoice(self.col2, "Main Cannon", True, True, self.weaponMultiplier))
+            self.weaponWidgets[0].grid(row=0, column=0, sticky="N")
             self.weaponWidgets[0].setValue(["app:/weapon/v_505tank_cannon01.sgo", [0.1, 0.05], [40, 0.004, 0.1]])
 
         elif self.vehicleSGO.value() == 'app:/Object/Vehicle403_Tank.sgo':  # Railgun
             self.baseHP = 1200.0
             replaceParamsAndRemoveWeapons(self, TankParams)
-            self.weaponWidgets.append(VehicleWeaponChoice(self, "Main Cannon", True, True, self.weaponMultiplier,
+            self.weaponWidgets.append(VehicleWeaponChoice(self.col2, "Main Cannon", True, True, self.weaponMultiplier,
                                                                recoilType="BodyRecoil"))
             self.weaponWidgets.append(
                 VehicleWeaponChoice(self, "Side gun 1", True, True, self.weaponMultiplier, recoilType="AimRecoil"))
             self.weaponWidgets.append(
                 VehicleWeaponChoice(self, "Side gun 2", True, True, self.weaponMultiplier, recoilType="AimRecoil"))
             for i in range(len(self.weaponWidgets)):
-                self.weaponWidgets[i].grid(row=0, column=i + 1, sticky="N")
+                self.weaponWidgets[i].grid(row=0, column=i, sticky="N")
             self.weaponWidgets[0].setValue(["app:/weapon/v_403tank_cannon01.sgo", [0.1, 0.05], [40, 0.004, 0.1]])
             self.weaponWidgets[1].setValue(['app:/weapon/v_403tank_machinegun.sgo', [0.0, 0.0026], [90.0, 0.01, 0.01]])
             self.weaponWidgets[2].setValue(['app:/weapon/v_403tank_machinegun.sgo', [0.0, 0.0026], [90.0, 0.01, 0.01]])
@@ -2136,27 +2137,30 @@ class SmokeCandleBullet01(tk.LabelFrame):
         elif self.vehicleSGO.value() == 'app:/Object/v510_maser.sgo':  # EMC
             self.baseHP = 1000.0
             replaceParamsAndRemoveWeapons(self, TankParams)
-            self.weaponWidgets.append(VehicleWeaponChoice(self, "Main Cannon", True, True, self.weaponMultiplier))
-            for i in range(len(self.weaponWidgets)):
-                self.weaponWidgets[i].grid(row=0, column=i + 1, sticky="N")
+            self.weaponWidgets.append(VehicleWeaponChoice(self.col2, "Main Cannon", True, True, self.weaponMultiplier))
+            self.weaponWidgets[0].grid(row=0, column=0, sticky="N")
             self.weaponWidgets[0].setValue(["app:/weapon/v_510_maser_thunder01.sgo", [0, 0], [15.0, 0.01, 0.05]])
 
         elif self.vehicleSGO.value() == "app:/Object/Vehicle404_bigtank.sgo":  # Titan
             self.baseHP = 4800.0
             replaceParamsAndRemoveWeapons(self, TankParams)
-            self.weaponWidgets.append(VehicleWeaponChoice(self, "Main Cannon", True, True, self.weaponMultiplier))
+            self.weaponWidgets.append(VehicleWeaponChoice(self.col2, "Main Cannon", True, True, self.weaponMultiplier))
             self.weaponWidgets.append(
-                VehicleWeaponChoice(self, "Left primary gun", True, True, self.weaponMultiplier))
+                VehicleWeaponChoice(self.col3, "Left primary gun", True, True, self.weaponMultiplier))
             self.weaponWidgets.append(
-                VehicleWeaponChoice(self, "Right primary gun", True, True, self.weaponMultiplier))
+                VehicleWeaponChoice(self.col4, "Right primary gun", True, True, self.weaponMultiplier))
             self.weaponWidgets.append(
-                VehicleWeaponChoice(self, "Driver secondary gun", True, False, self.weaponMultiplier))
+                VehicleWeaponChoice(self.col2, "Driver secondary gun", True, False, self.weaponMultiplier))
             self.weaponWidgets.append(
-                VehicleWeaponChoice(self, "Left secondary gun", True, False, self.weaponMultiplier))
+                VehicleWeaponChoice(self.col3, "Left secondary gun", True, False, self.weaponMultiplier))
             self.weaponWidgets.append(
-                VehicleWeaponChoice(self, "Right secondary gun", True, False, self.weaponMultiplier))
-            for i in range(len(self.weaponWidgets)):
-                self.weaponWidgets[i].grid(row=0, column=i + 1, sticky="N")
+                VehicleWeaponChoice(self.col4, "Right secondary gun", True, False, self.weaponMultiplier))
+            self.weaponWidgets[0].pack()  #.grid(row=0, column=0, sticky="N")
+            self.weaponWidgets[3].pack()  #.grid(row=1, column=0, sticky="N")
+            self.weaponWidgets[1].pack()  #.grid(row=0, column=1, sticky="N")
+            self.weaponWidgets[4].pack()  #.grid(row=1, column=1, sticky="N")
+            self.weaponWidgets[2].pack()  #.grid(row=0, column=2, sticky="N")
+            self.weaponWidgets[5].pack()  #.grid(row=1, column=2, sticky="N")
             self.weaponWidgets[0].setValue(['app:/weapon/v_404bigtank_maincannon.sgo', [1.0, 3.0],
                                             [10.0, 0.009999999776482582, 0.10000000149011612]])
             self.weaponWidgets[1].setValue(['app:/weapon/v_404bigtank_subcannonsolid.sgo', [0.05000000074505806, 0.5],
@@ -2170,9 +2174,9 @@ class SmokeCandleBullet01(tk.LabelFrame):
         elif self.vehicleSGO.value() == "app:/Object/Vehicle401_Striker.sgo":  # Grape
             self.baseHP = 650.0
             replaceParamsAndRemoveWeapons(self, GrapeParams)
-            self.weaponWidgets.append(VehicleWeaponChoice(self, "Turret", True, True, self.weaponMultiplier))
+            self.weaponWidgets.append(VehicleWeaponChoice(self.col2, "Turret", True, True, self.weaponMultiplier))
             self.weaponWidgets[0].setValue(['app:/weapon/v_401striker_cannon02.sgo', [0.009999999776482582, 0.10000000149011612], [180.0, 0.012000000104308128, 0.05000000074505806]])
-            self.weaponWidgets[0].grid(row=0, column=1, sticky="N")
+            self.weaponWidgets[0].grid(row=0, column=0, sticky="N")
 
         elif self.vehicleSGO.value() == 'app:/Object/v507_rescuetank.sgo' or \
                 self.vehicleSGO.value() == 'app:/Object/v507_rescuetank_siawase.sgo':  # Caliban
@@ -2182,9 +2186,9 @@ class SmokeCandleBullet01(tk.LabelFrame):
         elif self.vehicleSGO.value() == 'app:/Object/Vehicle402_Rocket.sgo':  # Naegling
             self.baseHP = 300.0
             replaceParamsAndRemoveWeapons(self, TankParams)
-            self.weaponWidgets.append(VehicleWeaponChoice(self, "Missile Pod", True, True, self.weaponMultiplier))
+            self.weaponWidgets.append(VehicleWeaponChoice(self.col2, "Missile Pod", True, True, self.weaponMultiplier))
             self.weaponWidgets[0].setValue(['app:/weapon/v_402rocket_rocketcannon.sgo', [0.02500000037252903, 0.10000000149011612], [90.0, 0.007499999832361937, 0.05000000074505806]])
-            self.weaponWidgets[0].grid(row=0, column=1, sticky="N")
+            self.weaponWidgets[0].grid(row=0, column=0, sticky="N")
 
         elif self.vehicleSGO.value() == 'app:/Object/v506_heli.sgo':  # Eros
             self.baseHP = 600.0
@@ -2195,12 +2199,28 @@ class SmokeCandleBullet01(tk.LabelFrame):
         elif self.vehicleSGO.value() == 'app:/Object/Vehicle410_heli.sgo':  # Brute
             self.baseHP = 1800.0
 
-        elif self.vehicleSGO.value() == 'app:/Object/v504_begaruta_blue.sgo' or \
-                self.vehicleSGO.value() == 'app:/Object/v504_begaruta_red.sgo' or \
-                self.vehicleSGO.value() == 'app:/Object/v504_begaruta.sgo' or \
-                self.vehicleSGO.value() == 'app:/Object/v504_begaruta_white.sgo' or \
-                self.vehicleSGO.value() == 'app:/Object/v504_begaruta_gold.sgo':  # Nix
+        elif self.vehicleSGO.value() in vehicleSGOS["Nix"].values():
             self.baseHP = 1200.0
+            if not isinstance(self.vehicleParams, NixParams):
+                replaceParamsAndRemoveWeapons(self, NixParams)
+                self.weaponWidgets.append(VehicleWeaponChoice(self.col3, "Right hand", True, False, self.weaponMultiplier))
+                self.weaponWidgets.append(VehicleWeaponChoice(self.col2, "Left hand", True, False, self.weaponMultiplier))
+                self.weaponWidgets.append(VehicleWeaponChoice(self.col3, "Right lower arm", True, False, self.weaponMultiplier))
+                self.weaponWidgets.append(VehicleWeaponChoice(self.col2, "Left lower arm", True, False, self.weaponMultiplier))
+                self.weaponWidgets.append(VehicleWeaponChoice(self.col3, "Right shoulder", True, False, self.weaponMultiplier))
+                self.weaponWidgets.append(VehicleWeaponChoice(self.col2, "Left shoulder", True, False, self.weaponMultiplier))
+                self.weaponWidgets.append(VehicleWeaponChoice(self.col3, "Right upper arm", True, False, self.weaponMultiplier))
+                self.weaponWidgets.append(VehicleWeaponChoice(self.col2, "Left upper arm", True, False, self.weaponMultiplier))
+
+                self.weaponWidgets[4].pack()
+                self.weaponWidgets[5].pack()
+                self.weaponWidgets[6].pack()
+                self.weaponWidgets[7].pack()
+                self.weaponWidgets[2].pack()
+                self.weaponWidgets[3].pack()
+                self.weaponWidgets[0].pack()
+                self.weaponWidgets[1].pack()
+
 
         elif self.vehicleSGO.value() == 'app:/Object/v512_keiTruck_bgp.sgo':  # Truck
             self.baseHP = 200.0

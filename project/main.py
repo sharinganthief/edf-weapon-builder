@@ -78,6 +78,9 @@ class MainWindow(tk.Frame):
     def updateWidgetsDependingOnAmmoClass(self, *args):
         if self.notebook.classTab.AmmoClass.value() in bulletsWithModels:
             self.notebook.appearanceTab.ammoModel.enableInput()
+            if self.notebook.classTab.AmmoClass.value() == "SmokeCandleBullet01":
+                self.notebook.appearanceTab.ammoModel.setValue("app:/WEAPON/e_throw_marker02.rab")
+                self.notebook.appearanceTab.ammoModel.disableInput()
         else:
             self.notebook.appearanceTab.ammoModel.disableInput()
 

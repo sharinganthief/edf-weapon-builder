@@ -114,13 +114,13 @@ class GrapeParams(tk.LabelFrame):
         tk.LabelFrame.__init__(self, parent, text=getText("Armored Vehicle Grape"))
         self.parent = parent
         self.bodyTurning = FreeInputWidget(self, "Body turning speed", float, restrictPositive=True,
-                                           initialValue=0.1)
-        self.maxSpeed = FreeInputWidget(self, "Max speed", float, restrictPositive=True, initialValue=25.0)
+                                           initialValue=0.75)
+        self.maxSpeed = FreeInputWidget(self, "Max speed", float, restrictPositive=True, initialValue=70.0)
         self.brakes = SliderWidget(self, "Braking power", 0, 1, resolution=0.001, tooltip="1 = instant stop",
                                    initialValue=0.015)
         self.unknown1 = FreeInputWidget(self, "Unknown float", float, initialValue=1.0)
-        self.unknown2 = FreeInputWidget(self, "Unknown float", float, initialValue=0.125)
-        self.acceleration = FreeInputWidget(self, "Acceleration?", float, restrictPositive=True, initialValue=0.25)
+        self.unknown2 = FreeInputWidget(self, "Unknown float", float, initialValue=0.075)
+        self.acceleration = FreeInputWidget(self, "Acceleration?", float, restrictPositive=True, initialValue=0.5)
         self.unknown3 = FreeInputWidget(self, "Unknown float", float, restrictPositive=True, initialValue=0.25)
 
         self.bodyTurning.pack()
@@ -158,6 +158,94 @@ class BikeParams(tk.LabelFrame):
 class NixParams(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("Nix"))
+        
+        self.movementFrame = tk.LabelFrame(self, text=getText("Movement"), bd=5)
+        self.walkSpeed = FreeInputWidget(self.movementFrame, "Walking speed", float, restrictPositive=True, initialValue=7.5)
+        self.walkAcceleration = FreeInputWidget(self.movementFrame, "Walk acceleration", float, restrictPositive=True, initialValue=0.005)
+        self.turnSpeed = FreeInputWidget(self.movementFrame, "Turn speed", float, restrictPositive=True, initialValue=35.0)
+        self.turnAcceleration = FreeInputWidget(self.movementFrame, "Turn acceleration?", float, restrictPositive=True, initialValue=0.06)
+        
+        self.jumpFrame = tk.LabelFrame(self, text=getText("Jump"), bd=5)
+        self.jumpPower = FreeInputWidget(self.jumpFrame, "Jump power", float, restrictPositive=True, initialValue=10.0)
+        self.jumpSpeed = SliderWidget(self.jumpFrame, "Jump startup speed", 0.0, 5.0, resolution=0.01, initialValue=3.0)
+        self.unknown1 = FreeInputWidget(self.jumpFrame, "Unknown float", float)
+        self.boostTime = FreeInputWidget(self.jumpFrame, "Boost time (frames)", int, restrictPositive=True, initialValue=300)
+        self.boostPower = FreeInputWidget(self.jumpFrame, "Boost power", float, restrictPositive=True, initialValue=0.5)
+        self.boostDelay = FreeInputWidget(self.jumpFrame, "Boost delay", int, restrictPositive=True, initialValue=80)
+        
+        self.aimFrame = tk.LabelFrame(self, text=getText("Aiming"), bd=5)
+        self.aimMaxSpeed = FreeInputWidget(self.aimFrame, "Aiming max speed", float, initialValue=60.0)
+        self.aimAcceleration = SliderWidget(self.aimFrame, "Aiming acceleration", 0, 0.999, resolution=0.001, initialValue=0.05)
+        self.aimFriction = SliderWidget(self.aimFrame, "Aim friction", 0, 0.999, resolution=0.001, tooltip="", initialValue=0.1)
+
+        self.unknownStruct = tk.LabelFrame(self, text=getText("Unknown struct"))
+        self.unknown2 = FreeInputWidget(self, "Unknown float", float, initialValue=0.019999999552965164)
+        self.unknown3 = FreeInputWidget(self, "Unknown float", float, initialValue=0.10000000149011612)
+
+        self.movementFrame.pack()
+        self.walkSpeed.pack()
+        self.walkAcceleration.pack()
+        self.turnSpeed.pack()
+        self.turnAcceleration.pack()
+
+        self.jumpFrame.pack()
+        self.jumpPower.pack()
+        self.jumpSpeed.pack()
+        self.unknown1.pack()
+        self.boostTime.pack()
+        self.boostPower.pack()
+        self.boostDelay.pack()
+
+        self.aimFrame.pack()
+        self.aimMaxSpeed.pack()
+        self.aimAcceleration.pack()
+        self.aimFriction.pack()
+
+        self.unknownStruct.pack()
+        self.unknown2.pack()
+        self.unknown3.pack()
+
+    def value(self):
+        return [
+            [self.walkSpeed.value(),
+             self.walkAcceleration.value(),
+             self.turnSpeed.value(),
+             self.turnAcceleration.value()],
+
+            [self.jumpPower.value(),
+             self.jumpSpeed.value(),
+             self.unknown1.value(),
+             self.boostTime.value(),
+             self.boostPower.value(),
+             self.boostDelay.value()],
+
+            [[self.aimMaxSpeed.value(),
+             self.aimAcceleration.value(),
+             self.aimFriction.value()]],
+
+            [self.unknown2.value(),
+             self.unknown3.value()]
+            ]
+
+    def setValue(self, l):
+        self.walkSpeed.setValue(l[0][0])
+        self.walkAcceleration.setValue(l[0][1])
+        self.turnSpeed.setValue(l[0][2])
+        self.turnAcceleration.setValue(l[0][3])
+
+        self.jumpPower.setValue(l[1][0])
+        self.jumpSpeed.setValue(l[1][1])
+        self.unknown1.setValue(l[1][2])
+        self.boostTime.setValue(l[1][3])
+        self.boostPower.setValue(l[1][4])
+        self.boostDelay.setValue(l[1][5])
+
+        self.aimMaxSpeed.setValue(l[2][0])
+        self.aimAcceleration.setValue(l[2][1])
+        self.aimFriction.setValue(l[2][2])
+
+        self.unknown2.setValue(l[3][0])
+        self.unknown3.setValue(l[3][1])
 
 
 class HeliParams(tk.LabelFrame):
@@ -177,17 +265,18 @@ class VehicleWeaponChoice(tk.LabelFrame):
         self.isTurret = isTurret
         self.damageMultiplierWidget = damageMultiplierWidget
         self.recoilType = recoilType
-        tk.LabelFrame.__init__(self, parent, text=getText(label))
+        tk.LabelFrame.__init__(self, parent, text=getText(label), bd=5)
         self.weaponChoice = MultiDropDownWidget(self, "Weapon Choice", vehicleWeapons)
-        self.ammoClass = FreeInputWidget(self, "Ammo class", str)
-        self.ammoCount = FreeInputWidget(self, "Ammo", int)
-        self.baseDamage = FreeInputWidget(self, "Damage", str)
-        self.firingRate = FreeInputWidget(self, "Firing Rate", str)
-        self.dps = FreeInputWidget(self, "Damage per second", str, tooltip="May be inaccurate for burst weapons")
-        self.totalDamage = FreeInputWidget(self, "Potential damage", str)
-        self.explosionRadius = FreeInputWidget(self, "Explosion Radius", str)
-        self.ammoSpeed = FreeInputWidget(self, "Ammo Speed", str, tooltip="Inaccurate for missiles/rockets")
-        self.range = FreeInputWidget(self, "Range", str, tooltip="Inaccurate for missiles/rockets")
+        self.statsFrame = tk.LabelFrame(self, text=getText("Weapon stats"))
+        self.ammoClass = FreeInputWidget(self.statsFrame, "Ammo class", str)
+        self.ammoCount = FreeInputWidget(self.statsFrame, "Ammo", int)
+        self.baseDamage = FreeInputWidget(self.statsFrame, "Damage", str)
+        self.firingRate = FreeInputWidget(self.statsFrame, "Firing Rate", str)
+        self.dps = FreeInputWidget(self.statsFrame, "Damage per second", str, tooltip="May be inaccurate for burst weapons")
+        self.totalDamage = FreeInputWidget(self.statsFrame, "Potential damage", str)
+        self.explosionRadius = FreeInputWidget(self.statsFrame, "Blast Radius", str)
+        self.ammoSpeed = FreeInputWidget(self.statsFrame, "Ammo Speed", str, tooltip="Inaccurate for missiles/rockets")
+        self.range = FreeInputWidget(self.statsFrame, "Range", str, tooltip="Inaccurate for missiles/rockets")
 
         self.weaponChoice.valueLabel.inputVar.trace_add("write", self.updateStats)
         self.damageMultiplierWidget.inputVar.trace_add("write", self.updateStats)
@@ -203,6 +292,7 @@ class VehicleWeaponChoice(tk.LabelFrame):
         disableInput(self.range)
 
         self.weaponChoice.pack()
+        self.statsFrame.pack()
         self.ammoClass.pack()
         self.ammoCount.pack()
         self.baseDamage.pack()
@@ -219,6 +309,8 @@ class VehicleWeaponChoice(tk.LabelFrame):
         disableInput(self.lockonRange)
         disableInput(self.lockonTime)
 
+        self.recoilFrame = None
+
         if includesRecoil:
             self.recoilFrame = tk.LabelFrame(self, text=getText("Recoil"))
             self.pushback = FreeInputWidget(self.recoilFrame, "Firing pushback", float)
@@ -226,6 +318,8 @@ class VehicleWeaponChoice(tk.LabelFrame):
             self.recoilFrame.pack()
             self.pushback.pack()
             self.recoil.pack()
+
+        self.turretControl = None
 
         if isTurret:
             self.turretControl = tk.LabelFrame(self, text=getText("Turret parameters"))
@@ -285,40 +379,54 @@ class VehicleWeaponChoice(tk.LabelFrame):
             self.aimFriction.setValue(l[2][2])
 
     def updateStats(self, *args):
-        s = vehicleWeaponStats[self.weaponChoice.value()]
-        self.ammoClass.setValue(s["AmmoClass"])
-        self.ammoCount.setValue(s["AmmoCount"])
-        if s["AmmoDamageReduce"][0] == 1.0:
-            damageStr = str(s['AmmoDamage'] * self.damageMultiplierWidget.value())
+        w = vehicleWeaponStats[self.weaponChoice.value()]
+        if self.weaponChoice.value() == "none":
+            self.statsFrame.pack_forget()
+            if self.recoilFrame is not None:
+                self.recoilFrame.pack_forget()
+            if self.turretControl is not None:
+                self.turretControl.pack_forget()
+            self.lockonRange.pack_forget()
+            self.lockonTime.pack_forget()
         else:
-            damageStr = f"{str(s['AmmoDamage'] * self.damageMultiplierWidget.value())} ~ {round(s['AmmoDamage'] * s['AmmoDamageReduce'][0] * self.damageMultiplierWidget.value(), 2)}"
-        if s["AmmoIsPenetration"] == 1:
+            self.statsFrame.pack()
+            if self.includesRecoil:
+                self.recoilFrame.pack()
+            if self.isTurret:
+                self.turretControl.pack()
+        self.ammoClass.setValue(w["AmmoClass"])
+        self.ammoCount.setValue(w["AmmoCount"])
+        if w["AmmoDamageReduce"][0] == 1.0:
+            damageStr = str(w['AmmoDamage'] * self.damageMultiplierWidget.value())
+        else:
+            damageStr = f"{str(w['AmmoDamage'] * self.damageMultiplierWidget.value())} ~ {round(w['AmmoDamage'] * w['AmmoDamageReduce'][0] * self.damageMultiplierWidget.value(), 2)}"
+        if w["AmmoIsPenetration"] == 1:
             damageStr += " [PT]"
-        if s['FireCount'] > 1:
-            damageStr += f"{(' x ' + str(s['FireCount'])) if s['FireCount'] != 0 else ''}"
-        if s["FireBurstCount"] > 1:
-            damageStr += f" ({s['FireBurstCount']} {getText('burst')})"
+        if w['FireCount'] > 1:
+            damageStr += f"{(' x ' + str(w['FireCount'])) if w['FireCount'] != 0 else ''}"
+        if w["FireBurstCount"] > 1:
+            damageStr += f" ({w['FireBurstCount']} {getText('burst')})"
         self.baseDamage.setValue(damageStr)
-        self.firingRate.setValue(f"{round((60 / (s['FireInterval'] + 1)), 2)} {getText('shots/s')}")
-        dps = str(round(((60 / (s["FireInterval"] + 1 + s["FireBurstCount"] * s["FireBurstInterval"])) * s[
-            "AmmoDamage"] * s["FireBurstCount"] * s[
+        self.firingRate.setValue(f"{round((60 / (w['FireInterval'] + 1)), 2)} {getText('shots/s')}")
+        dps = str(round(((60 / (w["FireInterval"] + 1 + w["FireBurstCount"] * w["FireBurstInterval"])) * w[
+            "AmmoDamage"] * w["FireBurstCount"] * w[
                              "FireCount"] * self.damageMultiplierWidget.value()), 2))
-        if s["AmmoDamageReduce"][0] != 1.0:
+        if w["AmmoDamageReduce"][0] != 1.0:
             dps += " ~ "
-            dps += str(round(((60 / (s["FireInterval"] + 1 + s["FireBurstCount"] * s["FireBurstInterval"])) * s[
-                "AmmoDamage"] * s[
-                                  "FireBurstCount"] * s[
-                                  "FireCount"] * s["AmmoDamageReduce"][0] * self.damageMultiplierWidget.value()),
+            dps += str(round(((60 / (w["FireInterval"] + 1 + w["FireBurstCount"] * w["FireBurstInterval"])) * w[
+                "AmmoDamage"] * w[
+                                  "FireBurstCount"] * w[
+                                  "FireCount"] * w["AmmoDamageReduce"][0] * self.damageMultiplierWidget.value()),
                              2))
         self.dps.setValue(dps)
-        self.totalDamage.setValue(s["AmmoDamage"] * s["AmmoCount"] * s["FireCount"])
-        self.explosionRadius.setValue(str(s["AmmoExplosion"]) + "m")
-        self.ammoSpeed.setValue(str(round((s["AmmoSpeed"] * 60), 2)) + "m/s")
-        self.range.setValue(str(round((s["AmmoSpeed"] * s["AmmoAlive"]), 2)) + "m")
+        self.totalDamage.setValue(w["AmmoDamage"] * w["AmmoCount"] * w["FireCount"])
+        self.explosionRadius.setValue(str(w["AmmoExplosion"]) + "m")
+        self.ammoSpeed.setValue(str(round((w["AmmoSpeed"] * 60), 2)) + "m/s")
+        self.range.setValue(str(round((w["AmmoSpeed"] * w["AmmoAlive"]), 2)) + "m")
 
-        if s["LockonType"] == 1 or s["LockonType"] == 3:
-            self.lockonRange.setValue(f"{s['LockonRange']} m")
-            self.lockonTime.setValue(f"{round((s['LockonTime'] / 60), 2)} s")
+        if w["LockonType"] == 1 or w["LockonType"] == 3:
+            self.lockonRange.setValue(f"{w['LockonRange']} m")
+            self.lockonTime.setValue(f"{round((w['LockonTime'] / 60), 2)} s")
             self.lockonRange.pack()
             self.lockonTime.pack()
         else:
