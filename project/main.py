@@ -80,7 +80,7 @@ class MainWindow(tk.Frame):
         if ac in bulletsWithModels:
             self.notebook.appearanceTab.ammoModel.enableInput()
             if ac == "SmokeCandleBullet01":
-                self.notebook.appearanceTab.ammoModel.setValue("app:/WEAPON/e_throw_marker02.rab")
+                self.notebook.appearanceTab.ammoModel.setValue("app:/WEAPON/e_throw_marker01.rab")
                 self.notebook.appearanceTab.ammoModel.disableInput()
         else:
             self.notebook.appearanceTab.ammoModel.disableInput()
@@ -109,6 +109,9 @@ class MainWindow(tk.Frame):
         eData["AmmoSize"] = n.classTab.ammoSize.value()
         eData["AmmoSpeed"] = n.basicParamsTab.basicParamsWidget.ammoSpeed.value()
         eData["Ammo_CustomParameter"] = n.classTab.ammoCust.value()
+        if eData["AmmoClass"] == "SmokeCandleBullet01":
+            if n.classTab.useUnderground.value() == 1:
+                eData["Ammo_CustomParameter"].append(1)
         eData["Ammo_EquipVoice"] = [n.soundsTab.ammoEquipFullVoice.value(), n.soundsTab.ammoEquipEmptyVoice.value()] if n.soundsTab.ammoEquipFullVoice.value() is not None and n.soundsTab.ammoEquipEmptyVoice.value() is not None else None
         eData["AngleAdjust"] = n.appearanceTab.angleAdjust.value()
         eData["BaseAnimation"] = n.appearanceTab.gunModelWidget.BaseAnimation.value()
@@ -168,7 +171,7 @@ class MainWindow(tk.Frame):
         eData["name.en"] = "Racer weapon"  # TODO
         eData["name.ja"] = "Racer weapon"  # TODO
         eData["name.kr"] = "Racer weapon"  # TODO
-        eData["use_underground"] = 1
+        eData["use_underground"] = n.classTab.useUnderground.value()
         eData["xgs_scene_object_class"] = n.classTab.xgsChoice.value()
         return eData
 

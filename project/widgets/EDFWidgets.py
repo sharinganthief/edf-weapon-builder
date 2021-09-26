@@ -1042,27 +1042,37 @@ class ShellCaseWidget(tk.LabelFrame):
 
 
 class ColorWidget(tk.LabelFrame):
-    def __init__(self, parent, labelText):
+    def __init__(self, parent, labelText, hasAlpha=True):
         tk.LabelFrame.__init__(self, parent, text=getText(labelText))
+        self.hasAlpha = hasAlpha
         self.red = SliderWidget(self, "Red", min=0, max=4, tooltip="Values above 1 cause a glow effect.")
         self.green = SliderWidget(self, "Green", min=0, max=4, tooltip="Values above 1 cause a glow effect.")
         self.blue = SliderWidget(self, "Blue", min=0, max=4, tooltip="Values above 1 cause a glow effect.")
-        self.alpha = SliderWidget(self, "Alpha/Opacity", min=0, max=1)
+        if hasAlpha:
+            self.alpha = SliderWidget(self, "Alpha/Opacity", min=0, max=1)
 
         self.red.pack()
         self.green.pack()
         self.blue.pack()
-        self.alpha.pack()
+
+        if hasAlpha:
+            self.alpha.pack()
 
 
     def value(self):
-        return [self.red.value(), self.green.value(), self.blue.value(), self.alpha.value()]
+        if self.hasAlpha: return [self.red.value(), self.green.value(), self.blue.value(), self.alpha.value()]
+        else: return [self.red.value(), self.green.value(), self.blue.value()]
 
     def setValue(self, l):
-        self.red.setValue(l[0])
-        self.green.setValue(l[1])
-        self.blue.setValue(l[2])
-        self.alpha.setValue(l[3])
+        if self.hasAlpha:
+            self.red.setValue(l[0])
+            self.green.setValue(l[1])
+            self.blue.setValue(l[2])
+            self.alpha.setValue(l[3])
+        else:
+            self.red.setValue(l[0])
+            self.green.setValue(l[1])
+            self.blue.setValue(l[2])
 
 
 settingType = {

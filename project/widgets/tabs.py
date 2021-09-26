@@ -89,6 +89,8 @@ class ClassTab(ScrolledFrame):
             "SupportUnitBullet01":  "SupportUnitBullet01",
             "TargetMarkerBullet01": "TargetMarkerBullet01",
         }
+        self.useUnderground = CheckBoxWidget(self.col1, "Usable underground", 0, 1)
+        self.useUnderground.setValue(1)
         self.classChoice = DropDownWidget(self.col1, "Class", self.classOptions, tooltip="Class")
         self.xgsChoice = DropDownWidget(self.col1, "Object Class", self.xgsOptions,
                                         tooltip="Determines basic weapon functionality, click for details",
@@ -119,7 +121,7 @@ class ClassTab(ScrolledFrame):
         self.fireVector = VectorFromAngleWidget(self.col1, "Firing Angle")
 
         self.updateAmmoCustWidget()
-
+        self.useUnderground.pack()
         self.classChoice.pack()
         self.xgsChoice.pack()
         self.AmmoClass.pack()

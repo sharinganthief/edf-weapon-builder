@@ -443,7 +443,6 @@ class CheckBoxWidget(tk.Frame):
         self.checkBox.grid(row=0, column=1)
 
     def value(self):
-        # print(self.input.get(), self.uncheckedValue, self.checkedValue)
         if self.input.get() == str(self.uncheckedValue) or self.input.get() == self.uncheckedValue:
             return self.uncheckedType(self.input.get())
         if self.input.get() == str(self.checkedValue) or self.input.get() == self.checkedValue:
