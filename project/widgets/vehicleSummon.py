@@ -31,6 +31,9 @@ vehicleSGOS = {
         # "Yellow 2": 'app:/Object/V504_BEGARUTA_FW.sgo',  # No difference
         "Gold": 'app:/Object/v504_begaruta_gold.sgo',
         "Pink Phantasia": "app:/Object/v504_begaruta_pink.sgo"},
+    "Proteus":{
+        "Proteus": 'app:/Object/Vehicle407_bigbegaruta.sgo'
+    },
     "Balam": {
         "Orange": 'app:/Object/V515_RETROBALAM.sgo',
         "Gold": 'app:/Object/V515_RETROBALAM_GOLD.sgo',
@@ -167,10 +170,10 @@ class NixParams(tk.LabelFrame):
         
         self.jumpFrame = tk.LabelFrame(self, text=getText("Jump"), bd=5)
         self.jumpPower = FreeInputWidget(self.jumpFrame, "Jump power", float, restrictPositive=True, initialValue=10.0)
-        self.jumpSpeed = SliderWidget(self.jumpFrame, "Jump startup speed", 0.0, 5.0, resolution=0.01, initialValue=3.0)
-        self.unknown1 = FreeInputWidget(self.jumpFrame, "Unknown float", float)
+        self.jumpSpeed = SliderWidget(self.jumpFrame, "Jump animation speed factor", 0.0, 5.0, resolution=0.01, initialValue=3.0)
+        self.verticalBoostPower = FreeInputWidget(self.jumpFrame, "Vertical boost power?", float, restrictPositive=True, initialValue=45.0)
         self.boostTime = FreeInputWidget(self.jumpFrame, "Boost time (frames)", int, restrictPositive=True, initialValue=300)
-        self.boostPower = FreeInputWidget(self.jumpFrame, "Boost power", float, restrictPositive=True, initialValue=0.5)
+        self.horizontalBoostPower = FreeInputWidget(self.jumpFrame, "Horizontal boost power?", float, restrictPositive=True, initialValue=0.5)
         self.boostDelay = FreeInputWidget(self.jumpFrame, "Boost delay", int, restrictPositive=True, initialValue=80)
         
         self.aimFrame = tk.LabelFrame(self, text=getText("Aiming"), bd=5)
@@ -179,8 +182,8 @@ class NixParams(tk.LabelFrame):
         self.aimFriction = SliderWidget(self.aimFrame, "Aim friction", 0, 0.999, resolution=0.001, tooltip="", initialValue=0.1)
 
         self.unknownStruct = tk.LabelFrame(self, text=getText("Unknown struct"))
-        self.unknown2 = FreeInputWidget(self, "Unknown float", float, initialValue=0.019999999552965164)
-        self.unknown3 = FreeInputWidget(self, "Unknown float", float, initialValue=0.10000000149011612)
+        self.unknown2 = FreeInputWidget(self.unknownStruct, "Unknown float", float, initialValue=0.019999999552965164)
+        self.unknown3 = FreeInputWidget(self.unknownStruct, "Unknown float", float, initialValue=0.10000000149011612)
 
         self.movementFrame.pack()
         self.walkSpeed.pack()
@@ -191,9 +194,9 @@ class NixParams(tk.LabelFrame):
         self.jumpFrame.pack()
         self.jumpPower.pack()
         self.jumpSpeed.pack()
-        self.unknown1.pack()
+        self.verticalBoostPower.pack()
         self.boostTime.pack()
-        self.boostPower.pack()
+        self.horizontalBoostPower.pack()
         self.boostDelay.pack()
 
         self.aimFrame.pack()
@@ -214,9 +217,9 @@ class NixParams(tk.LabelFrame):
 
             [self.jumpPower.value(),
              self.jumpSpeed.value(),
-             self.unknown1.value(),
+             self.verticalBoostPower.value(),
              self.boostTime.value(),
-             self.boostPower.value(),
+             self.horizontalBoostPower.value(),
              self.boostDelay.value()],
 
             [[self.aimMaxSpeed.value(),
@@ -235,9 +238,9 @@ class NixParams(tk.LabelFrame):
 
         self.jumpPower.setValue(l[1][0])
         self.jumpSpeed.setValue(l[1][1])
-        self.unknown1.setValue(l[1][2])
+        self.verticalBoostPower.setValue(l[1][2])
         self.boostTime.setValue(l[1][3])
-        self.boostPower.setValue(l[1][4])
+        self.horizontalBoostPower.setValue(l[1][4])
         self.boostDelay.setValue(l[1][5])
 
         self.aimMaxSpeed.setValue(l[2][0])
@@ -247,6 +250,155 @@ class NixParams(tk.LabelFrame):
         self.unknown2.setValue(l[3][0])
         self.unknown3.setValue(l[3][1])
 
+
+class BargaParams(tk.LabelFrame):
+    def __init__(self, parent):
+        tk.LabelFrame.__init__(self, parent, text=getText("Barga"))
+
+
+class ProteusParams(tk.LabelFrame):
+    def __init__(self, parent):
+        tk.LabelFrame.__init__(self, parent, text=getText("Proteus"))
+        self.col1 = tk.Frame(self)
+        self.col2 = tk.Frame(self)
+        self.movementFrame = tk.LabelFrame(self.col1, text=getText("Movement"), bd=5)
+        self.walkSpeed = FreeInputWidget(self.movementFrame, "Walking speed", float, restrictPositive=True, initialValue=12.0)
+        self.walkAcceleration = FreeInputWidget(self.movementFrame, "Walk acceleration", float, restrictPositive=True, initialValue=0.005)
+        self.turnSpeed = FreeInputWidget(self.movementFrame, "Turn speed", float, restrictPositive=True, initialValue=20.0)
+        self.turnAcceleration = FreeInputWidget(self.movementFrame, "Turn acceleration?", float, restrictPositive=True, initialValue=0.007)
+
+        self.jumpFrame = tk.LabelFrame(self.col1, text=getText("Jump"), bd=5)
+        self.jumpPower = FreeInputWidget(self.jumpFrame, "Jump power", float, restrictPositive=True, initialValue=10.0)
+        self.jumpSpeed = SliderWidget(self.jumpFrame, "Jump animation speed factor", 0.0, 5.0, resolution=0.01, initialValue=3.0)
+        self.verticalBoostPower = FreeInputWidget(self.jumpFrame, "Vertical boost power?", float, restrictPositive=True, initialValue=45.0)
+        self.boostTime = FreeInputWidget(self.jumpFrame, "Boost time (frames)", int, restrictPositive=True, initialValue=300)
+        self.horizontalBoostPower = FreeInputWidget(self.jumpFrame, "Horizontal boost power?", float, restrictPositive=True, initialValue=0.5)
+        self.boostDelay = FreeInputWidget(self.jumpFrame, "Boost delay", int, restrictPositive=True, initialValue=80)
+
+        self.torsoFrame = tk.LabelFrame(self.col2, text=getText("Torso control"), bd=5)
+        self.torsoMaxSpeed = FreeInputWidget(self.torsoFrame, "Aiming max speed", float, initialValue=60.0)
+        self.torsoAcceleration = SliderWidget(self.torsoFrame, "Aiming acceleration", 0, 0.999, resolution=0.001, initialValue=0.05)
+        self.torsoFriction = SliderWidget(self.torsoFrame, "Aim friction", 0, 0.999, resolution=0.001, tooltip="How easily aiming comes to a stop", initialValue=0.1)
+
+        self.leftCannonFrame = tk.LabelFrame(self.col2, text=getText("Left cannon control"), bd=5)
+        self.leftCannonMaxSpeed = FreeInputWidget(self.leftCannonFrame, "Aiming max speed", float, initialValue=60.0)
+        self.leftCannonAcceleration = SliderWidget(self.leftCannonFrame, "Aiming acceleration", 0, 0.999, resolution=0.001, initialValue=0.05)
+        self.leftCannonFriction = SliderWidget(self.leftCannonFrame, "Aim friction", 0, 0.999, resolution=0.001, tooltip="How easily aiming comes to a stop", initialValue=0.1)
+
+        self.rightCannonFrame = tk.LabelFrame(self.col2, text=getText("Right cannon control"), bd=5)
+        self.rightCannonMaxSpeed = FreeInputWidget(self.rightCannonFrame, "Aiming max speed", float, initialValue=60.0)
+        self.rightCannonAcceleration = SliderWidget(self.rightCannonFrame, "Aiming acceleration", 0, 0.999, resolution=0.001, initialValue=0.05)
+        self.rightCannonFriction = SliderWidget(self.rightCannonFrame, "Aim friction", 0, 0.999, resolution=0.001, tooltip="How easily aiming comes to a stop", initialValue=0.1)
+
+        self.missileFrame = tk.LabelFrame(self.col2, text=getText("Aiming"), bd=5)
+        self.missileMaxSpeed = FreeInputWidget(self.missileFrame, "Aiming max speed", float, initialValue=60.0)
+        self.missileAcceleration = SliderWidget(self.missileFrame, "Aiming acceleration", 0, 0.999, resolution=0.001, initialValue=0.05)
+        self.missileFriction = SliderWidget(self.missileFrame, "Aim friction", 0, 0.999, resolution=0.001, tooltip="How easily aiming comes to a stop", initialValue=0.1)
+
+        self.unknownStruct = tk.LabelFrame(self.col1, text=getText("Unknown struct"))
+        self.unknown2 = FreeInputWidget(self.unknownStruct, "Unknown float", float, initialValue=0.019999999552965164)
+        self.unknown3 = FreeInputWidget(self.unknownStruct, "Unknown float", float, initialValue=0.10000000149011612)
+
+
+        self.col1.grid(row=0, column=0, sticky="N")
+        self.col2.grid(row=0, column=1, sticky="N")
+        self.movementFrame.pack()
+        self.walkSpeed.pack()
+        self.walkAcceleration.pack()
+        self.turnSpeed.pack()
+        self.turnAcceleration.pack()
+        self.jumpFrame.pack()
+        self.jumpPower.pack()
+        self.jumpSpeed.pack()
+        self.verticalBoostPower.pack()
+        self.boostTime.pack()
+        self.horizontalBoostPower.pack()
+        self.boostDelay.pack()
+        self.torsoFrame.pack()
+        self.torsoMaxSpeed.pack()
+        self.torsoAcceleration.pack()
+        self.torsoFriction.pack()
+        self.leftCannonFrame.pack()
+        self.leftCannonMaxSpeed.pack()
+        self.leftCannonAcceleration.pack()
+        self.leftCannonFriction.pack()
+        self.rightCannonFrame.pack()
+        self.rightCannonMaxSpeed.pack()
+        self.rightCannonAcceleration.pack()
+        self.rightCannonFriction.pack()
+        self.missileFrame.pack()
+        self.missileMaxSpeed.pack()
+        self.missileAcceleration.pack()
+        self.missileFriction.pack()
+        self.unknownStruct.pack()
+        self.unknown2.pack()
+        self.unknown3.pack()
+
+    def value(self):
+        return [
+                [self.walkSpeed.value(),
+                 self.walkAcceleration.value(),
+                 self.turnSpeed.value(),
+                 self.turnAcceleration.value()],
+
+                [self.jumpPower.value(),
+                 self.jumpSpeed.value(),
+                 self.verticalBoostPower.value(),
+                 self.boostTime.value(),
+                 self.horizontalBoostPower.value(),
+                 self.boostDelay.value()],
+
+                [[self.torsoMaxSpeed.value(),
+                 self.torsoAcceleration.value(),
+                 self.torsoFriction.value()],
+
+                [self.leftCannonMaxSpeed.value(),
+                 self.leftCannonAcceleration.value(),
+                 self.leftCannonFriction.value()],
+
+                [self.rightCannonMaxSpeed.value(),
+                 self.rightCannonAcceleration.value(),
+                 self.rightCannonFriction.value()],
+
+                [self.missileMaxSpeed.value(),
+                 self.missileAcceleration.value(),
+                 self.missileFriction.value()]],
+
+                [self.unknown2.value(),
+                 self.unknown3.value()],
+        ]
+
+    def setValue(self, l):
+        self.walkSpeed.setValue(l[0][0])
+        self.walkAcceleration.setValue(l[0][1])
+        self.turnSpeed.setValue(l[0][2])
+        self.turnAcceleration.setValue(l[0][3])
+
+        self.jumpPower.setValue(l[1][0])
+        self.jumpSpeed.setValue(l[1][1])
+        self.verticalBoostPower.setValue(l[1][2])
+        self.boostTime.setValue(l[1][3])
+        self.horizontalBoostPower.setValue(l[1][4])
+        self.boostDelay.setValue(l[1][5])
+
+        self.torsoMaxSpeed.setValue(l[2][0][0])
+        self.torsoAcceleration.setValue(l[2][0][1])
+        self.torsoFriction.setValue(l[2][0][2])
+
+        self.leftCannonMaxSpeed.setValue(l[2][1][0])
+        self.leftCannonAcceleration.setValue(l[2][1][1])
+        self.leftCannonFriction.setValue(l[2][1][2])
+
+        self.rightCannonMaxSpeed.setValue(l[2][2][0])
+        self.rightCannonAcceleration.setValue(l[2][2][1])
+        self.rightCannonFriction.setValue(l[2][2][2])
+
+        self.missileMaxSpeed.setValue(l[2][3][0])
+        self.missileAcceleration.setValue(l[2][3][1])
+        self.missileFriction.setValue(l[2][3][2])
+
+        self.unknown2.setValue(l[3][0])
+        self.unknown3.setValue(l[3][1])
 
 class HeliParams(tk.LabelFrame):
     def __init__(self, parent):

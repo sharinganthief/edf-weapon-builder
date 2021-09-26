@@ -1768,7 +1768,7 @@ class SentryGunBullet01(tk.LabelFrame):
         self.unknown1 = ""
         self.unknown2 = 0
         self.unknown3 = FreeInputWidget(self.col1, "Unknown int", int, initialValue=8, tooltip="8 or 16")
-        self.range = FreeInputWidget(self.col1, "Range", float, restrictPositive=True, initialValue=150)
+        self.searchRange = FreeInputWidget(self.col1, "Search range", float, restrictPositive=True, initialValue=200.0)
         self.turnSpeed = FreeInputWidget(self.col1, "Turn speed", float, initialValue=0.05, restrictPositive=True,
                                          tooltip="Lowest = 0.0099, highest=0.075")
         self.unknown4 = FreeInputWidget(self.col1, "Unknown int", int,
@@ -1822,7 +1822,7 @@ class SentryGunBullet01(tk.LabelFrame):
         # self.unknown1.pack()
         # self.unknown2.pack()
         self.unknown3.pack()
-        self.range.pack()
+        self.searchRange.pack()
         self.turnSpeed.pack()
         self.unknown4.pack()
         self.offsetFrame.pack()
@@ -1865,7 +1865,7 @@ class SentryGunBullet01(tk.LabelFrame):
             self.unknown1,
             self.unknown2,
             self.unknown3.value(),
-            self.range.value(),
+            self.searchRange.value(),
             self.turnSpeed.value(),
             self.unknown4.value(),
             self.firingBone,
@@ -1897,7 +1897,7 @@ class SentryGunBullet01(tk.LabelFrame):
         # self.unknown1.setValue(l[1])
         # self.unknown2.setValue(l[2])
         self.unknown3.setValue(l[3])
-        self.range.setValue(l[4])
+        self.searchRange.setValue(l[4])
         self.turnSpeed.setValue(l[5])
         self.unknown4.setValue(l[6])
         # self.firingBone.setValue(l[7])
@@ -2087,6 +2087,12 @@ class SmokeCandleBullet01(tk.LabelFrame):
             v[4][3].append(self.vehicleParams.value()[2])
             v[4][3].append([w.value() for w in self.weaponWidgets])
             v[4][3].append(self.vehicleParams.value()[3])
+        elif self.vehicleSGO.value() == 'app:/Object/Vehicle407_bigbegaruta.sgo':
+            v[4][3].append(self.vehicleParams.value()[0])
+            v[4][3].append(self.vehicleParams.value()[1])
+            v[4][3].append(self.vehicleParams.value()[2])
+            v[4][3].append([w.value() for w in self.weaponWidgets])
+            v[4][3].append(self.vehicleParams.value()[3])
         elif self.vehicleSGO.value() == 'app:/Object/v512_keiTruck_bgp.sgo':  # Truck
             pass
         elif self.vehicleSGO.value() == 'app:/Object/v503_bike.sgo' or \
@@ -2221,6 +2227,18 @@ class SmokeCandleBullet01(tk.LabelFrame):
                 self.weaponWidgets[0].pack()
                 self.weaponWidgets[1].pack()
 
+        elif self.vehicleSGO.value() == 'app:/Object/Vehicle407_bigbegaruta.sgo':
+            self.baseHP = 7500.0
+            replaceParamsAndRemoveWeapons(self, ProteusParams)
+            self.weaponWidgets.append(VehicleWeaponChoice(self.col2, "Left cannon", True, False, self.weaponMultiplier))
+            self.weaponWidgets.append(VehicleWeaponChoice(self.col3, "Right cannon", True, False, self.weaponMultiplier))
+            self.weaponWidgets.append(VehicleWeaponChoice(self.col4, "Missiles", True, False, self.weaponMultiplier))
+            self.weaponWidgets[0].setValue(['app:/weapon/v_407bigbegaruta_cannon.sgo', [0.0, 0.0]])
+            self.weaponWidgets[1].setValue(['app:/weapon/v_407bigbegaruta_cannon.sgo', [0.0, 0.0]])
+            self.weaponWidgets[2].setValue(['app:/weapon/v_407bigbegaruta_missile.sgo', [0.0, 0.0]])
+            self.weaponWidgets[0].pack()
+            self.weaponWidgets[1].pack()
+            self.weaponWidgets[2].pack()
 
         elif self.vehicleSGO.value() == 'app:/Object/v512_keiTruck_bgp.sgo':  # Truck
             self.baseHP = 200.0

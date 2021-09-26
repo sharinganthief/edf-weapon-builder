@@ -76,13 +76,17 @@ class MainWindow(tk.Frame):
         pass
 
     def updateWidgetsDependingOnAmmoClass(self, *args):
-        if self.notebook.classTab.AmmoClass.value() in bulletsWithModels:
+        ac = self.notebook.classTab.AmmoClass.value()
+        if ac in bulletsWithModels:
             self.notebook.appearanceTab.ammoModel.enableInput()
-            if self.notebook.classTab.AmmoClass.value() == "SmokeCandleBullet01":
+            if ac == "SmokeCandleBullet01":
                 self.notebook.appearanceTab.ammoModel.setValue("app:/WEAPON/e_throw_marker02.rab")
                 self.notebook.appearanceTab.ammoModel.disableInput()
         else:
             self.notebook.appearanceTab.ammoModel.disableInput()
+        if ac == "SentryGunBullet01":
+            self.notebook.appearanceTab.gunModelWidget.RABChoice.setValue("app:/Weapon/e_sentrygun_normal01.rab")
+            self.notebook.basicParamsTab.basicParamsWidget.secondaryFireType.setValue(2)
 
     def createWeaponEasyData(self, *args):
         n = self.notebook
@@ -109,8 +113,8 @@ class MainWindow(tk.Frame):
         eData["AngleAdjust"] = n.appearanceTab.angleAdjust.value()
         eData["BaseAnimation"] = n.appearanceTab.gunModelWidget.BaseAnimation.value()
         eData["ChangeAnimation"] = n.appearanceTab.gunModelWidget.ChangeAnimation.value()
-        eData["EnergyChargeRequire"] = [-1, -1]  # TODO
-        eData["ExtPrams"] = [1]  # TODO
+        eData["EnergyChargeRequire"] = [-1.0, -1.0]  # TODO
+        eData["ExtPrams"] = [1.0]  # TODO
         eData["FireAccuracy"] = n.basicParamsTab.basicParamsWidget.fireAccuracy.value()
         eData["FireBurstCount"] = n.basicParamsTab.basicParamsWidget.fireBurstCount.value()
         eData["FireBurstInterval"] = n.basicParamsTab.basicParamsWidget.fireBurstInterval.value()
