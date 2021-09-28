@@ -7,6 +7,14 @@ import math
 ammoCust = j.loadDataFromJson("./data/ammoCust.json")
 
 
+def flatten(S):
+    # https://stackoverflow.com/questions/12472338/flattening-a-list-recursively?lq=1
+    if S == []:
+        return S
+    if isinstance(S[0], list):
+        return flatten(S[0]) + flatten(S[1:])
+    return S[:1] + flatten(S[1:])
+
 def ammoCustWidgetFromAmmoClass(parent, ammoClass, isSubProjectile):
     if ammoClass == "SolidBullet01":
         return SolidBullet01(parent, isSubProjectile)
@@ -74,6 +82,41 @@ def ammoCustWidgetFromAmmoClass(parent, ammoClass, isSubProjectile):
     elif ammoClass == "TargetMarkerBullet01":
         return TargetMarkerBullet01(parent)
 
+def testAmmoCust(ammoClass):
+    print(ammoClass.__class__.__name__)
+    testDict = ammoCust[ammoClass.__class__.__name__]["Ammo_CustomParameter"]
+    testValues = [eval(key) for key in testDict.keys()]
+    for v in testValues:
+        ammoClass.setValue(v)
+        if isinstance(v, list):
+            flatV = flatten(v)
+            flatACV = flatten(ammoClass.value())
+            for i in range(len(flatV)):
+                if isinstance(flatV[i], float):
+                    if math.fabs(flatV[i] - flatACV[i]) > 0.000001:
+                        print(v)
+                        print(ammoClass.value())
+                        raise ValueError(f"actual\n{ammoClass.value()}\n!=expected\n{v}")
+                elif flatV[i] != flatACV[i]:
+                    print(v)
+                    print(ammoClass.value())
+                    raise ValueError(f"actual\n{ammoClass.value()}\n!=expected\n{v}")
+        else:
+            if v != ammoClass.value():
+                print(v)
+                print(ammoClass.value())
+                raise ValueError(f"actual\n{ammoClass.value()}\n!=expected\n{v}")
+
+        # if isinstance(v, float):
+        #     if math.fabs(v - ammoClass.value()) > 0.000001:
+        #         print(v)
+        #         print(ammoClass.value())
+        #         raise ValueError(f"actual\n{ammoClass.value()}\n!=expected\n{v}")
+        # elif v != ammoClass.value():
+        #     print(v)
+        #     print(ammoClass.value())
+        #     raise ValueError(f"actual\n{ammoClass.value()}\n!=expected\n{v}")
+    print(f"{ammoClass.__class__.__name__} tests successful")
 
 subProjectileAmmoOptions = {
     "SolidBullet01": "SolidBullet01",
@@ -117,7 +160,6 @@ class AcidBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("AcidBullet01"))
         self.v1 = FreeInputWidget(self, "Unknown float", float, tooltip="-0.03 or -0.004", initialValue=-0.004)
-
         self.v1.pack()
 
     def value(self):
@@ -126,17 +168,8 @@ class AcidBullet01(tk.LabelFrame):
     def setValue(self, v):
         self.v1.setValue(v[0])
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class BarrierBullet01(tk.LabelFrame):
@@ -182,17 +215,36 @@ class BarrierBullet01(tk.LabelFrame):
         self.v8.setValue(l[4][1])
         self.v9.setValue(l[4][2])
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
+
+
+stickingSounds = {
+    "None": 0,
+    "C4 stick A": '武器Ｃ系爆弾接地Ａ',
+    "C4 stick B": '武器Ｃ系爆弾接地Ｂ',
+    "C4 stick C": '武器Ｃ系爆弾接地Ｃ',
+    "Limpet small": '武器リモート爆弾小着弾',
+    "Limpet big": '武器リモート爆弾大着弾',
+    "Limpet flechette": '武器フレシェット着弾',
+    "Assault beetle": 'むしむしボンバー張り付き',
+    "Roomba": 'ルン爆弾ＧＯ',
+    "Roomba heavy": 'ルン爆弾ＧＯ重い'
+}
+armingSounds = {
+    "None": 0,
+    "Bomb armed": '武器起動可能'
+}
+detectionSounds = {
+    "None": 0,
+    "Enemy detected": '敵探知'
+}
+bounceSounds = {
+    "None": 0,
+    "Assault beetle bounce": 'むしむしボンバー跳ねる',
+    "Roomba bounce": 'ルン爆弾反射',
+    "Roomba heavy bounce": 'ルン爆弾反射重い'
+}
 
 
 class BombBullet01(tk.LabelFrame):
@@ -202,39 +254,25 @@ class BombBullet01(tk.LabelFrame):
             "C4/Mine": 0,
             "Patroller": 1,
             "Assault beetle": 2,
-            "Roomba bomb (strange behavior)": 3
+            "Roomba bomb (Requires lock-on)": 3
         }
-
         self.explosionOptions = {
             "Standard": 0,
             "Splendor": 1,
             "Sniper": 2
         }
-        self.bombSoundOptions = {
-            # [impact, armed, enemy detected, bounce sound]
-            "Small limpet": ['武器リモート爆弾小着弾', 0, 0, 0],
-            "Big limpet": ['武器リモート爆弾大着弾', 0, 0, 0],
-            "Flechette": ['武器フレシェット着弾', 0, 0, 0],
-            "Bomb a": ['武器Ｃ系爆弾接地Ａ', '武器起動可能', 0, 0],
-            "Bomb b": ['武器Ｃ系爆弾接地Ｂ', '武器起動可能', 0, 0],
-            "Bomb c": ['武器Ｃ系爆弾接地Ｃ', '武器起動可能', 0, 0],
-            "Mine a": ['武器Ｃ系爆弾接地Ａ', '武器起動可能', '敵探知', 0],
-            "Roomba": ['ルン爆弾ＧＯ', '武器起動可能', 0, 'ルン爆弾反射'],
-            "Heavy roomba": ['ルン爆弾ＧＯ重い', '武器起動可能', 0, 'ルン爆弾反射重い'],
-            "Beetle": ['むしむしボンバー張り付き', '武器起動可能', 0, 'むしむしボンバー跳ねる']
-        }
-
         self.bombType = DropDownWidget(self, "Bomb type", self.bombOptions)
-        self.isDetector = CheckBoxWidget(self, "Is detector", 0, 1)
-        self.unknown1 = FreeInputWidget(self, "Unknown float", float, tooltip="Always 0.0", initialValue=0.0)
+        # self.isDetector = CheckBoxWidget(self, "Is detector", 0, 1)
+        self.isDetector = DropDownWidget(self, "Detector type", {"None": 0, "Angle detector (splendor only)": 1, "Proximity detector": 2})
+        self.bounceFactor = FreeInputWidget(self, "Bounce factor", float, initialValue=0.0)
         self.primerDelay = FreeInputWidget(self, "Priming delay", int, restrictPositive=True,
                                            tooltip="In frames. Usually 0 for limpet, 30 for detectors")
-        self.unknown2 = FreeInputWidget(self, "Unknown int", int, tooltip="Ranges from 0-5?")
+        self.detonationInterval = FreeInputWidget(self, "Detonation interval", int, tooltip="Time between manually triggered bomb explosions")
 
-        self.LEDFrame = tk.LabelFrame(self, text=getText("LED Position?"))
-        self.LEDX = FreeInputWidget(self.LEDFrame, "X?", float, initialValue=0.0)
-        self.LEDY = FreeInputWidget(self.LEDFrame, "Y?", float, initialValue=0.5)
-        self.LEDZ = FreeInputWidget(self.LEDFrame, "Z?", float, initialValue=0.0)
+        self.LEDFrame = tk.LabelFrame(self, text=getText("LED Position"))
+        self.LEDX = FreeInputWidget(self.LEDFrame, "X", float, initialValue=0.0)
+        self.LEDY = FreeInputWidget(self.LEDFrame, "Y", float, initialValue=0.5)
+        self.LEDZ = FreeInputWidget(self.LEDFrame, "Z", float, initialValue=0.0)
 
         self.explosionType = DropDownWidget(self, "Explosion type", self.explosionOptions)
         self.explosionType.dropDownDisplayed.trace_add("write", self.enableOrDisableSplendor)
@@ -246,178 +284,24 @@ class BombBullet01(tk.LabelFrame):
         self.vSpread = AngleWidget(self.splendorFrame, "Vertical spread")
         self.vAngle = AngleWidget(self.splendorFrame, "Vertical angle")
 
-        self.flechetteCount = FreeInputWidget(self.splendorFrame, "Flechette count", int, restrictPositive=True)
-        self.flechetteLifetime = FreeInputWidget(self.splendorFrame, "Flechette lifetime", int, restrictPositive=True)
+        self.flechetteCount = FreeInputWidget(self.splendorFrame, "Flechette count", int, restrictPositive=True, initialValue=40)
+        self.flechetteLifetime = FreeInputWidget(self.splendorFrame, "Flechette lifetime", int, restrictPositive=True, initialValue=120)
+        self.flechetteSpeed = FreeInputWidget(self.splendorFrame, "Flechette speed", float, restrictPositive=True, initialValue=2.0)
         self.flechetteSize = FreeInputWidget(self.splendorFrame, "Flechette size", float, restrictPositive=True,
-                                             initialValue=3.0)
-        self.unknown3 = FreeInputWidget(self.splendorFrame, "Unknown int", int, tooltip="Always 1?", initialValue=1)
+                                             initialValue=0.5)
+        # self.unknown3 = FreeInputWidget(self.splendorFrame, "Unknown int", int, tooltip="Always 1?", initialValue=1)
+        self.ammoCust = SolidBullet01(self.splendorFrame, True)
 
-        self.armingSound = DropDownWidget(self, "Arming sound", self.bombSoundOptions)
+        self.stickSound = DropDownWidget(self, "Contact sound", stickingSounds)
+        self.armingSound = DropDownWidget(self, "Arming sound", armingSounds)
+        self.detectionSound = DropDownWidget(self, "Detection sound", detectionSounds)
+        self.bounceSound = DropDownWidget(self, "Bounce sound", bounceSounds)
 
         self.bombType.pack()
         self.isDetector.pack()
-        self.unknown1.pack()
+        self.bounceFactor.pack()
         self.primerDelay.pack()
-        self.unknown2.pack()
-        self.LEDFrame.pack()
-        self.LEDX.pack()
-        self.LEDY.pack()
-        self.LEDZ.pack()
-        self.explosionType.pack()
-        self.splendorFrame.pack()
-        self.hSpread.pack()
-        self.vSpread.pack()
-        self.vAngle.pack()
-        self.flechetteCount.pack()
-        self.flechetteLifetime.pack()
-        self.flechetteSize.pack()
-        self.unknown3.pack()
-        self.armingSound.pack()
-
-        self.enableOrDisableSplendor()
-
-    def value(self):
-        v = [self.bombType.value(), self.isDetector.value(), self.unknown1.value(), self.primerDelay.value(),
-             self.unknown2.value(),
-             [self.LEDX.value(), self.LEDY.value(), self.LEDZ.value()],
-             self.explosionType.value()]
-        if self.explosionType.value() == 1:
-            v.append([[self.hSpread.value(),
-                       self.vSpread.value(),
-                       self.vAngle.value()],
-                      self.flechetteCount.value(),
-                      self.flechetteLifetime.value(),
-                      self.flechetteSize.value(), [self.unknown3.value()]])
-        else:
-            v.append(None)
-
-        v.append(self.armingSound.value())
-        return v
-
-    def setValue(self, l):
-        self.bombType.setValue(l[0])
-        self.isDetector.setValue(l[1])
-        self.unknown1.setValue(l[2])
-        self.primerDelay.setValue(l[3])
-        self.unknown2.setValue(l[4])
-        self.LEDX.setValue(l[5][0])
-        self.LEDY.setValue(l[5][1])
-        self.LEDZ.setValue(l[5][2])
-        self.explosionType.setValue(l[6])
-        if l[5] == 1:
-            self.hSpread.setValue(l[7][0][0])
-            self.vSpread.setValue(l[7][0][1])
-            self.vAngle.setValue(l[7][0][2])
-            self.flechetteCount.setValue(l[7][1])
-            self.flechetteLifetime.setValue(l[7][2])
-            self.flechetteSize.setValue(l[7][3])
-            self.unknown3.setValue(l[7][4][0])
-            self.enableSplendor()
-        else:
-            self.disableSplendor()
-        self.armingSound.setValue(l[8])
-
-    def enableOrDisableSplendor(self, *args):
-        if self.explosionType.value() == 1:
-            self.enableSplendor()
-        else:
-            self.disableSplendor()
-
-    def enableSplendor(self):
-        enableInput(self.hSpread.input)
-        enableInput(self.vSpread.input)
-        enableInput(self.vAngle.input)
-        enableInput(self.flechetteCount)
-        enableInput(self.flechetteLifetime)
-        enableInput(self.flechetteSize)
-        enableInput(self.unknown3)
-
-    def disableSplendor(self):
-        disableInput(self.hSpread.input)
-        disableInput(self.vSpread.input)
-        disableInput(self.vAngle.input)
-        disableInput(self.flechetteCount)
-        disableInput(self.flechetteLifetime)
-        disableInput(self.flechetteSize)
-        disableInput(self.unknown3)
-
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
-
-
-class BombBullet02(tk.LabelFrame):
-    def __init__(self, parent):
-        tk.LabelFrame.__init__(self, parent, text=getText("BombBullet02"))
-        self.bombOptions = {
-            "Limpet bomb": 0,
-            "Patroller": 1,
-            "Assault beetle": 2,
-            "Roomba bomb (strange behavior)": 3
-        }
-
-        self.explosionOptions = {
-            "Standard": 0,
-            "Splendor": 1,
-            "Sniper": 2
-        }
-        self.bombSoundOptions = {
-            # [impact, armed, enemy detected, bounce sound]
-            "Small limpet": ['武器リモート爆弾小着弾', 0, 0, 0],
-            "Big limpet": ['武器リモート爆弾大着弾', 0, 0, 0],
-            "Flechette": ['武器フレシェット着弾', 0, 0, 0],
-            "Bomb a": ['武器Ｃ系爆弾接地Ａ', '武器起動可能', 0, 0],
-            "Bomb b": ['武器Ｃ系爆弾接地Ｂ', '武器起動可能', 0, 0],
-            "Bomb c": ['武器Ｃ系爆弾接地Ｃ', '武器起動可能', 0, 0],
-            "Mine a": ['武器Ｃ系爆弾接地Ａ', '武器起動可能', '敵探知', 0],
-            "Roomba": ['ルン爆弾ＧＯ', '武器起動可能', 0, 'ルン爆弾反射'],
-            "Heavy roomba": ['ルン爆弾ＧＯ重い', '武器起動可能', 0, 'ルン爆弾反射重い'],
-            "Beetle": ['むしむしボンバー張り付き', '武器起動可能', 0, 'むしむしボンバー跳ねる']
-        }
-
-        self.bombType = DropDownWidget(self, "Bomb type", self.bombOptions)
-        self.isDetector = CheckBoxWidget(self, "Is detector", 0, 1)
-        self.unknown1 = FreeInputWidget(self, "Unknown float", float, tooltip="Always 0.0", initialValue=0.0)
-        self.primerDelay = FreeInputWidget(self, "Priming delay", int, restrictPositive=True,
-                                           tooltip="In frames. Usually 0 for limpet, 30 for detectors")
-        self.unknown2 = FreeInputWidget(self, "Unknown int", int, tooltip="Ranges from 0-5?")
-
-        self.LEDFrame = tk.LabelFrame(self, text=getText("LED Position?"))
-        self.LEDX = FreeInputWidget(self.LEDFrame, "X?", float, initialValue=0.0)
-        self.LEDY = FreeInputWidget(self.LEDFrame, "Y?", float, initialValue=0.5)
-        self.LEDZ = FreeInputWidget(self.LEDFrame, "Z?", float, initialValue=0.0)
-
-        self.explosionType = DropDownWidget(self, "Explosion type", self.explosionOptions)
-        self.explosionType.dropDownDisplayed.trace_add("write", self.enableOrDisableSplendor)
-
-        self.splendorFrame = tk.LabelFrame(self, text=getText("Splendor configuration"))
-        # self.hSpread = SliderWidget(self.splendorFrame, "Horizontal spread", 0, 1)
-        # self.vSpread = SliderWidget(self.splendorFrame, "Vertical spread", 0, 1)
-        self.hSpread = AngleWidget(self.splendorFrame, "Horizontal spread")
-        self.vSpread = AngleWidget(self.splendorFrame, "Vertical spread")
-        self.vAngle = AngleWidget(self.splendorFrame, "Vertical angle")
-
-        self.flechetteCount = FreeInputWidget(self.splendorFrame, "Flechette count", int, restrictPositive=True)
-        self.flechetteLifetime = FreeInputWidget(self.splendorFrame, "Flechette lifetime", int, restrictPositive=True)
-        self.flechetteSpeed = FreeInputWidget(self.splendorFrame, "Flechette speed", float, restrictPositive=True)
-        self.flechetteSize = FreeInputWidget(self.splendorFrame, "Flechette size", float, restrictPositive=True,
-                                             initialValue=3.0)
-        self.unknown3 = FreeInputWidget(self.splendorFrame, "Unknown int", int, tooltip="Always 1?", initialValue=1)
-
-        self.armingSound = DropDownWidget(self, "Arming sound", self.bombSoundOptions)
-
-        self.bombType.pack()
-        self.isDetector.pack()
-        self.unknown1.pack()
-        self.primerDelay.pack()
+        self.detonationInterval.pack()
         self.LEDFrame.pack()
         self.LEDX.pack()
         self.LEDY.pack()
@@ -431,13 +315,18 @@ class BombBullet02(tk.LabelFrame):
         self.flechetteLifetime.pack()
         self.flechetteSpeed.pack()
         self.flechetteSize.pack()
-        self.unknown3.pack()
+        # self.unknown3.pack()
+        self.ammoCust.pack()
+        self.stickSound.pack()
         self.armingSound.pack()
+        self.detectionSound.pack()
+        self.bounceSound.pack()
+
         self.enableOrDisableSplendor()
 
     def value(self):
-        v = [self.bombType.value(), self.isDetector.value(), self.unknown1.value(), self.primerDelay.value(),
-             self.unknown2.value(),
+        v = [self.bombType.value(), self.isDetector.value(), self.bounceFactor.value(), self.primerDelay.value(),
+             self.detonationInterval.value(),
              [self.LEDX.value(), self.LEDY.value(), self.LEDZ.value()],
              self.explosionType.value()]
         if self.explosionType.value() == 1:
@@ -447,21 +336,22 @@ class BombBullet02(tk.LabelFrame):
                       self.flechetteCount.value(),
                       self.flechetteLifetime.value(),
                       self.flechetteSpeed.value(),
-                      self.flechetteSize.value(),
-                      [self.unknown3.value()]])
+                      self.flechetteSize.value(), self.ammoCust.value()])
         else:
             v.append(None)
 
-        v.append(self.armingSound.value())
+        v.append([self.stickSound.value(),
+                  self.armingSound.value(),
+                  self.detectionSound.value(),
+                  self.bounceSound.value()])
         return v
 
     def setValue(self, l):
-        print(len(l))
         self.bombType.setValue(l[0])
         self.isDetector.setValue(l[1])
-        self.unknown1.setValue(l[2])
+        self.bounceFactor.setValue(l[2])
         self.primerDelay.setValue(l[3])
-        self.unknown2.setValue(l[4])
+        self.detonationInterval.setValue(l[4])
         self.LEDX.setValue(l[5][0])
         self.LEDY.setValue(l[5][1])
         self.LEDZ.setValue(l[5][2])
@@ -474,12 +364,14 @@ class BombBullet02(tk.LabelFrame):
             self.flechetteLifetime.setValue(l[7][2])
             self.flechetteSpeed.setValue(l[7][3])
             self.flechetteSize.setValue(l[7][4])
-            self.unknown3.setValue(l[7][5][0])
+            self.ammoCust.setValue(l[7][5])
             self.enableSplendor()
         else:
             self.disableSplendor()
-
-        self.armingSound.setValue(l[8])
+        self.stickSound.setValue(l[8][0])
+        self.armingSound.setValue(l[8][1])
+        self.detectionSound.setValue(l[8][2])
+        self.bounceSound.setValue(l[8][3])
 
     def enableOrDisableSplendor(self, *args):
         if self.explosionType.value() == 1:
@@ -488,34 +380,187 @@ class BombBullet02(tk.LabelFrame):
             self.disableSplendor()
 
     def enableSplendor(self):
+        self.splendorFrame.pack()
         enableInput(self.hSpread.input)
         enableInput(self.vSpread.input)
         enableInput(self.vAngle.input)
         enableInput(self.flechetteCount)
         enableInput(self.flechetteLifetime)
+        enableInput(self.flechetteSpeed)
         enableInput(self.flechetteSize)
-        enableInput(self.unknown3)
+        # enableInput(self.unknown3)
 
     def disableSplendor(self):
+        self.splendorFrame.pack_forget()
         disableInput(self.hSpread.input)
         disableInput(self.vSpread.input)
         disableInput(self.vAngle.input)
         disableInput(self.flechetteCount)
         disableInput(self.flechetteLifetime)
+        disableInput(self.flechetteSpeed)
         disableInput(self.flechetteSize)
-        disableInput(self.unknown3)
+        # disableInput(self.unknown3)
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
+
+
+class BombBullet02(tk.LabelFrame):
+    def __init__(self, parent):
+        tk.LabelFrame.__init__(self, parent, text=getText("BombBullet01"))
+        self.bombOptions = {
+            "C4/Mine": 0,
+            "Patroller": 1,
+            "Assault beetle": 2,
+            "Roomba bomb (Requires lock-on)": 3
+        }
+        self.explosionOptions = {
+            "Standard": 0,
+            "Splendor": 1,
+            "Sniper": 2
+        }
+        self.bombType = DropDownWidget(self, "Bomb type", self.bombOptions)
+        # self.isDetector = CheckBoxWidget(self, "Is detector", 0, 1)
+        self.isDetector = DropDownWidget(self, "Detector type", {"None": 0, "Angle detector (splendor only)": 1, "Proximity detector": 2})
+        self.bounceFactor = FreeInputWidget(self, "Bounce factor", float, initialValue=0.0)
+        self.primerDelay = FreeInputWidget(self, "Priming delay", int, restrictPositive=True,
+                                           tooltip="In frames. Usually 0 for limpet, 30 for detectors")
+        self.detonationInterval = FreeInputWidget(self, "Detonation interval", int, tooltip="Time between manually triggered bomb explosions")
+
+        self.LEDFrame = tk.LabelFrame(self, text=getText("LED Position"))
+        self.LEDX = FreeInputWidget(self.LEDFrame, "X", float, initialValue=0.0)
+        self.LEDY = FreeInputWidget(self.LEDFrame, "Y", float, initialValue=0.5)
+        self.LEDZ = FreeInputWidget(self.LEDFrame, "Z", float, initialValue=0.0)
+
+        self.explosionType = DropDownWidget(self, "Explosion type", self.explosionOptions)
+        self.explosionType.dropDownDisplayed.trace_add("write", self.enableOrDisableSplendor)
+
+        self.splendorFrame = tk.LabelFrame(self, text=getText("Splendor configuration"))
+        # self.hSpread = SliderWidget(self.splendorFrame, "Horizontal spread", 0, 1)
+        # self.vSpread = SliderWidget(self.splendorFrame, "Vertical spread", 0, 1)
+        self.hSpread = AngleWidget(self.splendorFrame, "Horizontal spread")
+        self.vSpread = AngleWidget(self.splendorFrame, "Vertical spread")
+        self.vAngle = AngleWidget(self.splendorFrame, "Vertical angle")
+
+        self.flechetteCount = FreeInputWidget(self.splendorFrame, "Flechette count", int, restrictPositive=True, initialValue=40)
+        self.flechetteLifetime = FreeInputWidget(self.splendorFrame, "Flechette lifetime", int, restrictPositive=True, initialValue=120)
+        self.flechetteSpeed = FreeInputWidget(self.splendorFrame, "Flechette speed", float, restrictPositive=True, initialValue=2.0)
+        self.flechetteSize = FreeInputWidget(self.splendorFrame, "Flechette size", float, restrictPositive=True,
+                                             initialValue=0.5)
+        # self.unknown3 = FreeInputWidget(self.splendorFrame, "Unknown int", int, tooltip="Always 1?", initialValue=1)
+        self.ammoCust = SolidBullet01(self.splendorFrame, True)
+
+        self.stickSound = DropDownWidget(self, "Contact sound", stickingSounds)
+        self.armingSound = DropDownWidget(self, "Arming sound", armingSounds)
+        self.detectionSound = DropDownWidget(self, "Detection sound", detectionSounds)
+        self.bounceSound = DropDownWidget(self, "Bounce sound", bounceSounds)
+
+        self.bombType.pack()
+        self.isDetector.pack()
+        self.bounceFactor.pack()
+        self.primerDelay.pack()
+        self.detonationInterval.pack()
+        self.LEDFrame.pack()
+        self.LEDX.pack()
+        self.LEDY.pack()
+        self.LEDZ.pack()
+        self.explosionType.pack()
+        self.splendorFrame.pack()
+        self.hSpread.pack()
+        self.vSpread.pack()
+        self.vAngle.pack()
+        self.flechetteCount.pack()
+        self.flechetteLifetime.pack()
+        self.flechetteSpeed.pack()
+        self.flechetteSize.pack()
+        # self.unknown3.pack()
+        self.ammoCust.pack()
+        self.stickSound.pack()
+        self.armingSound.pack()
+        self.detectionSound.pack()
+        self.bounceSound.pack()
+
+        self.enableOrDisableSplendor()
+
+    def value(self):
+        v = [self.bombType.value(), self.isDetector.value(), self.bounceFactor.value(), self.primerDelay.value(),
+             self.detonationInterval.value(),
+             [self.LEDX.value(), self.LEDY.value(), self.LEDZ.value()],
+             self.explosionType.value()]
+        if self.explosionType.value() == 1:
+            v.append([[self.hSpread.value(),
+                       self.vSpread.value(),
+                       self.vAngle.value()],
+                      self.flechetteCount.value(),
+                      self.flechetteLifetime.value(),
+                      self.flechetteSpeed.value(),
+                      self.flechetteSize.value(), self.ammoCust.value()])
+        else:
+            v.append(None)
+
+        v.append([self.stickSound.value(),
+                  self.armingSound.value(),
+                  self.detectionSound.value(),
+                  self.bounceSound.value()])
+        return v
+
+    def setValue(self, l):
+        self.bombType.setValue(l[0])
+        self.isDetector.setValue(l[1])
+        self.bounceFactor.setValue(l[2])
+        self.primerDelay.setValue(l[3])
+        self.detonationInterval.setValue(l[4])
+        self.LEDX.setValue(l[5][0])
+        self.LEDY.setValue(l[5][1])
+        self.LEDZ.setValue(l[5][2])
+        self.explosionType.setValue(l[6])
+        if l[6] == 1:
+            self.hSpread.setValue(l[7][0][0])
+            self.vSpread.setValue(l[7][0][1])
+            self.vAngle.setValue(l[7][0][2])
+            self.flechetteCount.setValue(l[7][1])
+            self.flechetteLifetime.setValue(l[7][2])
+            self.flechetteSpeed.setValue(l[7][3])
+            self.flechetteSize.setValue(l[7][4])
+            self.ammoCust.setValue(l[7][5])
+            self.enableSplendor()
+        else:
+            self.disableSplendor()
+        self.stickSound.setValue(l[8][0])
+        self.armingSound.setValue(l[8][1])
+        self.detectionSound.setValue(l[8][2])
+        self.bounceSound.setValue(l[8][3])
+
+    def enableOrDisableSplendor(self, *args):
+        if self.explosionType.value() == 1:
+            self.enableSplendor()
+        else:
+            self.disableSplendor()
+
+    def enableSplendor(self):
+        self.splendorFrame.pack()
+        enableInput(self.hSpread.input)
+        enableInput(self.vSpread.input)
+        enableInput(self.vAngle.input)
+        enableInput(self.flechetteCount)
+        enableInput(self.flechetteLifetime)
+        enableInput(self.flechetteSpeed)
+        enableInput(self.flechetteSize)
+        # enableInput(self.unknown3)
+
+    def disableSplendor(self):
+        self.splendorFrame.pack_forget()
+        disableInput(self.hSpread.input)
+        disableInput(self.vSpread.input)
+        disableInput(self.vAngle.input)
+        disableInput(self.flechetteCount)
+        disableInput(self.flechetteLifetime)
+        disableInput(self.flechetteSpeed)
+        disableInput(self.flechetteSize)
+        # disableInput(self.unknown3)
+
+
+
 
 
 class ClusterBullet01(tk.LabelFrame):
@@ -580,17 +625,8 @@ class ClusterBullet01(tk.LabelFrame):
             self.homingLockRadius.setValue(0)
         self.subProjectileWidget.setValue(l[5])
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class SubProjectile(tk.LabelFrame):
@@ -795,17 +831,8 @@ class FlameBullet02(tk.LabelFrame):
         self.greenChange.setValue(l[4][2])
         self.alphaChange.setValue(l[4][3])
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class GrenadeBullet01(tk.LabelFrame):
@@ -863,17 +890,8 @@ class GrenadeBullet01(tk.LabelFrame):
         else:
             self.fuseVariation.setValue(0)
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class HomingLaserBullet01(tk.LabelFrame):
@@ -930,17 +948,8 @@ class HomingLaserBullet01(tk.LabelFrame):
         self.unknown6.setValue(l[7])
         self.unknown7.setValue(l[8])
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class LaserBullet01(tk.LabelFrame):
@@ -1007,17 +1016,8 @@ class LaserBullet01(tk.LabelFrame):
         else:
             self.unknown3.setValue(0)
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class LaserBullet02(tk.LabelFrame):
@@ -1032,17 +1032,8 @@ class LaserBullet02(tk.LabelFrame):
     def setValue(self, v):
         self.laserType.setValue(v[0])
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class LaserBullet03(tk.LabelFrame):
@@ -1060,17 +1051,8 @@ class LaserBullet03(tk.LabelFrame):
         self.unknown1.setValue(l[0])
         self.unknown2.setValue(l[1])
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class LightningBullet01(tk.LabelFrame):
@@ -1121,18 +1103,7 @@ class LightningBullet01(tk.LabelFrame):
         else:
             self.optional2.setValue(0)
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            # print(len(v))
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                # raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
 
 
 class MissileBullet01(tk.LabelFrame):
@@ -1254,17 +1225,8 @@ class MissileBullet01(tk.LabelFrame):
 
         self.ignitionSound.setValue(l[11])
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class MissileBullet02(tk.LabelFrame):
@@ -1468,17 +1430,8 @@ class MissileBullet02(tk.LabelFrame):
         self.struct6Float.setValue(l[14][1])
         self.subProjectile.setValue(l[15])
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class NapalmBullet01(tk.LabelFrame):
@@ -1544,17 +1497,8 @@ class NapalmBullet01(tk.LabelFrame):
         self.subProjectile.setValue(l[4])
         self.emitterSound.setValue(l[5])
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class NeedleBullet01(tk.LabelFrame):
@@ -1569,17 +1513,8 @@ class NeedleBullet01(tk.LabelFrame):
     def setValue(self, l):
         self.unknown.setValue(l[0])
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class PileBunkerBullet01(tk.LabelFrame):
@@ -1597,17 +1532,8 @@ class PileBunkerBullet01(tk.LabelFrame):
     def setValue(self, l):
         self.hitSound.setValue(l[0])
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class PlasmaBullet01(tk.LabelFrame):
@@ -1625,17 +1551,8 @@ class PlasmaBullet01(tk.LabelFrame):
         self.unknown1.setValue(l[0])
         self.unknown2.setValue(l[1])
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class PulseBullet01(tk.LabelFrame):
@@ -1707,17 +1624,8 @@ class PulseBullet01(tk.LabelFrame):
         self.unknown12.setValue(l[5])
         self.unknown13.setValue(l[6])
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class RocketBullet01(tk.LabelFrame):
@@ -1747,17 +1655,8 @@ class RocketBullet01(tk.LabelFrame):
         self.ignitionDelay.setValue(l[2])
         self.smokeTrailDrift.setValue(l[3])
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class SentryGunBullet01(tk.LabelFrame):
@@ -1923,17 +1822,8 @@ class SentryGunBullet01(tk.LabelFrame):
         # else:
         #     self.muzzleFlash.paramsWidget
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class ShieldBashBullet01(tk.LabelFrame):
@@ -1951,17 +1841,8 @@ class ShieldBashBullet01(tk.LabelFrame):
         self.unknown1.setValue(l[0])
         self.unknown2.setValue(l[1])
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class ShockWaveBullet01(tk.LabelFrame):
@@ -1994,17 +1875,8 @@ class ShockWaveBullet01(tk.LabelFrame):
         else:
             self.shockwaveType.setValue(None)
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class SmokeCandleBullet02(tk.LabelFrame):
@@ -2050,17 +1922,8 @@ class SmokeCandleBullet02(tk.LabelFrame):
     def setValue(self):
         pass
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class SolidBullet01(tk.LabelFrame):
@@ -2119,17 +1982,8 @@ class SolidBullet01(tk.LabelFrame):
             self.hitEffectScale.setValue(1)
             self.unknown.setValue(0.25)
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class SolidBullet01Rail(tk.LabelFrame):
@@ -2142,17 +1996,8 @@ class SolidBullet01Rail(tk.LabelFrame):
     def setValue(self, l):
         pass
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class SolidExpBullet01(tk.LabelFrame):
@@ -2206,17 +2051,8 @@ class SolidExpBullet01(tk.LabelFrame):
             raise ValueError(f"SolidExpBullet01 setvalue error, given list of unexpected length or not a list {l}")
         self.updateWidgets()
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class SolidPelletBullet01(tk.LabelFrame):
@@ -2232,17 +2068,8 @@ class SolidPelletBullet01(tk.LabelFrame):
     def setValue(self, l):
         self.penetrationTime.setValue(l[0])
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class SpiderStringBullet02(tk.LabelFrame):
@@ -2257,17 +2084,8 @@ class SpiderStringBullet02(tk.LabelFrame):
     def setValue(self, l):
         self.unknown.setValue(l[0])
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class SupportUnitBullet01(tk.LabelFrame):
@@ -2296,17 +2114,8 @@ class SupportUnitBullet01(tk.LabelFrame):
         self.offsetY.setValue(l[1][1])
         self.offsetZ.setValue(l[1][2])
 
-    def test(self):
-        print(self.__class__.__name__)
-        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-        testValues = [eval(key) for key in testDict.keys()]
-        for v in testValues:
-            self.setValue(v)
-            if v != self.value():
-                print(v)
-                print(self.value())
-                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-        print(f"{self.__class__.__name__} tests successful")
+
+
 
 
 class TargetMarkerBullet01(tk.LabelFrame):

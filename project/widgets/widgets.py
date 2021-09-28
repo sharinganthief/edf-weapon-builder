@@ -454,7 +454,7 @@ class CheckBoxWidget(tk.Frame):
             self.input.set(v)
         elif v == self.checkedValue:
             self.input.set(v)
-        else: raise ValueError("Checkbox widget was attempted to be set to a value it does not encompass")
+        else: raise ValueError(f"Checkbox widget was attempted to be set to a value it does not encompass {v=}{self.uncheckedValue=}{self.checkedValue=}")
 
 
 class FreeInputWidget(tk.Frame):
