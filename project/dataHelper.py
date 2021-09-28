@@ -416,9 +416,18 @@ def uniqueDataByKey(key, subkeys, easyData):
                     try:
                         uniqueData[primaryKey][sk][value] = [k, entry["name.en"]]
                     except:
-                        uniqueData[primaryKey][sk][value] = [k, entry["name.en"]]
+                        try:
+                            uniqueData[primaryKey][sk][value] = [k, entry["name"]] # edf 4
+                        except:
+                            uniqueData[primaryKey][sk][value] = [k, "no name"]
                 else:
-                    uniqueData[primaryKey][sk][value].append([k, entry["name.en"]])
+                    try:
+                        uniqueData[primaryKey][sk][value].append([k, entry["name.en"]])
+                    except:
+                        try:
+                            uniqueData[primaryKey][sk][value] = [k, entry["name"]]  # edf 4
+                        except:
+                            uniqueData[primaryKey][sk][value] = [k, "no name"]
     return uniqueData
 
 

@@ -9,6 +9,7 @@ import dataHelper as d
 import jsonBuilder as j
 from widgets.widgets import *
 from math import pi, cos, sin
+bulletsWithModels = ["NapalmBullet01", "MissileBullet01", "GrenadeBullet01", "BombBullet01", "SmokeCandleBullet01", "SentryGunBullet01", "ClusterBullet01", "TargetMarkerBullet01", "BombBullet02", "SmokeCandleBullet02", "MissileBullet02", "SpiderStringBullet02"]
 
 try:
     from PIL import ImageTk, Image

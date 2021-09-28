@@ -20,7 +20,7 @@ import logging
 
 global labelwidth
 labelwidth = 20
-bulletsWithModels = ["NapalmBullet01", "MissileBullet01", "GrenadeBullet01", "BombBullet01", "SmokeCandleBullet01", "SentryGunBullet01", "ClusterBullet01", "TargetMarkerBullet01", "BombBullet02", "SmokeCandleBullet02", "MissileBullet02", "SpiderStringBullet02"]
+
 
 class MainWindow(tk.Frame):
     def __init__(self, parent, width, height):
@@ -82,11 +82,15 @@ class MainWindow(tk.Frame):
             if ac == "SmokeCandleBullet01":
                 self.notebook.appearanceTab.ammoModel.setValue("app:/WEAPON/e_throw_marker01.rab")
                 self.notebook.appearanceTab.ammoModel.disableInput()
+            elif ac == "SmokeCandleBullet02":
+                self.notebook.appearanceTab.ammoModel.setValue("app:/WEAPON/bullet_marker_gun.rab")
+                self.notebook.appearanceTab.ammoModel.disableInput()
         else:
             self.notebook.appearanceTab.ammoModel.disableInput()
         if ac == "SentryGunBullet01":
             self.notebook.appearanceTab.gunModelWidget.RABChoice.setValue("app:/Weapon/e_sentrygun_normal01.rab")
             self.notebook.basicParamsTab.basicParamsWidget.secondaryFireType.setValue(2)
+
 
     def createWeaponEasyData(self, *args):
         n = self.notebook

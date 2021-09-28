@@ -279,7 +279,7 @@ class ClassTab(ScrolledFrame):
                 "AcidBullet01": "AcidBullet01",
                 "BarrierBullet01": "BarrierBullet01",
                 "BombBullet01": "BombBullet01",
-                "BombBullet02": "BombBullet02",
+                "BombBullet02": "BombBullet02",  # not in edf4
                 "ClusterBullet01": "ClusterBullet01",
                 # "DecoyBullet01": "DecoyBullet01",
                 "FlameBullet02": "FlameBullet02",
@@ -295,16 +295,16 @@ class ClassTab(ScrolledFrame):
                 "NeedleBullet01": "NeedleBullet01",
                 "PileBunkerBullet01": "PileBunkerBullet01",
                 "PlasmaBullet01": "PlasmaBullet01",
-                "PulseBullet01": "PulseBullet01",
+                "PulseBullet01": "PulseBullet01",  # not in edf4
                 "RocketBullet01": "RocketBullet01",
                 "SentryGunBullet01": "SentryGunBullet01",
                 "ShieldBashBullet01": "ShieldBashBullet01",
                 "ShockWaveBullet01": "ShockWaveBullet01",
                 "SmokeCandleBullet01": "SmokeCandleBullet01",
-                # "SmokeCandleBullet02 - Not implemented yet": "SmokeCandleBullet02",
+                "SmokeCandleBullet02": "SmokeCandleBullet02",  # not in edf4
                 "SolidBullet01Rail": "SolidBullet01Rail",
-                # "SolidExpBullet01 - Not implemented yet": "SolidExpBullet01",
-                "SolidPelletBullet01": "SolidPelletBullet01",
+                "SolidExpBullet01": "SolidExpBullet01",  # not in edf4
+                "SolidPelletBullet01": "SolidPelletBullet01",  # not in edf4
                 "SpiderStringBullet02": "SpiderStringBullet02",
                 "SupportUnitBullet01": "SupportUnitBullet01",
                 # "TargetMarkerBullet01 - Not implemented yet": "TargetMarkerBullet01",

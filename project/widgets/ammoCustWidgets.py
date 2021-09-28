@@ -99,7 +99,7 @@ subProjectileAmmoOptions = {
     "PlasmaBullet01": "PlasmaBullet01",
     "PulseBullet01": "PulseBullet01",
     "RocketBullet01": "RocketBullet01",
-    "SentryGunBullet01": "SentryGunBullet01",
+    # "SentryGunBullet01": "SentryGunBullet01",
     "ShieldBashBullet01": "ShieldBashBullet01",
     "ShockWaveBullet01": "ShockWaveBullet01",
     "SmokeCandleBullet01": "SmokeCandleBullet01",
@@ -761,7 +761,7 @@ class FlameBullet02(tk.LabelFrame):
         self.redChange = FreeInputWidget(self.colorFrame, "Red change", float)
         self.blueChange = FreeInputWidget(self.colorFrame, "Blue change", float)
         self.greenChange = FreeInputWidget(self.colorFrame, "Green change", float)
-        self.alphaChange = FreeInputWidget(self.colorFrame, "Alpha change, float", float)
+        self.alphaChange = SliderWidget(self.colorFrame, "Alpha change", -1, 0, resolution=0.01, initialValue=0)
 
         self.flameType.pack()
         self.unknown1.pack()
@@ -2007,15 +2007,45 @@ class ShockWaveBullet01(tk.LabelFrame):
         print(f"{self.__class__.__name__} tests successful")
 
 
-
-
-
 class SmokeCandleBullet02(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("SmokeCandleBullet02"))
+        self.col1 = tk.Frame(self)
+        self.col2 = tk.Frame(self)
+        self.unknown1 = FreeInputWidget(self.col1, "Unknown float", float, initialValue=0.05000000074505806,
+                                        tooltip="Always 0.05000000074505806?")
+        self.smokeLifetime = FreeInputWidget(self.col1, "Smoke lifetime/size", int, initialValue=180,
+                                             restrictPositive=True)
+        self.summonDelay = FreeInputWidget(self.col1, "Summon delay", int, initialValue=120, restrictPositive=True)
+        self.summonType = FreeInputWidget(self.col1, "Summon type", int, initialValue=0, tooltip="Always 0?")
+        self.airSupportParams = AirSupportParams(self.col2)
+        self.firingVoice = SoundWidget(self.col1, "Sound", "")
+        self.voice2 = SoundWidget(self.col1, "Sound", "")
+        self.endingVoice = SoundWidget(self.col1, "Sound", "")
+
+        self.col1.grid(row=0, column=0, sticky="N")
+        self.col2.grid(row=0, column=1, sticky="N")
+
+        self.unknown1.pack()
+        self.smokeLifetime.pack()
+        self.summonDelay.pack()
+        self.summonType.pack()
+        self.airSupportParams.pack()
+        self.firingVoice.pack()
+        self.voice2.pack()
+        self.endingVoice.pack()
 
     def value(self):
-        pass
+        return [
+            self.unknown1.value(),
+            self.smokeLifetime.value(),
+            self.summonDelay.value(),
+            self.summonType.value(),
+            self.airSupportParams.value(),
+            [self.firingVoice.value(),
+             self.voice2.value(),
+             self.endingVoice.value()]
+        ]
 
     def setValue(self):
         pass
@@ -2128,12 +2158,53 @@ class SolidBullet01Rail(tk.LabelFrame):
 class SolidExpBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("SolidExpBullet01"))
+        self.fuseOptions = {"Standard 1-second": 0,
+                            "Custom fuse": 1,
+                            "Sequential detonation": 2}
+        self.fuseType = DropDownWidget(self, "Fuse type", self.fuseOptions, command=self.updateWidgets)
+        self.fuse = FreeInputWidget(self, "Fuse delay", int, restrictPositive=True, initialValue=120)
+        self.minFuse = FreeInputWidget(self, "Minimum fuse delay", int, restrictPositive=True, initialValue=60)
+        self.maxFuse = FreeInputWidget(self, "Maximum fuse delay", int, restrictPositive=True, initialValue=120)
+        self.explosionFlare = FreeInputWidget(self, "Explosion flare intensity", float, restrictPositive=True,
+                                              initialValue=10.0)
+
+        self.fuseType.pack()
+
+    def updateWidgets(self, *args):
+        if self.fuseType.value() == 0:
+            self.fuse.pack_forget()
+            self.minFuse.pack_forget()
+            self.maxFuse.pack_forget()
+            self.explosionFlare.pack_forget()
+        if self.fuseType.value() == 1:
+            self.fuse.pack()
+            self.minFuse.pack_forget()
+            self.maxFuse.pack_forget()
+            self.explosionFlare.pack_forget()
+        if self.fuseType.value() == 2:
+            self.fuse.pack_forget()
+            self.minFuse.pack()
+            self.maxFuse.pack()
+            self.explosionFlare.pack()
 
     def value(self):
-        pass
+        if self.fuseType.value() == 0:
+            return None
+        elif self.fuseType.value() == 1:
+            return [self.fuse.value()]
+        elif self.fuseType.value() == 2:
+            return [[self.minFuse.value(), self.maxFuse.value()], self.explosionFlare.value()]
 
-    def setValue(self):
-        pass
+    def setValue(self, l):
+        if l is None:
+            self.fuseType.setValue(0)
+        elif len(l) == 1:
+            self.fuseType.setValue(1)
+        elif len(l) == 2:
+            self.fuseType.setValue(2)
+        else:
+            raise ValueError(f"SolidExpBullet01 setvalue error, given list of unexpected length or not a list {l}")
+        self.updateWidgets()
 
     def test(self):
         print(self.__class__.__name__)
@@ -2246,4 +2317,141 @@ class TargetMarkerBullet01(tk.LabelFrame):
         pass
 
     def setValue(self):
+        pass
+
+
+class LaserCallin(tk.LabelFrame):
+    def __init__(self, parent):
+        tk.LabelFrame.__init__(self, parent, text=getText("Laser Call-in"))
+        self.col1 = tk.Frame(self)
+        self.col2 = tk.Frame(self)
+
+        self.delay = FreeInputWidget(self.col1, "Call-in delay", int, restrictPositive=True, initialValue=60)
+        self.trackingEnabled = CheckBoxWidget(self.col1, "Follows guide beam", 0, 1,
+                                              tooltip="Whether the laser/missile continues to follow the guide beam after the initial launch.\nOff for spritefalls, on for bulge lasers/missiles")
+        self.trackingSpeed = SliderWidget(self.col1, "Beam tracking speed", 0, 5, resolution=0.01, initialValue=1.0)
+        self.trackingPrecision = SliderWidget(self.col1, "Beam tracking precision", 0, 1, resolution=0.01,
+                                              initialValue=0.05,
+                                              tooltip="How well the target is tracked, low values can cause lasers to swing back and forth before stopping on the target")
+        self.laserOptions = {"Normal laser": 0,
+                             "Missile": 1,
+                             "Genocide gun": 2}
+        self.laserStyle = DropDownWidget(self.col1, "Laser type", self.laserOptions, tooltip="")
+        self.airSupport = AirSupportParams(self.col2)
+
+        self.col1.grid(row=0, column=0, sticky="N")
+        self.col2.grid(row=0, column=1, sticky="N")
+        self.delay.pack()
+        self.trackingEnabled.pack()
+        self.trackingSpeed.pack()
+        self.trackingPrecision.pack()
+        self.laserOptions.pack()
+        self.laserStyle.pack()
+        self.airSupport.pack()
+
+    def value(self):
+        pass
+
+    def setValue(self, l):
+        pass
+
+
+class AirSupportParams(tk.LabelFrame):
+    def __init__(self, parent):
+        tk.LabelFrame.__init__(self, parent, text="Air support")
+        self.col1 = tk.Frame(self)
+        self.col2 = tk.Frame(self)
+        self.col3 = tk.Frame(self)
+        self.col4 = tk.Frame(self)
+        self.attackAngle = AngleWidget(self.col1, "Vertical attack angle", minimum=0, maximum=90)  # 0, 0
+        self.angleVariation = AngleWidget(self.col1, "Horizontal angle variation", minimum=0, maximum=360)  # 0, 1
+        self.projectileHeight = FreeInputWidget(self.col1, "Projectile starting height", float, restrictPositive=True, initialValue=1000.0)  # 1, 0
+        self.horizontalOffset = FreeInputWidget(self.col1, "Projectile horizontal offset", float)  # 1, 1
+        self.shotCount = FreeInputWidget(self.col1, "Shot count", int, restrictPositive=True, initialValue=1)  # 2
+        self.shotInterval = FreeInputWidget(self.col1, "Shot interval", int, restrictPositive=True, initialValue=5)  # 3
+        self.ammoClass = DropDownWidget(self.col1, "Ammo class", subProjectileAmmoOptions)  # 4
+        self.ammoSpeed = FreeInputWidget(self.col1, "Ammo speed (m/frame)", float, restrictPositive=True, initialValue=20)  # 5
+        self.unknown1 = FreeInputWidget(self.col1, "Unknown float", float)  # 6
+        self.ammoSize = FreeInputWidget(self.col1, "Ammo size", float, restrictPositive=True, initialValue=5.0)  # 7
+        self.ammoHitSize = FreeInputWidget(self.col1, "Ammo hit size adjustment", float, restrictPositive=True, initialValue=1.0)  # 8
+        self.unknown2 = FreeInputWidget(self.col1, "Unknown float", float, tooltip="Some sort of angle adjustment? Doesn't seem to be in radians")  # 9
+
+        self.ammoLifetime = FreeInputWidget(self.col1, "Ammo lifetime", int, restrictPositive=True, initialValue=600)  # 10
+        self.ammoIsPenetrate = CheckBoxWidget(self.col1, "Penetrating ammo", 0, 1)  # 11
+        self.ammoColor = ColorWidget(self.col1, "Ammo color")  # 12
+        self.ammoCust = ammoCustWidgetFromAmmoClass(self.col3, self.ammoClass.value(), True)  # 13
+        self.ammoModel = MultiDropDownWidget(self.col2, "Ammo model", allModels)  # 14
+        self.delay = FreeInputWidget(self.col1, "Firing delay", int, restrictPositive=True, initialValue=0)  # 15
+        # self.missileSound = CheckBoxWidget(self.col2, "Emits rocket sound")  # 16
+        self.firingSound = SoundWidget(self.col2, "Firing sound", None)  # 17
+        self.impactSound = SoundWidget(self.col2, "Impact sound", None)  # 18
+
+        self.col1.grid(row=0, column=0, sticky="N")
+        self.col2.grid(row=0, column=1, sticky="N")
+        self.col3.grid(row=0, column=2, sticky="N")
+        self.col4.grid(row=0, column=3, sticky="N")
+
+        self.attackAngle.pack()
+        self.angleVariation.pack()
+        self.projectileHeight.pack()
+        self.horizontalOffset.pack()
+        self.shotCount.pack()
+        self.shotInterval.pack()
+        self.ammoClass.pack()
+        self.ammoSpeed.pack()
+        self.unknown1.pack()
+        self.ammoSize.pack()
+        self.ammoHitSize.pack()
+        self.unknown2.pack()
+        self.ammoLifetime.pack()
+        self.ammoIsPenetrate.pack()
+        self.ammoColor.pack()
+        self.ammoCust.pack()
+        self.ammoModel.pack()
+        self.delay.pack()
+        # self..pack(
+        self.firingSound.pack()
+        self.impactSound.pack()
+        self.ammoClass.dropDownDisplayed.trace_add("write", self.updateDependingOnAmmoClass)
+
+    def updateDependingOnAmmoClass(self, *args):
+        ac = self.ammoClass.value()
+        self.ammoCust.pack_forget()
+        self.ammoCust.destroy()
+        self.ammoCust = ammoCustWidgetFromAmmoClass(self.col3, ac, True)
+        self.ammoCust.pack()
+        if ac in bulletsWithModels:
+            self.ammoModel.enableInput()
+            if ac == "SmokeCandleBullet01":
+                self.ammoModel.setValue("app:/WEAPON/e_throw_marker01.rab")
+                self.ammoModel.disableInput()
+        else:
+            self.ammoModel.disableInput()
+
+    def value(self):
+        v = [
+            [self.attackAngle.value(), self.angleVariation.value()],
+            [self.projectileHeight.value(), self.horizontalOffset.value()],
+            self.shotCount.value(),
+            self.shotInterval.value(),
+            self.ammoClass.value(),
+            self.ammoSpeed.value(),
+            self.unknown1.value(),
+            self.ammoSize.value(),
+            self.ammoHitSize.value(),
+            self.unknown2.value(),
+            self.ammoLifetime.value(),
+            self.ammoIsPenetrate.value(),
+            self.ammoColor.value(),
+            self.ammoCust.value(),
+            self.ammoModel.value() if self.ammoClass.value() in bulletsWithModels else 0,
+            self.delay.value(),
+            1 if self.ammoClass.value() in ["MissileBullet01", "MissileBullet02"] else 0,
+            self.firingSound.value(),
+            self.impactSound.value()
+        ]
+        return v
+
+
+    def setValue(self, l):
         pass

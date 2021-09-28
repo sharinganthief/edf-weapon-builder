@@ -1,5 +1,6 @@
 from widgets.EDFWidgets import *
-
+# from widgets.ammoCustWidgets import ammoCust
+ammoCust = j.loadDataFromJson("./data/ammoCust.json")
 vehicleWeapons = j.loadDataFromJson("./data/sorted vehicle weapons.json")
 vehicleWeaponStats = j.loadDataFromJson("./data/vehicle weapon stats.json")
 vehicleSGOS = {
@@ -45,11 +46,16 @@ vehicleSGOS = {
         "Regular": 'app:/Object/VEHICLE502_GROUNDROBO.sgo',
         "Gold": 'app:/Object/VEHICLE502_GROUNDROBOGOLD.sgo'
     },
-    "Other": {
-        "Kei Truck": 'app:/Object/v512_keiTruck_bgp.sgo',
-        "Pickup Truck": 'app:/Object/V513_TRAILERTRUCK01CAB.sgo',
+    "Bike": {
         "Bike": 'app:/Object/v503_bike.sgo',
-        "Omega Free Bike": 'app:/Object/v503_bike_omegaz.sgo'},
+        "Omega Free Bike": 'app:/Object/v503_bike_omegaz.sgo'
+    },
+    "Truck": {
+        "Bullet Girl Truck": 'app:/Object/v512_keiTruck_bgp.sgo',
+        "White Truck": 'app:/Object/v512_keiTruck_bgp.sgo',
+        "Trailer Truck": 'app:/Object/V513_TRAILERTRUCK01CAB.sgo',
+        }
+
 }
 
 
@@ -76,7 +82,9 @@ class SmokeCandleBullet01(tk.LabelFrame):
                                                 initialValue=5.0)
         self.HP = FreeInputWidget(self.col1, "Vehicle hp", float, initialValue=10000.0)
         self.vehicleParams = TankParams(self.col1)
-        self.voices = ['輸送部隊目標確認', '輸送部隊発射', '輸送部隊攻撃後']
+        self.voiceOptions = {"Air Raider": ['輸送部隊目標確認', '輸送部隊発射', '輸送部隊攻撃後'],
+                             "Ranger": ['輸送部隊目標確認', '輸送部隊発射', '輸送部隊攻撃後レンジャー']}
+        self.voices = DropDownWidget(self.col1, "Vehicle call-in voice", self.voiceOptions)
 
         self.vehicleSGO.valueLabel.inputVar.trace_add("write", self.updateParamsAndWeapons)
 
@@ -84,6 +92,7 @@ class SmokeCandleBullet01(tk.LabelFrame):
         self.col2.grid(row=0, column=1, sticky="N")
         self.col3.grid(row=0, column=2, sticky="N")
         self.col4.grid(row=0, column=3, sticky="N")
+        self.voices.pack()
         self.unknown1.pack()
         self.smokeLifetime.pack()
         self.summonDelay.pack()
@@ -99,7 +108,7 @@ class SmokeCandleBullet01(tk.LabelFrame):
     def value(self):
         v = [self.unknown1.value(), self.smokeLifetime.value(), self.summonDelay.value(), self.summonType.value(),
              [self.transporter.value()[0], self.transporter.value()[1], self.vehicleSGO.value(),
-              [[self.HP.value() / self.baseHP, self.weaponMultiplier.value()]]], self.voices]
+              [[self.HP.value() / self.baseHP, self.weaponMultiplier.value()]]], self.voices.value()]
         vp = self.vehicleParams.value()
         if self.vehicleSGO.value() in vehicleSGOS["Tank"].values():
             v[4][3].append(vp)
@@ -140,19 +149,32 @@ class SmokeCandleBullet01(tk.LabelFrame):
             v[4][3].append(vp[0])
             v[4][3].append([w.value() for w in self.weaponWidgets])
             v[4][3].append(vp[1])
-        elif self.vehicleSGO.value() == 'app:/Object/v512_keiTruck_bgp.sgo':  # Truck
-            pass
-        elif self.vehicleSGO.value() == 'app:/Object/v503_bike.sgo' or \
-                self.vehicleSGO.value() == 'app:/Object/v503_bike_omegaz.sgo':  # Bike
-            pass
+        elif self.vehicleSGO.value() in vehicleSGOS["Truck"]:  # Truck
+            v[4][3].append(vp)
+            v[4][3].append(None)
+        elif self.vehicleSGO.value() in vehicleSGOS["Bike"]:  # Bike
+            v[4][3].append(vp[0])
+            v[4][3].append(vp[1])
+            v[4][3].append([w.value() for w in self.weaponWidgets])
         elif self.vehicleSGO.value() in vehicleSGOS["Barga"].values():
             v[4][3].append(None)
             v[4][3].append([0, 0])
-
         return v
 
     def setValue(self, l):
-        pass
+        self.unknown1.setValue(l[0])
+        self.smokeLifetime.setValue(l[1])
+        self.summonDelay.setValue(l[2])
+        self.summonType.setValue(l[3])
+        if l[4][0] == 'app:/Object/v508_transport.sgo':
+            self.transporter.setValue(["app:/Object/v508_transport.sgo", "app:/Object/v509_transportbox.sgo"])
+        elif l[4][0] == "app:/Object/v508_transport_formation.sgo":
+            self.transporter.setValue(["app:/Object/v508_transport_formation.sgo", 0])
+        else:
+            raise ValueError("Uh oh transporter problems")
+        self.vehicleSGO.setValue(l[4][2])
+        self.HP.setValue(l[4][3][0][0] * self.baseHP)
+        self.weaponMultiplier.setValue(l[4][3][0][1])
 
     def updateParamsAndWeapons(self, *args):
         def replaceParamsAndRemoveWeapons(self, paramType):
@@ -229,7 +251,7 @@ class SmokeCandleBullet01(tk.LabelFrame):
 
         elif self.vehicleSGO.value() == "app:/Object/Vehicle401_Striker.sgo":  # Grape
             self.baseHP = 650.0
-            replaceParamsAndRemoveWeapons(self, GrapeParams)
+            replaceParamsAndRemoveWeapons(self, CarParams)
             self.weaponWidgets.append(VehicleWeaponChoice(self.col2, "Turret", True, True, self.weaponMultiplier))
             self.weaponWidgets[0].setValue(['app:/weapon/v_401striker_cannon02.sgo', [0.009999999776482582, 0.10000000149011612], [180.0, 0.012000000104308128, 0.05000000074505806]])
             self.weaponWidgets[0].grid(row=0, column=0, sticky="N")
@@ -318,12 +340,21 @@ class SmokeCandleBullet01(tk.LabelFrame):
             self.weaponWidgets[1].pack()
             self.weaponWidgets[2].pack()
 
-        elif self.vehicleSGO.value() == 'app:/Object/v512_keiTruck_bgp.sgo':  # Truck
+        elif self.vehicleSGO.value() in vehicleSGOS["Truck"].values():  # Truck
             self.baseHP = 200.0
+            replaceParamsAndRemoveWeapons(self, CarParams)
 
-        elif self.vehicleSGO.value() == 'app:/Object/v503_bike.sgo' or \
-                self.vehicleSGO.value() == 'app:/Object/v503_bike_omegaz.sgo':  # Bike
+        elif self.vehicleSGO.value() in vehicleSGOS["Bike"].values():  # Bike
             self.baseHP = 150.0
+            replaceParamsAndRemoveWeapons(self, BikeParams)
+            self.weaponWidgets.append(VehicleWeaponChoice(self.col2, "Left gun", True, False, self.weaponMultiplier, recoilType="BodyRecoil"))
+            self.weaponWidgets.append(VehicleWeaponChoice(self.col2, "Right gun", True, False, self.weaponMultiplier, recoilType="BodyRecoil"))
+            self.weaponWidgets.append(VehicleWeaponChoice(self.col2, "Fuel", False, False, self.weaponMultiplier))
+            self.weaponWidgets[0].pack()
+            self.weaponWidgets[1].pack()
+            self.weaponWidgets[0].setValue(['app:/weapon/v_503_bike_gun_l.sgo', ['BodyRecoil', [0.0, 0.0]]])
+            self.weaponWidgets[1].setValue(['app:/weapon/v_503_bike_gun_r.sgo', ['BodyRecoil', [0.0, 0.0]]])
+            self.weaponWidgets[2].setValue(['app:/weapon/v_fuel01.sgo'])
         elif self.vehicleSGO.value() in vehicleSGOS["Depth Crawler"].values():
             self.baseHP = 1000.0
             if not isinstance(self.vehicleParams, CrawlerParams):
@@ -345,17 +376,17 @@ class SmokeCandleBullet01(tk.LabelFrame):
             replaceParamsAndRemoveWeapons(self, BargaParams)
                 
 
-    # def test(self):
-    #     print(self.__class__.__name__)
-    #     testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
-    #     testValues = [eval(key) for key in testDict.keys()]
-    #     for v in testValues:
-    #         self.setValue(v)
-    #         if v != self.value():
-    #             print(v)
-    #             print(self.value())
-    #             raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
-    #     print(f"{self.__class__.__name__} tests successful")
+    def test(self):
+        print(self.__class__.__name__)
+        testDict = ammoCust[self.__class__.__name__]["Ammo_CustomParameter"]
+        testValues = [eval(key) for key in testDict.keys()]
+        for v in testValues:
+            self.setValue(v)
+            if v != self.value():
+                print(v)
+                print(self.value())
+                raise ValueError(f"actual\n{self.value()}\n!=expected\n{v}")
+        print(f"{self.__class__.__name__} tests successful")
 
 
 class TankParams(tk.LabelFrame):
@@ -417,7 +448,7 @@ class CalibanParams(tk.LabelFrame):
         self.healAmmo.setValue(l[1][1])
 
 
-class GrapeParams(tk.LabelFrame):
+class CarParams(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("Armored Vehicle Grape"))
         self.parent = parent
@@ -460,7 +491,52 @@ class GrapeParams(tk.LabelFrame):
 
 class BikeParams(tk.LabelFrame):
     def __init__(self, parent):
-        tk.LabelFrame.__init__(self, parent, text=getText("Free Bike"))
+        tk.LabelFrame.__init__(self, parent, text=getText("Bike"))
+        self.struct1 = tk.LabelFrame(self, text=getText("Unknown struct"))
+        self.unknown1 = FreeInputWidget(self.struct1, "Unknown float", float, restrictPositive=True, initialValue=0.6)
+        self.unknown2 = FreeInputWidget(self.struct1, "Unknown float", float, restrictPositive=True, initialValue=0.6)
+        self.unknown3 = FreeInputWidget(self.struct1, "Unknown float", float, restrictPositive=True, initialValue=0.8)
+        self.maxSpeed = FreeInputWidget(self, "Max Speed?", float, restrictPositive=True, initialValue=50.0)
+        self.accel = FreeInputWidget(self, "Acceleration?", float, restrictPositive=True, initialValue=0.06)
+        self.unknown4 = FreeInputWidget(self, "Unknown float", float, restrictPositive=True, initialValue=4.0)
+        self.unknown5 = FreeInputWidget(self, "Unknown float", float, restrictPositive=True, initialValue=0.1)
+        self.fuel = FreeInputWidget(self, "Fuel", float, restrictPositive=True, initialValue=40000.0)
+        self.fuelConsumption = FreeInputWidget(self, "Fuel consumption", float, restrictPositive=True, initialValue=1.3)
+
+        self.struct1.pack()
+        self.unknown1.pack()
+        self.unknown2.pack()
+        self.unknown3.pack()
+        self.maxSpeed.pack()
+        self.accel.pack()
+        self.unknown4.pack()
+        self.unknown5.pack()
+        self.fuel.pack()
+        self.fuelConsumption.pack()
+
+    def value(self):
+        return [
+            [self.unknown1.value(),
+             self.unknown2.value(),
+             self.unknown3.value()],
+             self.maxSpeed.value(),
+             self.accel.value(),
+             self.unknown4.value(),
+             self.unknown5.value(),
+            [self.fuel.value(),
+             self.fuelConsumption.value()]
+        ]
+
+    def setValue(self, l):
+        self.unknown1.setValue(l[0][0][0])
+        self.unknown2.setValue(l[0][0][1])
+        self.unknown3.setValue(l[0][0][2])
+        self.maxSpeed.setValue(l[0][0])
+        self.accel.setValue(l[0][1])
+        self.unknown4.setValue(l[0][2])
+        self.unknown5.setValue(l[0][3])
+        self.fuel.setValue(l[1][0])
+        self.fuelConsumption.setValue(l[1][1])
 
 
 class NixParams(tk.LabelFrame):
@@ -728,6 +804,7 @@ class HeliParams(tk.LabelFrame):
 
         self.horizontalSpeed.pack()
         self.horizontalAccel.pack()
+        self.lift.pack()
         self.turnSpeed.pack()
         self.turnAccel.pack()
         self.tiltAngle.pack()
