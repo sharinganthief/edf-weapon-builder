@@ -52,7 +52,7 @@ vehicleSGOS = {
     },
     "Truck": {
         "Bullet Girl Truck": 'app:/Object/v512_keiTruck_bgp.sgo',
-        "White Truck": 'app:/Object/v512_keiTruck_bgp.sgo',
+        "White Truck": 'app:/Object/v512_keiTruck.sgo',
         "Trailer Truck": 'app:/Object/V513_TRAILERTRUCK01CAB.sgo',
         }
 
@@ -110,6 +110,7 @@ class SmokeCandleBullet01(tk.LabelFrame):
              [self.transporter.value()[0], self.transporter.value()[1], self.vehicleSGO.value(),
               [[self.HP.value() / self.baseHP, self.weaponMultiplier.value()]]], self.voices.value()]
         vp = self.vehicleParams.value()
+        print(self.vehicleSGO.value())
         if self.vehicleSGO.value() in vehicleSGOS["Tank"].values():
             v[4][3].append(vp)
             v[4][3].append([w.value() for w in self.weaponWidgets])
@@ -149,10 +150,10 @@ class SmokeCandleBullet01(tk.LabelFrame):
             v[4][3].append(vp[0])
             v[4][3].append([w.value() for w in self.weaponWidgets])
             v[4][3].append(vp[1])
-        elif self.vehicleSGO.value() in vehicleSGOS["Truck"]:  # Truck
+        elif self.vehicleSGO.value() in vehicleSGOS["Truck"].values():  # Truck
             v[4][3].append(vp)
             v[4][3].append(None)
-        elif self.vehicleSGO.value() in vehicleSGOS["Bike"]:  # Bike
+        elif self.vehicleSGO.value() in vehicleSGOS["Bike"].values():  # Bike
             v[4][3].append(vp[0])
             v[4][3].append(vp[1])
             v[4][3].append([w.value() for w in self.weaponWidgets])
@@ -162,6 +163,7 @@ class SmokeCandleBullet01(tk.LabelFrame):
         return v
 
     def setValue(self, l):
+        print(l)
         self.unknown1.setValue(l[0])
         self.smokeLifetime.setValue(l[1])
         self.summonDelay.setValue(l[2])
@@ -173,6 +175,33 @@ class SmokeCandleBullet01(tk.LabelFrame):
         else:
             raise ValueError("Uh oh transporter problems")
         self.vehicleSGO.setValue(l[4][2])
+
+
+        if self.vehicleSGO.value() in ['app:/Object/v507_rescuetank_siawase.sgo', 'app:/Object/v507_rescuetank.sgo']:
+            self.vehicleParams.setValue([l[4][3][1], l[4][3][2]])
+        # elif self.vehicleSGO.value() == "app:/Object/v505_tank.sgo" or \
+        #         self.vehicleSGO.value() == 'app:/Object/v505_tank_edf4.sgo' or \
+        #         self.vehicleSGO.value() == 'app:/Object/v505_tank_edf5.sgo':  # Blacker
+        elif self.vehicleSGO.value() in ['app:/Object/v506_heli.sgo', 'app:/Object/Vehicle410_heli.sgo']:  # Eros
+            self.vehicleParams.setValue([l[4][3][1], l[4][3][2]])
+            for i in range(len(self.weaponWidgets)):
+                self.weaponWidgets[i].setValue(l[4][3][2][i])
+
+        elif self.vehicleSGO.value() == 'app:/Object/Vehicle409_heli.sgo':  # Nereid
+            self.vehicleParams.setValue([[l[4][3][1], l[4][3][2]], l[4][3][4]])
+            for i in range(len(self.weaponWidgets)):
+                self.weaponWidgets[i].setValue(l[4][3][2][i])
+
+        # elif self.vehicleSGO.value() == 'app:/Object/Vehicle410_heli.sgo':  # Brute
+        #     pass
+        elif self.vehicleSGO.value() in vehicleSGOS["Bike"].values():  # Bike
+            self.vehicleParams.setValue([l[4][3][1], l[4][3][2]])
+            for i in range(len(self.weaponWidgets)):
+                self.weaponWidgets[i].setValue(l[4][3][3][i])
+        else:
+            self.vehicleParams.setValue(l[4][3][1])
+            for i in range(len(self.weaponWidgets)):
+                self.weaponWidgets[i].setValue(l[4][3][2][i])
         self.HP.setValue(l[4][3][0][0] * self.baseHP)
         self.weaponMultiplier.setValue(l[4][3][0][1])
 
@@ -352,6 +381,7 @@ class SmokeCandleBullet01(tk.LabelFrame):
             self.weaponWidgets.append(VehicleWeaponChoice(self.col2, "Fuel", False, False, self.weaponMultiplier))
             self.weaponWidgets[0].pack()
             self.weaponWidgets[1].pack()
+            self.weaponWidgets[2].pack()
             self.weaponWidgets[0].setValue(['app:/weapon/v_503_bike_gun_l.sgo', ['BodyRecoil', [0.0, 0.0]]])
             self.weaponWidgets[1].setValue(['app:/weapon/v_503_bike_gun_r.sgo', ['BodyRecoil', [0.0, 0.0]]])
             self.weaponWidgets[2].setValue(['app:/weapon/v_fuel01.sgo'])
@@ -516,13 +546,13 @@ class BikeParams(tk.LabelFrame):
 
     def value(self):
         return [
-            [self.unknown1.value(),
+            [[self.unknown1.value(),
              self.unknown2.value(),
              self.unknown3.value()],
              self.maxSpeed.value(),
              self.accel.value(),
              self.unknown4.value(),
-             self.unknown5.value(),
+             self.unknown5.value()],
             [self.fuel.value(),
              self.fuelConsumption.value()]
         ]
@@ -531,10 +561,10 @@ class BikeParams(tk.LabelFrame):
         self.unknown1.setValue(l[0][0][0])
         self.unknown2.setValue(l[0][0][1])
         self.unknown3.setValue(l[0][0][2])
-        self.maxSpeed.setValue(l[0][0])
-        self.accel.setValue(l[0][1])
-        self.unknown4.setValue(l[0][2])
-        self.unknown5.setValue(l[0][3])
+        self.maxSpeed.setValue(l[0][1])
+        self.accel.setValue(l[0][2])
+        self.unknown4.setValue(l[0][3])
+        self.unknown5.setValue(l[0][4])
         self.fuel.setValue(l[1][0])
         self.fuelConsumption.setValue(l[1][1])
 
@@ -924,14 +954,15 @@ class CrawlerParams(tk.LabelFrame):
 
 class VehicleWeaponChoice(tk.LabelFrame):
     def __init__(self, parent, label, includesRecoil, isTurret, damageMultiplierWidget, recoilType=""):
+        tk.LabelFrame.__init__(self, parent, text=getText(label), bd=5)
         self.parent = parent
         self.includesRecoil = includesRecoil
         self.isTurret = isTurret
         self.damageMultiplierWidget = damageMultiplierWidget
         self.recoilType = recoilType
-        tk.LabelFrame.__init__(self, parent, text=getText(label), bd=5)
-        self.weaponChoice = MultiDropDownWidget(self, "Weapon Choice", vehicleWeapons)
-        self.statsFrame = tk.LabelFrame(self, text=getText("Weapon stats"))
+        self.col1 = tk.Frame(self)
+        self.weaponChoice = MultiDropDownWidget(self.col1, "Weapon Choice", vehicleWeapons)
+        self.statsFrame = tk.LabelFrame(self.col1, text=getText("Weapon stats"))
         self.ammoClass = FreeInputWidget(self.statsFrame, "Ammo class", str)
         self.ammoCount = FreeInputWidget(self.statsFrame, "Ammo", int)
         self.baseDamage = FreeInputWidget(self.statsFrame, "Damage", str)
@@ -954,6 +985,8 @@ class VehicleWeaponChoice(tk.LabelFrame):
         disableInput(self.explosionRadius)
         disableInput(self.ammoSpeed)
         disableInput(self.range)
+
+        self.col1.pack()
 
         self.weaponChoice.pack()
         self.statsFrame.pack()
@@ -1044,7 +1077,7 @@ class VehicleWeaponChoice(tk.LabelFrame):
 
     def updateStats(self, *args):
         w = vehicleWeaponStats[self.weaponChoice.value()]
-        if self.weaponChoice.value() == "none":
+        if self.weaponChoice.value() in ["none", "app:/weapon/v_fuel01.sgo"]:
             self.statsFrame.pack_forget()
             if self.recoilFrame is not None:
                 self.recoilFrame.pack_forget()
@@ -1053,7 +1086,16 @@ class VehicleWeaponChoice(tk.LabelFrame):
             self.lockonRange.pack_forget()
             self.lockonTime.pack_forget()
         else:
-            self.statsFrame.pack()
+            try:
+                print(self)
+                print(self.weaponChoice.value())
+                self.statsFrame.pack()
+
+            except Exception as e:
+                print(e)
+                print(self)
+                print(self.weaponChoice.value())
+                print("aaa!!!")
             if self.includesRecoil:
                 self.recoilFrame.pack()
             if self.isTurret:

@@ -15,6 +15,7 @@ def flatten(S):
         return flatten(S[0]) + flatten(S[1:])
     return S[:1] + flatten(S[1:])
 
+
 def ammoCustWidgetFromAmmoClass(parent, ammoClass, isSubProjectile):
     if ammoClass == "SolidBullet01":
         return SolidBullet01(parent, isSubProjectile)
@@ -82,11 +83,14 @@ def ammoCustWidgetFromAmmoClass(parent, ammoClass, isSubProjectile):
     elif ammoClass == "TargetMarkerBullet01":
         return TargetMarkerBullet01(parent)
 
+
 def testAmmoCust(ammoClass):
     print(ammoClass.__class__.__name__)
     testDict = ammoCust[ammoClass.__class__.__name__]["Ammo_CustomParameter"]
     testValues = [eval(key) for key in testDict.keys()]
     for v in testValues:
+        # if ammoClass.__class__.__name__ == "SmokeCandleBullet02":
+        #     print(v)
         ammoClass.setValue(v)
         if isinstance(v, list):
             flatV = flatten(v)
@@ -97,9 +101,15 @@ def testAmmoCust(ammoClass):
                         print(v)
                         print(ammoClass.value())
                         raise ValueError(f"actual\n{ammoClass.value()}\n!=expected\n{v}")
+                elif isinstance(flatV[i], str):
+                    if flatV[i].lower() != flatACV[i].lower():
+                        print(v)
+                        print(ammoClass.value())
+                        raise ValueError(f"actual\n{ammoClass.value()}\n!=expected\n{v}")
                 elif flatV[i] != flatACV[i]:
-                    print(v)
-                    print(ammoClass.value())
+                    print(f"{flatV[i]} != {flatACV[i]}")
+                    # print(v)
+                    # print(ammoClass.value())
                     raise ValueError(f"actual\n{ammoClass.value()}\n!=expected\n{v}")
         else:
             if v != ammoClass.value():
@@ -1919,8 +1929,15 @@ class SmokeCandleBullet02(tk.LabelFrame):
              self.endingVoice.value()]
         ]
 
-    def setValue(self):
-        pass
+    def setValue(self, l):
+        self.unknown1.setValue(l[0])
+        self.smokeLifetime.setValue(l[1])
+        self.summonDelay.setValue(l[2])
+        self.summonType.setValue(l[3])
+        self.airSupportParams.setValue(l[4])
+        self.firingVoice.setValue(l[5][0])
+        self.voice2.setValue(l[5][1])
+        self.endingVoice.setValue(l[5][2])
 
 
 
@@ -2263,4 +2280,24 @@ class AirSupportParams(tk.LabelFrame):
 
 
     def setValue(self, l):
-        pass
+        self.attackAngle.setValue(l[0][0])
+        self.angleVariation.setValue(l[0][1])
+        self.projectileHeight.setValue(l[1][0])
+        self.horizontalOffset.setValue(l[1][1])
+        self.shotCount.setValue(l[2])
+        self.shotInterval.setValue(l[3])
+        self.ammoClass.setValue(l[4])
+        self.ammoSpeed.setValue(l[5])
+        self.unknown1.setValue(l[6])
+        self.ammoSize.setValue(l[7])
+        self.ammoHitSize.setValue(l[8])
+        self.unknown2.setValue(l[9])
+        self.ammoLifetime.setValue(l[10])
+        self.ammoIsPenetrate.setValue(l[11])
+        self.ammoColor.setValue(l[12])
+        self.ammoCust.setValue(l[13])
+        self.ammoModel.setValue(l[14])
+        self.delay.setValue(l[15])
+        # 1 if self.ammoClass.setValue(l[])
+        self.firingSound.setValue(l[17])
+        self.impactSound.setValue(l[18])

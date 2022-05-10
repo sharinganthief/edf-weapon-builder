@@ -139,8 +139,8 @@ class ClassTab(ScrolledFrame):
         self.ammoGravityFactor.pack()
         self.fireVector.pack()
         # self.Description.pack()
-        # for ac in self.ammoOptions.values():
-        #     self.AmmoClass.setValue(ac)
+        for ac in ["SmokeCandleBullet01", "SmokeCandleBullet02"]:
+            self.AmmoClass.setValue(ac)
 
 
     def updateAmmoCustWidget(self, *args):
@@ -152,7 +152,7 @@ class ClassTab(ScrolledFrame):
         if self.ammoCust is not None:
             self.ammoCust.grid(row=0, column=1, sticky="N")
             # self.ammoCust.test()
-        # testAmmoCust(self.ammoCust)
+        testAmmoCust(self.ammoCust)
 
     def updateXGSBasedOnClass(self, *args):
         if self.classChoice.value() == "Ranger":
