@@ -25,9 +25,9 @@ class ClassTab(ScrolledFrame):
         # self.testButton.pack()
         self.classOptions = {
             "Ranger": "Ranger",
-            # "Wing Diver": "Wing Diver",
-            # "Air Raider": "Air Raider",
-            # "Fencer": "Fencer",
+             "Wing Diver": "Wing Diver",
+             "Air Raider": "Air Raider",
+             "Fencer": "Fencer",
             # "Vehicle Weapon": "Vehicle Weapon"
             # getText("AI Weapon (not implemented"): "AI Weapon",
         }
