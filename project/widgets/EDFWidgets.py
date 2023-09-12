@@ -8,7 +8,7 @@ from text import *
 import dataHelper as d
 import jsonBuilder as j
 from widgets.widgets import *
-from math import pi, cos, sin
+from math import pi, cos, sin, acos
 bulletsWithModels = ["NapalmBullet01", "MissileBullet01", "GrenadeBullet01", "BombBullet01", "SmokeCandleBullet01", "SentryGunBullet01", "ClusterBullet01", "TargetMarkerBullet01", "BombBullet02", "SmokeCandleBullet02", "MissileBullet02", "SpiderStringBullet02"]
 
 try:
@@ -66,6 +66,15 @@ class VectorFromAngleWidget(tk.LabelFrame):
         self.vectorX.setValue(round(cos(self.horizAngle.input.inputVar.get() + pi/2) * sin(self.vertAngle.input.inputVar.get() + pi/2), 4))
         self.vectorY.setValue(round(cos(self.vertAngle.input.inputVar.get() + pi/2), 4) * -1)
         self.vectorZ.setValue(round(sin(self.horizAngle.input.inputVar.get() + pi/2) * sin(self.vertAngle.input.inputVar.get() + pi/2), 4))
+
+    def updateInputs(self, *args):
+        v = acos(self.vectorY.value() / -1) - (pi / 2)
+        h = acos((self.vectorX.value() / sin(v + pi / 2))) - (pi / 2)
+        self.vertAngle.input.inputVar.set(v)
+        self.horizAngle.input.inputVar.set(h)
+        z = round(sin(self.horizAngle.input.inputVar.get() + pi/2) * sin(self.vertAngle.input.inputVar.get() + pi/2), 4)
+        if z != self.vectorZ.value():
+            raise Exception("bad math cap'n")
 
 
 class AngleWidget(tk.LabelFrame):
@@ -207,6 +216,13 @@ class BasicParamsWidget(tk.LabelFrame):
         self.col2 = tk.Frame(self)
         self.col3 = tk.Frame(self)
 
+        self.extPrams = StarStructOrFlatWidget(self.col1, "Extra Prams ", "ExtPrams", int,
+                                                          initialValue=1,
+                                                          restrictPositive=True)
+
+        self.energyChargeRequire = StarStructOrFlatWidget(self.col1, "Energy Charge ", "EnergyChargeRequire", int, initialValue=-1,
+                                                restrictPositive=False)
+
         self.ammoCount = StarStructOrFlatWidget(self.col1, "Magazine size", "AmmoCount", int, initialValue=100,
                                                 restrictPositive=True)
         self.fireInterval = StarStructOrFlatWidget(self.col1, "Frames between shots", "FireInterval", int,
@@ -302,6 +318,8 @@ class BasicParamsWidget(tk.LabelFrame):
         self.valueDict = {}
 
         # col1
+        self.energyChargeRequire.pack()
+        self.extPrams.pack()
         self.ammoCount.pack()
         self.fireInterval.pack()
         self.shotsPerSecond.pack()
@@ -379,11 +397,13 @@ class BasicParamsWidget(tk.LabelFrame):
                 ((60 / (self.fireInterval.baseValue.value() + 1 + self.fireBurstCount.value() * self.fireBurstInterval.baseValue.value())) *
                          self.ammoDamage.baseValue.value() * self.fireBurstCount.value() * self.fireCount.baseValue.value() * self.minDamage.value()), 2))
         self.dps.setValue(dps)
-        self.totalDamage.setValue(self.ammoDamage.value() * self.ammoCount.value() * self.fireCount.value())
+        ammo_count = self.ammoCount.value()
+        self.totalDamage.setValue(self.ammoDamage.value() * ammo_count * self.fireCount.value())
 
 
     def updateReloadSVar(self, *args):
-        self.reloadTimeSVar.set(self.reloadTime.value()/60.0)
+        currTime = self.reloadTime.value()
+        self.reloadTimeSVar.set( (1 if currTime == 0 else currTime) / 60.0)
 
 
     def updateRangeVar(self, *args):
@@ -1107,6 +1127,7 @@ class StarStructOrFlatWidget(tk.Frame):
     def __init__(self, parent, labeltext, varName, varType, p1=0.5, p2=0.5, initialValue=0, restrictPositive=False,
                  tooltip="", link="", inverse=False):
         tk.Frame.__init__(self, parent)
+        self.flatArray = False
         self.flatOrStar = CheckBoxWidget(self, "Star-based", "flat", "star", labelwidth=9, tooltip="Whether this value is based off of a star level or not.", link="https://github.com/KCreator/Earth-Defence-Force-Documentation/wiki/Useful-Formulas-and-other-information#star-level-result-formula")
         self.inverse = inverse
         self.showing = False
@@ -1116,7 +1137,7 @@ class StarStructOrFlatWidget(tk.Frame):
         # self.childFrame = tk.Frame()
 
         self.baseValue = FreeInputWidget(self, labeltext, varType, initialValue=initialValue, restrictPositive=restrictPositive, tooltip=tooltip, link=link)
-        self.settingType = settingType[varName]
+        self.settingType = None if settingType.get(varName) is None else settingType[varName]
         self.saveDataPos = SpinBoxWidget(self, "Save Data Position", 0, 7, tooltip="WARNING! Altering this for an existing weapon may cause unexpected problems with your save!!\nParameters that share save data positions will have their star values synchronized.\nFor example, FireCount and AmmoDamage are usually linked as the number of projectiles and damage both raise at the same time.")
         self.saveDataPos.label.configure(bg="yellow")
         self.maxStarLevel = SpinBoxWidget(self, "Max Star Level", 0, 10, tooltip="WARNING! Altering this for an existing weapon may cause unexpected problems with your save!!\nTypically 8 or 10", initialValue=8)
@@ -1148,7 +1169,10 @@ class StarStructOrFlatWidget(tk.Frame):
 
     def value(self):
         if self.flatOrStar.value() == "flat":
-            return self.baseValue.value()
+            if self.flatArray:
+                return [self.baseValue.value(), self.baseValue.value()]
+            else:
+                return self.baseValue.value()
         elif self.flatOrStar.value() == "star":
             return [self.baseValue.value(),
                     self.settingType,

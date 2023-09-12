@@ -89,6 +89,19 @@ class ClassTab(ScrolledFrame):
             "SupportUnitBullet01":  "SupportUnitBullet01",
             "TargetMarkerBullet01": "TargetMarkerBullet01",
         }
+
+        self.enName = FreeInputWidget(self.col1, "English Name ", str, restrictPositive=False, initialValue="Racer Weapon")
+        self.enName.pack()
+        self.cnName = FreeInputWidget(self.col1, "Chinese Name ", str, restrictPositive=False,
+                                      initialValue="Racer Weapon")
+        self.cnName.pack()
+        self.jaName = FreeInputWidget(self.col1, "Japanese Name ", str, restrictPositive=False,
+                                      initialValue="Racer Weapon")
+        self.jaName.pack()
+        self.krName = FreeInputWidget(self.col1, "Korean name ", str, restrictPositive=False,
+                                      initialValue="Racer Weapon")
+        self.krName.pack()
+
         self.useUnderground = CheckBoxWidget(self.col1, "Usable underground", 0, 1)
         self.useUnderground.setValue(1)
         self.classChoice = DropDownWidget(self.col1, "Class", self.classOptions, tooltip="Class")
@@ -112,7 +125,16 @@ class ClassTab(ScrolledFrame):
             "Erratic vertical": 3,
             "Uniform vertical": 4
         }
+
+        self.throwOptions = {
+            "None": 0,
+            "Impact": 1,
+            "Time": 2,
+        }
+
+        self.fireRecoil = SliderWidget(self.col1, "Fire Recoil", 0, 1, resolution=0.01, initialValue=0.0)
         self.fireSpreadType = DropDownWidget(self.col1, "Fire Spread Type", self.spreadOptions)
+        self.fireType = DropDownWidget(self.col1, "Fire Spread Type", self.throwOptions)
         self.fireSpreadWidth = SliderWidget(self.col1, "Fire Spread Width", 0, 1, resolution=0.01, initialValue=0.0)
         self.ammoHitImpulseAdjust = FreeInputWidget(self.col1, "Ammo Impulse Adjust", float, restrictPositive=True, tooltip="Affects how much force the bullet imparts on the target.\nRanges naturally from 0.0005 to 2.")
         self.ammoGravityFactor = FreeInputWidget(self.col1, "Ammo Gravity Factor", float, tooltip="How fast the bullet falls, negative values cause it to 'fall' upwards.\nTypically 0 for most guns, 1 for grenades. Plasmafall has the highest gravity at 8")
@@ -134,6 +156,8 @@ class ClassTab(ScrolledFrame):
         self.ammoHitSizeAdjust.pack()
         self.ammoOwnerMove.pack()
         self.fireSpreadType.pack()
+        self.fireRecoil.pack()
+        self.fireType.pack()
         self.fireSpreadWidth.pack()
         self.ammoHitImpulseAdjust.pack()
         self.ammoGravityFactor.pack()
@@ -160,7 +184,7 @@ class ClassTab(ScrolledFrame):
                 "Standard Weapon": "Weapon_BasicShoot",
                 "Semi Auto Gun": "Weapon_BasicSemiAuto",
                 "Homing Weapon": "Weapon_HomingShoot",
-                # "Thrown Weapon": "Weapon_Throw",
+                "Thrown Weapon": "Weapon_Throw",
                 # "Wing Diver Standard Gun": "Weapon_ChargeShoot",
                 # "Wing Diver Pre-Charge Gun": "Weapon_PreChargeShoot",
                 # "Fencer Heavy Weapon": "Weapon_HeavyShoot",
