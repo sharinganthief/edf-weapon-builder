@@ -32,6 +32,67 @@ inputwidth = 25
 
 allModels = j.loadDataFromJson("./data/sorted all models.json")
 
+transportOptions = {"Normal transport": ["app:/Object/v508_transport.sgo", "app:/Object/v509_transportbox.sgo"],
+                            "Barga transport": ["app:/Object/v508_transport_formation.sgo", 0]}
+
+ammoCust = j.loadDataFromJson("./data/ammoCust.json")
+vehicleWeapons = j.loadDataFromJson("./data/sorted vehicle weapons.json")
+vehicleWeaponStats = j.loadDataFromJson("./data/vehicle weapon stats.json")
+vehicleSGOS = {
+    "Tank": {
+        "Blacker tank": "app:/Object/v505_tank.sgo",
+        "EDF 4 tank": 'app:/Object/v505_tank_edf4.sgo',
+        "EDF 5 tank": 'app:/Object/v505_tank_edf5.sgo',
+        "Railgun tank": 'app:/Object/Vehicle403_Tank.sgo',
+        "EMC tank": 'app:/Object/v510_maser.sgo',
+        "Titan tank": "app:/Object/Vehicle404_bigtank.sgo"},
+    "Ground Vehicles": {
+        "Grape": "app:/Object/Vehicle401_Striker.sgo",
+        "Ambulance": 'app:/Object/v507_rescuetank.sgo',
+        "Happy Manager Ambulance": 'app:/Object/v507_rescuetank_siawase.sgo',
+        "Naegling": 'app:/Object/Vehicle402_Rocket.sgo'},
+    "Helicopter": {
+        "Helicopter Eros": 'app:/Object/v506_heli.sgo',
+        "Helicopter Nereid": 'app:/Object/Vehicle409_heli.sgo',
+        "Helicopter Brute": 'app:/Object/Vehicle410_heli.sgo'},
+    "Nix": {
+        "Blue": 'app:/Object/v504_begaruta_blue.sgo',
+        "Red": 'app:/Object/v504_begaruta_red.sgo',
+        "Green": 'app:/Object/v504_begaruta.sgo',
+        "Grey": 'app:/Object/V504_BEGARUTA_MISSION.sgo',
+        # "Green 2": 'app:/Object/V504_BEGARUTA_G_MISSION.sgo',  # No difference
+        "White": 'app:/Object/v504_begaruta_white.sgo',
+        # "White 2": 'app:/Object/V504_BEGARUTA_DLCHS_MISSION.sgo',  # No difference
+        "Yellow": 'app:/Object/V504_BEGARUTA_YELLOW.sgo',
+        # "Yellow 2": 'app:/Object/V504_BEGARUTA_FW.sgo',  # No difference
+        "Gold": 'app:/Object/v504_begaruta_gold.sgo',
+        "Pink Phantasia": "app:/Object/v504_begaruta_pink.sgo"},
+    "Proteus":{
+        "Proteus": 'app:/Object/Vehicle407_bigbegaruta.sgo'
+    },
+    "Barga": {
+        "Orange": 'app:/Object/V515_RETROBALAM.sgo',
+        "Gold": 'app:/Object/V515_RETROBALAM_GOLD.sgo',
+        "Gray": 'app:/Object/V515_RETROBALAM_GREY.sgo',
+        "Green": 'app:/Object/V515_RETROBALAM_GREEN.sgo',
+        "Ultimate": 'app:/Object/V515_RETROBALAM_ULTI.sgo'
+    },
+    "Depth Crawler": {
+        "Regular": 'app:/Object/VEHICLE502_GROUNDROBO.sgo',
+        "Gold": 'app:/Object/VEHICLE502_GROUNDROBOGOLD.sgo'
+    },
+    "Bike": {
+        "Bike": 'app:/Object/v503_bike.sgo',
+        "Omega Free Bike": 'app:/Object/v503_bike_omegaz.sgo'
+    },
+    "Truck": {
+        "Bullet Girl Truck": 'app:/Object/v512_keiTruck_bgp.sgo',
+        "White Truck": 'app:/Object/v512_keiTruck.sgo',
+        "Trailer Truck": 'app:/Object/V513_TRAILERTRUCK01CAB.sgo',
+        }
+
+}
+
 def degreesToRadians(d, *args):
     return d * pi / 180
 
@@ -39,6 +100,12 @@ def degreesToRadians(d, *args):
 def radiansToDegrees(r, *args):
     return r * 180 / pi
 
+def get_value_from_dict_or_val(l, index, ret_val_type):
+    ret = l[index]['value'] if type(l[index]) is dict and 'value' in l[index] else l[index]
+    if ret_val_type is None:
+        return ret
+    else:
+        return ret_val_type(ret)
 
 class VectorFromAngleWidget(tk.LabelFrame):
     def __init__(self, parent, labelText):
@@ -163,8 +230,8 @@ class SoundWidget(tk.LabelFrame):
         if self.soundChoice.valueLabel.inputVar.get() != "None":
             return [self.unknownValue1.value(),
                     self.soundChoice.value(),
-                    self.volumeSlider.value(),
-                    self.dampeningSlider.value(),
+                    self.volumeSlider.inputVar.get(),
+                    self.dampeningSlider.inputVar.get(),
                     self.unknownValue2.value(),
                     self.unknownValue3.value()
                     ]
@@ -175,12 +242,23 @@ class SoundWidget(tk.LabelFrame):
         if not isinstance(l, list):
             self.soundChoice.setValue("None")
         else:
-            self.unknownValue1.setValue(l[0])
-            self.soundChoice.setValue(l[1])
-            self.volumeSlider.setValue(l[2])
-            self.dampeningSlider.setValue(l[3])
-            self.unknownValue2.setValue(l[4])
-            self.unknownValue3.setValue(l[5])
+            unknown1 = l[0] if isinstance(l[0], int) else int(float(l[0]['value']))
+            self.unknownValue1.setValue(unknown1)
+
+            soundChoice = l[1]['value'] if l[1] is dict and 'value' in l[1] else l[1]
+            self.soundChoice.setValue(soundChoice)
+
+            volumeSlider = l[2] if isinstance(l[2], float) else float(l[2]['value'])
+            self.volumeSlider.inputVar.set(volumeSlider)
+
+            dampeningSlider = l[3] if isinstance(l[3], float) else float(l[3]['value'])
+            self.dampeningSlider.inputVar.set(dampeningSlider)
+
+            unknownValue2 = l[4] if isinstance(l[4], float) else float(l[4]['value'])
+            self.unknownValue2.setValue(unknownValue2)
+
+            unknownValue3 = l[5] if isinstance(l[5], float) else float(l[5]['value'])
+            self.unknownValue3.setValue(unknownValue3)
 
 
 class BasicParamsWidget(tk.LabelFrame):
@@ -220,7 +298,7 @@ class BasicParamsWidget(tk.LabelFrame):
                                                           initialValue=1,
                                                           restrictPositive=True)
 
-        self.energyChargeRequire = StarStructOrFlatWidget(self.col1, "Energy Charge ", "EnergyChargeRequire", int, initialValue=-1,
+        self.energyChargeRequire = StarStructOrFlatWidget(self.col1, "Energy Charge ", "EnergyChargeRequire", float, initialValue=-1,
                                                 restrictPositive=False)
 
         self.ammoCount = StarStructOrFlatWidget(self.col1, "Magazine size", "AmmoCount", int, initialValue=100,
@@ -389,21 +467,28 @@ class BasicParamsWidget(tk.LabelFrame):
         self.secondaryFireType.replaceOptionMenuNoCmd(self.secondaryFireOptions)
 
     def updateDpsAndDpm(self, *args):
-        dps = str(round(((60 / (self.fireInterval.baseValue.value() + 1 + self.fireBurstCount.value() * self.fireBurstInterval.baseValue.value())) *
-                         self.ammoDamage.baseValue.value() * self.fireBurstCount.value() * self.fireCount.baseValue.value()), 2))
+        ammo_count = self.ammoCount.baseValue.value()
+        ammo_dmg = self.ammoDamage.baseValue.value()
+        fire_count = self.fireCount.baseValue.value()
+        fire_interval = self.fireInterval.baseValue.value()
+        fire_burst_count = self.fireBurstCount.value()
+        fire_burst_interval = self.fireBurstInterval.baseValue.value()
+        min_damage = self.minDamage.value()
+
+        dps = str(round(((60 / (fire_interval + 1 + fire_burst_count * fire_burst_interval)) *
+                         ammo_dmg * fire_burst_count * fire_count), 2))
         if self.minDamage.value() != 1.0:
             dps += " ~ "
             dps += str(round(
-                ((60 / (self.fireInterval.baseValue.value() + 1 + self.fireBurstCount.value() * self.fireBurstInterval.baseValue.value())) *
-                         self.ammoDamage.baseValue.value() * self.fireBurstCount.value() * self.fireCount.baseValue.value() * self.minDamage.value()), 2))
+                ((60 / (fire_interval + 1 + fire_burst_count * fire_burst_interval)) *
+                         ammo_dmg * fire_burst_count * fire_count * min_damage), 2))
         self.dps.setValue(dps)
-        ammo_count = self.ammoCount.value()
-        self.totalDamage.setValue(self.ammoDamage.value() * ammo_count * self.fireCount.value())
+        self.totalDamage.setValue(ammo_dmg * ammo_count * fire_count)
 
 
     def updateReloadSVar(self, *args):
-        currTime = self.reloadTime.value()
-        self.reloadTimeSVar.set( (1 if currTime == 0 else currTime) / 60.0)
+        currTime = self.reloadTime.baseValue.value()
+        self.reloadTimeSVar.set( currTime / 60.0)
 
 
     def updateRangeVar(self, *args):
@@ -1070,7 +1155,7 @@ class ColorWidget(tk.LabelFrame):
         self.green = SliderWidget(self, "Green", min=0, max=4, tooltip="Values above 1 cause a glow effect.")
         self.blue = SliderWidget(self, "Blue", min=0, max=4, tooltip="Values above 1 cause a glow effect.")
         if hasAlpha:
-            self.alpha = SliderWidget(self, "Alpha/Opacity", min=0, max=1)
+            self.alpha = SliderWidget(self, "Alpha/Opacity", min=0, max=2)
 
         self.red.pack()
         self.green.pack()
@@ -1081,20 +1166,29 @@ class ColorWidget(tk.LabelFrame):
 
 
     def value(self):
-        if self.hasAlpha: return [self.red.value(), self.green.value(), self.blue.value(), self.alpha.value()]
-        else: return [self.red.value(), self.green.value(), self.blue.value()]
+        red = self.red.inputVar.get()
+        green = self.green.inputVar.get()
+        blue = self.blue.inputVar.get()
+        alpha = self.alpha.inputVar.get() if self.hasAlpha else -1
+        if self.hasAlpha: return [red, green, blue, alpha]
+        else: return [red, green, blue]
 
     def setValue(self, l):
-        if self.hasAlpha:
-            self.red.setValue(l[0])
-            self.green.setValue(l[1])
-            self.blue.setValue(l[2])
-            self.alpha.setValue(l[3])
-        else:
-            self.red.setValue(l[0])
-            self.green.setValue(l[1])
-            self.blue.setValue(l[2])
+        if len(l) == 2:
+            val = l['value']
+            self.red.inputVar.set(float(val[0]['value']))
+            self.green.inputVar.set(float(val[1]['value']))
+            self.blue.inputVar.set(float(val[2]['value']))
+            if self.hasAlpha:
+                self.alpha.inputVar.set(float(val[3]['value']))
+            return
 
+        self.red.inputVar.set(float(l[0]))
+        self.green.inputVar.set(float(l[1]))
+        self.blue.inputVar.set(float(l[2]))
+        if self.hasAlpha:
+            alpha = float(l[3])
+            self.alpha.inputVar.set(alpha)
 
 settingType = {
     "AmmoCount": 0,
@@ -1128,6 +1222,7 @@ class StarStructOrFlatWidget(tk.Frame):
                  tooltip="", link="", inverse=False):
         tk.Frame.__init__(self, parent)
         self.flatArray = False
+        self.extra = None
         self.flatOrStar = CheckBoxWidget(self, "Star-based", "flat", "star", labelwidth=9, tooltip="Whether this value is based off of a star level or not.", link="https://github.com/KCreator/Earth-Defence-Force-Documentation/wiki/Useful-Formulas-and-other-information#star-level-result-formula")
         self.inverse = inverse
         self.showing = False
@@ -1174,17 +1269,26 @@ class StarStructOrFlatWidget(tk.Frame):
             else:
                 return self.baseValue.value()
         elif self.flatOrStar.value() == "star":
-            return [self.baseValue.value(),
-                    self.settingType,
-                    self.saveDataPos.value(),
-                    self.maxStarLevel.value(),
-                    self.p1.value(),
-                    self.p2.value()]
+            if self.extra is None:
+                return [self.baseValue.value(),
+                        self.settingType,
+                        self.saveDataPos.value(),
+                        self.maxStarLevel.value(),
+                        self.p1.value(),
+                        self.p2.value()]
+            else:
+                return [self.baseValue.value(),
+                        self.settingType,
+                        self.saveDataPos.value(),
+                        self.maxStarLevel.value(),
+                        self.p1.value(),
+                        self.p2.value(),
+                        self.extra]
 
     def updateGraph(self, *args):
         # print("updating graph")
         if self.flatOrStar.value() == "star" and self.showing:
-            if self.baseValue.value() != 0:
+            if int(self.baseValue.value()) != 0:
                 self.graph.pack_forget()
                 self.graph.destroy()
                 if not self.inverse:

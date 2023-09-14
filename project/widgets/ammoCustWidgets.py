@@ -1,6 +1,7 @@
 from widgets.EDFWidgets import *
 from widgets.vehicleSummon import *
 import math
+from py_linq import Enumerable
 
 # e = j.loadDataFromJson("./data/alleasy.json")
 # u = d.uniqueDataByKey("AmmoClass", ["Ammo_CustomParameter"], e)
@@ -1880,8 +1881,8 @@ class ShockWaveBullet01(tk.LabelFrame):
 
     def setValue(self, l):
         if l is not None:
-            self.shockwaveType.setValue(l[0])
-            self.unknown.setValue(l[1])
+            self.shockwaveType.setValue(l[0] if isinstance(l[0], int) else int(l[0]['value']))
+            self.unknown.setValue(l[1] if isinstance(l[1], int) else int(l[1]['value']))
         else:
             self.shockwaveType.setValue(None)
 

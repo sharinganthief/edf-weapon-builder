@@ -76,9 +76,176 @@ def raiseValError(s, val):
     raise ValueError(f"{s} was provided when trying to build the weapon json.\n value: {val}, type: {type(val)}")
 
 
+def ProcessValue(param):
+    # return ("{:.16f}".format(param)).rstrip("0.")
+    decimals = len(str(param).split(".")[1])
+    if decimals == 0:
+        return int(param)
+    return param
+
+
+
+
 def valueToTypeValueDict(v, n=""):
     valDict = {}
     # special cases since nested "name" variables aren't preserved in easydata
+    if n == "ExtPrams":
+        if len(v) == 1:
+            return{
+                      "name": "ExtPrams",
+                      "type": "ptr",
+                      "value": [{"type": "float", "value": v[0]}]
+                    }
+        elif len(v) == 2:
+            return {
+                "name": "ExtPrams",
+                "type": "ptr",
+                "value": [{"type": "float", "value": v[0]}]
+            }
+        elif len(v) == 6:
+            return {
+            "name": "ExtPrams",
+            "type": "ptr",
+            "value": [
+                {
+                    "type": "ptr",
+                    "value": [
+                        {
+                            "type": "float",
+                            "value": v[0]
+                        },
+                        {
+                            "type": "int",
+                            "value": 80
+                        },
+                        {
+                            "type": "int",
+                            "value": v[2]
+                        },
+                        {
+                            "type": "int",
+                            "value": v[3]
+                        },
+                        {
+                            "type": "float",
+                            "value": v[4]
+                        },
+                        {
+                            "type": "float",
+                            "value": v[5]
+                        }
+                    ]
+                }
+            ]
+        }
+        else:
+            raise ValueError("Unexpected extpram count cap'n")
+    if n == "resource":
+        if v is None:
+            return None
+        else:
+            return {
+                "name": "resource",
+                "type": "ptr",
+                "value": v
+            }
+    if n == "EnergyChargeRequire":
+        if v == -1:
+            return None
+        elif len(v) == 2:
+            return {
+                "name": "EnergyChargeRequire",
+                "type": "ptr",
+                "value": [
+                        {
+                          "type": "float",
+                          "value": v[0]
+                        },
+                        {
+                          "type": "float",
+                          "value": v[1]
+                        }
+                ]
+            }
+        elif len(v) == 6:
+            return {
+                "name": "EnergyChargeRequire",
+                "type": "ptr",
+                "value": [
+                    {
+                        "type": "ptr",
+                        "value": [
+                            {
+                                "type": "float",
+                                "value": v[0]
+                            },
+                            {
+                                "type": "int",
+                                "value": v[1]
+                            },
+                            {
+                                "type": "int",
+                                "value": v[2]
+                            },
+                            {
+                                "type": "int",
+                                "value": v[3]
+                            },
+                            {
+                                "type": "float",
+                                "value": v[4]
+                            },
+                            {
+                                "type": "float",
+                                "value": v[5]
+                            }
+                        ]
+                    }
+                ]
+            }
+        elif len(v) == 7:
+            return {
+                "name": "EnergyChargeRequire",
+                "type": "ptr",
+                "value": [
+                    {
+                        "type": "ptr",
+                        "value": [
+                            {
+                                "type": "float",
+                                "value": v[0]
+                            },
+                            {
+                                "type": "int",
+                                "value": v[1]
+                            },
+                            {
+                                "type": "int",
+                                "value": v[2]
+                            },
+                            {
+                                "type": "int",
+                                "value": v[3]
+                            },
+                            {
+                                "type": "float",
+                                "value": v[4]
+                            },
+                            {
+                                "type": "float",
+                                "value": v[5]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "float",
+                        "value": v[6]['value']
+                    }
+                ],
+
+            }
+        else:
+            raise ValueError("Unexpected extpram count cap'n")
     if n == "AmmoColor":
         return{
             "type": "ptr",
@@ -86,16 +253,16 @@ def valueToTypeValueDict(v, n=""):
             "value": [
                 {"type": "float",
                  "name": "Red",
-                 "value": v[0]},
+                 "value": ProcessValue(v[0])},
                 {"type": "float",
                  "name": "Green",
-                 "value": v[1]},
+                 "value": ProcessValue(v[1])},
                 {"type": "float",
                  "name": "Blue",
-                 "value": v[2]},
+                 "value": ProcessValue(v[2])},
                 {"type": "float",
                  "name": "Alpha",
-                 "value": v[3]},
+                 "value": ProcessValue(v[3])},
             ]
         }
     elif n == "animation_model":
@@ -111,14 +278,13 @@ def valueToTypeValueDict(v, n=""):
                       "value": v[0][1]}
                  ]
                  },
-                {"type": "string" if isinstance(v[1], str) else "int",
-                 "value": v[1]},
-                {"type": "extra",
-                 "value":
-                     {
-                     "type": "MAB\u0000",
-                     "data": v[2]
-                     }
+                {
+                    "type": "string" if isinstance(v[1], str) else "int",
+                    "value": v[1]
+                },
+                {
+                    "type": "extra",
+                    "value": v[2]
                  }
             ]
         }
@@ -165,16 +331,18 @@ def easyToTypeValue(d):
 
     return {
         "endian": "LE",
+        "format": "SGO",
+        "version": 258,
         "variables": variables,
-        "meta": {
-            "help": "For examples of these values, open WEAPONTABLE.SGO and WEAPONTEXT.SGO",
-            "id": None,
-            "level": None,
-            "category": None,
-            "unlockState": None,
-            "dropRateModifier": None,
-            "description": None
-  }
+  #       "meta": {
+  #           "help": "For examples of these values, open WEAPONTABLE.SGO and WEAPONTEXT.SGO",
+  #           "id": None,
+  #           "level": None,
+  #           "category": None,
+  #           "unlockState": None,
+  #           "dropRateModifier": None,
+  #           "description": None
+  # }
     }
 
 

@@ -1,67 +1,14 @@
 from widgets.EDFWidgets import *
 # from widgets.ammoCustWidgets import ammoCust
-ammoCust = j.loadDataFromJson("./data/ammoCust.json")
-vehicleWeapons = j.loadDataFromJson("./data/sorted vehicle weapons.json")
-vehicleWeaponStats = j.loadDataFromJson("./data/vehicle weapon stats.json")
-vehicleSGOS = {
-    "Tank": {
-        "Blacker tank": "app:/Object/v505_tank.sgo",
-        "EDF 4 tank": 'app:/Object/v505_tank_edf4.sgo',
-        "EDF 5 tank": 'app:/Object/v505_tank_edf5.sgo',
-        "Railgun tank": 'app:/Object/Vehicle403_Tank.sgo',
-        "EMC tank": 'app:/Object/v510_maser.sgo',
-        "Titan tank": "app:/Object/Vehicle404_bigtank.sgo"},
-    "Ground Vehicles": {
-        "Grape": "app:/Object/Vehicle401_Striker.sgo",
-        "Ambulance": 'app:/Object/v507_rescuetank.sgo',
-        "Happy Manager Ambulance": 'app:/Object/v507_rescuetank_siawase.sgo',
-        "Naegling": 'app:/Object/Vehicle402_Rocket.sgo'},
-    "Helicopter": {
-        "Helicopter Eros": 'app:/Object/v506_heli.sgo',
-        "Helicopter Nereid": 'app:/Object/Vehicle409_heli.sgo',
-        "Helicopter Brute": 'app:/Object/Vehicle410_heli.sgo'},
-    "Nix": {
-        "Blue": 'app:/Object/v504_begaruta_blue.sgo',
-        "Red": 'app:/Object/v504_begaruta_red.sgo',
-        "Green": 'app:/Object/v504_begaruta.sgo',
-        "Grey": 'app:/Object/V504_BEGARUTA_MISSION.sgo',
-        # "Green 2": 'app:/Object/V504_BEGARUTA_G_MISSION.sgo',  # No difference
-        "White": 'app:/Object/v504_begaruta_white.sgo',
-        # "White 2": 'app:/Object/V504_BEGARUTA_DLCHS_MISSION.sgo',  # No difference
-        "Yellow": 'app:/Object/V504_BEGARUTA_YELLOW.sgo',
-        # "Yellow 2": 'app:/Object/V504_BEGARUTA_FW.sgo',  # No difference
-        "Gold": 'app:/Object/v504_begaruta_gold.sgo',
-        "Pink Phantasia": "app:/Object/v504_begaruta_pink.sgo"},
-    "Proteus":{
-        "Proteus": 'app:/Object/Vehicle407_bigbegaruta.sgo'
-    },
-    "Barga": {
-        "Orange": 'app:/Object/V515_RETROBALAM.sgo',
-        "Gold": 'app:/Object/V515_RETROBALAM_GOLD.sgo',
-        "Gray": 'app:/Object/V515_RETROBALAM_GREY.sgo',
-        "Green": 'app:/Object/V515_RETROBALAM_GREEN.sgo',
-        "Ultimate": 'app:/Object/V515_RETROBALAM_ULTI.sgo'
-    },
-    "Depth Crawler": {
-        "Regular": 'app:/Object/VEHICLE502_GROUNDROBO.sgo',
-        "Gold": 'app:/Object/VEHICLE502_GROUNDROBOGOLD.sgo'
-    },
-    "Bike": {
-        "Bike": 'app:/Object/v503_bike.sgo',
-        "Omega Free Bike": 'app:/Object/v503_bike_omegaz.sgo'
-    },
-    "Truck": {
-        "Bullet Girl Truck": 'app:/Object/v512_keiTruck_bgp.sgo',
-        "White Truck": 'app:/Object/v512_keiTruck.sgo',
-        "Trailer Truck": 'app:/Object/V513_TRAILERTRUCK01CAB.sgo',
-        }
-
-}
-
-
 class SmokeCandleBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("Vehicle summon"))
+        self.has_vehicle_fields = False
+        self.transporter = None
+        self.vehicleSGO = None
+        self.weaponMultiplier = None
+        self.HP = None
+        self.vehicleParams = None
         self.col1 = tk.Frame(self)
         self.col2 = tk.Frame(self)
         self.col3 = tk.Frame(self)
@@ -73,20 +20,11 @@ class SmokeCandleBullet01(tk.LabelFrame):
                                              restrictPositive=True)
         self.summonDelay = FreeInputWidget(self.col1, "Summon delay", int, initialValue=120, restrictPositive=True)
         self.summonType = FreeInputWidget(self.col1, "Summon type", int, initialValue=1, tooltip="Always 1?")
-        transportOptions = {"Normal transport": ["app:/Object/v508_transport.sgo", "app:/Object/v509_transportbox.sgo"],
-                            "Barga transport": ["app:/Object/v508_transport_formation.sgo", 0]}
-        self.transporter = DropDownWidget(self.col1, "Transport vehicle", transportOptions)
 
-        self.vehicleSGO = MultiDropDownWidget(self.col1, "Vehicle type", vehicleSGOS)
-        self.weaponMultiplier = FreeInputWidget(self.col1, "Weapon damage multiplier", float, restrictPositive=True,
-                                                initialValue=5.0)
-        self.HP = FreeInputWidget(self.col1, "Vehicle hp", float, initialValue=10000.0)
-        self.vehicleParams = TankParams(self.col1)
+
         self.voiceOptions = {"Air Raider": ['輸送部隊目標確認', '輸送部隊発射', '輸送部隊攻撃後'],
                              "Ranger": ['輸送部隊目標確認', '輸送部隊発射', '輸送部隊攻撃後レンジャー']}
         self.voices = DropDownWidget(self.col1, "Vehicle call-in voice", self.voiceOptions)
-
-        self.vehicleSGO.valueLabel.inputVar.trace_add("write", self.updateParamsAndWeapons)
 
         self.col1.grid(row=0, column=0, sticky="N")
         self.col2.grid(row=0, column=1, sticky="N")
@@ -97,15 +35,38 @@ class SmokeCandleBullet01(tk.LabelFrame):
         self.smokeLifetime.pack()
         self.summonDelay.pack()
         self.summonType.pack()
+
+        self.updateParamsAndWeapons()
+
+    def add_vehicle_fields(self):
+        self.has_vehicle_fields = True
+        self.transporter = DropDownWidget(self.col1,
+                                          "Transport vehicle",
+                                          transportOptions)
+
+        self.vehicleSGO = MultiDropDownWidget(self.col1,
+                                              "Vehicle type",
+                                              vehicleSGOS)
+        self.weaponMultiplier = FreeInputWidget(self.col1,
+                                                "Weapon damage multiplier",
+                                                float,
+                                                restrictPositive=True,
+                                                initialValue=5.0)
+        self.HP = FreeInputWidget(self.col1, "Vehicle hp", float, initialValue=10000.0)
+
+        self.vehicleSGO.valueLabel.inputVar.trace_add("write", self.updateParamsAndWeapons)
+
+        self.vehicleParams = TankParams(self.col1)
         self.transporter.pack()
         self.vehicleSGO.pack()
         self.HP.pack()
         self.weaponMultiplier.pack()
         self.vehicleParams.pack()
 
-        self.updateParamsAndWeapons()
-
     def value(self):
+        if not self.has_vehicle_fields:
+            return [self.unknown1.value(), self.smokeLifetime.value(), self.summonDelay.value(), self.summonType.value()]
+
         v = [self.unknown1.value(), self.smokeLifetime.value(), self.summonDelay.value(), self.summonType.value(),
              [self.transporter.value()[0], self.transporter.value()[1], self.vehicleSGO.value(),
               [[self.HP.value() / self.baseHP, self.weaponMultiplier.value()]]], self.voices.value()]
@@ -164,48 +125,52 @@ class SmokeCandleBullet01(tk.LabelFrame):
 
     def setValue(self, l):
         print(l)
-        self.unknown1.setValue(l[0])
-        self.smokeLifetime.setValue(l[1])
-        self.summonDelay.setValue(l[2])
-        self.summonType.setValue(l[3])
-        if l[4][0] == 'app:/Object/v508_transport.sgo':
-            self.transporter.setValue(["app:/Object/v508_transport.sgo", "app:/Object/v509_transportbox.sgo"])
-        elif l[4][0] == "app:/Object/v508_transport_formation.sgo":
-            self.transporter.setValue(["app:/Object/v508_transport_formation.sgo", 0])
-        else:
-            raise ValueError("Uh oh transporter problems")
-        self.vehicleSGO.setValue(l[4][2])
+        self.unknown1.setValue(get_value_from_dict_or_val(l, 0, float))
+        self.smokeLifetime.setValue(get_value_from_dict_or_val(l, 1, int))
+        self.summonDelay.setValue(get_value_from_dict_or_val(l, 2, int))
+        self.summonType.setValue(get_value_from_dict_or_val(l, 3, int))
+        if len(l) >= 4 and len(l[4]) >= 4:
+            self.add_vehicle_fields()
+            if l[4][0] == 'app:/Object/v508_transport.sgo':
+                self.transporter.setValue(["app:/Object/v508_transport.sgo", "app:/Object/v509_transportbox.sgo"])
+            elif l[4][0] == "app:/Object/v508_transport_formation.sgo":
+                self.transporter.setValue(["app:/Object/v508_transport_formation.sgo", 0])
+            else:
+                raise ValueError("Uh oh transporter problems")
+            self.vehicleSGO.setValue(l[4][2])
 
+            if self.vehicleSGO.value() in ['app:/Object/v507_rescuetank_siawase.sgo', 'app:/Object/v507_rescuetank.sgo']:
+                self.vehicleParams.setValue([l[4][3][1], l[4][3][2]])
+            # elif self.vehicleSGO.value() == "app:/Object/v505_tank.sgo" or \
+            #         self.vehicleSGO.value() == 'app:/Object/v505_tank_edf4.sgo' or \
+            #         self.vehicleSGO.value() == 'app:/Object/v505_tank_edf5.sgo':  # Blacker
+            elif self.vehicleSGO.value() in ['app:/Object/v506_heli.sgo', 'app:/Object/Vehicle410_heli.sgo']:  # Eros
+                self.vehicleParams.setValue([l[4][3][1], l[4][3][2]])
+                for i in range(len(self.weaponWidgets)):
+                    self.weaponWidgets[i].setValue(l[4][3][2][i])
 
-        if self.vehicleSGO.value() in ['app:/Object/v507_rescuetank_siawase.sgo', 'app:/Object/v507_rescuetank.sgo']:
-            self.vehicleParams.setValue([l[4][3][1], l[4][3][2]])
-        # elif self.vehicleSGO.value() == "app:/Object/v505_tank.sgo" or \
-        #         self.vehicleSGO.value() == 'app:/Object/v505_tank_edf4.sgo' or \
-        #         self.vehicleSGO.value() == 'app:/Object/v505_tank_edf5.sgo':  # Blacker
-        elif self.vehicleSGO.value() in ['app:/Object/v506_heli.sgo', 'app:/Object/Vehicle410_heli.sgo']:  # Eros
-            self.vehicleParams.setValue([l[4][3][1], l[4][3][2]])
-            for i in range(len(self.weaponWidgets)):
-                self.weaponWidgets[i].setValue(l[4][3][2][i])
+            elif self.vehicleSGO.value() == 'app:/Object/Vehicle409_heli.sgo':  # Nereid
+                self.vehicleParams.setValue([[l[4][3][1], l[4][3][2]], l[4][3][4]])
+                for i in range(len(self.weaponWidgets)):
+                    self.weaponWidgets[i].setValue(l[4][3][2][i])
 
-        elif self.vehicleSGO.value() == 'app:/Object/Vehicle409_heli.sgo':  # Nereid
-            self.vehicleParams.setValue([[l[4][3][1], l[4][3][2]], l[4][3][4]])
-            for i in range(len(self.weaponWidgets)):
-                self.weaponWidgets[i].setValue(l[4][3][2][i])
-
-        # elif self.vehicleSGO.value() == 'app:/Object/Vehicle410_heli.sgo':  # Brute
-        #     pass
-        elif self.vehicleSGO.value() in vehicleSGOS["Bike"].values():  # Bike
-            self.vehicleParams.setValue([l[4][3][1], l[4][3][2]])
-            for i in range(len(self.weaponWidgets)):
-                self.weaponWidgets[i].setValue(l[4][3][3][i])
-        else:
-            self.vehicleParams.setValue(l[4][3][1])
-            for i in range(len(self.weaponWidgets)):
-                self.weaponWidgets[i].setValue(l[4][3][2][i])
-        self.HP.setValue(l[4][3][0][0] * self.baseHP)
-        self.weaponMultiplier.setValue(l[4][3][0][1])
+            # elif self.vehicleSGO.value() == 'app:/Object/Vehicle410_heli.sgo':  # Brute
+            #     pass
+            elif self.vehicleSGO.value() in vehicleSGOS["Bike"].values():  # Bike
+                self.vehicleParams.setValue([l[4][3][1], l[4][3][2]])
+                for i in range(len(self.weaponWidgets)):
+                    self.weaponWidgets[i].setValue(l[4][3][3][i])
+            else:
+                self.vehicleParams.setValue(l[4][3][1])
+                for i in range(len(self.weaponWidgets)):
+                    self.weaponWidgets[i].setValue(l[4][3][2][i])
+            self.HP.setValue(l[4][3][0][0] * self.baseHP)
+            self.weaponMultiplier.setValue(l[4][3][0][1])
 
     def updateParamsAndWeapons(self, *args):
+
+        if not self.has_vehicle_fields:
+            return
         def replaceParamsAndRemoveWeapons(self, paramType):
             if not isinstance(self.vehicleParams, paramType):
                 self.vehicleParams.pack_forget()

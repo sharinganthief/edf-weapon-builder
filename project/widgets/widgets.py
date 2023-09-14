@@ -3,6 +3,9 @@ import tkinter as tk
 from decimal import Decimal
 from tkinter import ttk
 import webbrowser
+
+from py_linq import Enumerable
+
 from text import *
 import json
 
@@ -520,7 +523,13 @@ class FreeInputWidget(tk.Frame):
         return self.inputType(self.inputVar.get())
 
     def setValue(self, value):
-        self.inputVar.set(value)
+
+        if type(value) is dict and 'value' in value:
+            val = self.inputType(value['value'])
+        else:
+            val = self.inputType(value)
+
+        self.inputVar.set(str(val))
 
 
 class DropDownWidget(tk.Frame):
