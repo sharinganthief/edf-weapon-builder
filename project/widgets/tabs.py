@@ -752,7 +752,7 @@ class SoundsTab(ScrolledFrame):
                                                  self.ammoEquipFullOptions,
                                                  tooltip="Plays sometimes when the weapon is equipped and ammo is full or when it becomes available to use again.")
         self.ammoEquipEmptyVoice = DropDownWidget(self.ammoEquipFrame, "When unavailable voice",
-                                                  self.ammoEquipFullOptions,
+                                                  self.ammoEquipEmptyOptions,
                                                   tooltip="Plays sometimes when the weapon is equipped and is not available for use.")
         
         self.ammoEquipFullVoice.pack()

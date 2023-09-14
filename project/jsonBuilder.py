@@ -90,6 +90,8 @@ def valueToTypeValueDict(v, n=""):
     valDict = {}
     # special cases since nested "name" variables aren't preserved in easydata
     if n == "ExtPrams":
+        if v == 1:
+            v = [1]
         if len(v) == 1:
             return{
                       "name": "ExtPrams",
@@ -140,6 +142,17 @@ def valueToTypeValueDict(v, n=""):
         }
         else:
             raise ValueError("Unexpected extpram count cap'n")
+    if n == "Ammo_CustomParameter":
+        if len(v) == 0:
+            return {"name": "Ammo_CustomParameter", "type": "ptr", "value": None},
+        else:
+            valDict['name'] = "Ammo_CustomParameter"
+            valDict['type'] = "ptr"
+            valDict['value'] = []
+            for index in range(0, len(v) ):
+                valDict['value'].append(valueToTypeValueDict(v[index]))
+            return valDict
+
     if n == "resource":
         if v is None:
             return None
@@ -288,6 +301,7 @@ def valueToTypeValueDict(v, n=""):
                  }
             ]
         }
+
     if isinstance(v, list):
         t = "ptr"
         newV = []

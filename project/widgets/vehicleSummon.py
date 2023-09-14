@@ -3,6 +3,8 @@ from widgets.EDFWidgets import *
 class SmokeCandleBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("Vehicle summon"))
+        self.five_val = None
+        self.four_val = None
         self.has_vehicle_fields = False
         self.transporter = None
         self.vehicleSGO = None
@@ -65,7 +67,11 @@ class SmokeCandleBullet01(tk.LabelFrame):
 
     def value(self):
         if not self.has_vehicle_fields:
-            return [self.unknown1.value(), self.smokeLifetime.value(), self.summonDelay.value(), self.summonType.value()]
+            if self.four_val is not None and self.five_val is not None:
+                return [self.unknown1.value(), self.smokeLifetime.value(), self.summonDelay.value(),
+                        self.summonType.value(), self.four_val, self.five_val]
+            else:
+                return [self.unknown1.value(), self.smokeLifetime.value(), self.summonDelay.value(), self.summonType.value()]
 
         v = [self.unknown1.value(), self.smokeLifetime.value(), self.summonDelay.value(), self.summonType.value(),
              [self.transporter.value()[0], self.transporter.value()[1], self.vehicleSGO.value(),
@@ -166,6 +172,10 @@ class SmokeCandleBullet01(tk.LabelFrame):
                     self.weaponWidgets[i].setValue(l[4][3][2][i])
             self.HP.setValue(l[4][3][0][0] * self.baseHP)
             self.weaponMultiplier.setValue(l[4][3][0][1])
+        elif len(l) == 6 and len(l[4]) == 2:
+            # mortar style?
+            self.four_val = l[4]['value']
+            self.five_val = l[5]['value']
 
     def updateParamsAndWeapons(self, *args):
 

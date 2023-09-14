@@ -8,7 +8,7 @@ from text import *
 import dataHelper as d
 import jsonBuilder as j
 from widgets.widgets import *
-from math import pi, cos, sin, acos
+from math import pi, cos, sin, acos, sqrt, tan, atan, atan2
 bulletsWithModels = ["NapalmBullet01", "MissileBullet01", "GrenadeBullet01", "BombBullet01", "SmokeCandleBullet01", "SentryGunBullet01", "ClusterBullet01", "TargetMarkerBullet01", "BombBullet02", "SmokeCandleBullet02", "MissileBullet02", "SpiderStringBullet02"]
 
 try:
@@ -96,7 +96,6 @@ vehicleSGOS = {
 def degreesToRadians(d, *args):
     return d * pi / 180
 
-
 def radiansToDegrees(r, *args):
     return r * 180 / pi
 
@@ -129,19 +128,31 @@ class VectorFromAngleWidget(tk.LabelFrame):
         self.horizAngle.input.inputVar.trace_add("write", self.updateVector)
         self.vertAngle.input.inputVar.trace_add("write", self.updateVector)
 
+    def get_value(self):
+        if (self.vectorX.value() == 0
+          and self.vectorY.value() == 0
+          and self.vectorZ.value() == 0):
+            return None
+        else:
+            fireVector = [self.vectorX.value(),
+                  self.vectorY.value(),
+                  self.vectorZ.value()]
+            return fireVector
+
     def updateVector(self, *args):
-        self.vectorX.setValue(round(cos(self.horizAngle.input.inputVar.get() + pi/2) * sin(self.vertAngle.input.inputVar.get() + pi/2), 4))
-        self.vectorY.setValue(round(cos(self.vertAngle.input.inputVar.get() + pi/2), 4) * -1)
-        self.vectorZ.setValue(round(sin(self.horizAngle.input.inputVar.get() + pi/2) * sin(self.vertAngle.input.inputVar.get() + pi/2), 4))
+        h = self.horizAngle.input.inputVar.get()
+        v = self.vertAngle.input.inputVar.get()
+        x = round(cos(h + pi/2) * sin(v + pi/2), 4)
+        y = round(cos(v + pi/2), 4) * -1
+        z = round(sin(h + pi/2) * sin(v + pi/2), 4)
+        self.vectorX.setValue(x)
+        self.vectorY.setValue(y)
+        self.vectorZ.setValue(z)
 
     def updateInputs(self, *args):
-        v = acos(self.vectorY.value() / -1) - (pi / 2)
-        h = acos((self.vectorX.value() / sin(v + pi / 2))) - (pi / 2)
-        self.vertAngle.input.inputVar.set(v)
-        self.horizAngle.input.inputVar.set(h)
-        z = round(sin(self.horizAngle.input.inputVar.get() + pi/2) * sin(self.vertAngle.input.inputVar.get() + pi/2), 4)
-        if z != self.vectorZ.value():
-            raise Exception("bad math cap'n")
+        x = self.vectorX.value()
+        y = self.vectorY.value()
+        z = self.vectorZ.value()
 
 
 class AngleWidget(tk.LabelFrame):
@@ -164,7 +175,6 @@ class AngleWidget(tk.LabelFrame):
 
     def setValue(self, v):
         self.input.setValue(radiansToDegrees(v))
-
 
 class SoundWidget(tk.LabelFrame):
 
@@ -259,7 +269,6 @@ class SoundWidget(tk.LabelFrame):
 
             unknownValue3 = l[5] if isinstance(l[5], float) else float(l[5]['value'])
             self.unknownValue3.setValue(unknownValue3)
-
 
 class BasicParamsWidget(tk.LabelFrame):
     def __init__(self, parent):
@@ -521,7 +530,6 @@ class BasicParamsWidget(tk.LabelFrame):
             "FireAccuracy": self.fireAccuracy.value()
         }
         # return self.valueDict
-
 
 class MuzzleFlashWidget(tk.LabelFrame):
 
@@ -853,7 +861,6 @@ class MuzzleFlashWidget(tk.LabelFrame):
             self.uv5.setValue(l[4][1])
             self.uv6.setValue(l[4][2])
 
-
 class GunModelWidget(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text="Gun Model")
@@ -1109,7 +1116,6 @@ class GunModelWidget(tk.LabelFrame):
                     self.animationData[RAB]['cas'] if self.animationData[RAB]['cas'] != 0 else 0,
                     self.animationData[RAB]['mab']]
         else: return None
-
 
 class ShellCaseWidget(tk.LabelFrame):
     def __init__(self, parent):
