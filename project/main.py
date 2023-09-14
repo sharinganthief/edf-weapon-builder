@@ -78,6 +78,7 @@ def set_star_data(field, value, val):
 
 def get_variable(variables, var_name):
     # return filter(lambda x: x['name'] == var_name, variables)
+    print("Handling - " + var_name)
     return next(
         (obj for obj in variables if obj['name'] == var_name),
         None
@@ -313,6 +314,7 @@ class MainWindow(tk.Frame):
 
     def loadWeaponEasyData(self, data, index):
 
+        print('Loading')
         n = self.notebook
         vars = data['variables']
         try:
@@ -480,7 +482,10 @@ class MainWindow(tk.Frame):
 
             if FireCount is not None:
                 FireCountVal = FireCount['value']
-                n.basicParamsTab.basicParamsWidget.fireCount.baseValue.setValue(int(FireCountVal))
+                if isinstance(FireCountVal, list):
+                    set_star_data(n.basicParamsTab.basicParamsWidget.fireCount, FireCount, FireCountVal)
+                else:
+                    n.basicParamsTab.basicParamsWidget.fireCount.baseValue.setValue(int(FireCountVal))
 
             FireInterval = get_variable(vars, 'FireInterval')
             if FireInterval is not None:
@@ -509,7 +514,9 @@ class MainWindow(tk.Frame):
 
             if FireSpreadWidth is not None:
                 FireSpreadWidthVal = FireSpreadWidth['value']
+                n.classTab.fireSpreadWidth.inputVar.set(float(FireSpreadWidthVal))
                 n.classTab.fireSpreadWidth.setValue(FireSpreadWidthVal)
+
 
             LockonAngle = get_variable(vars, 'LockonAngle')
 
@@ -535,7 +542,10 @@ class MainWindow(tk.Frame):
 
             if LockonRange is not None:
                 LockonRangeVal = LockonRange['value']
-                n.lockonTab.lockonRange.baseValue.setValue(float(LockonRangeVal))
+                if isinstance(LockonRangeVal, list):
+                    set_star_data(n.lockonTab.lockonRange, LockonRange, LockonRangeVal)
+                else:
+                    n.lockonTab.lockonRange.baseValue.setValue(int(LockonRangeVal))
 
             LockonTargetType = get_variable(vars, 'LockonTargetType')
 
@@ -548,7 +558,10 @@ class MainWindow(tk.Frame):
 
             if LockonTime is not None:
                 LockonTimeVal = LockonTime['value']
-                n.lockonTab.lockonTime.baseValue.setValue(int(LockonTimeVal))
+                if isinstance(LockonTimeVal, list):
+                    set_star_data(n.lockonTab.lockonTime, LockonTime, LockonTimeVal)
+                else:
+                    n.lockonTab.lockonTime.baseValue.baseValue.setValue(int(LockonTimeVal))
 
             LockonType = get_variable(vars, 'LockonType')
 
@@ -589,7 +602,10 @@ class MainWindow(tk.Frame):
             ReloadTime = get_variable(vars, 'ReloadTime')
             if ReloadTime is not None:
                 ReloadTimeVal = ReloadTime['value']
-                set_star_data(n.basicParamsTab.basicParamsWidget.reloadTime, ReloadTime, ReloadTimeVal)
+                if isinstance(ReloadTimeVal, list):
+                    set_star_data(n.basicParamsTab.basicParamsWidget.reloadTime, FireCount, ReloadTimeVal)
+                else:
+                    n.basicParamsTab.basicParamsWidget.reloadTime.baseValue.setValue(int(ReloadTimeVal))
 
             ReloadType = get_variable(vars, 'ReloadType')
 
@@ -746,6 +762,7 @@ class MainWindow(tk.Frame):
             # set the widget based on the class
             n.classTab.ammoCust = ammoCustWidgetFromAmmoClass(n.classTab.canvas, ammoClass, subProjectile)
 
+            print("Handling - Ammo_CustomParameter")
             # set the widget value if we have one
             if Ammo_CustomParameterVal is not None:
                 n.classTab.ammoCust.setValue(Ammo_CustomParameterVal)
@@ -781,6 +798,8 @@ class MainWindow(tk.Frame):
         except:
             e = sys.exc_info()[0]
             print(e)
+
+            print('Loaded')
         return
     # end def loadWeaponEasyData
 

@@ -949,15 +949,15 @@ class HomingLaserBullet01(tk.LabelFrame):
         ]
 
     def setValue(self, l):
-        self.fireDirection.setValue(l[0])
-        self.unknown2.setValue(l[1])
-        self.trailLength.setValue(l[2])
-        self.homingFactor.setValue(l[3])
-        self.homingFactor2.setValue(l[4])
-        self.speedScale.setValue(l[5])
-        self.homingDelay.setValue(l[6])
-        self.unknown6.setValue(l[7])
-        self.unknown7.setValue(l[8])
+        self.fireDirection.setValue(get_value_from_dict_or_val(l, 0, int))
+        self.unknown2.setValue(get_value_from_dict_or_val(l, 1, int))
+        self.trailLength.setValue(get_value_from_dict_or_val(l, 2, int))
+        self.homingFactor.setValue(get_value_from_dict_or_val(l, 3, float))
+        self.homingFactor2.setValue(get_value_from_dict_or_val(l, 4, float))
+        self.speedScale.setValue(get_value_from_dict_or_val(l, 5, float))
+        self.homingDelay.setValue(get_value_from_dict_or_val(l, 6, int))
+        self.unknown6.setValue(get_value_from_dict_or_val(l, 7, int))
+        self.unknown7.setValue(get_value_from_dict_or_val(l, 8, float))
 
 
 
