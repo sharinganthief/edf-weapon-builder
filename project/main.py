@@ -3,8 +3,6 @@
 #
 import os
 
-from idna import unicode
-
 if __name__ == '__main__':
     currDir = os.getcwd()
     if not currDir.endswith('project'):
@@ -78,14 +76,12 @@ def set_star_data(field, value, val):
         field.flatOrStar.setValue('flat')
         field.flatArray = False
 
-
 def get_variable(variables, var_name):
     # return filter(lambda x: x['name'] == var_name, variables)
     return next(
         (obj for obj in variables if obj['name'] == var_name),
         None
     )
-
 
 class MainWindow(tk.Frame):
     def __init__(self, parent, width, height):
@@ -97,19 +93,15 @@ class MainWindow(tk.Frame):
         setLanguage(cfgSettings["language"])
 
         self.widgetDict = {}
-        self.stringEntryTest = FreeInputWidget(self, labeltext="test string", inputType="string")
         self.notebook = MainNotebook(self)
         self.notebook.pack(side="left", fill="both", expand=True)
         self.classChoiceVar = self.notebook.classTab.classChoice.dropDownDisplayed
-        # self.testLabel = tk.Label(self.notebook.tab1, textvariable=self.intEntryTest.entryBoxVar.get(), relief="raised")
-        # self.testButton = tk.Button(self, text="print", command=lambda: print(self.createWeaponEasyData()))
         self.testButton = tk.Button(self, text="Write to file", command=lambda: self.writeWeaponToJson())
         self.testButton.pack()
         self.updateTextFile = tk.Button(self, text="Update text json", command=self.updateText)
         self.updateTextFile.pack()
         self.loadTextFile = tk.Button(self, text="Load from file", command=lambda: self.loadWeaponFromJson())
         self.loadTextFile.pack()
-        # self.testLabel.pack()
 
         self.classChoiceVar.trace_add("write", self.updateWidgetsDependingOnClass)
         self.notebook.classTab.AmmoClass.dropDownDisplayed.trace_add("write", self.updateWidgetsDependingOnAmmoClass)
@@ -258,16 +250,14 @@ class MainWindow(tk.Frame):
         if n.classTab.xgsChoice.value() != "Weapon_Throw":
             eData["FireType"] = 0
         else:
-            fire_type = n.basicParamsTab.basicParamsWidget.fireType.value()
-            eData["FireType"] = fire_type if fire_type > 0 else 1
+            if hasattr(n.basicParamsTab.basicParamsWidget, 'fireType'):
+                fire_type = n.basicParamsTab.basicParamsWidget.fireType.value()
+                eData["FireType"] = fire_type if fire_type > 0 else 1
+            else:
+                eData["FireType"] = 0
         # end if
-        if n.classTab.fireVector.vectorX.value() == 0 and n.classTab.fireVector.vectorY.value() == 0 and n.classTab.fireVector.vectorZ.value() == 0:
-            fireVector = None
-        else:
-            fireVector = [n.classTab.fireVector.vectorX.value(), n.classTab.fireVector.vectorY.value(),
-                          n.classTab.fireVector.vectorZ.value()]
-        # end if
-        eData["FireVector"] = fireVector
+
+        eData["FireVector"] = n.classTab.fireVector.get_value()
         eData["LockonAngle"] = [n.lockonTab.lockonAngleH.value(), n.lockonTab.lockonAngleV.value()]
         eData["LockonFailedTime"] = n.lockonTab.lockonFailedTime.value()
         eData["LockonHoldTime"] = n.lockonTab.lockonHoldTime.value()
