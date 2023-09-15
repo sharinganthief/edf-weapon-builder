@@ -735,8 +735,7 @@ class SliderWidget(tk.Frame):
         if resolution == 0:
             resolution = (max - min) / 100
         tk.Frame.__init__(self, parent)
-        # self.inputVar = tk.DoubleVar(self, (min + max) / 2)
-        # print(self.inputVar.get())
+
         self.inputVar = tk.DoubleVar(self, initialValue)
         self.input = tk.Scale(self, variable=self.inputVar, from_=min, to=max, orient="horizontal", resolution=resolution, length=inputwidth*6, command=self.updateValue) #, command=self.updateValue)
         self.input.set(initialValue)
@@ -754,22 +753,15 @@ class SliderWidget(tk.Frame):
 
         self.v = initialValue
 
-
-    # def updateValue(self, *args, **kwargs):
-        # self.inputVar.set(self.input.get()
-        # print(self.inputVar)
     def updateValue(self, *args):
         self.v = self.input.get()
 
     def value(self):
         return float(self.v)
-        # return self.input.get()
-        #return self.inputVar.get()
 
     def setValue(self, value):
         self.v = value
         self.input.set(value)
-
 
 class SpinBoxWidget(tk.Frame):
     def __init__(self, parent, labeltext, min, max, tooltip="", initialValue=0):
@@ -784,17 +776,12 @@ class SpinBoxWidget(tk.Frame):
             self.label.configure(underline=True, text=newText)
         self.label.grid(row=0, column=0)
         self.input.grid(row=0, column=1)
-        # self.button = tk.Button(self, text="enable", command=enableInput(self))
-        # self.button2 = tk.Button(self, text="disable", command=disableInput(self))
-        # self.button.grid(row=0, column=2)
-        # self.button2.grid(row=0, column=4)
-
 
     def value(self):
         return self.inputVar.get()
 
-    def setValue(self):
-        self.inputVar.set()
+    def setValue(self, v):
+        self.inputVar.set(v)
 
 
 class ToolTip(object):

@@ -1,30 +1,16 @@
-# # import tkinter as tk
-# # from tkinter import ttk
-#
 import os
 
 if __name__ == '__main__':
     currDir = os.getcwd()
     if not currDir.endswith('project'):
         os.chdir(".\project")
-# end if
-# import tkinter as tk
-# # import tkinter.ttk as ttk
-#
-# from jsonBuilder import *
-# from widgets.widgets import *
-# from widgets.EDFWidgets import *
+
 from widgets.tabs import *
 from tkinter import filedialog
 import logging
 
-# from functools import partial
-# PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
-# PROJECT_UI = os.path.join(PROJECT_PATH, "newproject")
-
 global labelwidth
 labelwidth = 20
-
 
 def set_star_data(field, value, val):
     try:
@@ -77,7 +63,6 @@ def set_star_data(field, value, val):
         field.flatArray = False
 
 def get_variable(variables, var_name):
-    # return filter(lambda x: x['name'] == var_name, variables)
     print("Handling - " + var_name)
     return next(
         (obj for obj in variables if obj['name'] == var_name),
