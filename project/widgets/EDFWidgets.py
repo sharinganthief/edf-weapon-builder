@@ -500,7 +500,12 @@ class BasicParamsWidget(tk.LabelFrame):
 
 
     def updateShotsPerSecondVar(self, *args):
-        self.shotsPerSecondVar.set(60 / (self.fireInterval.value() + 1))
+        shotsPerSecond = 1
+
+        if self.fireInterval.value() is not None:
+            shotsPerSecond = 60 / (self.fireInterval.value() + 1)
+
+        self.shotsPerSecondVar.set(shotsPerSecond)
 
 
     def getValuesDict(self):

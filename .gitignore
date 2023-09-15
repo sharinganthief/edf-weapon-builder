@@ -52,4 +52,5 @@ Thumbs.db
 /data/WeaponData/
 /project/venv/
 project/*.json
-*.SGO
+project/resources/*.SGO
+project/resources/*.json
