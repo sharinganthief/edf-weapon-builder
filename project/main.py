@@ -112,12 +112,19 @@ class MainWindow(tk.Frame):
         file = None
         try:
             file = tk.filedialog.askopenfile(initialdir=curDir, title=getText("Choose file name"),
-                                             filetypes=[("json files", ".json")])
+                                             filetypes=[("SGO", ".sgo"), ("json", ".json")])
         except Exception:
             logging.exception("Exception when reading json")
         # end try
         if file is not None:
-            with open(file.name, encoding='utf-8') as fh:
+            fileName = file.name
+            if file.name.lower().endswith("sgo"):
+                destFileName = fileName + '.json'
+                args = ['./tools/sgott.exe', fileName, destFileName]
+                subprocess.call(args)
+                fileName = destFileName
+
+            with open(fileName, encoding='utf-8') as fh:
                 weaponClass = "Ranger"
                 index = 0
                 fileName = os.path.basename(file.name)
@@ -148,12 +155,23 @@ class MainWindow(tk.Frame):
         filename = ""
         try:
             filename = tk.filedialog.asksaveasfilename(initialdir=curDir, title=getText("Choose file name"),
-                                                       filetypes=[("json files", ".json")])
+                                                       filetypes=[("SGO", ".sgo"), ("json", ".json")])
         except Exception:
             logging.exception("Exception when writing json")
         # end try
         if filename != "":
-            j.writeToJson(j.easyToTypeValue(self.createWeaponEasyData()), filename)
+            # always need to write json
+            convert = filename.lower().endswith("sgo")
+            jsonFileName = filename + ".json" if convert else filename
+
+            j.writeToJson(j.easyToTypeValue(self.createWeaponEasyData()), jsonFileName)
+
+            if not convert:
+                return
+
+            args = ['./tools/sgott.exe', jsonFileName, filename]
+            subprocess.call(args)
+
         # end if
     # end def writeWeaponToJson
         # print(filename)
