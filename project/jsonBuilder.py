@@ -143,8 +143,8 @@ def valueToTypeValueDict(v, n=""):
         else:
             raise ValueError("Unexpected extpram count cap'n")
     if n == "Ammo_CustomParameter":
-        if len(v) == 0:
-            return {"name": "Ammo_CustomParameter", "type": "ptr", "value": None},
+        if v is None or len(v) == 0:
+            return {"name": "Ammo_CustomParameter", "type": "ptr", "value": None}
         else:
             valDict['name'] = "Ammo_CustomParameter"
             valDict['type'] = "ptr"

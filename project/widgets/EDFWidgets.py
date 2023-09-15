@@ -1,14 +1,9 @@
-import tkinter as tk
-from tkinter import ttk
-import webbrowser
 import subprocess
-import sys
 import time
-from text import *
-import dataHelper as d
 import jsonBuilder as j
 from widgets.widgets import *
-from math import pi, cos, sin, acos, sqrt, tan, atan, atan2
+from math import pi, cos, sin
+
 bulletsWithModels = ["NapalmBullet01", "MissileBullet01", "GrenadeBullet01", "BombBullet01", "SmokeCandleBullet01", "SentryGunBullet01", "ClusterBullet01", "TargetMarkerBullet01", "BombBullet02", "SmokeCandleBullet02", "MissileBullet02", "SpiderStringBullet02"]
 
 try:

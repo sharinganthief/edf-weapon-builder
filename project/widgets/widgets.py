@@ -4,10 +4,7 @@ from decimal import Decimal
 from tkinter import ttk
 import webbrowser
 
-from py_linq import Enumerable
-
 from text import *
-import json
 
 labelwidth = 20
 inputwidth = 25

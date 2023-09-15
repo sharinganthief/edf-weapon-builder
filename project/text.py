@@ -1,7 +1,7 @@
 import json
 import os
 language = "en"
-with open("./text.json", "r", encoding="utf8") as f: textData = json.load(f)
+with open("./data/text.json", "r", encoding="utf8") as f: textData = json.load(f)
 
 def getText(key):
     global language

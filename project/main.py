@@ -546,7 +546,7 @@ class MainWindow(tk.Frame):
                 if isinstance(LockonTimeVal, list):
                     set_star_data(n.lockonTab.lockonTime, LockonTime, LockonTimeVal)
                 else:
-                    n.lockonTab.lockonTime.baseValue.baseValue.setValue(int(LockonTimeVal))
+                    n.lockonTab.lockonTime.baseValue.setValue(int(LockonTimeVal))
 
             LockonType = get_variable(vars, 'LockonType')
 
@@ -588,7 +588,7 @@ class MainWindow(tk.Frame):
             if ReloadTime is not None:
                 ReloadTimeVal = ReloadTime['value']
                 if isinstance(ReloadTimeVal, list):
-                    set_star_data(n.basicParamsTab.basicParamsWidget.reloadTime, FireCount, ReloadTimeVal)
+                    set_star_data(n.basicParamsTab.basicParamsWidget.reloadTime, ReloadTime, ReloadTimeVal)
                 else:
                     n.basicParamsTab.basicParamsWidget.reloadTime.baseValue.setValue(int(ReloadTimeVal))
 
