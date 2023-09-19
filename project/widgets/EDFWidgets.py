@@ -94,11 +94,31 @@ def degreesToRadians(d, *args):
 def radiansToDegrees(r, *args):
     return r * 180 / pi
 
-def get_value_from_dict_or_val(l, index, ret_val_type):
-    ret = l[index]['value'] if type(l[index]) is dict and 'value' in l[index] else l[index]
+
+def get_value_from_dict_or_val(l, ret_val_type, index, sub_index = -1, default_val = None):
+    if len(l) - 1 < index:
+        if type(l) is not dict and 'value' not in l:
+            return default_val
+    target = l['value'][index] if type(l) is dict and 'value' in l else l[index]
+    if sub_index > -1:
+        if type(target) is dict:
+            if 'value' in target:
+                subTarget = target['value']
+                if subTarget is None or len(subTarget) - 1 < sub_index:
+                    return None
+                target = subTarget[sub_index]
+            else:
+                subTarget = target[sub_index]
+                if len(subTarget) - 1 < sub_index:
+                    return None
+                target = subTarget
+
+    ret = target['value'] if type(target) is dict and 'value' in target else target
     if ret_val_type is None:
         return ret
     else:
+        if isinstance(ret, ret_val_type):
+            return ret
         return ret_val_type(ret)
 
 class VectorFromAngleWidget(tk.LabelFrame):
@@ -244,25 +264,28 @@ class SoundWidget(tk.LabelFrame):
             return self.returnNoneOr0
 
     def setValue(self, l):
-        if not isinstance(l, list):
+        target = l['value'] if isinstance(l, dict) and 'value' in l else l
+
+
+        if not isinstance(target, list):
             self.soundChoice.setValue("None")
         else:
-            unknown1 = l[0] if isinstance(l[0], int) else int(float(l[0]['value']))
+            unknown1 = target[0] if isinstance(target[0], int) else int(float(target[0]['value']))
             self.unknownValue1.setValue(unknown1)
 
-            soundChoice = l[1]['value'] if l[1] is dict and 'value' in l[1] else l[1]
+            soundChoice = target[1]['value'] if target[1] is dict and 'value' in target[1] else target[1]
             self.soundChoice.setValue(soundChoice)
 
-            volumeSlider = l[2] if isinstance(l[2], float) else float(l[2]['value'])
+            volumeSlider = target[2] if isinstance(target[2], float) else float(target[2]['value'])
             self.volumeSlider.inputVar.set(volumeSlider)
 
-            dampeningSlider = l[3] if isinstance(l[3], float) else float(l[3]['value'])
+            dampeningSlider = target[3] if isinstance(target[3], float) else float(target[3]['value'])
             self.dampeningSlider.inputVar.set(dampeningSlider)
 
-            unknownValue2 = l[4] if isinstance(l[4], float) else float(l[4]['value'])
+            unknownValue2 = target[4] if isinstance(target[4], float) else float(target[4]['value'])
             self.unknownValue2.setValue(unknownValue2)
 
-            unknownValue3 = l[5] if isinstance(l[5], float) else float(l[5]['value'])
+            unknownValue3 = target[5] if isinstance(target[5], float) else float(target[5]['value'])
             self.unknownValue3.setValue(unknownValue3)
 
 class BasicParamsWidget(tk.LabelFrame):
@@ -1156,45 +1179,68 @@ class ShellCaseWidget(tk.LabelFrame):
 class ColorWidget(tk.LabelFrame):
     def __init__(self, parent, labelText, hasAlpha=True):
         tk.LabelFrame.__init__(self, parent, text=getText(labelText))
+        self.red = None
+        self.green = None
+        self.blue = None
+        self.alpha = None
+
         self.hasAlpha = hasAlpha
-        self.red = SliderWidget(self, "Red", min=0, max=4, tooltip="Values above 1 cause a glow effect.")
-        self.green = SliderWidget(self, "Green", min=0, max=4, tooltip="Values above 1 cause a glow effect.")
-        self.blue = SliderWidget(self, "Blue", min=0, max=4, tooltip="Values above 1 cause a glow effect.")
+        self.red_input = SliderWidget(self, "Red", min=0, max=7, tooltip="Values above 1 cause a glow effect.")
+        self.green_input = SliderWidget(self, "Green", min=0, max=7, tooltip="Values above 1 cause a glow effect.")
+        self.blue_input = SliderWidget(self, "Blue", min=0, max=7, tooltip="Values above 1 cause a glow effect.")
         if hasAlpha:
-            self.alpha = SliderWidget(self, "Alpha/Opacity", min=0, max=2)
+            self.alpha_input = SliderWidget(self, "Alpha/Opacity", min=0, max=2)
 
-        self.red.pack()
-        self.green.pack()
-        self.blue.pack()
+        self.red_input.pack()
+        self.red_input.inputVar.trace_add("write", self.update_vals())
+
+        self.green_input.pack()
+        self.green_input.inputVar.trace_add("write", self.update_vals())
+        self.blue_input.pack()
+        self.blue_input.inputVar.trace_add("write", self.update_vals())
 
         if hasAlpha:
-            self.alpha.pack()
+            self.alpha_input.pack()
+            self.alpha_input.inputVar.trace_add("write", self.update_vals())
 
 
     def value(self):
-        red = self.red.inputVar.get()
-        green = self.green.inputVar.get()
-        blue = self.blue.inputVar.get()
-        alpha = self.alpha.inputVar.get() if self.hasAlpha else -1
+        red = self.red
+        green = self.green
+        blue = self.blue
+        alpha = self.alpha if self.hasAlpha else -1
         if self.hasAlpha: return [red, green, blue, alpha]
         else: return [red, green, blue]
 
     def setValue(self, l):
         if len(l) == 2:
             val = l['value']
-            self.red.inputVar.set(float(val[0]['value']))
-            self.green.inputVar.set(float(val[1]['value']))
-            self.blue.inputVar.set(float(val[2]['value']))
+            self.red = float(val[0]['value'])
+            self.green = float(val[1]['value'])
+            self.blue = float(val[2]['value'])
             if self.hasAlpha:
-                self.alpha.inputVar.set(float(val[3]['value']))
-            return
+                self.alpha = float(val[3]['value'])
+        else:
+            self.red = float(get_value_from_dict_or_val(l, float, 0))
+            self.green = float(get_value_from_dict_or_val(l, float, 1))
+            self.blue = float(get_value_from_dict_or_val(l, float, 2))
+            if self.hasAlpha:
+                self.alpha = float(get_value_from_dict_or_val(l, float, 3))
 
-        self.red.inputVar.set(float(l[0]))
-        self.green.inputVar.set(float(l[1]))
-        self.blue.inputVar.set(float(l[2]))
+        self.red_input.inputVar.set(self.red)
+        self.green_input.inputVar.set(self.green)
+        self.blue_input.inputVar.set(self.blue)
         if self.hasAlpha:
-            alpha = float(l[3])
-            self.alpha.inputVar.set(alpha)
+            self.alpha_input.inputVar.set(self.alpha)
+        return
+
+    def update_vals(self):
+        self.red = self.red_input.inputVar.get()
+        self.green = self.green_input.inputVar.get()
+        self.blue = self.blue_input.inputVar.get()
+        self.alpha = self.alpha_input.inputVar.get()
+
+
 
 settingType = {
     "AmmoCount": 0,

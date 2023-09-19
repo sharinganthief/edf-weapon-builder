@@ -1,5 +1,7 @@
 import os
 
+import helpers
+
 if __name__ == '__main__':
     currDir = os.getcwd()
     if not currDir.endswith('project'):
@@ -12,62 +14,49 @@ import logging
 global labelwidth
 labelwidth = 20
 
-def set_star_data(field, value, val):
+def set_star_data(field, value):
     try:
-        if len(value['value']) <= 2 and value['value'][0]["type"] == "float" :
-            field.baseValue.setValue(int(value['value'][0]["value"]))
+        if isinstance(value, int) or isinstance(value, float) or (isinstance(value, list) and len(value) <= 2):
+            if isinstance(value, int) or isinstance(value, float):
+                # if isinstance(value, int):
+                #     field.flatArray = True
+                # elif isinstance(value, float):
+                #     field.flatArray = False
+                    val = value
+                    field.flatArray = False
+            else:
+                val = value[0]
+                field.flatArray = True
+            field.baseValue.setValue(val)
             field.flatOrStar.setValue('flat')
-            field.flatArray = True
             return
-    except:
-        x = None
 
-    if value["type"] == "ptr":
-        objVal = val
-        # should only happen with extPrams
-        subVal = isinstance(val[0]['value'], list)
-        if subVal:
-            objVal = val[0]['value']
-        init_value = objVal[0]['value']
-        init_type = objVal[0]['type']
 
-        # if subVal:
-        #     init_type = 'int'
-        base_value = float(init_value) if init_type == 'float' else int(objVal[0]['value']) if init_type == 'int' else None
-        if base_value is None:
-            raise ValueError(f"Un-parseable type found for base value {init_type}")
-        field.baseValue.setValue(base_value)
-        field.saveDataPos.inputVar.set(int(objVal[2]['value']))
-        # field.saveDataPos.input.set(int(objVal[2]['value']))
-        field.maxStarLevel.inputVar.set(int(objVal[3]['value']))
-        # field.maxStarLevel.input.set(int(objVal[3]['value']))
-        field.p1.setValue(float(objVal[4]['value']))
-        field.p2.setValue(float(objVal[5]['value']))
-        #field.settingType = (None if settingType.get(value['name']) is None else settingType[value['name']])
+        field.baseValue.setValue(value[0])
+        field.saveDataPos.inputVar.set(value[2])
 
-        if subVal:
-            if len(val) == 2:
-                field.extra = val[1]
-            if len(val) > 2:
-                raise ValueError("Too many unexpected vals for star type var cap'n")
+        field.maxStarLevel.inputVar.set(value[3])
+        field.p1.setValue(value[4])
+        field.p2.setValue(value[5])
+        if len(value) == 7:
+            field.extra = value[6]
 
         field.flatArray = False
         field.flatOrStar.setValue('star')
+    except Exception as e:
+        print(e)
 
-    elif value["type"] == "int":
-        field.baseValue.setValue(int(val))
-        field.flatOrStar.setValue('flat')
-    elif value['type'] == 'float':
-        field.baseValue.setValue(float(val))
-        field.flatOrStar.setValue('flat')
-        field.flatArray = False
 
 def get_variable(variables, var_name):
     print("Handling - " + var_name)
-    return next(
-        (obj for obj in variables if obj['name'] == var_name),
-        None
-    )
+    if var_name in variables:
+        return variables[var_name]
+    else:
+        return None
+    # return next(
+    #     (obj for obj in variables if obj['name'] == var_name),
+    #     None
+    # )
 
 class MainWindow(tk.Frame):
     def __init__(self, parent, width, height):
@@ -116,35 +105,32 @@ class MainWindow(tk.Frame):
         except Exception:
             logging.exception("Exception when reading json")
         # end try
-        if file is not None:
-            fileName = file.name
-            if file.name.lower().endswith("sgo"):
-                destFileName = fileName + '.json'
-                args = ['./tools/sgott.exe', fileName, destFileName]
-                subprocess.call(args)
-                fileName = destFileName
+        self.loadWeaponFromJsonFile(file.name)
 
-            with open(fileName, encoding='utf-8') as fh:
-                weaponClass = "Ranger"
-                index = 0
-                fileName = os.path.basename(file.name)
-                if fileName.startswith("P"):
-                    weaponClass = "Wing Diver"
-                    index = 1
-                elif fileName.startswith("E"):
-                    weaponClass = "Air Raider"
-                    index = 2
-                elif fileName.startswith("H"):
-                    weaponClass = "Fencer"
-                    index = 3
+    def reset_weapon_data(self):
+        self.notebook = MainNotebook(self)
 
-                self.notebook.appearanceTab.gunModelWidget.currentClass = weaponClass
-                #self.notebook.appearanceTab.gunModelWidget.updateOptions()
+    def loadWeaponFromJsonFile(self, file):
 
-                self.notebook.classTab.classChoice.setValue(weaponClass)
-                data = json.load(fh)
+        weaponClass = "Ranger"
+        index = 0
+        fileName = os.path.basename(file)
+        if fileName.startswith("P"):
+            weaponClass = "Wing Diver"
+            index = 1
+        elif fileName.startswith("E"):
+            weaponClass = "Air Raider"
+            index = 2
+        elif fileName.startswith("H"):
+            weaponClass = "Fencer"
+            index = 3
 
-                self.loadWeaponEasyData(data, index)
+        self.notebook.appearanceTab.gunModelWidget.currentClass = weaponClass
+
+        self.notebook.classTab.classChoice.setValue(weaponClass)
+
+        res = helpers.load_weapon_easy_data(file)
+        self.loadWeaponEasyData(res)
             # end with
         # end if
     # end def loadWeaponFromJson
@@ -159,18 +145,23 @@ class MainWindow(tk.Frame):
         except Exception:
             logging.exception("Exception when writing json")
         # end try
+        self.writeWeaponToJsonFile(filename)
+
+    def writeWeaponToJsonFile(self, filename, include_options=True):
         if filename != "":
             # always need to write json
             convert = filename.lower().endswith("sgo")
-            jsonFileName = filename + ".json" if convert else filename
+            jsonFileName = filename + ".new.json" if convert else filename
 
-            j.writeToJson(j.easyToTypeValue(self.createWeaponEasyData()), jsonFileName)
+            easyWeaponData = self.createWeaponEasyData()
+            # j.writeToJson(easyWeaponData, filename + ".easy.json")
+            j.writeToJson(j.easyToTypeValue(easyWeaponData, include_options), jsonFileName)
 
-            if not convert:
-                return
-
-            args = ['./tools/sgott.exe', jsonFileName, filename]
-            subprocess.call(args)
+            # if not convert:
+            #     return
+            #
+            # args = ['./tools/sgott.exe', jsonFileName, filename]
+            # subprocess.call(args)
 
         # end if
     # end def writeWeaponToJson
@@ -300,6 +291,7 @@ class MainWindow(tk.Frame):
         # end if
         if self.customParamData is not None:
             eData["custom_parameter"] = self.customParamData
+
         if self.muzzleFlashCustomParameters is not None:
             eData["MuzzleFlash_CustomParameter"] = self.muzzleFlashCustomParameters
         eData["name.cn"] = n.classTab.cnName.value()
@@ -315,435 +307,400 @@ class MainWindow(tk.Frame):
         return eData
     # end def createWeaponEasyData
 
-    def loadWeaponEasyData(self, data, index):
-
+    def loadWeaponEasyData(self, data):
         print('Loading')
         n = self.notebook
-        vars = data['variables']
         try:
-            AimAnimation = get_variable(vars, 'AimAnimation')
+            AimAnimation = get_variable(data, 'AimAnimation')
             if AimAnimation is not None:
-                # self.animationData[r]['AimAnimation']
-                AimAnimationVal = AimAnimation['value']
-                n.appearanceTab.gunModelWidget.AimAnimation.setValue(AimAnimationVal)
+                n.appearanceTab.gunModelWidget.AimAnimation.setValue(AimAnimation)
 
-            AmmoAlive = get_variable(vars, 'AmmoAlive')
+            AmmoAlive = get_variable(data, 'AmmoAlive')
 
             if AmmoAlive is not None:
-                AmmoAliveVal = AmmoAlive['value']
-                n.basicParamsTab.basicParamsWidget.ammoLifetime.setValue(AmmoAliveVal)
+                n.basicParamsTab.basicParamsWidget.ammoLifetime.setValue(AmmoAlive)
 
-            AmmoClass = get_variable(vars, 'AmmoClass')
+            AmmoClass = get_variable(data, 'AmmoClass')
 
             if AmmoClass is not None:
-                AmmoClassVal = AmmoClass['value']
-                n.classTab.AmmoClass.setValue(AmmoClassVal)
+                n.classTab.AmmoClass.setValue(AmmoClass)
 
-            AmmoColor = get_variable(vars, 'AmmoColor')
+            AmmoColor = get_variable(data, 'AmmoColor')
 
             if AmmoColor is not None:
-                AmmoColorVal = AmmoColor['value']
-                red = float(AmmoColorVal[0]['value'])
-                green = float(AmmoColorVal[1]['value'])
-                blue = float(AmmoColorVal[2]['value'])
-                alpha = float(AmmoColorVal[3]['value'])
-                n.appearanceTab.ammoColor.red.inputVar.set(red)
-                n.appearanceTab.ammoColor.green.inputVar.set(green)
-                n.appearanceTab.ammoColor.blue.inputVar.set(blue)
-                n.appearanceTab.ammoColor.alpha.inputVar.set(alpha)
+                red = float(AmmoColor[0])
+                green = float(AmmoColor[1])
+                blue = float(AmmoColor[2])
+                alpha = float(AmmoColor[3])
+                n.appearanceTab.ammoColor.red_input.inputVar.set(red)
+                n.appearanceTab.ammoColor.red = red
 
-            AmmoCount = get_variable(vars, 'AmmoCount')
+                n.appearanceTab.ammoColor.green_input.inputVar.set(green)
+                n.appearanceTab.ammoColor.green = green
+
+                n.appearanceTab.ammoColor.blue_input.inputVar.set(blue)
+                n.appearanceTab.ammoColor.blue = blue
+
+                n.appearanceTab.ammoColor.alpha_input.inputVar.set(alpha)
+                n.appearanceTab.ammoColor.alpha = alpha
+
+            AmmoCount = get_variable(data, 'AmmoCount')
 
             if AmmoCount is not None:
-                AmmoCountVal = AmmoCount['value']
-                set_star_data(n.basicParamsTab.basicParamsWidget.ammoCount, AmmoCount, AmmoCountVal)
+                set_star_data(n.basicParamsTab.basicParamsWidget.ammoCount, AmmoCount)
 
-            Ammo_EquipVoice = get_variable(vars, 'Ammo_EquipVoice')
+            Ammo_EquipVoice = get_variable(data, 'Ammo_EquipVoice')
 
             if Ammo_EquipVoice is not None:
-                Ammo_EquipVoiceVal = Ammo_EquipVoice['value']
-                if Ammo_EquipVoiceVal is not None:
-                    n.soundsTab.ammoEquipFullVoice.setValue(Ammo_EquipVoiceVal[0]['value'])
-                    n.soundsTab.ammoEquipEmptyVoice.setValue(Ammo_EquipVoiceVal[1]['value'])
+                    n.soundsTab.ammoEquipFullVoice.setValue(Ammo_EquipVoice[0])
+                    n.soundsTab.ammoEquipEmptyVoice.setValue(Ammo_EquipVoice[1])
 
-            AmmoDamage = get_variable(vars, 'AmmoDamage')
+            AmmoDamage = get_variable(data, 'AmmoDamage')
 
             if AmmoDamage is not None:
-                AmmoDamageVal = AmmoDamage['value']
-                set_star_data(n.basicParamsTab.basicParamsWidget.ammoDamage, AmmoDamage, AmmoDamageVal)
+                set_star_data(n.basicParamsTab.basicParamsWidget.ammoDamage, AmmoDamage)
 
-            AmmoDamageReduce = get_variable(vars, 'AmmoDamageReduce')
+            AmmoDamageReduce = get_variable(data, 'AmmoDamageReduce')
 
             if AmmoDamageReduce is not None:
-                AmmoDamageReduceVal = AmmoDamageReduce['value']
-                reduceVal = float(AmmoDamageReduceVal[0]['value'])
-                fallOffVal = int(AmmoDamageReduceVal[1]['value'])
+
+                reduceVal = float(AmmoDamageReduce[0])
+                fallOffVal = int(AmmoDamageReduce[1])
                 n.basicParamsTab.basicParamsWidget.minDamage.inputVar.set(reduceVal)
                 n.basicParamsTab.basicParamsWidget.minDamage.setValue(reduceVal)
                 n.basicParamsTab.basicParamsWidget.falloffFactor.setValue(fallOffVal)
 
-            AmmoExplosion = get_variable(vars, 'AmmoExplosion')
+            AmmoExplosion = get_variable(data, 'AmmoExplosion')
 
             if AmmoExplosion is not None:
-                AmmoExplosionVal = AmmoExplosion['value']
-                set_star_data(n.basicParamsTab.basicParamsWidget.ammoExplosion, AmmoExplosion, AmmoExplosionVal)
+                set_star_data(n.basicParamsTab.basicParamsWidget.ammoExplosion, AmmoExplosion)
 
-            AmmoGravityFactor = get_variable(vars, 'AmmoGravityFactor')
+            AmmoGravityFactor = get_variable(data, 'AmmoGravityFactor')
 
             if AmmoGravityFactor is not None:
-                AmmoGravityFactorVal = AmmoGravityFactor['value']
-                n.classTab.ammoGravityFactor.setValue(AmmoGravityFactorVal)
 
-            AmmoHitImpulseAdjust = get_variable(vars, 'AmmoHitImpulseAdjust')
+                n.classTab.ammoGravityFactor.setValue(AmmoGravityFactor)
+
+            AmmoHitImpulseAdjust = get_variable(data, 'AmmoHitImpulseAdjust')
 
             if AmmoHitImpulseAdjust is not None:
-                AmmoHitImpulseAdjustVal = AmmoHitImpulseAdjust['value']
-                n.classTab.ammoHitImpulseAdjust.setValue(AmmoHitImpulseAdjustVal)
 
-            AmmoHitSe = get_variable(vars, 'AmmoHitSe')
+                n.classTab.ammoHitImpulseAdjust.setValue(AmmoHitImpulseAdjust)
+
+            AmmoHitSe = get_variable(data, 'AmmoHitSe')
 
             if AmmoHitSe is not None:
-                AmmoHitSeVal = AmmoHitSe['value']
-                n.soundsTab.impactSound.setValue(AmmoHitSeVal)
 
-            AmmoHitSizeAdjust = get_variable(vars, 'AmmoHitSizeAdjust')
+                n.soundsTab.impactSound.setValue(AmmoHitSe)
+
+            AmmoHitSizeAdjust = get_variable(data, 'AmmoHitSizeAdjust')
 
             if AmmoHitSizeAdjust is not None:
-                AmmoHitSizeAdjustVal = AmmoHitSizeAdjust['value']
-                n.classTab.ammoHitSizeAdjust.setValue(AmmoHitSizeAdjustVal)
 
-            AmmoIsPenetration = get_variable(vars, 'AmmoIsPenetration')
+                n.classTab.ammoHitSizeAdjust.setValue(AmmoHitSizeAdjust)
+
+            AmmoIsPenetration = get_variable(data, 'AmmoIsPenetration')
 
             if AmmoIsPenetration is not None:
-                AmmoIsPenetrationVal = AmmoIsPenetration['value']
-                n.basicParamsTab.basicParamsWidget.isPenetrate.setValue(AmmoIsPenetrationVal)
 
-            AmmoModel = get_variable(vars, 'AmmoModel')
+                n.basicParamsTab.basicParamsWidget.isPenetrate.setValue(AmmoIsPenetration)
+
+            AmmoModel = get_variable(data, 'AmmoModel')
 
             if AmmoModel is not None:
-                AmmoModelVal = AmmoModel['value']
-                n.appearanceTab.ammoModel.setValue(AmmoModelVal)
 
-            AmmoOwnerMove = get_variable(vars, 'AmmoOwnerMove')
+                n.appearanceTab.ammoModel.setValue(AmmoModel)
+
+            AmmoOwnerMove = get_variable(data, 'AmmoOwnerMove')
 
             if AmmoOwnerMove is not None:
-                AmmoOwnerMoveVal = AmmoOwnerMove['value']
-                n.classTab.ammoOwnerMove.setValue(AmmoOwnerMoveVal)
 
-            AmmoSize = get_variable(vars, 'AmmoSize')
+                n.classTab.ammoOwnerMove.setValue(AmmoOwnerMove)
+
+            AmmoSize = get_variable(data, 'AmmoSize')
 
             if AmmoSize is not None:
-                AmmoSizeVal = AmmoSize['value']
-                n.classTab.ammoSize.setValue(AmmoSizeVal)
 
-            AmmoSpeed = get_variable(vars, 'AmmoSpeed')
+                n.classTab.ammoSize.setValue(AmmoSize)
+
+            AmmoSpeed = get_variable(data, 'AmmoSpeed')
 
             if AmmoSpeed is not None:
-                AmmoSpeedVal = AmmoSpeed['value']
-                set_star_data(n.basicParamsTab.basicParamsWidget.ammoSpeed, AmmoSpeed, AmmoSpeedVal)
 
-            Ammo_CustomParameter = get_variable(vars, 'Ammo_CustomParameter')
+                set_star_data(n.basicParamsTab.basicParamsWidget.ammoSpeed, AmmoSpeed)
 
-            AngleAdjust = get_variable(vars, 'AngleAdjust')
+            Ammo_CustomParameter = get_variable(data, 'Ammo_CustomParameter')
+
+            AngleAdjust = get_variable(data, 'AngleAdjust')
 
             if AngleAdjust is not None:
-                AngleAdjustVal = AngleAdjust['value']
-                n.appearanceTab.angleAdjust.setValue(AngleAdjustVal)
 
-            BaseAnimation = get_variable(vars, 'BaseAnimation')
+                n.appearanceTab.angleAdjust.setValue(AngleAdjust)
+
+            BaseAnimation = get_variable(data, 'BaseAnimation')
 
             if BaseAnimation is not None:
-                BaseAnimationVal = BaseAnimation['value']
-                n.appearanceTab.gunModelWidget.BaseAnimation.setValue(BaseAnimationVal)
 
-            ChangeAnimation = get_variable(vars, 'ChangeAnimation')
+                n.appearanceTab.gunModelWidget.BaseAnimation.setValue(BaseAnimation)
+
+            ChangeAnimation = get_variable(data, 'ChangeAnimation')
 
             if ChangeAnimation is not None:
-                ChangeAnimationVal = ChangeAnimation['value']
-                n.appearanceTab.gunModelWidget.ChangeAnimation.setValue(ChangeAnimationVal)
 
-            FireAccuracy = get_variable(vars, 'FireAccuracy')
+                n.appearanceTab.gunModelWidget.ChangeAnimation.setValue(ChangeAnimation)
+
+            FireAccuracy = get_variable(data, 'FireAccuracy')
 
             if FireAccuracy is not None:
-                FireAccuracyVal = FireAccuracy['value']
-                set_star_data(n.basicParamsTab.basicParamsWidget.fireAccuracy, FireAccuracy, FireAccuracyVal)
 
-            FireBurstCount = get_variable(vars, 'FireBurstCount')
+                set_star_data(n.basicParamsTab.basicParamsWidget.fireAccuracy, FireAccuracy)
+
+            FireBurstCount = get_variable(data, 'FireBurstCount')
 
             if FireBurstCount is not None:
-                FireBurstCountVal = FireBurstCount['value']
 
-                n.basicParamsTab.basicParamsWidget.fireBurstCount.setValue(FireBurstCountVal)
 
-            FireBurstInterval = get_variable(vars, 'FireBurstInterval')
+                n.basicParamsTab.basicParamsWidget.fireBurstCount.setValue(FireBurstCount)
+
+            FireBurstInterval = get_variable(data, 'FireBurstInterval')
 
             if FireBurstInterval is not None:
-                FireBurstIntervalVal = FireBurstInterval['value']
-                set_star_data(n.basicParamsTab.basicParamsWidget.fireBurstInterval, FireBurstInterval, FireBurstIntervalVal)
 
-            FireCount = get_variable(vars, 'FireCount')
+                set_star_data(n.basicParamsTab.basicParamsWidget.fireBurstInterval, FireBurstInterval)
+
+            FireCount = get_variable(data, 'FireCount')
 
             if FireCount is not None:
-                FireCountVal = FireCount['value']
-                if isinstance(FireCountVal, list):
-                    set_star_data(n.basicParamsTab.basicParamsWidget.fireCount, FireCount, FireCountVal)
+                if isinstance(FireCount, list):
+                    set_star_data(n.basicParamsTab.basicParamsWidget.fireCount, FireCount)
                 else:
-                    n.basicParamsTab.basicParamsWidget.fireCount.baseValue.setValue(int(FireCountVal))
+                    n.basicParamsTab.basicParamsWidget.fireCount.baseValue.setValue(int(FireCount))
 
-            FireInterval = get_variable(vars, 'FireInterval')
+            FireInterval = get_variable(data, 'FireInterval')
             if FireInterval is not None:
-                FireIntervalVal = FireInterval['value']
-                set_star_data(n.basicParamsTab.basicParamsWidget.fireInterval, FireInterval, FireIntervalVal)
+                set_star_data(n.basicParamsTab.basicParamsWidget.fireInterval, FireInterval)
 
-            FireLoadSe = get_variable(vars, 'FireLoadSe')
+            FireLoadSe = get_variable(data, 'FireLoadSe')
 
             if FireLoadSe is not None:
-                FireLoadSeVal = FireLoadSe['value']
-                n.soundsTab.reloadSound.setValue(FireLoadSeVal)
+                n.soundsTab.reloadSound.setValue(FireLoadSe)
 
-            FireSe = get_variable(vars, 'FireSe')
+            FireSe = get_variable(data, 'FireSe')
 
             if FireSe is not None:
-                FireSeVal = FireSe['value']
-                n.soundsTab.fireSound.setValue(FireSeVal)
+                n.soundsTab.fireSound.setValue(FireSe)
 
-            FireSpreadType = get_variable(vars, 'FireSpreadType')
+            FireSpreadType = get_variable(data, 'FireSpreadType')
 
             if FireSpreadType is not None:
-                FireSpreadTypeVal = FireSpreadType['value']
-                n.classTab.fireSpreadType.setValue(FireSpreadTypeVal)
+                n.classTab.fireSpreadType.setValue(FireSpreadType)
 
-            FireSpreadWidth = get_variable(vars, 'FireSpreadWidth')
+            FireSpreadWidth = get_variable(data, 'FireSpreadWidth')
 
             if FireSpreadWidth is not None:
-                FireSpreadWidthVal = FireSpreadWidth['value']
-                n.classTab.fireSpreadWidth.inputVar.set(float(FireSpreadWidthVal))
-                n.classTab.fireSpreadWidth.setValue(FireSpreadWidthVal)
+                n.classTab.fireSpreadWidth.inputVar.set(float(FireSpreadWidth))
+                n.classTab.fireSpreadWidth.setValue(FireSpreadWidth)
 
 
-            LockonAngle = get_variable(vars, 'LockonAngle')
+            LockonAngle = get_variable(data, 'LockonAngle')
 
             if LockonAngle is not None:
-                LockonAngleVal = LockonAngle['value']
-                n.lockonTab.lockonAngleH.setValue(float(LockonAngleVal[0]['value']))
-                n.lockonTab.lockonAngleV.setValue(float(LockonAngleVal[1]['value']))
+                n.lockonTab.lockonAngleH.setValue(float(LockonAngle[0]))
+                n.lockonTab.lockonAngleV.setValue(float(LockonAngle[1]))
 
-            LockonFailedTime = get_variable(vars, 'LockonFailedTime')
+            LockonFailedTime = get_variable(data, 'LockonFailedTime')
 
             if LockonFailedTime is not None:
-                LockonFailedTimeVal = LockonFailedTime['value']
-                n.lockonTab.lockonFailedTime.setValue(LockonFailedTimeVal)
+                n.lockonTab.lockonFailedTime.setValue(LockonFailedTime)
 
-            LockonHoldTime = get_variable(vars, 'LockonHoldTime')
+            LockonHoldTime = get_variable(data, 'LockonHoldTime')
 
             if LockonHoldTime is not None:
-                LockonHoldTimeVal = LockonHoldTime['value']
+                n.lockonTab.lockonHoldTime.setValue(LockonHoldTime)
 
-                n.lockonTab.lockonHoldTime.setValue(LockonHoldTimeVal)
-
-            LockonRange = get_variable(vars, 'LockonRange')
+            LockonRange = get_variable(data, 'LockonRange')
 
             if LockonRange is not None:
-                LockonRangeVal = LockonRange['value']
-                if isinstance(LockonRangeVal, list):
-                    set_star_data(n.lockonTab.lockonRange, LockonRange, LockonRangeVal)
+                if isinstance(LockonRange, list):
+                    set_star_data(n.lockonTab.lockonRange, LockonRange)
                 else:
-                    n.lockonTab.lockonRange.baseValue.setValue(int(LockonRangeVal))
+                    n.lockonTab.lockonRange.baseValue.setValue(int(LockonRange))
 
-            LockonTargetType = get_variable(vars, 'LockonTargetType')
+            LockonTargetType = get_variable(data, 'LockonTargetType')
 
             if LockonTargetType is not None:
-                LockonTargetTypeVal = LockonTargetType['value']
+                n.lockonTab.lockonTargetType.setValue(LockonTargetType)
 
-                n.lockonTab.lockonTargetType.setValue(LockonTargetTypeVal)
-
-            LockonTime = get_variable(vars, 'LockonTime')
+            LockonTime = get_variable(data, 'LockonTime')
 
             if LockonTime is not None:
-                LockonTimeVal = LockonTime['value']
-                if isinstance(LockonTimeVal, list):
-                    set_star_data(n.lockonTab.lockonTime, LockonTime, LockonTimeVal)
+                if isinstance(LockonTime, list):
+                    set_star_data(n.lockonTab.lockonTime, LockonTime)
                 else:
-                    n.lockonTab.lockonTime.baseValue.setValue(int(LockonTimeVal))
+                    n.lockonTab.lockonTime.baseValue.setValue(int(LockonTime))
 
-            LockonType = get_variable(vars, 'LockonType')
+            LockonType = get_variable(data, 'LockonType')
 
             if LockonType is not None:
-                LockonTypeVal = LockonType['value']
-                n.lockonTab.lockonType.setValue(LockonTypeVal)
+                n.lockonTab.lockonType.setValue(LockonType)
 
-            Lockon_AutoTimeOut = get_variable(vars, 'Lockon_AutoTimeOut')
+            Lockon_AutoTimeOut = get_variable(data, 'Lockon_AutoTimeOut')
 
             if Lockon_AutoTimeOut is not None:
-                Lockon_AutoTimeOutVal = Lockon_AutoTimeOut['value']
-                n.lockonTab.lockonAutoTimeout.setValue(Lockon_AutoTimeOutVal)
 
-            Lockon_DistributionType = get_variable(vars, 'Lockon_DistributionType')
+                n.lockonTab.lockonAutoTimeout.setValue(Lockon_AutoTimeOut)
+
+            Lockon_DistributionType = get_variable(data, 'Lockon_DistributionType')
 
             if Lockon_DistributionType is not None:
-                Lockon_DistributionTypeVal = Lockon_DistributionType['value']
-                n.lockonTab.lockonDistributionType.setValue(Lockon_DistributionTypeVal)
 
-            Lockon_FireEndToClear = get_variable(vars, 'Lockon_FireEndToClear')
+                n.lockonTab.lockonDistributionType.setValue(Lockon_DistributionType)
+
+            Lockon_FireEndToClear = get_variable(data, 'Lockon_FireEndToClear')
 
             if Lockon_FireEndToClear is not None:
-                Lockon_FireEndToClearVal = Lockon_FireEndToClear['value']
-                n.lockonTab.lockonFireEndToClear.setValue(Lockon_FireEndToClearVal)
 
-            ReloadAnimation = get_variable(vars, 'ReloadAnimation')
+                n.lockonTab.lockonFireEndToClear.setValue(Lockon_FireEndToClear)
+
+            ReloadAnimation = get_variable(data, 'ReloadAnimation')
 
             if ReloadAnimation is not None:
-                ReloadAnimationVal = ReloadAnimation['value']
-                n.appearanceTab.gunModelWidget.ReloadAnimation.setValue(ReloadAnimationVal)
 
-            ReloadInit = get_variable(vars, 'ReloadInit')
+                n.appearanceTab.gunModelWidget.ReloadAnimation.setValue(ReloadAnimation)
+
+            ReloadInit = get_variable(data, 'ReloadInit')
 
             if ReloadInit is not None:
-                ReloadInitVal = ReloadInit['value']
-                n.basicParamsTab.basicParamsWidget.reloadInit.setValue(ReloadInitVal)
 
-            ReloadTime = get_variable(vars, 'ReloadTime')
+                n.basicParamsTab.basicParamsWidget.reloadInit.setValue(ReloadInit)
+
+            ReloadTime = get_variable(data, 'ReloadTime')
             if ReloadTime is not None:
-                ReloadTimeVal = ReloadTime['value']
-                if isinstance(ReloadTimeVal, list):
-                    set_star_data(n.basicParamsTab.basicParamsWidget.reloadTime, ReloadTime, ReloadTimeVal)
-                else:
-                    n.basicParamsTab.basicParamsWidget.reloadTime.baseValue.setValue(int(ReloadTimeVal))
 
-            ReloadType = get_variable(vars, 'ReloadType')
+                if isinstance(ReloadTime, list):
+                    set_star_data(n.basicParamsTab.basicParamsWidget.reloadTime, ReloadTime)
+                else:
+                    n.basicParamsTab.basicParamsWidget.reloadTime.baseValue.setValue(int(ReloadTime))
+
+            ReloadType = get_variable(data, 'ReloadType')
 
             if ReloadType is not None:
-                ReloadTypeVal = ReloadType['value']
-                n.basicParamsTab.basicParamsWidget.reloadType.setValue(ReloadTypeVal)
 
-            FireType = get_variable(vars, 'FireType')
+                n.basicParamsTab.basicParamsWidget.reloadType.setValue(ReloadType)
+
+            FireType = get_variable(data, 'FireType')
             if FireType is not None:
-                FireTypeVal = FireType['value']
-                n.classTab.xgsChoice.setValue(FireTypeVal)
 
-            FireVector = get_variable(vars, 'FireVector')
+                n.classTab.xgsChoice.setValue(FireType)
+
+            FireVector = get_variable(data, 'FireVector')
             if FireVector is not None:
-                FireVectorVal = FireVector['value']
-                if FireVectorVal is not None:
-                    n.classTab.fireVector.vectorX.setValue(float(FireVectorVal[0]['value']))
-                    n.classTab.fireVector.vectorY.setValue(float(FireVectorVal[1]['value']))
-                    n.classTab.fireVector.vectorZ.setValue(float(FireVectorVal[2]['value']))
+
+                if FireVector is not None:
+                    n.classTab.fireVector.vectorX.setValue(float(FireVector[0]))
+                    n.classTab.fireVector.vectorY.setValue(float(FireVector[1]))
+                    n.classTab.fireVector.vectorZ.setValue(float(FireVector[2]))
                     n.classTab.fireVector.updateInputs()
 
-            SecondaryFire_Type = get_variable(vars, 'SecondaryFire_Type')
+            SecondaryFire_Type = get_variable(data, 'SecondaryFire_Type')
 
             if SecondaryFire_Type is not None:
-                SecondaryFire_TypeVal = SecondaryFire_Type['value']
-                n.basicParamsTab.basicParamsWidget.secondaryFireType.setValue(SecondaryFire_TypeVal)
 
-            ShellCase = get_variable(vars, 'ShellCase')
+                n.basicParamsTab.basicParamsWidget.secondaryFireType.setValue(SecondaryFire_Type)
+
+            ShellCase = get_variable(data, 'ShellCase')
 
             if ShellCase is not None:
-                ShellCaseVal = ShellCase['value']
-                n.appearanceTab.shellCase.setValue(ShellCaseVal)
 
-            ShellCaseDischargeSe = get_variable(vars, 'ShellCaseDischargeSe')
+                n.appearanceTab.shellCase.setValue(ShellCase)
+
+            ShellCaseDischargeSe = get_variable(data, 'ShellCaseDischargeSe')
             if ShellCaseDischargeSe is not None:
-                ShellCaseDischargeSeVal = ShellCaseDischargeSe['value']
-                n.soundsTab.shellCaseDischargeSound.setValue(ShellCaseDischargeSeVal)
 
-            # ShellCase_CustomParameter = get_variable(vars, 'ShellCase_CustomParameter')
-            # ShellCase_CustomParameterVal = ShellCase_CustomParameter['value']
+                n.soundsTab.shellCaseDischargeSound.setValue(ShellCaseDischargeSe)
+
+            # ShellCase_CustomParameter = get_variable(data, 'ShellCase_CustomParameter')
+
             # if ShellCase_CustomParameter is not None:
             #     # None  # Always null
             #     continue
 
-            Sight_animation_model = get_variable(vars, 'Sight_animation_model')
+            Sight_animation_model = get_variable(data, 'Sight_animation_model')
 
             if Sight_animation_model is not None:
-                Sight_animation_modelVal = Sight_animation_model['value'][0]['value']
-                mdb = Sight_animation_modelVal[1]['value']
+
+                mdb = Sight_animation_model[0][1]
                 mdbVal = str.replace(mdb, '.mdb','')
                 mdbLower = str.lower(mdbVal)
                 n.appearanceTab.sightAnimationModel.setValue(mdbLower)
 
-            WeaponIcon = get_variable(vars, 'WeaponIcon')
+            WeaponIcon = get_variable(data, 'WeaponIcon')
             if WeaponIcon is not None:
-                WeaponIconVal = WeaponIcon['value']
-                n.appearanceTab.gunModelWidget.WeaponIcon.setValue(WeaponIconVal)
+                n.appearanceTab.gunModelWidget.WeaponIcon.setValue(WeaponIcon)
 
-            nameCn = get_variable(vars, 'name.cn')
+            nameCn = get_variable(data, 'name.cn')
             if nameCn is not None:
-                nameCnVal = nameCn['value']
-                n.classTab.cnName.setValue(nameCnVal)
+                n.classTab.cnName.setValue(nameCn)
 
-            nameEn = get_variable(vars, 'name.en')
+            nameEn = get_variable(data, 'name.en')
             if nameEn is not None:
-                nameEnVal = nameEn['value']
-                n.classTab.enName.setValue(nameEnVal)
+                n.classTab.enName.setValue(nameEn)
 
-            nameJa = get_variable(vars, 'name.ja')
+            nameJa = get_variable(data, 'name.ja')
 
             if nameJa is not None:
-                nameJaVal = nameJa['value']
-                n.classTab.jaName.setValue(nameJaVal)
+                n.classTab.jaName.setValue(nameJa)
 
-            nameKr = get_variable(vars, 'name.kr')
+            nameKr = get_variable(data, 'name.kr')
             if nameKr is not None:
-                nameKrVal = nameKr['value']
-                n.classTab.krName.setValue(nameKrVal)
+                n.classTab.krName.setValue(nameKr)
 
-            use_underground = get_variable(vars, 'use_underground')
+            use_underground = get_variable(data, 'use_underground')
             if use_underground is not None:
-                use_undergroundVal = use_underground['value']
-                n.classTab.useUnderground.setValue(use_undergroundVal)
+                n.classTab.useUnderground.setValue(use_underground)
 
-            xgs_scene_object_class = get_variable(vars, 'xgs_scene_object_class')
+            xgs_scene_object_class = get_variable(data, 'xgs_scene_object_class')
             if xgs_scene_object_class is not None:
-                xgs_scene_object_classVal = xgs_scene_object_class['value']
-                n.classTab.xgsChoice.setValue(xgs_scene_object_classVal)
+                n.classTab.xgsChoice.setValue(xgs_scene_object_class)
 
-            custom_parameter = get_variable(vars, 'custom_parameter')
+            custom_parameter = get_variable(data, 'custom_parameter')
             if custom_parameter is not None:
-                custom_parameterVal = custom_parameter['value']
-                self.customParamData = custom_parameterVal
+                self.customParamData = custom_parameter
 
-            SecondaryFire_Parameter = get_variable(vars, 'SecondaryFire_Parameter')
+            SecondaryFire_Parameter = get_variable(data, 'SecondaryFire_Parameter')
             if SecondaryFire_Parameter is not None:
-                SecondaryFire_ParameterVal = SecondaryFire_Parameter['value']
                 n.basicParamsTab.basicParamsWidget.secondaryFireParameter.setValue(
-                    SecondaryFire_ParameterVal) if n.basicParamsTab.basicParamsWidget.secondaryFireType.setValue(
-                    SecondaryFire_ParameterVal) == 1 else None
+                    SecondaryFire_Parameter) if n.basicParamsTab.basicParamsWidget.secondaryFireType.setValue(
+                    SecondaryFire_Parameter) == 1 else None
 
-            MuzzleFlash = get_variable(vars, 'MuzzleFlash')
-            if MuzzleFlash is not None:
-                MuzzleFlashVal = MuzzleFlash['value']
-                if MuzzleFlashVal != "":
-                    n.appearanceTab.muzzleFlash.muzzleFlashType.setValue(MuzzleFlashVal)
+            MuzzleFlash = get_variable(data, 'MuzzleFlash')
+            if MuzzleFlash is not None and MuzzleFlash is not "":
+                n.appearanceTab.muzzleFlash.muzzleFlashType.setValue(MuzzleFlash)
 
-            MuzzleFlash_CustomParameter = get_variable(vars, 'MuzzleFlash_CustomParameter')
+            MuzzleFlash_CustomParameter = get_variable(data, 'MuzzleFlash_CustomParameter')
             if MuzzleFlash_CustomParameter is not None:
-                MuzzleFlash_CustomParameterVal = MuzzleFlash_CustomParameter['value']
-                self.muzzleFlashCustomParameters = MuzzleFlash_CustomParameterVal
+                self.muzzleFlashCustomParameters = MuzzleFlash_CustomParameter
 
-            EnergyChargeRequire = get_variable(vars, 'EnergyChargeRequire')
+            EnergyChargeRequire = get_variable(data, 'EnergyChargeRequire')
             if EnergyChargeRequire is not None:
-                EnergyChargeRequireVal = EnergyChargeRequire['value']
-                set_star_data(n.basicParamsTab.basicParamsWidget.energyChargeRequire, EnergyChargeRequire, EnergyChargeRequireVal)
+                set_star_data(n.basicParamsTab.basicParamsWidget.energyChargeRequire, EnergyChargeRequire)
 
-            ExtPrams = get_variable(vars, 'ExtPrams')
+            ExtPrams = get_variable(data, 'ExtPrams')
             if ExtPrams is not None:
-                ExtPramsVal = ExtPrams['value']
-                set_star_data(n.basicParamsTab.basicParamsWidget.extPrams, ExtPrams, ExtPramsVal)
+                set_star_data(n.basicParamsTab.basicParamsWidget.extPrams, ExtPrams)
 
-            # FireCondition = get_variable(vars, 'FireCondition')
-            # FireConditionVal = FireCondition['value']
+            # FireCondition = get_variable(data, 'FireCondition')
+
             # if FireCondition is not None:
             #     continue  # Always 0
 
             n.classTab.fireRecoil.inputVar.set(0.0)
             n.classTab.fireRecoil.input.set(0.0)
 
-            FireRecoil = get_variable(vars, 'FireRecoil')
+            FireRecoil = get_variable(data, 'FireRecoil')
             if FireRecoil is not None:
-                FireRecoilVal = FireRecoil['value']
-                n.classTab.fireRecoil.inputVar.set(float(FireRecoilVal))
-                n.classTab.fireRecoil.input.set(float(FireRecoilVal))
+                n.classTab.fireRecoil.inputVar.set(float(FireRecoil))
+                n.classTab.fireRecoil.input.set(float(FireRecoil))
             # if n.classTab.xgsChoice.value() != "Weapon_Accessory":
             # eData["animation_model"] = n.appearanceTab.gunModelWidget.makeAnimation_ModelData()
 
@@ -754,10 +711,6 @@ class MainWindow(tk.Frame):
 
             # set the val if we have something
             if Ammo_CustomParameter is not None:
-                Ammo_CustomParameterVal = Ammo_CustomParameter['value']
-
-            # if we do not have a val, we are not sub TODO - confirm
-            if Ammo_CustomParameterVal is not None:
                 subProjectile = ammoClass in subProjectileAmmoOptions
             else:
                 subProjectile = False
@@ -767,35 +720,33 @@ class MainWindow(tk.Frame):
 
             print("Handling - Ammo_CustomParameter")
             # set the widget value if we have one
-            if Ammo_CustomParameterVal is not None:
-                n.classTab.ammoCust.setValue(Ammo_CustomParameterVal)
+            if Ammo_CustomParameter is not None:
+                n.classTab.ammoCust.setValue(Ammo_CustomParameter)
 
-            animation_model = get_variable(vars, 'animation_model')
+            animation_model = get_variable(data, 'animation_model')
 
             if animation_model is not None:
-                animation_modelVal = animation_model['value']
-                rabChoice = animation_modelVal[0]['value'][0]['value']
+                rabChoice = animation_model[0][0]
                 n.appearanceTab.gunModelWidget.RABChoice.setValue(rabChoice)
                 n.appearanceTab.gunModelWidget.makeAnimation_ModelData()
 
-            ModelConstraint = get_variable(vars, 'ModelConstraint')
+            ModelConstraint = get_variable(data, 'ModelConstraint')
 
             if ModelConstraint is not None:
-                ModelConstraintVal = ModelConstraint['value']
+
                 n.appearanceTab.gunModelWidget.ModelConstraint = DropDownWidget(self, "Model Constraint", {
                     str(n.appearanceTab.gunModelWidget.animationData[n.appearanceTab.gunModelWidget.RABChoice.value()][
                             'ModelConstraint']):
                         n.appearanceTab.gunModelWidget.animationData[n.appearanceTab.gunModelWidget.RABChoice.value()][
                             'ModelConstraint']})
-                n.appearanceTab.gunModelWidget.ModelConstraint.setValue(ModelConstraintVal[0]['value'])
+                n.appearanceTab.gunModelWidget.ModelConstraint.setValue(ModelConstraint[0])
 
             self.notebook.appearanceTab.gunModelWidget.updateOptions()
 
             # Mapped but not displayed
             n.resource = None
-            resource = get_variable(vars, 'resource')
+            resource = get_variable(data, 'resource')
             if resource is not None:
-                resource = resource['value']
                 n.resource = resource
 
         except:
@@ -832,8 +783,6 @@ class MainNotebook(ttk.Notebook):
         ttk.Notebook.__init__(self, parent)
         self.parent = parent
         self.resource = None
-        # self.tab1 = StandardWeaponTab(self, 600, 400, "tab1")
-        # self.tab2 = StandardWeaponTab(self, 600, 300, "tab2")
         self.classTab = ClassTab(self)
         self.basicParamsTab = BasicParamsTab(self)
         self.lockonTab = LockonTab(self)
@@ -880,15 +829,18 @@ def loadConfig():
 
     return configOptions
 # end def loadConfig
-
-
-if __name__ == '__main__':
-    # allEasy = loadDataFromJson("./data/allEasy.json")
+def init(loop=True):
     root = tk.Tk()
     root.title('Weapon builder')
     mainWindow = MainWindow(root, 1000, 800)
     mainWindow.pack(side="top", fill="both", expand=True)
     # force the height/width
     mainWindow.pack_propagate(0)
-    root.mainloop()
+    if loop:
+        root.mainloop()
+    return mainWindow
+
+if __name__ == '__main__':
+    # allEasy = loadDataFromJson("./data/allEasy.json")
+    init()
 # end if

@@ -7,7 +7,6 @@ from py_linq import Enumerable
 # u = d.uniqueDataByKey("AmmoClass", ["Ammo_CustomParameter"], e)
 ammoCust = j.loadDataFromJson("./data/ammoCust.json")
 
-
 def flatten(S):
     # https://stackoverflow.com/questions/12472338/flattening-a-list-recursively?lq=1
     if S == []:
@@ -15,7 +14,6 @@ def flatten(S):
     if isinstance(S[0], list):
         return flatten(S[0]) + flatten(S[1:])
     return S[:1] + flatten(S[1:])
-
 
 def ammoCustWidgetFromAmmoClass(parent, ammoClass, isSubProjectile):
     if ammoClass == "SolidBullet01":
@@ -83,7 +81,6 @@ def ammoCustWidgetFromAmmoClass(parent, ammoClass, isSubProjectile):
         return SupportUnitBullet01(parent)
     elif ammoClass == "TargetMarkerBullet01":
         return TargetMarkerBullet01(parent)
-
 
 def testAmmoCust(ammoClass):
     print(ammoClass.__class__.__name__)
@@ -165,24 +162,45 @@ subProjectileAmmoOptions = {
     "SupportUnitBullet01": "SupportUnitBullet01",
     "TargetMarkerBullet01": "TargetMarkerBullet01",
 }
-
-
+stickingSounds = {
+    "None": 0,
+    "C4 stick A": '武器Ｃ系爆弾接地Ａ',
+    "C4 stick B": '武器Ｃ系爆弾接地Ｂ',
+    "C4 stick C": '武器Ｃ系爆弾接地Ｃ',
+    "Limpet small": '武器リモート爆弾小着弾',
+    "Limpet big": '武器リモート爆弾大着弾',
+    "Limpet flechette": '武器フレシェット着弾',
+    "Assault beetle": 'むしむしボンバー張り付き',
+    "Roomba": 'ルン爆弾ＧＯ',
+    "Roomba heavy": 'ルン爆弾ＧＯ重い'
+}
+armingSounds = {
+    "None": 0,
+    "Bomb armed": '武器起動可能'
+}
+detectionSounds = {
+    "None": 0,
+    "Enemy detected": '敵探知'
+}
+bounceSounds = {
+    "None": 0,
+    "Assault beetle bounce": 'むしむしボンバー跳ねる',
+    "Roomba bounce": 'ルン爆弾反射',
+    "Roomba heavy bounce": 'ルン爆弾反射重い'
+}
 class AcidBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("AcidBullet01"))
-        self.v1 = FreeInputWidget(self, "Unknown float", float, tooltip="-0.03 or -0.004", initialValue=-0.004)
-        self.v1.pack()
+        self.v1 = None
+        self.v1Input = FreeInputWidget(self, "Unknown float", float, tooltip="-0.03 or -0.004", initialValue=-0.004)
+        self.v1Input.pack()
 
     def value(self):
-        return [self.v1.value()]
+        return [self.v1]
 
     def setValue(self, v):
-        self.v1.setValue(v[0])
-
-
-
-
-
+        self.v1 = v[0]
+        self.v1Input.setValue(self.v1)
 class BarrierBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("BarrierBullet01"))
@@ -216,48 +234,15 @@ class BarrierBullet01(tk.LabelFrame):
                 [self.v7.value(), self.v8.value(), self.v9.value()]]
 
     def setValue(self, l):
-        self.v1.setValue(l[0])
-        self.v2.setValue(l[1])
-        self.v3.setValue(l[2])
-        self.v4.setValue(l[3][0])
-        self.v5.setValue(l[3][1])
-        self.v6.setValue(l[3][2])
-        self.v7.setValue(l[4][0])
-        self.v8.setValue(l[4][1])
-        self.v9.setValue(l[4][2])
-
-
-
-
-
-stickingSounds = {
-    "None": 0,
-    "C4 stick A": '武器Ｃ系爆弾接地Ａ',
-    "C4 stick B": '武器Ｃ系爆弾接地Ｂ',
-    "C4 stick C": '武器Ｃ系爆弾接地Ｃ',
-    "Limpet small": '武器リモート爆弾小着弾',
-    "Limpet big": '武器リモート爆弾大着弾',
-    "Limpet flechette": '武器フレシェット着弾',
-    "Assault beetle": 'むしむしボンバー張り付き',
-    "Roomba": 'ルン爆弾ＧＯ',
-    "Roomba heavy": 'ルン爆弾ＧＯ重い'
-}
-armingSounds = {
-    "None": 0,
-    "Bomb armed": '武器起動可能'
-}
-detectionSounds = {
-    "None": 0,
-    "Enemy detected": '敵探知'
-}
-bounceSounds = {
-    "None": 0,
-    "Assault beetle bounce": 'むしむしボンバー跳ねる',
-    "Roomba bounce": 'ルン爆弾反射',
-    "Roomba heavy bounce": 'ルン爆弾反射重い'
-}
-
-
+        self.v1.setValue(get_value_from_dict_or_val(l,float,0))
+        self.v2.setValue(get_value_from_dict_or_val(l,float,1))
+        self.v3.setValue(get_value_from_dict_or_val(l,float,2))
+        self.v4.setValue(get_value_from_dict_or_val(l,float,3,0))
+        self.v5.setValue(get_value_from_dict_or_val(l,float,3,1))
+        self.v6.setValue(get_value_from_dict_or_val(l,float,3,2))
+        self.v7.setValue(get_value_from_dict_or_val(l,float,4,0))
+        self.v8.setValue(get_value_from_dict_or_val(l,float,4,1))
+        self.v9.setValue(get_value_from_dict_or_val(l,float,4,2))
 class BombBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("BombBullet01"))
@@ -358,31 +343,31 @@ class BombBullet01(tk.LabelFrame):
         return v
 
     def setValue(self, l):
-        self.bombType.setValue(l[0])
-        self.isDetector.setValue(l[1])
-        self.bounceFactor.setValue(l[2])
-        self.primerDelay.setValue(l[3])
-        self.detonationInterval.setValue(l[4])
-        self.LEDX.setValue(l[5][0])
-        self.LEDY.setValue(l[5][1])
-        self.LEDZ.setValue(l[5][2])
-        self.explosionType.setValue(l[6])
+        self.bombType.setValue(get_value_from_dict_or_val(l,float,0))
+        self.isDetector.setValue(get_value_from_dict_or_val(l,float,1))
+        self.bounceFactor.setValue(get_value_from_dict_or_val(l,float,2))
+        self.primerDelay.setValue(get_value_from_dict_or_val(l,float,3))
+        self.detonationInterval.setValue(get_value_from_dict_or_val(l,float,4))
+        self.LEDX.setValue(get_value_from_dict_or_val(l,float,5,0))
+        self.LEDY.setValue(get_value_from_dict_or_val(l,float,5,1))
+        self.LEDZ.setValue(get_value_from_dict_or_val(l,float,5,2))
+        self.explosionType.setValue(get_value_from_dict_or_val(l,float,6))
         if l[6] == 1:
             self.hSpread.setValue(l[7][0][0])
             self.vSpread.setValue(l[7][0][1])
             self.vAngle.setValue(l[7][0][2])
-            self.flechetteCount.setValue(l[7][1])
-            self.flechetteLifetime.setValue(l[7][2])
-            self.flechetteSpeed.setValue(l[7][3])
-            self.flechetteSize.setValue(l[7][4])
-            self.ammoCust.setValue(l[7][5])
+            self.flechetteCount.setValue(get_value_from_dict_or_val(l,float,7,1))
+            self.flechetteLifetime.setValue(get_value_from_dict_or_val(l,float,7,2))
+            self.flechetteSpeed.setValue(get_value_from_dict_or_val(l,float,7,3))
+            self.flechetteSize.setValue(get_value_from_dict_or_val(l,float,7,4))
+            self.ammoCust.setValue(get_value_from_dict_or_val(l,float,7,5))
             self.enableSplendor()
         else:
             self.disableSplendor()
-        self.stickSound.setValue(l[8][0])
-        self.armingSound.setValue(l[8][1])
-        self.detectionSound.setValue(l[8][2])
-        self.bounceSound.setValue(l[8][3])
+        self.stickSound.setValue(get_value_from_dict_or_val(l,float,8,0))
+        self.armingSound.setValue(get_value_from_dict_or_val(l,float,8,1))
+        self.detectionSound.setValue(get_value_from_dict_or_val(l,float,8,2))
+        self.bounceSound.setValue(get_value_from_dict_or_val(l,float,8,3))
 
     def enableOrDisableSplendor(self, *args):
         if self.explosionType.value() == 1:
@@ -411,11 +396,6 @@ class BombBullet01(tk.LabelFrame):
         disableInput(self.flechetteSpeed)
         disableInput(self.flechetteSize)
         # disableInput(self.unknown3)
-
-
-
-
-
 class BombBullet02(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("BombBullet01"))
@@ -516,31 +496,31 @@ class BombBullet02(tk.LabelFrame):
         return v
 
     def setValue(self, l):
-        self.bombType.setValue(l[0])
-        self.isDetector.setValue(l[1])
-        self.bounceFactor.setValue(l[2])
-        self.primerDelay.setValue(l[3])
-        self.detonationInterval.setValue(l[4])
-        self.LEDX.setValue(l[5][0])
-        self.LEDY.setValue(l[5][1])
-        self.LEDZ.setValue(l[5][2])
-        self.explosionType.setValue(l[6])
+        self.bombType.setValue(get_value_from_dict_or_val(l,float,0))
+        self.isDetector.setValue(get_value_from_dict_or_val(l,float,1))
+        self.bounceFactor.setValue(get_value_from_dict_or_val(l,float,2))
+        self.primerDelay.setValue(get_value_from_dict_or_val(l,float,3))
+        self.detonationInterval.setValue(get_value_from_dict_or_val(l,float,4))
+        self.LEDX.setValue(get_value_from_dict_or_val(l,float,5,0))
+        self.LEDY.setValue(get_value_from_dict_or_val(l,float,5,1))
+        self.LEDZ.setValue(get_value_from_dict_or_val(l,float,5,2))
+        self.explosionType.setValue(get_value_from_dict_or_val(l,float,6))
         if l[6] == 1:
             self.hSpread.setValue(l[7][0][0])
             self.vSpread.setValue(l[7][0][1])
             self.vAngle.setValue(l[7][0][2])
-            self.flechetteCount.setValue(l[7][1])
-            self.flechetteLifetime.setValue(l[7][2])
-            self.flechetteSpeed.setValue(l[7][3])
-            self.flechetteSize.setValue(l[7][4])
-            self.ammoCust.setValue(l[7][5])
+            self.flechetteCount.setValue(get_value_from_dict_or_val(l,float,7,1))
+            self.flechetteLifetime.setValue(get_value_from_dict_or_val(l,float,7,2))
+            self.flechetteSpeed.setValue(get_value_from_dict_or_val(l,float,7,3))
+            self.flechetteSize.setValue(get_value_from_dict_or_val(l,float,7,4))
+            self.ammoCust.setValue(get_value_from_dict_or_val(l,float,7,5))
             self.enableSplendor()
         else:
             self.disableSplendor()
-        self.stickSound.setValue(l[8][0])
-        self.armingSound.setValue(l[8][1])
-        self.detectionSound.setValue(l[8][2])
-        self.bounceSound.setValue(l[8][3])
+        self.stickSound.setValue(get_value_from_dict_or_val(l,float,8,0))
+        self.armingSound.setValue(get_value_from_dict_or_val(l,float,8,1))
+        self.detectionSound.setValue(get_value_from_dict_or_val(l,float,8,2))
+        self.bounceSound.setValue(get_value_from_dict_or_val(l,float,8,3))
 
     def enableOrDisableSplendor(self, *args):
         if self.explosionType.value() == 1:
@@ -569,11 +549,6 @@ class BombBullet02(tk.LabelFrame):
         disableInput(self.flechetteSpeed)
         disableInput(self.flechetteSize)
         # disableInput(self.unknown3)
-
-
-
-
-
 class ClusterBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("ClusterBullet01"))
@@ -624,22 +599,17 @@ class ClusterBullet01(tk.LabelFrame):
         return v
 
     def setValue(self, l):
-        self.momentumConservation.setValue(l[0])
-        self.projectileSpread.setValue(l[1])
-        self.projectileAccuracy.setValue(l[2])
-        self.projectileDirection.setValue(l[3])
+        self.momentumConservation.setValue(get_value_from_dict_or_val(l,float,0))
+        self.projectileSpread.setValue(get_value_from_dict_or_val(l,float,1))
+        self.projectileAccuracy.setValue(get_value_from_dict_or_val(l,float,2))
+        self.projectileDirection.setValue(get_value_from_dict_or_val(l,float,3))
         if l[4] != 0:
-            self.homingEnabled.setValue(l[4][0])
-            self.homingLockRadius.setValue(l[4][1])
+            self.homingEnabled.setValue(get_value_from_dict_or_val(l,float,4,0))
+            self.homingLockRadius.setValue(get_value_from_dict_or_val(l,float,4,1))
         else:
             self.homingEnabled.setValue(0)
             self.homingLockRadius.setValue(0)
-        self.subProjectileWidget.setValue(l[5])
-
-
-
-
-
+        self.subProjectileWidget.setValue(get_value_from_dict_or_val(l,float,5))
 class SubProjectile(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("Sub-Projectile"))
@@ -678,6 +648,8 @@ class SubProjectile(tk.LabelFrame):
 
         self.sound1 = SoundWidget(self.col2, "Firing sound?", returnNoneOr0=0)
         self.sound2 = SoundWidget(self.col2, "Impact sound?", returnNoneOr0=0)
+        # self.sound3 = SoundWidget(self.col2, "Other sound?", returnNoneOr0=0)
+        # self.sound4 = SoundWidget(self.col2, "Other Other sound?", returnNoneOr0=0)
 
         self.customParamWidget = SolidBullet01(self, True)
 
@@ -708,6 +680,8 @@ class SubProjectile(tk.LabelFrame):
         self.ammoClass.pack()
         self.sound1.pack()
         self.sound2.pack()
+        # self.sound3.pack()
+        # self.sound4.pack()
 
         self.customParamWidget.grid(row=0, column=2, sticky="N")
 
@@ -736,27 +710,32 @@ class SubProjectile(tk.LabelFrame):
             self.sound2.value()]
 
     def setValue(self, l):
-        self.unknown1.setValue(l[0][0])
-        self.unknown2.setValue(l[0][1])
-        self.unknown3.setValue(l[1][0])
-        self.unknown4.setValue(l[1][1])
-        self.projectileCount.setValue(l[2])
-        self.projectileInterval.setValue(l[3])
-        self.ammoClass.setValue(l[4])
-        self.ammoSpeed.setValue(l[5])
-        self.ammoGravity.setValue(l[6])
-        self.ammoScale.setValue(l[7])
-        self.unknown5.setValue(l[8])
-        self.explosionRadius.setValue(l[9])
-        self.ammoLifetime.setValue(l[10])
-        self.unknown6.setValue(l[11])
+        if type(l) is dict and 'value' in l:
+            temp = l['value']
+            l = temp
+        self.unknown1.setValue(get_value_from_dict_or_val(l, float, 0, 0))
+        self.unknown2.setValue(get_value_from_dict_or_val(l, float, 0, 1))
+        self.unknown3.setValue(get_value_from_dict_or_val(l, float, 1, 0))
+        self.unknown4.setValue(get_value_from_dict_or_val(l, float, 1, 1))
+        self.projectileCount.setValue(get_value_from_dict_or_val(l,float,2))
+        self.projectileInterval.setValue(get_value_from_dict_or_val(l,float,3))
+        self.ammoClass.setValue(get_value_from_dict_or_val(l,str,4))
+        self.ammoSpeed.setValue(get_value_from_dict_or_val(l,float,5))
+        self.ammoGravity.setValue(get_value_from_dict_or_val(l,float,6))
+        self.ammoScale.setValue(get_value_from_dict_or_val(l,float,7))
+        self.unknown5.setValue(get_value_from_dict_or_val(l,float,8))
+        self.explosionRadius.setValue(get_value_from_dict_or_val(l,float,9))
+        self.ammoLifetime.setValue(get_value_from_dict_or_val(l,float,10))
+        self.unknown6.setValue(get_value_from_dict_or_val(l,float,11))
         self.ammoColor.setValue(l[12])
         self.customParamWidget.setValue(l[13])
         self.ammoModel.setValue(l[14])
-        self.unknown7.setValue(l[15])
-        self.unknown8.setValue(l[16])
+        self.unknown7.setValue(get_value_from_dict_or_val(l,float,15))
+        self.unknown8.setValue(get_value_from_dict_or_val(l,float,16))
         self.sound1.setValue(l[17])
         self.sound2.setValue(l[18])
+        # self.sound3.setValue(l[19])
+        # self.sound4.setValue(l[20])
 
     def updateAmmoCustWidget(self, *args):
         # print(self.ammoClass.value())
@@ -778,19 +757,6 @@ class SubProjectile(tk.LabelFrame):
     #             print(self.value())
     #             pass
     #         print(f"{v} == {self.value()} ? {v == self.value()}")
-
-
-# class DecoyBullet01(tk.LabelFrame):
-#     def __init__(self, parent):
-#         tk.LabelFrame.__init__(self, parent, text=getText("DecoyBullet01"))
-#
-#     def value(self):
-#         pass
-#
-#     def setValue(self):
-#         pass
-
-
 class FlameBullet02(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("FlameBullet02"))
@@ -833,19 +799,14 @@ class FlameBullet02(tk.LabelFrame):
         ]
 
     def setValue(self, l):
-        self.flameType.setValue(l[0])
-        self.unknown1.setValue(l[1])
-        self.unknown2.setValue(l[2])
-        self.unknown3.setValue(l[3])
-        self.redChange.setValue(l[4][0])
-        self.blueChange.setValue(l[4][1])
-        self.greenChange.setValue(l[4][2])
-        self.alphaChange.setValue(l[4][3])
-
-
-
-
-
+        self.flameType.setValue(get_value_from_dict_or_val(l,float,0))
+        self.unknown1.setValue(get_value_from_dict_or_val(l,float,1))
+        self.unknown2.setValue(get_value_from_dict_or_val(l,float,2))
+        self.unknown3.setValue(get_value_from_dict_or_val(l,float,3))
+        self.redChange.setValue(get_value_from_dict_or_val(l,float,4,0))
+        self.blueChange.setValue(get_value_from_dict_or_val(l,float,4,1))
+        self.greenChange.setValue(get_value_from_dict_or_val(l,float,4,2))
+        self.alphaChange.setValue(get_value_from_dict_or_val(l,float,4,3))
 class GrenadeBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("GrenadeBullet01"))
@@ -890,21 +851,16 @@ class GrenadeBullet01(tk.LabelFrame):
         return v
 
     def setValue(self, l):
-        self.detonationType.setValue(l[0])
-        self.unknown1.setValue(l[1])
-        self.unknown2.setValue(l[2])
-        self.bounceDampening.setValue(l[3])
-        self.smokeTrailNoise.setValue(l[4])
-        self.smokeTrailLifetime.setValue(l[5])
+        self.detonationType.setValue(get_value_from_dict_or_val(l,float,0))
+        self.unknown1.setValue(get_value_from_dict_or_val(l,float,1))
+        self.unknown2.setValue(get_value_from_dict_or_val(l,float,2))
+        self.bounceDampening.setValue(get_value_from_dict_or_val(l,float,3))
+        self.smokeTrailNoise.setValue(get_value_from_dict_or_val(l,float,4))
+        self.smokeTrailLifetime.setValue(get_value_from_dict_or_val(l,float,5))
         if len(l) > 6:
-            self.fuseVariation.setValue(l[6])
+            self.fuseVariation.setValue(get_value_from_dict_or_val(l,float,6))
         else:
             self.fuseVariation.setValue(0)
-
-
-
-
-
 class HomingLaserBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("HomingLaserBullet01"))
@@ -949,20 +905,15 @@ class HomingLaserBullet01(tk.LabelFrame):
         ]
 
     def setValue(self, l):
-        self.fireDirection.setValue(get_value_from_dict_or_val(l, 0, int))
-        self.unknown2.setValue(get_value_from_dict_or_val(l, 1, int))
-        self.trailLength.setValue(get_value_from_dict_or_val(l, 2, int))
-        self.homingFactor.setValue(get_value_from_dict_or_val(l, 3, float))
-        self.homingFactor2.setValue(get_value_from_dict_or_val(l, 4, float))
-        self.speedScale.setValue(get_value_from_dict_or_val(l, 5, float))
-        self.homingDelay.setValue(get_value_from_dict_or_val(l, 6, int))
-        self.unknown6.setValue(get_value_from_dict_or_val(l, 7, int))
-        self.unknown7.setValue(get_value_from_dict_or_val(l, 8, float))
-
-
-
-
-
+        self.fireDirection.setValue(get_value_from_dict_or_val(l, int, 0))
+        self.unknown2.setValue(get_value_from_dict_or_val(l, int, 1))
+        self.trailLength.setValue(get_value_from_dict_or_val(l, int, 2))
+        self.homingFactor.setValue(get_value_from_dict_or_val(l, float, 3))
+        self.homingFactor2.setValue(get_value_from_dict_or_val(l, float, 4))
+        self.speedScale.setValue(get_value_from_dict_or_val(l, float, 5))
+        self.homingDelay.setValue(get_value_from_dict_or_val(l, int, 6))
+        self.unknown6.setValue(get_value_from_dict_or_val(l, int, 7))
+        self.unknown7.setValue(get_value_from_dict_or_val(l, float, 8))
 class LaserBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("LaserBullet01"))
@@ -1011,26 +962,21 @@ class LaserBullet01(tk.LabelFrame):
         return v
 
     def setValue(self, l):
-        self.flareColor.setValue(l[0])
-        self.flareLightColor.setValue(l[1])
-        self.flareScale.setValue(l[2])
-        self.flareLightScale.setValue(l[3])
-        self.flareLife.setValue(l[4])
-        self.numLasers.setValue(l[5])
-        self.unknown1.setValue(l[6])
-        self.unknown2.setValue(l[7])
-        self.laserSpreadSpeed.setValue(l[8])
-        self.laserSpeed.setValue(l[9])
-        self.laserSegments.setValue(l[10])
+        self.flareColor.setValue(get_value_from_dict_or_val(l,list,0))
+        self.flareLightColor.setValue(get_value_from_dict_or_val(l,list,1))
+        self.flareScale.setValue(get_value_from_dict_or_val(l,float,2))
+        self.flareLightScale.setValue(get_value_from_dict_or_val(l,float,3))
+        self.flareLife.setValue(get_value_from_dict_or_val(l,float,4))
+        self.numLasers.setValue(get_value_from_dict_or_val(l,float,5))
+        self.unknown1.setValue(get_value_from_dict_or_val(l,float,6))
+        self.unknown2.setValue(get_value_from_dict_or_val(l,float,7))
+        self.laserSpreadSpeed.setValue(get_value_from_dict_or_val(l,float,8))
+        self.laserSpeed.setValue(get_value_from_dict_or_val(l,float,9))
+        self.laserSegments.setValue(get_value_from_dict_or_val(l,float,10))
         if len(l) > 11:
-            self.unknown3.setValue(l[11])
+            self.unknown3.setValue(get_value_from_dict_or_val(l,float,11))
         else:
             self.unknown3.setValue(0)
-
-
-
-
-
 class LaserBullet02(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("LaserBullet02"))
@@ -1042,11 +988,6 @@ class LaserBullet02(tk.LabelFrame):
 
     def setValue(self, v):
         self.laserType.setValue(v[0])
-
-
-
-
-
 class LaserBullet03(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("LaserBullet03"))
@@ -1059,13 +1000,8 @@ class LaserBullet03(tk.LabelFrame):
         return [self.unknown1.value(), self.unknown2.value()]
 
     def setValue(self, l):
-        self.unknown1.setValue(l[0])
-        self.unknown2.setValue(l[1])
-
-
-
-
-
+        self.unknown1.setValue(get_value_from_dict_or_val(l,float,0))
+        self.unknown2.setValue(get_value_from_dict_or_val(l,float,1))
 class LightningBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("LightningBullet01"))
@@ -1100,23 +1036,19 @@ class LightningBullet01(tk.LabelFrame):
         return v
 
     def setValue(self, l):
-        self.initialNoise.setValue(l[0])
-        self.randomVelocity.setValue(l[1])
-        self.curveNoise.setValue(l[2])
-        self.bounceFactor.setValue(l[3])
-        self.boltModifier.setValue(l[4])
+        self.initialNoise.setValue(get_value_from_dict_or_val(l,float,0))
+        self.randomVelocity.setValue(get_value_from_dict_or_val(l,float,1))
+        self.curveNoise.setValue(get_value_from_dict_or_val(l,float,2))
+        self.bounceFactor.setValue(get_value_from_dict_or_val(l,float,3))
+        self.boltModifier.setValue(get_value_from_dict_or_val(l,float,4))
         if len(l) > 5:
-            self.optional1.setValue(l[5])
+            self.optional1.setValue(get_value_from_dict_or_val(l,float,5))
         else:
             self.optional1.setValue(0)
         if len(l) > 6:
-            self.optional2.setValue(l[6])
+            self.optional2.setValue(get_value_from_dict_or_val(l,float,6))
         else:
             self.optional2.setValue(0)
-
-
-
-
 class MissileBullet01(tk.LabelFrame):
     def __init__(self, parent, isSubProjectile):
         tk.LabelFrame.__init__(self, parent, text=getText("MissileBullet01"))
@@ -1212,34 +1144,29 @@ class MissileBullet01(tk.LabelFrame):
         return v
 
     def setValue(self, l):
-        self.missileOption.setValue(l[0])
-        self.unknown1.setValue(l[1])
-        self.unknown2.setValue(l[2])
-        self.unknown3.setValue(l[3][0])
-        self.unknown4.setValue(l[3][1])
-        self.unknown5.setValue(l[3][2])
-        self.accelerationRate.setValue(l[4])
-        self.turnRate.setValue(l[5])
-        self.topSpeed.setValue(l[6])
-        self.unknown6.setValue(l[7][0])
-        self.unknown7.setValue(l[7][1])
-        self.homingDelay.setValue(l[8])
-        self.unknown8.setValue(l[9])
+        self.missileOption.setValue(get_value_from_dict_or_val(l,float,0))
+        self.unknown1.setValue(get_value_from_dict_or_val(l,float,1))
+        self.unknown2.setValue(get_value_from_dict_or_val(l,float,2))
+        self.unknown3.setValue(get_value_from_dict_or_val(l,float,3,0))
+        self.unknown4.setValue(get_value_from_dict_or_val(l,float,3,1))
+        self.unknown5.setValue(get_value_from_dict_or_val(l,float,3,2))
+        self.accelerationRate.setValue(get_value_from_dict_or_val(l,float,4))
+        self.turnRate.setValue(get_value_from_dict_or_val(l,float,5))
+        self.topSpeed.setValue(get_value_from_dict_or_val(l,float,6))
+        self.unknown6.setValue(get_value_from_dict_or_val(l,float,7,0))
+        self.unknown7.setValue(get_value_from_dict_or_val(l,float,7,1))
+        self.homingDelay.setValue(get_value_from_dict_or_val(l,float,8))
+        self.unknown8.setValue(get_value_from_dict_or_val(l,float,9))
         if l[10] is not None:
             self.enableStruct.setValue(True)
-            self.unknown9.setValue(l[10][0])
-            self.unknown10.setValue(l[10][1])
+            self.unknown9.setValue(get_value_from_dict_or_val(l,float,10,0))
+            self.unknown10.setValue(get_value_from_dict_or_val(l,float,10,1))
             self.enableOrDisableStruct3()
         else:
             self.enableStruct.setValue(False)
             self.enableOrDisableStruct3()
 
-        self.ignitionSound.setValue(l[11])
-
-
-
-
-
+        self.ignitionSound.setValue(get_value_from_dict_or_val(l,float,11))
 class MissileBullet02(tk.LabelFrame):
     def __init__(self, parent, isSubProjectile):
         tk.LabelFrame.__init__(self, parent, text=getText("MissileBullet02"))
@@ -1404,47 +1331,42 @@ class MissileBullet02(tk.LabelFrame):
         return v
 
     def setValue(self, l):
-        self.missileOption.setValue(l[0])
-        self.unknown1.setValue(l[1])
-        self.unknown2.setValue(l[2])
-        self.unknown3.setValue(l[3][0])
-        self.unknown4.setValue(l[3][1])
-        self.unknown5.setValue(l[3][2])
-        self.accelerationRate.setValue(l[4])
-        self.turnRate.setValue(l[5])
-        self.topSpeed.setValue(l[6])
-        self.unknown6.setValue(l[7][0])
-        self.unknown7.setValue(l[7][1])
-        self.homingDelay.setValue(l[8])
-        self.unknown8.setValue(l[9])
+        self.missileOption.setValue(get_value_from_dict_or_val(l,float,0))
+        self.unknown1.setValue(get_value_from_dict_or_val(l,float,1))
+        self.unknown2.setValue(get_value_from_dict_or_val(l,float,2))
+        self.unknown3.setValue(get_value_from_dict_or_val(l,float,3,0))
+        self.unknown4.setValue(get_value_from_dict_or_val(l,float,3,1))
+        self.unknown5.setValue(get_value_from_dict_or_val(l,float,3,2))
+        self.accelerationRate.setValue(get_value_from_dict_or_val(l,float,4))
+        self.turnRate.setValue(get_value_from_dict_or_val(l,float,5))
+        self.topSpeed.setValue(get_value_from_dict_or_val(l,float,6))
+        self.unknown6.setValue(get_value_from_dict_or_val(l,float,7,0))
+        self.unknown7.setValue(get_value_from_dict_or_val(l,float,7,1))
+        self.homingDelay.setValue(get_value_from_dict_or_val(l,float,8))
+        self.unknown8.setValue(get_value_from_dict_or_val(l,float,9))
         if l[10] is not None:
             self.enableStruct.setValue(True)
-            self.unknown9.setValue(l[10][0])
-            self.unknown10.setValue(l[10][1])
+            self.unknown9.setValue(get_value_from_dict_or_val(l,float,10,0))
+            self.unknown10.setValue(get_value_from_dict_or_val(l,float,10,1))
             self.enableOrDisableStruct3()
         else:
             self.enableStruct.setValue(False)
             self.enableOrDisableStruct3()
 
-        self.ignitionSound.setValue(l[11])
+        self.ignitionSound.setValue(get_value_from_dict_or_val(l,float,11))
         if l[12][0] == 0:
-            self.struct4Choice.setValue(l[12][0])
-            self.struct4Type0Float1.setValue(l[12][1])
-            self.struct4Type0Float2.setValue(l[12][2])
+            self.struct4Choice.setValue(get_value_from_dict_or_val(l,float,12,0))
+            self.struct4Type0Float1.setValue(get_value_from_dict_or_val(l,float,12,1))
+            self.struct4Type0Float2.setValue(get_value_from_dict_or_val(l,float,12,2))
         elif l[12][0] == 1:
-            self.struct4Choice.setValue(l[12][0])
-            self.struct4Type1Int.setValue(l[12][1])
-        self.struct5Int.setValue(l[13][0])
-        self.struct5Float1.setValue(l[13][1])
-        self.projectileSpread.setValue(l[13][2])
-        self.struct6Int.setValue(l[14][0])
-        self.struct6Float.setValue(l[14][1])
-        self.subProjectile.setValue(l[15])
-
-
-
-
-
+            self.struct4Choice.setValue(get_value_from_dict_or_val(l,float,12,0))
+            self.struct4Type1Int.setValue(get_value_from_dict_or_val(l,float,12,1))
+        self.struct5Int.setValue(get_value_from_dict_or_val(l,float,13,0))
+        self.struct5Float1.setValue(get_value_from_dict_or_val(l,float,13,1))
+        self.projectileSpread.setValue(get_value_from_dict_or_val(l,float,13,2))
+        self.struct6Int.setValue(get_value_from_dict_or_val(l,float,14,0))
+        self.struct6Float.setValue(get_value_from_dict_or_val(l,float,14,1))
+        self.subProjectile.setValue(get_value_from_dict_or_val(l,float,15))
 class NapalmBullet01(tk.LabelFrame):
     def __init__(self, parent, isSubProjectile):
         tk.LabelFrame.__init__(self, parent, text=getText("NapalmBullet01"))
@@ -1463,18 +1385,6 @@ class NapalmBullet01(tk.LabelFrame):
         else:
             self.emitterSound = SoundWidget(self.col1, "Ignition sound", None)
 
-        # self.emitterParams = tk.LabelFrame(self.col1, text=getText("Emitter settings"))
-        # self.struct2 = tk.LabelFrame(self.emitterParams, text=getText("Unknown struct"))
-        # self.unknown2 = FreeInputWidget(self.struct2, "Unknown float", float, tooltip="Always 0.0?")
-        # self.unknown3 = FreeInputWidget(self.struct2, "Unknown float", float, tooltip="Always 0.0?")
-        # self.struct3 = tk.LabelFrame(self.emitterParams, text=getText("Unknown struct"))
-        # self.unknown4 = FreeInputWidget(self.struct3, "Unknown float", float, tooltip="Always 0.0?")
-        # self.unknown5 = FreeInputWidget(self.struct3, "Unknown float", float, tooltip="Always 0.0?")
-        # self.projectileCount = FreeInputWidget(self.emitterParams, "Projectile count", int, initialValue=120, restrictPositive=True)
-        # self.projectileInterval = FreeInputWidget(self.emitterParams, "Projectile interval", int, initialValue=2, restrictPositive=True)
-        #
-        # self.projectileHitSound = SoundWidget(self.col1, )
-
         self.col2 = tk.Frame(self)
         self.col1.grid(row=0, column=0, sticky="N")
         self.subProjectile = SubProjectile(self.col2)
@@ -1490,28 +1400,26 @@ class NapalmBullet01(tk.LabelFrame):
         self.subProjectile.pack()
 
     def value(self):
+        sub_data = self.subProjectile.value()
+        emitter_data = self.emitterSound.value()
+
         return [
             self.unknown1.value(),
             [self.hSpread.value(),
              self.vSpread.value()],
             self.trailNoise.value(),
             self.subProjectileSize.value(),
-            self.subProjectile.value(),
-            self.emitterSound.value()]
+            sub_data,
+            emitter_data]
 
     def setValue(self, l):
-        self.unknown1.setValue(l[0])
-        self.hSpread.setValue(l[1][0])
-        self.vSpread.setValue(l[1][1])
-        self.trailNoise.setValue(l[2])
-        self.subProjectileSize.setValue(l[3])
+        self.unknown1.setValue(get_value_from_dict_or_val(l, float, 0))
+        self.hSpread.setValue(get_value_from_dict_or_val(l, float, 1, 0))
+        self.vSpread.setValue(get_value_from_dict_or_val(l, float, 1, 1))
+        self.trailNoise.setValue(get_value_from_dict_or_val(l, float, 2))
+        self.subProjectileSize.setValue(get_value_from_dict_or_val(l, float, 3))
         self.subProjectile.setValue(l[4])
         self.emitterSound.setValue(l[5])
-
-
-
-
-
 class NeedleBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("NeedleBullet01"))
@@ -1522,12 +1430,7 @@ class NeedleBullet01(tk.LabelFrame):
         return [self.unknown.value()]
 
     def setValue(self, l):
-        self.unknown.setValue(l[0])
-
-
-
-
-
+        self.unknown.setValue(get_value_from_dict_or_val(l,float,0))
 class PileBunkerBullet01(tk.LabelFrame):
     def __init__(self, parent, isSubProjectile):
         tk.LabelFrame.__init__(self, parent, text=getText("PileBunkerBullet01"))
@@ -1541,12 +1444,7 @@ class PileBunkerBullet01(tk.LabelFrame):
         return [self.hitSound.value()]
 
     def setValue(self, l):
-        self.hitSound.setValue(l[0])
-
-
-
-
-
+        self.hitSound.setValue(get_value_from_dict_or_val(l,float,0))
 class PlasmaBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("PlasmaBullet01"))
@@ -1559,13 +1457,8 @@ class PlasmaBullet01(tk.LabelFrame):
         return [self.unknown1.value(), self.unknown2.value()]
 
     def setValue(self, l):
-        self.unknown1.setValue(l[0])
-        self.unknown2.setValue(l[1])
-
-
-
-
-
+        self.unknown1.setValue(get_value_from_dict_or_val(l,float,0))
+        self.unknown2.setValue(get_value_from_dict_or_val(l,float,1))
 class PulseBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("PulseBullet01"))
@@ -1621,24 +1514,19 @@ class PulseBullet01(tk.LabelFrame):
             self.unknown13.value()]
 
     def setValue(self, l):
-        self.unknown1.setValue(l[0])
-        self.unknown2.setValue(l[1][0])
-        self.unknown3.setValue(l[1][1])
-        self.unknown4.setValue(l[1][2])
-        self.unknown5.setValue(l[1][3])
-        self.unknown6.setValue(l[2][0])
-        self.unknown7.setValue(l[2][1])
-        self.unknown8.setValue(l[2][2])
-        self.unknown9.setValue(l[2][3])
-        self.unknown10.setValue(l[3])
-        self.unknown11.setValue(l[4])
-        self.unknown12.setValue(l[5])
-        self.unknown13.setValue(l[6])
-
-
-
-
-
+        self.unknown1.setValue(get_value_from_dict_or_val(l,float,0))
+        self.unknown2.setValue(get_value_from_dict_or_val(l,float,1,0))
+        self.unknown3.setValue(get_value_from_dict_or_val(l,float,1,1))
+        self.unknown4.setValue(get_value_from_dict_or_val(l,float,1,2))
+        self.unknown5.setValue(get_value_from_dict_or_val(l,float,1,3))
+        self.unknown6.setValue(get_value_from_dict_or_val(l,float,2,0))
+        self.unknown7.setValue(get_value_from_dict_or_val(l,float,2,1))
+        self.unknown8.setValue(get_value_from_dict_or_val(l,float,2,2))
+        self.unknown9.setValue(get_value_from_dict_or_val(l,float,2,3))
+        self.unknown10.setValue(get_value_from_dict_or_val(l,float,3))
+        self.unknown11.setValue(get_value_from_dict_or_val(l,float,4))
+        self.unknown12.setValue(get_value_from_dict_or_val(l,float,5))
+        self.unknown13.setValue(get_value_from_dict_or_val(l,float,6))
 class RocketBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("RocketBullet01"))
@@ -1661,15 +1549,10 @@ class RocketBullet01(tk.LabelFrame):
                 self.smokeTrailDrift.value()]
 
     def setValue(self, l):
-        self.rocketType.setValue(l[0])
-        self.smokeTrailLifetime.setValue(l[1])
-        self.ignitionDelay.setValue(l[2])
-        self.smokeTrailDrift.setValue(l[3])
-
-
-
-
-
+        self.rocketType.setValue(get_value_from_dict_or_val(l,float,0))
+        self.smokeTrailLifetime.setValue(get_value_from_dict_or_val(l,float,1))
+        self.ignitionDelay.setValue(get_value_from_dict_or_val(l,float,2))
+        self.smokeTrailDrift.setValue(get_value_from_dict_or_val(l,float,3))
 class SentryGunBullet01(tk.LabelFrame):
     def __init__(self, parent, isSubProjectile):
         tk.LabelFrame.__init__(self, parent, text=getText("SentryGunBullet01"))
@@ -1803,40 +1686,35 @@ class SentryGunBullet01(tk.LabelFrame):
         return v
 
     def setValue(self, l):
-        self.friendlyFire.setValue(l[0])
-        # self.unknown1.setValue(l[1])
-        # self.unknown2.setValue(l[2])
-        self.unknown3.setValue(l[3])
-        self.searchRange.setValue(l[4])
-        self.turnSpeed.setValue(l[5])
-        self.unknown4.setValue(l[6])
-        # self.firingBone.setValue(l[7])
-        self.offsetX.setValue(l[8][0])
-        self.offsetY.setValue(l[8][1])
-        self.offsetZ.setValue(l[8][2])
-        self.ammoClass.setValue(l[9])
-        self.ammoCount.setValue(l[10])
-        self.fireInterval.setValue(l[11])
-        self.ammoLifetime.setValue(l[12])
-        self.ammoSpeed.setValue(l[13])
+        self.friendlyFire.setValue(get_value_from_dict_or_val(l,float,0))
+        # self.unknown1.setValue(get_value_from_dict_or_val(l,float,1))
+        # self.unknown2.setValue(get_value_from_dict_or_val(l,float,2))
+        self.unknown3.setValue(get_value_from_dict_or_val(l,float,3))
+        self.searchRange.setValue(get_value_from_dict_or_val(l,float,4))
+        self.turnSpeed.setValue(get_value_from_dict_or_val(l,float,5))
+        self.unknown4.setValue(get_value_from_dict_or_val(l,float,6))
+        # self.firingBone.setValue(get_value_from_dict_or_val(l,float,7))
+        self.offsetX.setValue(get_value_from_dict_or_val(l,float,8,0))
+        self.offsetY.setValue(get_value_from_dict_or_val(l,float,8,1))
+        self.offsetZ.setValue(get_value_from_dict_or_val(l,float,8,2))
+        self.ammoClass.setValue(get_value_from_dict_or_val(l,float,9))
+        self.ammoCount.setValue(get_value_from_dict_or_val(l,float,10))
+        self.fireInterval.setValue(get_value_from_dict_or_val(l,float,11))
+        self.ammoLifetime.setValue(get_value_from_dict_or_val(l,float,12))
+        self.ammoSpeed.setValue(get_value_from_dict_or_val(l,float,13))
         if isinstance(l[14], list):
-            self.ammoVisualMultiplier.setValue(l[14][0])
-            self.ammoHitboxMultiplier.setValue(l[14][1])
+            self.ammoVisualMultiplier.setValue(get_value_from_dict_or_val(l,float,14,0))
+            self.ammoHitboxMultiplier.setValue(get_value_from_dict_or_val(l,float,14,1))
         else:
-            self.ammoVisualMultiplier.setValue(l[14])
-            self.ammoHitboxMultiplier.setValue(l[14])
-        self.ammoCustWidget.setValue(l[15])
-        self.firingSound.setValue(l[16])
-        self.muzzleFlash.muzzleFlashType.setValue(l[17])
+            self.ammoVisualMultiplier.setValue(get_value_from_dict_or_val(l,float,14))
+            self.ammoHitboxMultiplier.setValue(get_value_from_dict_or_val(l,float,14))
+        self.ammoCustWidget.setValue(get_value_from_dict_or_val(l,float,15))
+        self.firingSound.setValue(get_value_from_dict_or_val(l,float,16))
+        self.muzzleFlash.muzzleFlashType.setValue(get_value_from_dict_or_val(l,float,17))
         if l[17] != "":
-            self.muzzleFlash.paramsWidget.setValue(l[18])
+            self.muzzleFlash.paramsWidget.setValue(get_value_from_dict_or_val(l,float,18))
         # else:
         #     self.muzzleFlash.paramsWidget
-
-
-
-
-
 class ShieldBashBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("ShieldBashBullet01"))
@@ -1849,13 +1727,8 @@ class ShieldBashBullet01(tk.LabelFrame):
         return [self.unknown1.value(), self.unknown2.value()]
 
     def setValue(self, l):
-        self.unknown1.setValue(l[0])
-        self.unknown2.setValue(l[1])
-
-
-
-
-
+        self.unknown1.setValue(get_value_from_dict_or_val(l,float,0))
+        self.unknown2.setValue(get_value_from_dict_or_val(l,float,1))
 class ShockWaveBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("ShockWaveBullet01"))
@@ -1885,11 +1758,6 @@ class ShockWaveBullet01(tk.LabelFrame):
             self.unknown.setValue(l[1] if isinstance(l[1], int) else int(l[1]['value']))
         else:
             self.shockwaveType.setValue(None)
-
-
-
-
-
 class SmokeCandleBullet02(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("SmokeCandleBullet02"))
@@ -1931,19 +1799,14 @@ class SmokeCandleBullet02(tk.LabelFrame):
         ]
 
     def setValue(self, l):
-        self.unknown1.setValue(l[0])
-        self.smokeLifetime.setValue(l[1])
-        self.summonDelay.setValue(l[2])
-        self.summonType.setValue(l[3])
-        self.airSupportParams.setValue(l[4])
-        self.firingVoice.setValue(l[5][0])
-        self.voice2.setValue(l[5][1])
-        self.endingVoice.setValue(l[5][2])
-
-
-
-
-
+        self.unknown1.setValue(get_value_from_dict_or_val(l,float,0))
+        self.smokeLifetime.setValue(get_value_from_dict_or_val(l,float,1))
+        self.summonDelay.setValue(get_value_from_dict_or_val(l,float,2))
+        self.summonType.setValue(get_value_from_dict_or_val(l,float,3))
+        self.airSupportParams.setValue(get_value_from_dict_or_val(l,float,4))
+        self.firingVoice.setValue(get_value_from_dict_or_val(l,float,5,0))
+        self.voice2.setValue(get_value_from_dict_or_val(l,float,5,1))
+        self.endingVoice.setValue(get_value_from_dict_or_val(l,float,5,2))
 class SolidBullet01(tk.LabelFrame):
     def __init__(self, parent, isSubProjectile):
         tk.LabelFrame.__init__(self, parent, text=getText("SolidBullet01"))
@@ -1990,20 +1853,19 @@ class SolidBullet01(tk.LabelFrame):
             self.hitEffectScale.setValue(1)
             self.unknown.setValue(0.25)
         elif len(l) > 1:
-            self.isBouncy.setValue(l[0])
+            if type(l) is dict and 'value' in l:
+                val = l['value']
+            else:
+                val = l
+            self.isBouncy.setValue(get_value_from_dict_or_val(val,float,0))
             self.enableExtra.setValue(1)
-            self.hitEffectScale.setValue(l[1])
-            self.unknown.setValue(l[2])
+            self.hitEffectScale.setValue(get_value_from_dict_or_val(val,float,1, default_val=1))
+            self.unknown.setValue(get_value_from_dict_or_val(val,float,2, default_val=0.25))
         else:
-            self.isBouncy.setValue(l[0])
+            self.isBouncy.setValue(get_value_from_dict_or_val(l,float,0))
             self.enableExtra.setValue(0)
             self.hitEffectScale.setValue(1)
             self.unknown.setValue(0.25)
-
-
-
-
-
 class SolidBullet01Rail(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("SolidBullet01Rail"))
@@ -2013,11 +1875,6 @@ class SolidBullet01Rail(tk.LabelFrame):
 
     def setValue(self, l):
         pass
-
-
-
-
-
 class SolidExpBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("SolidExpBullet01"))
@@ -2068,11 +1925,6 @@ class SolidExpBullet01(tk.LabelFrame):
         else:
             raise ValueError(f"SolidExpBullet01 setvalue error, given list of unexpected length or not a list {l}")
         self.updateWidgets()
-
-
-
-
-
 class SolidPelletBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("SolidPelletBullet01"))
@@ -2084,12 +1936,7 @@ class SolidPelletBullet01(tk.LabelFrame):
         return [self.penetrationTime.value()]
 
     def setValue(self, l):
-        self.penetrationTime.setValue(l[0])
-
-
-
-
-
+        self.penetrationTime.setValue(get_value_from_dict_or_val(l,float,0))
 class SpiderStringBullet02(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("SpiderStringBullet02"))
@@ -2100,12 +1947,7 @@ class SpiderStringBullet02(tk.LabelFrame):
         return [self.unknown.value()]
 
     def setValue(self, l):
-        self.unknown.setValue(l[0])
-
-
-
-
-
+        self.unknown.setValue(get_value_from_dict_or_val(l,float,0))
 class SupportUnitBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("SupportUnitBullet02"))
@@ -2127,15 +1969,10 @@ class SupportUnitBullet01(tk.LabelFrame):
         return [self.buffType.value(), [self.offsetX.value(), self.offsetY.value(), self.offsetZ.value()]]
 
     def setValue(self, l):
-        self.buffType.setValue(l[0])
-        self.offsetX.setValue(l[1][0])
-        self.offsetY.setValue(l[1][1])
-        self.offsetZ.setValue(l[1][2])
-
-
-
-
-
+        self.buffType.setValue(get_value_from_dict_or_val(l,float,0))
+        self.offsetX.setValue(get_value_from_dict_or_val(l,float,1,0))
+        self.offsetY.setValue(get_value_from_dict_or_val(l,float,1,1))
+        self.offsetZ.setValue(get_value_from_dict_or_val(l,float,1,2))
 class TargetMarkerBullet01(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("TargetMarkerBullet01"))
@@ -2145,8 +1982,6 @@ class TargetMarkerBullet01(tk.LabelFrame):
 
     def setValue(self):
         pass
-
-
 class LaserCallin(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text=getText("Laser Call-in"))
@@ -2181,8 +2016,6 @@ class LaserCallin(tk.LabelFrame):
 
     def setValue(self, l):
         pass
-
-
 class AirSupportParams(tk.LabelFrame):
     def __init__(self, parent):
         tk.LabelFrame.__init__(self, parent, text="Air support")
@@ -2281,24 +2114,24 @@ class AirSupportParams(tk.LabelFrame):
 
 
     def setValue(self, l):
-        self.attackAngle.setValue(l[0][0])
-        self.angleVariation.setValue(l[0][1])
-        self.projectileHeight.setValue(l[1][0])
-        self.horizontalOffset.setValue(l[1][1])
-        self.shotCount.setValue(l[2])
-        self.shotInterval.setValue(l[3])
-        self.ammoClass.setValue(l[4])
-        self.ammoSpeed.setValue(l[5])
-        self.unknown1.setValue(l[6])
-        self.ammoSize.setValue(l[7])
-        self.ammoHitSize.setValue(l[8])
-        self.unknown2.setValue(l[9])
-        self.ammoLifetime.setValue(l[10])
-        self.ammoIsPenetrate.setValue(l[11])
-        self.ammoColor.setValue(l[12])
-        self.ammoCust.setValue(l[13])
-        self.ammoModel.setValue(l[14])
-        self.delay.setValue(l[15])
+        self.attackAngle.setValue(get_value_from_dict_or_val(l,float,0,0))
+        self.angleVariation.setValue(get_value_from_dict_or_val(l,float,0,1))
+        self.projectileHeight.setValue(get_value_from_dict_or_val(l,float,1,0))
+        self.horizontalOffset.setValue(get_value_from_dict_or_val(l,float,1,1))
+        self.shotCount.setValue(get_value_from_dict_or_val(l,float,2))
+        self.shotInterval.setValue(get_value_from_dict_or_val(l,float,3))
+        self.ammoClass.setValue(get_value_from_dict_or_val(l,float,4))
+        self.ammoSpeed.setValue(get_value_from_dict_or_val(l,float,5))
+        self.unknown1.setValue(get_value_from_dict_or_val(l,float,6))
+        self.ammoSize.setValue(get_value_from_dict_or_val(l,float,7))
+        self.ammoHitSize.setValue(get_value_from_dict_or_val(l,float,8))
+        self.unknown2.setValue(get_value_from_dict_or_val(l,float,9))
+        self.ammoLifetime.setValue(get_value_from_dict_or_val(l,float,10))
+        self.ammoIsPenetrate.setValue(get_value_from_dict_or_val(l,float,11))
+        self.ammoColor.setValue(get_value_from_dict_or_val(l,float,12))
+        self.ammoCust.setValue(get_value_from_dict_or_val(l,float,13))
+        self.ammoModel.setValue(get_value_from_dict_or_val(l,float,14))
+        self.delay.setValue(get_value_from_dict_or_val(l,float,15))
         # 1 if self.ammoClass.setValue(l[])
-        self.firingSound.setValue(l[17])
-        self.impactSound.setValue(l[18])
+        self.firingSound.setValue(get_value_from_dict_or_val(l,float,17))
+        self.impactSound.setValue(get_value_from_dict_or_val(l,float,18))

@@ -131,10 +131,10 @@ class SmokeCandleBullet01(tk.LabelFrame):
 
     def setValue(self, l):
         print(l)
-        self.unknown1.setValue(get_value_from_dict_or_val(l, 0, float))
-        self.smokeLifetime.setValue(get_value_from_dict_or_val(l, 1, int))
-        self.summonDelay.setValue(get_value_from_dict_or_val(l, 2, int))
-        self.summonType.setValue(get_value_from_dict_or_val(l, 3, int))
+        self.unknown1.setValue(get_value_from_dict_or_val(l, float, 0))
+        self.smokeLifetime.setValue(get_value_from_dict_or_val(l, int, 1))
+        self.summonDelay.setValue(get_value_from_dict_or_val(l, int, 2))
+        self.summonType.setValue(get_value_from_dict_or_val(l, int, 3))
         if len(l) >= 4 and len(l[4]) >= 4:
             self.add_vehicle_fields()
             if l[4][0] == 'app:/Object/v508_transport.sgo':

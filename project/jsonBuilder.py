@@ -86,7 +86,7 @@ def ProcessValue(param):
 
 
 
-def valueToTypeValueDict(v, n=""):
+def valueToTypeValueDict(v, n="", include_options=True):
     valDict = {}
     # special cases since nested "name" variables aren't preserved in easydata
     if n == "ExtPrams":
@@ -150,9 +150,8 @@ def valueToTypeValueDict(v, n=""):
             valDict['type'] = "ptr"
             valDict['value'] = []
             for index in range(0, len(v) ):
-                valDict['value'].append(valueToTypeValueDict(v[index]))
+                valDict['value'].append(valueToTypeValueDict(v[index], include_options=include_options))
             return valDict
-
     if n == "resource":
         if v is None:
             return None
@@ -260,7 +259,8 @@ def valueToTypeValueDict(v, n=""):
         else:
             raise ValueError("Unexpected extpram count cap'n")
     if n == "AmmoColor":
-        return{
+        if include_options:
+            return{
             "type": "ptr",
             "name": "AmmoColor",
             "value": [
@@ -278,6 +278,21 @@ def valueToTypeValueDict(v, n=""):
                  "value": ProcessValue(v[3])},
             ]
         }
+        else:
+            return {
+                "type": "ptr",
+                "name": "AmmoColor",
+                "value": [
+                    {"type": "float",
+                     "value": ProcessValue(v[0])},
+                    {"type": "float",
+                     "value": ProcessValue(v[1])},
+                    {"type": "float",
+                     "value": ProcessValue(v[2])},
+                    {"type": "float",
+                     "value": ProcessValue(v[3])},
+                ]
+            }
     elif n == "animation_model":
         return{
             "type": "ptr",
@@ -306,7 +321,7 @@ def valueToTypeValueDict(v, n=""):
         t = "ptr"
         newV = []
         for e in v:
-            newV.append(valueToTypeValueDict(e))
+            newV.append(valueToTypeValueDict(e, include_options=include_options))
         v = newV
     elif v is None:
         t = "ptr"
@@ -323,11 +338,13 @@ def valueToTypeValueDict(v, n=""):
     valDict["type"] = t
     if n != "":
         valDict["name"] = n
-    # "options" aren't preserved in easyData so they are restored here
+    # "options" aren't preserved in easyData, so they are restored here
     if n == "AmmoClass":
-        valDict["options"] = ammoClassOptions
+        if include_options:
+            valDict["options"] = ammoClassOptions
     elif n == "SecondaryFire_Type":
-        valDict["options"] = secondaryFireOptions
+        if include_options:
+            valDict["options"] = secondaryFireOptions
 
     valDict["value"] = v
     if n == "resource":
@@ -337,11 +354,11 @@ def valueToTypeValueDict(v, n=""):
     return valDict
 
 
-def easyToTypeValue(d):
+def easyToTypeValue(d, include_options=True):
     variables = []
     ignoreVars = []
     for k in d:
-        variables.append(valueToTypeValueDict(d[k], n=k))
+        variables.append(valueToTypeValueDict(d[k], n=k, include_options=include_options))
 
     return {
         "endian": "LE",
@@ -442,10 +459,10 @@ def makeEasyData(weaponData):
 #     return easyData
 
 
-def easyWeaponDataToJson(eData, filepath):
+def easyWeaponDataToJson(eData, filepath, include_options=True):
     variables = []
     for key in eData:
-        variables.append(valueToTypeValueDict(eData[key], key))
+        variables.append(valueToTypeValueDict(eData[key], key,include_options=include_options))
     d = {"endian": "LE", "variables": variables, "meta": {"": ""}}
     writeToJson(d, filepath)
 
